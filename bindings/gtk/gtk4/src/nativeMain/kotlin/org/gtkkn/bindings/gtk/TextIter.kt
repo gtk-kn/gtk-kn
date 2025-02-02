@@ -827,7 +827,7 @@ public class TextIter(
      * @return the buffer
      */
     public fun getBuffer(): TextBuffer = gtk_text_iter_get_buffer(gtkTextIterPointer)!!.run {
-        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!
     }
 
     /**
@@ -870,7 +870,7 @@ public class TextIter(
      * @return the anchor at @iter
      */
     public fun getChildAnchor(): TextChildAnchor? = gtk_text_iter_get_child_anchor(gtkTextIterPointer)?.run {
-        InstanceCache.get(this, true) { TextChildAnchor(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TextChildAnchor(reinterpret()) }!!
     }
 
     /**

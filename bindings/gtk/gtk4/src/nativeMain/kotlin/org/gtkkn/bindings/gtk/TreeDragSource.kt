@@ -71,7 +71,7 @@ public interface TreeDragSource : Proxy, KGTyped {
      *    given @path
      */
     public fun dragDataGet(path: TreePath): ContentProvider? = gtk_tree_drag_source_drag_data_get(gtkTreeDragSourcePointer, path.gtkTreePathPointer)?.run {
-        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
     }
 
     /**

@@ -236,7 +236,7 @@ public open class Buffer(
          * with the buffer, or null.
          */
         get() = gtk_source_buffer_get_language(gtksourceBufferPointer)?.run {
-            InstanceCache.get(this, true) { Language(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Language(reinterpret()) }!!
         }
         /**
          * Associates a [class@Language] with the buffer.
@@ -280,7 +280,7 @@ public open class Buffer(
          * associated with the buffer, or null.
          */
         get() = gtk_source_buffer_get_style_scheme(gtksourceBufferPointer)?.run {
-            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!
         }
         /**
          * Sets a [class@StyleScheme] to be used by the buffer and the view.
@@ -368,7 +368,7 @@ public open class Buffer(
         category: String,
         `where`: TextIter,
     ): Mark = gtk_source_buffer_create_source_mark(gtksourceBufferPointer, name, category, `where`.gtkTextIterPointer)!!.run {
-        InstanceCache.get(this, true) { Mark(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Mark(reinterpret()) }!!
     }
 
     /**

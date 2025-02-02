@@ -62,7 +62,7 @@ public open class AppLaunchContext(
          * @return the display of @context
          */
         get() = gdk_app_launch_context_get_display(gdkAppLaunchContextPointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**

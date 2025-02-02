@@ -103,7 +103,7 @@ public open class Overlay(
          * @return the child widget of @overlay
          */
         get() = gtk_overlay_get_child(gtkOverlayPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget of @overlay.

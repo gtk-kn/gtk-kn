@@ -72,7 +72,7 @@ public interface TlsBackend : Proxy, KGTyped {
      */
     @GioVersion2_30
     public fun getDefaultDatabase(): TlsDatabase = g_tls_backend_get_default_database(gioTlsBackendPointer)!!.run {
-        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
     }
 
     /**

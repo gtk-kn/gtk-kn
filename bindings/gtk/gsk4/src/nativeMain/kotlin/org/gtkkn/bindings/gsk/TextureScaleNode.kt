@@ -80,7 +80,7 @@ public open class TextureScaleNode(
      */
     @GskVersion4_10
     public open fun getTexture(): Texture = gsk_texture_scale_node_get_texture(gskTextureScaleNodePointer.reinterpret())!!.run {
-        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<TextureScaleNode> {

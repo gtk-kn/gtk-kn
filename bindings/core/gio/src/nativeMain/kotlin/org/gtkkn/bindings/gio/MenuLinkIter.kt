@@ -62,7 +62,7 @@ public abstract class MenuLinkIter(
      */
     @GioVersion2_32
     public open fun getValue(): MenuModel = g_menu_link_iter_get_value(gioMenuLinkIterPointer)!!.run {
-        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
     }
 
     /**

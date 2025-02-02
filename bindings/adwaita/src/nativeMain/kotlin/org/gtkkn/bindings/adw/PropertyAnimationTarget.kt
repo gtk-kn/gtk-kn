@@ -57,7 +57,7 @@ public class PropertyAnimationTarget(
          * @since 1.2
          */
         get() = adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer)!!.run {
-            InstanceCache.get(this, true) { Object(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
     /**

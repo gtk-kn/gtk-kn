@@ -86,7 +86,7 @@ public class TabPage(
          * @return the child of @self
          */
         get() = adw_tab_page_get_child(adwTabPagePointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -346,7 +346,7 @@ public class TabPage(
          * @return the parent page
          */
         get() = adw_tab_page_get_parent(adwTabPagePointer)?.run {
-            InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
         }
 
     /**

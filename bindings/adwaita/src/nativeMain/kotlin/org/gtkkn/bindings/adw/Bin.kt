@@ -61,7 +61,7 @@ public open class Bin(
          * @return the child widget of @self
          */
         get() = adw_bin_get_child(adwBinPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget of @self.

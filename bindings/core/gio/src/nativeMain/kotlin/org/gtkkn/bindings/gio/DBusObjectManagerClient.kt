@@ -189,7 +189,7 @@ public open class DBusObjectManagerClient(
          * @since 2.30
          */
         get() = g_dbus_object_manager_client_get_connection(gioDBusObjectManagerClientPointer)!!.run {
-            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
         }
 
     /**

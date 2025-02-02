@@ -77,7 +77,7 @@ public open class DropControllerMotion(
          *   happening within @self
          */
         get() = gtk_drop_controller_motion_get_drop(gtkDropControllerMotionPointer)?.run {
-            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!
         }
 
     /**

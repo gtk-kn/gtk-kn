@@ -72,7 +72,7 @@ public interface Scrollable : Proxy, KGTyped {
          * @return horizontal `GtkAdjustment`.
          */
         get() = gtk_scrollable_get_hadjustment(gtkScrollablePointer)?.run {
-            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
         }
         /**
          * Sets the horizontal adjustment of the `GtkScrollable`.
@@ -114,7 +114,7 @@ public interface Scrollable : Proxy, KGTyped {
          * @return vertical `GtkAdjustment`.
          */
         get() = gtk_scrollable_get_vadjustment(gtkScrollablePointer)?.run {
-            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
         }
         /**
          * Sets the vertical adjustment of the `GtkScrollable`.
@@ -163,7 +163,7 @@ public interface Scrollable : Proxy, KGTyped {
      * @return horizontal `GtkAdjustment`.
      */
     public fun getHadjustment(): Adjustment? = gtk_scrollable_get_hadjustment(gtkScrollablePointer)?.run {
-        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
     }
 
     /**
@@ -180,7 +180,7 @@ public interface Scrollable : Proxy, KGTyped {
      * @return vertical `GtkAdjustment`.
      */
     public fun getVadjustment(): Adjustment? = gtk_scrollable_get_vadjustment(gtkScrollablePointer)?.run {
-        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
     }
 
     /**

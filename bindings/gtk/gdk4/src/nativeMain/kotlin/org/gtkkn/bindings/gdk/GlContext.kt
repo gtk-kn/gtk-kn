@@ -191,7 +191,7 @@ public abstract class GlContext(
          * @return null
          */
         get() = gdk_gl_context_get_shared_context(gdkGlContextPointer)?.run {
-            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!
         }
 
     /**
@@ -204,7 +204,7 @@ public abstract class GlContext(
          * @return a `GdkDisplay`
          */
         get() = gdk_gl_context_get_display(gdkGlContextPointer)?.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -217,7 +217,7 @@ public abstract class GlContext(
          * @return a `GdkSurface`
          */
         get() = gdk_gl_context_get_surface(gdkGlContextPointer)?.run {
-            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
         }
 
     /**
@@ -406,7 +406,7 @@ public abstract class GlContext(
          * @return the current `GdkGLContext`
          */
         public fun getCurrent(): GlContext? = gdk_gl_context_get_current()?.run {
-            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!
         }
 
         /**

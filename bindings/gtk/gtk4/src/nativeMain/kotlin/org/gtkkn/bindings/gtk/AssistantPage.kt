@@ -63,7 +63,7 @@ public open class AssistantPage(
          * @return the child to which @page belongs
          */
         get() = gtk_assistant_page_get_child(gtkAssistantPagePointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     public companion object : TypeCompanion<AssistantPage> {

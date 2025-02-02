@@ -141,7 +141,7 @@ public class ViewSwitcherTitle(
          * @return the stack
          */
         get() = adw_view_switcher_title_get_stack(adwViewSwitcherTitlePointer)?.run {
-            InstanceCache.get(this, true) { ViewStack(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { ViewStack(reinterpret()) }!!
         }
         /**
          * # ⚠️ Deprecated ⚠️

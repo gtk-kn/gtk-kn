@@ -126,7 +126,7 @@ public open class AppInfoMonitor(
          */
         @GioVersion2_40
         public fun `get`(): AppInfoMonitor = g_app_info_monitor_get()!!.run {
-            InstanceCache.get(this, true) { AppInfoMonitor(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { AppInfoMonitor(reinterpret()) }!!
         }
 
         /**

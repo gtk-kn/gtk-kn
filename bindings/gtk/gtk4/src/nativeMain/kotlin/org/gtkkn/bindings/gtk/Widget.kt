@@ -755,7 +755,7 @@ public abstract class Widget(
          *   currently in use or null if the cursor is inherited
          */
         get() = gtk_widget_get_cursor(gtkWidgetPointer)?.run {
-            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!
         }
         /**
          * Sets the cursor to be shown when pointer devices point
@@ -986,7 +986,7 @@ public abstract class Widget(
          * @return a `GtkLayoutManager`
          */
         get() = gtk_widget_get_layout_manager(gtkWidgetPointer)?.run {
-            InstanceCache.get(this, true) { LayoutManager.LayoutManagerImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { LayoutManager.LayoutManagerImpl(reinterpret()) }!!
         }
         /**
          * Sets the layout manager delegate instance that provides an
@@ -1195,7 +1195,7 @@ public abstract class Widget(
          * @return the parent widget of @widget
          */
         get() = gtk_widget_get_parent(gtkWidgetPointer)?.run {
-            InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -1732,7 +1732,7 @@ public abstract class Widget(
      * @return the new `PangoContext`
      */
     public open fun createPangoContext(): Context = gtk_widget_create_pango_context(gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { Context(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!
     }
 
     /**
@@ -1749,7 +1749,7 @@ public abstract class Widget(
      * @return the new `PangoLayout`
      */
     public open fun createPangoLayout(text: String? = null): Layout = gtk_widget_create_pango_layout(gtkWidgetPointer, text)!!.run {
-        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**
@@ -1909,7 +1909,7 @@ public abstract class Widget(
      * @return the ancestor widget
      */
     public open fun getAncestor(widgetType: GType): Widget? = gtk_widget_get_ancestor(gtkWidgetPointer, widgetType)?.run {
-        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -1950,7 +1950,7 @@ public abstract class Widget(
      * @return the appropriate clipboard object
      */
     public open fun getClipboard(): Clipboard = gtk_widget_get_clipboard(gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!
     }
 
     /**
@@ -1992,7 +1992,7 @@ public abstract class Widget(
      *   for this widget.
      */
     public open fun getDisplay(): Display = gtk_widget_get_display(gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!
     }
 
     /**
@@ -2003,7 +2003,7 @@ public abstract class Widget(
      * @return The widget's first child
      */
     public open fun getFirstChild(): Widget? = gtk_widget_get_first_child(gtkWidgetPointer)?.run {
-        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2013,7 +2013,7 @@ public abstract class Widget(
      *   child of @widget
      */
     public open fun getFocusChild(): Widget? = gtk_widget_get_focus_child(gtkWidgetPointer)?.run {
-        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2024,7 +2024,7 @@ public abstract class Widget(
      * @return A `PangoFontMap`
      */
     public open fun getFontMap(): FontMap? = gtk_widget_get_font_map(gtkWidgetPointer)?.run {
-        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!
     }
 
     /**
@@ -2065,7 +2065,7 @@ public abstract class Widget(
      * @return a `GdkFrameClock`
      */
     public open fun getFrameClock(): FrameClock? = gtk_widget_get_frame_clock(gtkWidgetPointer)?.run {
-        InstanceCache.get(this, true) { FrameClock.FrameClockImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { FrameClock.FrameClockImpl(reinterpret()) }!!
     }
 
     /**
@@ -2092,7 +2092,7 @@ public abstract class Widget(
      * @return The widget's last child
      */
     public open fun getLastChild(): Widget? = gtk_widget_get_last_child(gtkWidgetPointer)?.run {
-        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2123,7 +2123,7 @@ public abstract class Widget(
      * @return The widget's next sibling
      */
     public open fun getNextSibling(): Widget? = gtk_widget_get_next_sibling(gtkWidgetPointer)?.run {
-        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2140,7 +2140,7 @@ public abstract class Widget(
      * @return the `PangoContext` for the widget.
      */
     public open fun getPangoContext(): Context = gtk_widget_get_pango_context(gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { Context(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!
     }
 
     /**
@@ -2172,7 +2172,7 @@ public abstract class Widget(
      * @return The widget's previous sibling
      */
     public open fun getPrevSibling(): Widget? = gtk_widget_get_prev_sibling(gtkWidgetPointer)?.run {
-        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2187,7 +2187,7 @@ public abstract class Widget(
      * @return the appropriate clipboard object
      */
     public open fun getPrimaryClipboard(): Clipboard = gtk_widget_get_primary_clipboard(gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!
     }
 
     /**
@@ -2222,7 +2222,7 @@ public abstract class Widget(
      * @return the relevant `GtkSettings` object
      */
     public open fun getSettings(): Settings = gtk_widget_get_settings(gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { Settings(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Settings(reinterpret()) }!!
     }
 
     /**
@@ -2276,7 +2276,7 @@ public abstract class Widget(
      * @return the widget’s `GtkStyleContext`
      */
     public open fun getStyleContext(): StyleContext = gtk_widget_get_style_context(gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { StyleContext(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { StyleContext(reinterpret()) }!!
     }
 
     /**
@@ -2297,7 +2297,7 @@ public abstract class Widget(
      *   the id @name
      */
     public open fun getTemplateChild(widgetType: GType, name: String): Object = gtk_widget_get_template_child(gtkWidgetPointer, widgetType, name)!!.run {
-        InstanceCache.get(this, true) { Object(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -2672,7 +2672,7 @@ public abstract class Widget(
         y: gdouble,
         flags: PickFlags,
     ): Widget? = gtk_widget_pick(gtkWidgetPointer, x, y, flags.mask)?.run {
-        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**

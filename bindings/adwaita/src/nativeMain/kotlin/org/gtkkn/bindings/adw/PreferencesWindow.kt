@@ -217,7 +217,7 @@ public open class PreferencesWindow(
      * @return the visible page
      */
     public open fun getVisiblePage(): PreferencesPage? = adw_preferences_window_get_visible_page(adwPreferencesWindowPointer)?.run {
-        InstanceCache.get(this, true) { PreferencesPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { PreferencesPage(reinterpret()) }!!
     }
 
     /**

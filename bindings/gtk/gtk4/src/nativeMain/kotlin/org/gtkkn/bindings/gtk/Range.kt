@@ -108,7 +108,7 @@ public open class Range(
          * @return a `GtkAdjustment`
          */
         get() = gtk_range_get_adjustment(gtkRangePointer)!!.run {
-            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
         }
         /**
          * Sets the adjustment to be used as the “model” object for the `GtkRange`

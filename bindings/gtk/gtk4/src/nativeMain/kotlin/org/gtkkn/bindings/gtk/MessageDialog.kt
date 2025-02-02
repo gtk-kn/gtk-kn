@@ -153,7 +153,7 @@ public open class MessageDialog(
          *   “message area” in the @message_dialog
          */
         get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**

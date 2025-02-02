@@ -219,7 +219,7 @@ public open class View(
          * @return the #GtkSourceCompletion associated with @view.
          */
         get() = gtk_source_view_get_completion(gtksourceViewPointer)!!.run {
-            InstanceCache.get(this, true) { Completion(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Completion(reinterpret()) }!!
         }
 
     /**
@@ -489,7 +489,7 @@ public open class View(
          * @return the #GtkSourceSpaceDrawer associated with @view.
          */
         get() = gtk_source_view_get_space_drawer(gtksourceViewPointer)!!.run {
-            InstanceCache.get(this, true) { SpaceDrawer(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { SpaceDrawer(reinterpret()) }!!
         }
 
     /**
@@ -551,7 +551,7 @@ public open class View(
      * @return the #GtkSourceGutter.
      */
     public open fun getGutterView(windowType: TextWindowType): Gutter = gtk_source_view_get_gutter(gtksourceViewPointer, windowType.nativeValue.value)!!.run {
-        InstanceCache.get(this, true) { Gutter(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Gutter(reinterpret()) }!!
     }
 
     /**
@@ -563,7 +563,7 @@ public open class View(
      * @return a #GtkSourceHover associated with @view.
      */
     public open fun getHover(): Hover = gtk_source_view_get_hover(gtksourceViewPointer)!!.run {
-        InstanceCache.get(this, true) { Hover(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Hover(reinterpret()) }!!
     }
 
     /**

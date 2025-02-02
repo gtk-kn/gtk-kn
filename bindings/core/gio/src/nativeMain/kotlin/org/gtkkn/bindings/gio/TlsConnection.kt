@@ -147,7 +147,7 @@ public abstract class TlsConnection(
          * @since 2.30
          */
         get() = g_tls_connection_get_database(gioTlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
         }
         /**
          * Sets the certificate database that is used to verify peer certificates.
@@ -186,7 +186,7 @@ public abstract class TlsConnection(
          * @since 2.30
          */
         get() = g_tls_connection_get_interaction(gioTlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
         }
         /**
          * Set the object that will be used to interact with the user. It will be used
@@ -245,7 +245,7 @@ public abstract class TlsConnection(
          * @since 2.28
          */
         get() = g_tls_connection_get_peer_certificate(gioTlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**
@@ -476,7 +476,7 @@ public abstract class TlsConnection(
      */
     @GioVersion2_28
     public open fun getCertificate(): TlsCertificate? = g_tls_connection_get_certificate(gioTlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**

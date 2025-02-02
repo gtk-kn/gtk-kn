@@ -169,7 +169,7 @@ public open class Expander(
          * @return the child widget of @expander
          */
         get() = gtk_expander_get_child(gtkExpanderPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget of @expander.
@@ -236,7 +236,7 @@ public open class Expander(
          * @return the label widget
          */
         get() = gtk_expander_get_label_widget(gtkExpanderPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Set the label widget for the expander.

@@ -41,7 +41,7 @@ public open class MnemonicAction(
          * @return The mnemonic action
          */
         public fun `get`(): MnemonicAction = gtk_mnemonic_action_get()!!.run {
-            InstanceCache.get(reinterpret(), true) { MnemonicAction(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(reinterpret(), true) { MnemonicAction(reinterpret()) }!!
         }
 
         /**

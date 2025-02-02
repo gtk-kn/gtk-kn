@@ -141,7 +141,7 @@ public class NetworkSession(
      */
     @WebKitVersion2_40
     public fun downloadUri(uri: String): Download = webkit_network_session_download_uri(webkitNetworkSessionPointer, uri)!!.run {
-        InstanceCache.get(this, true) { Download(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Download(reinterpret()) }!!
     }
 
     /**
@@ -152,7 +152,7 @@ public class NetworkSession(
      */
     @WebKitVersion2_40
     public fun getCookieManager(): CookieManager = webkit_network_session_get_cookie_manager(webkitNetworkSessionPointer)!!.run {
-        InstanceCache.get(this, true) { CookieManager(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { CookieManager(reinterpret()) }!!
     }
 
     /**
@@ -231,7 +231,7 @@ public class NetworkSession(
      */
     @WebKitVersion2_40
     public fun getWebsiteDataManager(): WebsiteDataManager = webkit_network_session_get_website_data_manager(webkitNetworkSessionPointer)!!.run {
-        InstanceCache.get(this, true) { WebsiteDataManager(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WebsiteDataManager(reinterpret()) }!!
     }
 
     /**
@@ -347,7 +347,7 @@ public class NetworkSession(
          */
         @WebKitVersion2_40
         public fun getDefault(): NetworkSession = webkit_network_session_get_default()!!.run {
-            InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!
         }
 
         /**

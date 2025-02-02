@@ -389,7 +389,7 @@ public open class ApplicationCommandLine(
      */
     @GioVersion2_34
     public open fun getStdin(): InputStream? = g_application_command_line_get_stdin(gioApplicationCommandLinePointer)?.run {
-        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
     }
 
     /**

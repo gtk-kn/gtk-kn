@@ -149,7 +149,7 @@ public interface ListModel : Proxy, KGTyped {
      */
     @GioVersion2_44
     public fun getItem(position: guint): Object? = g_list_model_get_object(gioListModelPointer, position)?.run {
-        InstanceCache.get(this, true) { Object(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**

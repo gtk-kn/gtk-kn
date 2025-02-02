@@ -163,7 +163,7 @@ public open class Display(
     public open fun createGlContext(): Result<GlContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_display_create_gl_context(gdkDisplayPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -202,7 +202,7 @@ public open class Display(
      * @return a new `GdkAppLaunchContext` for @display
      */
     public open fun getAppLaunchContext(): AppLaunchContext = gdk_display_get_app_launch_context(gdkDisplayPointer)!!.run {
-        InstanceCache.get(this, true) { AppLaunchContext(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { AppLaunchContext(reinterpret()) }!!
     }
 
     /**
@@ -211,7 +211,7 @@ public open class Display(
      * @return the display's clipboard
      */
     public open fun getClipboard(): Clipboard = gdk_display_get_clipboard(gdkDisplayPointer)!!.run {
-        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!
     }
 
     /**
@@ -223,7 +223,7 @@ public open class Display(
      * @return the default seat.
      */
     public open fun getDefaultSeat(): Seat? = gdk_display_get_default_seat(gdkDisplayPointer)?.run {
-        InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!
     }
 
     /**
@@ -235,7 +235,7 @@ public open class Display(
      *   overlap with @surface
      */
     public open fun getMonitorAtSurface(surface: Surface): Monitor? = gdk_display_get_monitor_at_surface(gdkDisplayPointer, surface.gdkSurfacePointer)?.run {
-        InstanceCache.get(this, true) { Monitor(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Monitor(reinterpret()) }!!
     }
 
     /**
@@ -269,7 +269,7 @@ public open class Display(
      * @return the primary clipboard
      */
     public open fun getPrimaryClipboard(): Clipboard = gdk_display_get_primary_clipboard(gdkDisplayPointer)!!.run {
-        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!
     }
 
     /**
@@ -554,7 +554,7 @@ public open class Display(
          *   there is no default display
          */
         public fun getDefault(): Display? = gdk_display_get_default()?.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
         /**
@@ -566,7 +566,7 @@ public open class Display(
          * @return a `GdkDisplay`
          */
         public fun `open`(displayName: String? = null): Display? = gdk_display_open(displayName)?.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
         /**

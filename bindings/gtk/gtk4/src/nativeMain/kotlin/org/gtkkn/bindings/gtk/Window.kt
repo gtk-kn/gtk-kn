@@ -225,7 +225,7 @@ public open class Window(
          * @return a `GtkApplication`
          */
         get() = gtk_window_get_application(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Application(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Application(reinterpret()) }!!
         }
         /**
          * Sets or unsets the `GtkApplication` associated with the window.
@@ -256,7 +256,7 @@ public open class Window(
          * @return the child widget of @window
          */
         get() = gtk_window_get_child(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget of @window.
@@ -304,7 +304,7 @@ public open class Window(
          * @return the default widget
          */
         get() = gtk_window_get_default_widget(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the default widget.
@@ -566,7 +566,7 @@ public open class Window(
          * @return the custom titlebar
          */
         get() = gtk_window_get_titlebar(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets a custom titlebar for @window.
@@ -595,7 +595,7 @@ public open class Window(
          * @return the transient parent for this window
          */
         get() = gtk_window_get_transient_for(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Window(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Window(reinterpret()) }!!
         }
         /**
          * Dialog windows should be set transient for the main application
@@ -690,7 +690,7 @@ public open class Window(
      * @return the currently focused widget
      */
     override fun getFocus(): Widget? = gtk_window_get_focus(gtkWindowPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -702,7 +702,7 @@ public open class Window(
      *   or the default group
      */
     public open fun getGroup(): WindowGroup = gtk_window_get_group(gtkWindowPointer)!!.run {
-        InstanceCache.get(this, true) { WindowGroup(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WindowGroup(reinterpret()) }!!
     }
 
     /**

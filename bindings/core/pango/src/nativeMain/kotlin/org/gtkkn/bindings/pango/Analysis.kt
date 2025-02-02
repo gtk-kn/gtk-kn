@@ -31,7 +31,7 @@ public class Analysis(
      */
     public var font: Font?
         get() = pangoAnalysisPointer.pointed.font?.run {
-            InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
         }
         @UnsafeFieldSetter
         set(`value`) {

@@ -107,7 +107,7 @@ public open class SearchBar(
          * @return the child widget of @bar
          */
         get() = gtk_search_bar_get_child(gtkSearchBarPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget of @bar.
@@ -126,7 +126,7 @@ public open class SearchBar(
          * @return The key capture widget.
          */
         get() = gtk_search_bar_get_key_capture_widget(gtkSearchBarPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets @widget as the widget that @bar will capture key events

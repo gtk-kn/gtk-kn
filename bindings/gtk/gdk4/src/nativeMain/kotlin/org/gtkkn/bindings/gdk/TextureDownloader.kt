@@ -93,7 +93,7 @@ public class TextureDownloader(
      */
     @GdkVersion4_10
     public fun getTexture(): Texture = gdk_texture_downloader_get_texture(gdkTextureDownloaderPointer)!!.run {
-        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
     }
 
     /**

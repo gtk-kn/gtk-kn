@@ -37,6 +37,7 @@ import com.squareup.kotlinpoet.MemberName
  * @property exceptionResolvingFunctionMember member name of the error resolving function.
  * @property kdoc the KDoc of the constructor
  * @property optInVersionBlueprint version number of a constructor
+ * @property deprecatedBlueprint deprecation info of a constructor
  * @property returnTypeKDoc the KDoc of the return type
  * @property memoryManagement the [MemoryManagement] information of the constructor
  */

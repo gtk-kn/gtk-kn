@@ -169,7 +169,7 @@ public open class SingleSelection(
          * @return The selected item
          */
         get() = gtk_single_selection_get_selected_item(gtkSingleSelectionPointer)?.run {
-            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
         }
 
     /**

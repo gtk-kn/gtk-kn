@@ -95,7 +95,7 @@ public open class CellAreaContext(
          * @return the `GtkCellArea` this context was created by.
          */
         get() = gtk_cell_area_context_get_area(gtkCellAreaContextPointer)!!.run {
-            InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!
         }
 
     /**

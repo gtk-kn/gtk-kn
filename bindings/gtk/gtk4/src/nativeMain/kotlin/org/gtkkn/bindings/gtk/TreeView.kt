@@ -370,7 +370,7 @@ public open class TreeView(
          * @return The expander column.
          */
         get() = gtk_tree_view_get_expander_column(gtkTreeViewPointer)?.run {
-            InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!
         }
         /**
          * # ⚠️ Deprecated ⚠️
@@ -1080,7 +1080,7 @@ public open class TreeView(
      * position is outside the range of columns.
      */
     public open fun getColumn(n: gint): TreeViewColumn? = gtk_tree_view_get_column(gtkTreeViewPointer, n)?.run {
-        InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!
     }
 
     /**
@@ -1159,7 +1159,7 @@ public open class TreeView(
      * @return A `GtkTreeSelection` object.
      */
     public open fun getSelection(): TreeSelection = gtk_tree_view_get_selection(gtkTreeViewPointer)!!.run {
-        InstanceCache.get(this, true) { TreeSelection(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TreeSelection(reinterpret()) }!!
     }
 
     /**

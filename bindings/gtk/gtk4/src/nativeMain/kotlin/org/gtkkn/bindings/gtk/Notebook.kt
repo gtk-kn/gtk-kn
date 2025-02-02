@@ -377,7 +377,7 @@ public open class Notebook(
      *   widget has not been set
      */
     public open fun getActionWidget(packType: PackType): Widget? = gtk_notebook_get_action_widget(gtkNotebookPointer, packType.nativeValue)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -398,7 +398,7 @@ public open class Notebook(
      *   the default (the tab label).
      */
     public open fun getMenuLabel(child: Widget): Widget? = gtk_notebook_get_menu_label(gtkNotebookPointer, child.gtkWidgetPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -429,7 +429,7 @@ public open class Notebook(
      * is out of bounds
      */
     public open fun getNthPage(pageNum: gint): Widget? = gtk_notebook_get_nth_page(gtkNotebookPointer, pageNum)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -439,7 +439,7 @@ public open class Notebook(
      * @return the `GtkNotebookPage` for @child
      */
     public open fun getPage(child: Widget): NotebookPage = gtk_notebook_get_page(gtkNotebookPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { NotebookPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { NotebookPage(reinterpret()) }!!
     }
 
     /**
@@ -460,7 +460,7 @@ public open class Notebook(
      * @return the tab label
      */
     public open fun getTabLabel(child: Widget): Widget? = gtk_notebook_get_tab_label(gtkNotebookPointer, child.gtkWidgetPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**

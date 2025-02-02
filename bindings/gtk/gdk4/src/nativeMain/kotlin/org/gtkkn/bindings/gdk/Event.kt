@@ -63,7 +63,7 @@ public abstract class Event(
      * @return a `GdkDevice`
      */
     public open fun getDevice(): Device? = gdk_event_get_device(gdkEventPointer)?.run {
-        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
     }
 
     /**
@@ -81,7 +81,7 @@ public abstract class Event(
      * @return The current device tool
      */
     public open fun getDeviceTool(): DeviceTool? = gdk_event_get_device_tool(gdkEventPointer)?.run {
-        InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!
     }
 
     /**
@@ -90,7 +90,7 @@ public abstract class Event(
      * @return a `GdkDisplay`
      */
     public open fun getDisplay(): Display? = gdk_event_get_display(gdkEventPointer)?.run {
-        InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!
     }
 
     /**
@@ -135,7 +135,7 @@ public abstract class Event(
      * @return a `GdkSeat`.
      */
     public open fun getSeat(): Seat? = gdk_event_get_seat(gdkEventPointer)?.run {
-        InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!
     }
 
     /**
@@ -144,7 +144,7 @@ public abstract class Event(
      * @return The `GdkSurface` associated with the event
      */
     public open fun getSurface(): Surface? = gdk_event_get_surface(gdkEventPointer)?.run {
-        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
     }
 
     /**

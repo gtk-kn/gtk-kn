@@ -363,7 +363,7 @@ public open class AlertDialog(
          * @since 1.5
          */
         get() = adw_alert_dialog_get_extra_child(adwAlertDialogPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget of @self.

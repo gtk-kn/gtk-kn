@@ -84,7 +84,7 @@ public class ToplevelLayout(
      * @return the monitor on which @layout fullscreens
      */
     public fun getFullscreenMonitor(): Monitor? = gdk_toplevel_layout_get_fullscreen_monitor(gdkToplevelLayoutPointer)?.run {
-        InstanceCache.get(this, true) { Monitor(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Monitor(reinterpret()) }!!
     }
 
     /**

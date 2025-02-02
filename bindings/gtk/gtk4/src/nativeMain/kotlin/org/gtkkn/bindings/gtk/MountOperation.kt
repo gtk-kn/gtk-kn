@@ -60,7 +60,7 @@ public open class MountOperation(
          * @return the display on which windows of @op are shown
          */
         get() = gtk_mount_operation_get_display(gtkMountOperationPointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
         /**
          * Sets the display to show windows of the `GtkMountOperation` on.
@@ -79,7 +79,7 @@ public open class MountOperation(
          * @return the transient parent for windows shown by @op
          */
         get() = gtk_mount_operation_get_parent(gtkMountOperationPointer)?.run {
-            InstanceCache.get(this, true) { Window(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Window(reinterpret()) }!!
         }
         /**
          * Sets the transient parent for windows shown by the

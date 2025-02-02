@@ -152,7 +152,7 @@ public class ContextMenuItem(
      *    @item or null if @item doesn't have a submenu.
      */
     public fun getSubmenu(): ContextMenu = webkit_context_menu_item_get_submenu(webkitContextMenuItemPointer)!!.run {
-        InstanceCache.get(this, true) { ContextMenu(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { ContextMenu(reinterpret()) }!!
     }
 
     /**

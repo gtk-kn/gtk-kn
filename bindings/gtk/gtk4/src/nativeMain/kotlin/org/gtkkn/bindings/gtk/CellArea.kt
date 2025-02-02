@@ -471,7 +471,7 @@ public abstract class CellArea(
          * @return The currently edited `GtkCellRenderer`
          */
         get() = gtk_cell_area_get_edited_cell(gtkCellAreaPointer)?.run {
-            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!
         }
 
     /**
@@ -489,7 +489,7 @@ public abstract class CellArea(
          * @return the currently focused cell in @area.
          */
         get() = gtk_cell_area_get_focus_cell(gtkCellAreaPointer)?.run {
-            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!
         }
         /**
          * # ⚠️ Deprecated ⚠️
@@ -720,7 +720,7 @@ public abstract class CellArea(
      * @return a newly created `GtkCellArea`Context copy of @context.
      */
     public open fun copyContext(context: CellAreaContext): CellAreaContext = gtk_cell_area_copy_context(gtkCellAreaPointer, context.gtkCellAreaContextPointer)!!.run {
-        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!
     }
 
     /**
@@ -739,7 +739,7 @@ public abstract class CellArea(
      * @return a newly created `GtkCellArea`Context which can be used with @area.
      */
     public open fun createContext(): CellAreaContext = gtk_cell_area_create_context(gtkCellAreaPointer)!!.run {
-        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!
     }
 
     /**
@@ -865,7 +865,7 @@ public abstract class CellArea(
         y: gint,
         allocArea: Rectangle?,
     ): CellRenderer = gtk_cell_area_get_cell_at_position(gtkCellAreaPointer, context.gtkCellAreaContextPointer, widget.gtkWidgetPointer, cellArea.gdkRectanglePointer, x, y, allocArea?.gdkRectanglePointer)!!.run {
-        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!
     }
 
     /**
@@ -900,7 +900,7 @@ public abstract class CellArea(
      *   for which @renderer is a sibling
      */
     public open fun getFocusFromSibling(renderer: CellRenderer): CellRenderer? = gtk_cell_area_get_focus_from_sibling(gtkCellAreaPointer, renderer.gtkCellRendererPointer)?.run {
-        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!
     }
 
     /**

@@ -52,7 +52,7 @@ public open class TextureNode(
      * @return the `GdkTexture`
      */
     public open fun getTexture(): Texture = gsk_texture_node_get_texture(gskTextureNodePointer.reinterpret())!!.run {
-        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<TextureNode> {

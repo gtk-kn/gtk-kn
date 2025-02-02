@@ -58,7 +58,7 @@ public open class InetSocketAddress(
          * @since 2.22
          */
         get() = g_inet_socket_address_get_address(gioInetSocketAddressPointer)!!.run {
-            InstanceCache.get(this, true) { InetAddress(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { InetAddress(reinterpret()) }!!
         }
 
     /**

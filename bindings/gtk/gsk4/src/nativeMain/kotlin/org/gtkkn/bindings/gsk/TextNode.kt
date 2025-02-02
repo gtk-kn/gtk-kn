@@ -79,7 +79,7 @@ public open class TextNode(
      * @return the font
      */
     public open fun getFont(): Font = gsk_text_node_get_font(gskTextNodePointer.reinterpret())!!.run {
-        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
     }
 
     /**

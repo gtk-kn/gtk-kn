@@ -5051,7 +5051,7 @@ public object Gdk {
         width: gint,
         height: gint,
     ): Pixbuf? = gdk_pixbuf_get_from_surface(surface.cairoSurfacePointer, srcX, srcY, width, height)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**
@@ -5073,7 +5073,7 @@ public object Gdk {
      * @return a new `GdkPixbuf`
      */
     public fun pixbufGetFromTexture(texture: Texture): Pixbuf? = gdk_pixbuf_get_from_texture(texture.gdkTexturePointer)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**

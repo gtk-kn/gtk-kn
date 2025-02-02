@@ -72,7 +72,7 @@ public class CarouselIndicatorLines(
          * @return the displayed carousel
          */
         get() = adw_carousel_indicator_lines_get_carousel(adwCarouselIndicatorLinesPointer)?.run {
-            InstanceCache.get(this, true) { Carousel(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Carousel(reinterpret()) }!!
         }
         /**
          * Sets the displayed carousel.

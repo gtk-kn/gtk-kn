@@ -94,7 +94,7 @@ public open class FileOutputStream(
     public open fun queryInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_output_stream_query_info(gioFileOutputStreamPointer, attributes, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -135,7 +135,7 @@ public open class FileOutputStream(
     public open fun queryInfoFinish(result: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_output_stream_query_info_finish(gioFileOutputStreamPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

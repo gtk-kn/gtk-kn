@@ -174,7 +174,7 @@ public class Flap(
          * @return the content widget for @self
          */
         get() = adw_flap_get_content(adwFlapPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * # ⚠️ Deprecated ⚠️
@@ -218,7 +218,7 @@ public class Flap(
          * @return the flap widget for @self
          */
         get() = adw_flap_get_flap(adwFlapPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * # ⚠️ Deprecated ⚠️
@@ -680,7 +680,7 @@ public class Flap(
          * @return the separator widget for @self
          */
         get() = adw_flap_get_separator(adwFlapPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * # ⚠️ Deprecated ⚠️

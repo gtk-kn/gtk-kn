@@ -125,7 +125,7 @@ public open class StyleScheme(
      * @scheme and may not be unref'ed.
      */
     public open fun getStyle(styleId: String): Style? = gtk_source_style_scheme_get_style(gtksourceStyleSchemePointer, styleId)?.run {
-        InstanceCache.get(this, true) { Style(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Style(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<StyleScheme> {

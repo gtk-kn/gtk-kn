@@ -218,7 +218,7 @@ public interface CellLayout : Proxy, KGTyped {
      * @return the cell area used by @cell_layout
      */
     public fun getArea(): CellArea? = gtk_cell_layout_get_area(gtkCellLayoutPointer)?.run {
-        InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!
     }
 
     /**

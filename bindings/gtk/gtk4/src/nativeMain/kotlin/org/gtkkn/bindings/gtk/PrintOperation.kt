@@ -258,7 +258,7 @@ public open class PrintOperation(
          * @return the current print settings of @op.
          */
         get() = gtk_print_operation_get_print_settings(gtkPrintOperationPointer)?.run {
-            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
         }
         /**
          * Sets the print settings for @op.
@@ -362,7 +362,7 @@ public open class PrintOperation(
      * @return the default page setup
      */
     public open fun getDefaultPageSetup(): PageSetup = gtk_print_operation_get_default_page_setup(gtkPrintOperationPointer)!!.run {
-        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
     }
 
     /**

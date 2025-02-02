@@ -462,7 +462,7 @@ public class Squeezer(
          * @return the visible child
          */
         get() = adw_squeezer_get_visible_child(adwSqueezerPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -595,7 +595,7 @@ public class Squeezer(
      * @return the [class@SqueezerPage] for @child
      */
     public fun add(child: Widget): SqueezerPage = adw_squeezer_add(adwSqueezerPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!
     }
 
     /**
@@ -612,7 +612,7 @@ public class Squeezer(
      * @return the page object for @child
      */
     public fun getPage(child: Widget): SqueezerPage = adw_squeezer_get_page(adwSqueezerPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!
     }
 
     /**

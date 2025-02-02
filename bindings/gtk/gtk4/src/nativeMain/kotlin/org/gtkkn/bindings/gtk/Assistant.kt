@@ -268,7 +268,7 @@ public open class Assistant(
      *   if @page_num is out of bounds
      */
     public open fun getNthPage(pageNum: gint): Widget? = gtk_assistant_get_nth_page(gtkAssistantPointer, pageNum)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -285,7 +285,7 @@ public open class Assistant(
      * @return the `GtkAssistantPage` for @child
      */
     public open fun getPage(child: Widget): AssistantPage = gtk_assistant_get_page(gtkAssistantPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { AssistantPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { AssistantPage(reinterpret()) }!!
     }
 
     /**

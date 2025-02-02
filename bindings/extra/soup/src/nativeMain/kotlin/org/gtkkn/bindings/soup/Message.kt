@@ -323,7 +323,7 @@ public class Message(
          *     hasn't been established
          */
         get() = soup_message_get_remote_address(soupMessagePointer)?.run {
-            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
     /**
@@ -376,7 +376,7 @@ public class Message(
          *   or null if @msg's connection is not SSL.
          */
         get() = soup_message_get_tls_peer_certificate(soupMessagePointer)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**

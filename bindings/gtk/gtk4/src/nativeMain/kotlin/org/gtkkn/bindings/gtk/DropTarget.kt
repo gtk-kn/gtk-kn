@@ -167,7 +167,7 @@ public open class DropTarget(
          * @since 4.4
          */
         get() = gtk_drop_target_get_current_drop(gtkDropTargetPointer)?.run {
-            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!
         }
 
     /**
@@ -196,7 +196,7 @@ public open class DropTarget(
          * @return The current drop
          */
         get() = gtk_drop_target_get_drop(gtkDropTargetPointer)?.run {
-            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!
         }
 
     /**

@@ -131,7 +131,7 @@ public open class ActionRow(
          * @return the activatable widget for @self
          */
         get() = adw_action_row_get_activatable_widget(adwActionRowPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the widget to activate when @self is activated.

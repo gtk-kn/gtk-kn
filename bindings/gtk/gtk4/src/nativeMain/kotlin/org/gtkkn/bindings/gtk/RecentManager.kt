@@ -314,7 +314,7 @@ public open class RecentManager(
          *   unref it.
          */
         public fun getDefault(): RecentManager = gtk_recent_manager_get_default()!!.run {
-            InstanceCache.get(this, true) { RecentManager(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { RecentManager(reinterpret()) }!!
         }
 
         /**

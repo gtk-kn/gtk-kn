@@ -338,7 +338,7 @@ public class Resource(
     public fun openStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resource_open_stream(gioResourcePointer, path, lookupFlags.mask, gError.ptr)?.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

@@ -212,7 +212,7 @@ public open class Printer(
      *   of the printer.
      */
     public open fun getDefaultPageSize(): PageSetup = gtk_printer_get_default_page_size(gtkPrinterPointer)!!.run {
-        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
     }
 
     /**

@@ -137,7 +137,7 @@ public open class DmabufTextureBuilder(
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_display(gdkDmabufTextureBuilderPointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
         /**
          * Sets the display that this texture builder is
@@ -334,7 +334,7 @@ public open class DmabufTextureBuilder(
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_update_texture(gdkDmabufTextureBuilderPointer)?.run {
-            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
         }
         /**
          * Sets the texture to be updated by this texture. See

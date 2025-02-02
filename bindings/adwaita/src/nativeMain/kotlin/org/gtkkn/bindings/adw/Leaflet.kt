@@ -662,7 +662,7 @@ public class Leaflet(
      * @return the [class@LeafletPage] for @child
      */
     public fun append(child: Widget): LeafletPage = adw_leaflet_append(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!
     }
 
     /**
@@ -686,7 +686,7 @@ public class Leaflet(
      * @return the previous or next child
      */
     public fun getAdjacentChild(direction: NavigationDirection): Widget? = adw_leaflet_get_adjacent_child(adwLeafletPointer, direction.nativeValue)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -707,7 +707,7 @@ public class Leaflet(
      * @return the requested child of @self
      */
     public fun getChildByName(name: String): Widget? = adw_leaflet_get_child_by_name(adwLeafletPointer, name)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -724,7 +724,7 @@ public class Leaflet(
      * @return the page object for @child
      */
     public fun getPage(child: Widget): LeafletPage = adw_leaflet_get_page(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!
     }
 
     /**
@@ -740,7 +740,7 @@ public class Leaflet(
      * @return the visible child
      */
     public fun getVisibleChild(): Widget? = adw_leaflet_get_visible_child(adwLeafletPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -774,7 +774,7 @@ public class Leaflet(
      * @return the [class@LeafletPage] for @child
      */
     public fun insertChildAfter(child: Widget, sibling: Widget? = null): LeafletPage = adw_leaflet_insert_child_after(adwLeafletPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!
     }
 
     /**
@@ -812,7 +812,7 @@ public class Leaflet(
      * @return the [class@LeafletPage] for @child
      */
     public fun prepend(child: Widget): LeafletPage = adw_leaflet_prepend(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!
     }
 
     /**

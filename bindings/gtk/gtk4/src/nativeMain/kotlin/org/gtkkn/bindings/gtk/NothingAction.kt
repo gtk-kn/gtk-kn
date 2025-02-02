@@ -41,7 +41,7 @@ public open class NothingAction(
          * @return The nothing action
          */
         public fun `get`(): NothingAction = gtk_nothing_action_get()!!.run {
-            InstanceCache.get(reinterpret(), true) { NothingAction(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(reinterpret(), true) { NothingAction(reinterpret()) }!!
         }
 
         /**

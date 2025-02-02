@@ -284,7 +284,7 @@ public open class GlArea(
          * @return the `GdkGLContext`
          */
         get() = gtk_gl_area_get_context(gtkGlAreaPointer)?.run {
-            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!
         }
 
     /**

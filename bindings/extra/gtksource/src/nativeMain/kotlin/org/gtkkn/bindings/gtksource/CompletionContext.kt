@@ -100,7 +100,7 @@ public open class CompletionContext(
          * @return an #GtkSourceCompletion or null
          */
         get() = gtk_source_completion_context_get_completion(gtksourceCompletionContextPointer)?.run {
-            InstanceCache.get(this, true) { Completion(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Completion(reinterpret()) }!!
         }
 
     /**
@@ -151,7 +151,7 @@ public open class CompletionContext(
      * @return a #GtkTextBuffer or null
      */
     public open fun getBuffer(): Buffer? = gtk_source_completion_context_get_buffer(gtksourceCompletionContextPointer)?.run {
-        InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
     }
 
     /**
@@ -160,7 +160,7 @@ public open class CompletionContext(
      * @return a #GtkSourceLanguage or null
      */
     public open fun getLanguage(): Language? = gtk_source_completion_context_get_language(gtksourceCompletionContextPointer)?.run {
-        InstanceCache.get(this, true) { Language(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Language(reinterpret()) }!!
     }
 
     /**
@@ -183,7 +183,7 @@ public open class CompletionContext(
      * @return a #GtkSourceView or null
      */
     public open fun getView(): View? = gtk_source_completion_context_get_view(gtksourceCompletionContextPointer)?.run {
-        InstanceCache.get(this, true) { View(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { View(reinterpret()) }!!
     }
 
     /**

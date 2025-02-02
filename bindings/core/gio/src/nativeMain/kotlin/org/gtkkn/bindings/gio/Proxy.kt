@@ -68,7 +68,7 @@ public interface Proxy : org.gtkkn.extensions.glib.cinterop.Proxy, KGTyped {
     ): Result<IoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_proxy_connect(gioProxyPointer, connection.gioIoStreamPointer, proxyAddress.gioProxyAddressPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -106,7 +106,7 @@ public interface Proxy : org.gtkkn.extensions.glib.cinterop.Proxy, KGTyped {
     public fun connectFinish(result: AsyncResult): Result<IoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_proxy_connect_finish(gioProxyPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

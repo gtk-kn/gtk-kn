@@ -93,7 +93,7 @@ public class UriSchemeRequest(
      */
     @WebKitVersion2_40
     public fun getHttpBody(): InputStream = webkit_uri_scheme_request_get_http_body(webkitUriSchemeRequestPointer)!!.run {
-        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
     }
 
     /**
@@ -142,7 +142,7 @@ public class UriSchemeRequest(
      * @return the #WebKitWebView that initiated @request.
      */
     public fun getWebView(): WebView = webkit_uri_scheme_request_get_web_view(webkitUriSchemeRequestPointer)!!.run {
-        InstanceCache.get(this, true) { WebView(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WebView(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<UriSchemeRequest> {

@@ -624,7 +624,7 @@ public open class TreeViewColumn(
          * @return The `GtkWidget` in the column header
          */
         get() = gtk_tree_view_column_get_widget(gtkTreeViewColumnPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * # ⚠️ Deprecated ⚠️
@@ -840,7 +840,7 @@ public open class TreeViewColumn(
      * @return The button for the column header.
      */
     public open fun getButton(): Widget = gtk_tree_view_column_get_button(gtkTreeViewColumnPointer)!!.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -859,7 +859,7 @@ public open class TreeViewColumn(
      *   has been inserted
      */
     public open fun getTreeView(): Widget? = gtk_tree_view_column_get_tree_view(gtkTreeViewColumnPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**

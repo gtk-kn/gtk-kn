@@ -378,7 +378,7 @@ public open class MessageDialog(
          * @since 1.2
          */
         get() = adw_message_dialog_get_extra_child(adwMessageDialogPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget of @self.

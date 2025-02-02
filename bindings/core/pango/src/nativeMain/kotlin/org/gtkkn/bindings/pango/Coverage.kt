@@ -65,7 +65,7 @@ public open class Coverage(
      *   [method@Pango.Coverage.unref].
      */
     public open fun copy(): Coverage = pango_coverage_copy(pangoCoveragePointer)!!.run {
-        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!
     }
 
     /**
@@ -106,7 +106,7 @@ public open class Coverage(
      * @return @coverage
      */
     override fun ref(): Coverage = pango_coverage_ref(pangoCoveragePointer)!!.run {
-        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!
     }
 
     /**

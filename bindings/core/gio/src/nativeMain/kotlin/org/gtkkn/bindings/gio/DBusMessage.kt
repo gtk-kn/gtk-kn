@@ -172,7 +172,7 @@ public open class DBusMessage(
     public open fun copy(): Result<DBusMessage> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dbus_message_copy(gioDBusMessagePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -370,7 +370,7 @@ public open class DBusMessage(
      */
     @GioVersion2_26
     public open fun getUnixFdList(): UnixFdList? = g_dbus_message_get_unix_fd_list(gioDBusMessagePointer)?.run {
-        InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!
     }
 
     /**
@@ -391,7 +391,7 @@ public open class DBusMessage(
      */
     @GioVersion2_26
     public open fun newMethodErrorLiteral(errorName: String, errorMessage: String): DBusMessage = g_dbus_message_new_method_error_literal(gioDBusMessagePointer, errorName, errorMessage)!!.run {
-        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
     }
 
     /**
@@ -402,7 +402,7 @@ public open class DBusMessage(
      */
     @GioVersion2_26
     public open fun newMethodReply(): DBusMessage = g_dbus_message_new_method_reply(gioDBusMessagePointer)!!.run {
-        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
     }
 
     /**

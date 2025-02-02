@@ -43,7 +43,7 @@ public class OutputMessage(
      */
     public var address: SocketAddress?
         get() = gioOutputMessagePointer.pointed.address?.run {
-            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
         @UnsafeFieldSetter
         set(`value`) {

@@ -90,7 +90,7 @@ public open class UnixConnection(
     public open fun receiveCredentials(cancellable: Cancellable? = null): Result<Credentials> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_unix_connection_receive_credentials(gioUnixConnectionPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -130,7 +130,7 @@ public open class UnixConnection(
     public open fun receiveCredentialsFinish(result: AsyncResult): Result<Credentials> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_unix_connection_receive_credentials_finish(gioUnixConnectionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

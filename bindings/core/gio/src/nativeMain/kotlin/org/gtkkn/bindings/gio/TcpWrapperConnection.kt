@@ -47,7 +47,7 @@ public open class TcpWrapperConnection(
          * @return @conn's base #GIOStream
          */
         get() = g_tcp_wrapper_connection_get_base_io_stream(gioTcpWrapperConnectionPointer)!!.run {
-            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!
         }
 
     /**

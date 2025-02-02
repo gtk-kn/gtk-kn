@@ -378,7 +378,7 @@ public open class WebView(
          *    icon associated with @web_view.
          */
         get() = webkit_web_view_get_favicon(webkitWebViewPointer)!!.run {
-            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
         }
 
     /**
@@ -473,7 +473,7 @@ public open class WebView(
          * @since 2.40
          */
         get() = webkit_web_view_get_network_session(webkitWebViewPointer)!!.run {
-            InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!
         }
 
     /**
@@ -584,7 +584,7 @@ public open class WebView(
          * @since 2.6
          */
         get() = webkit_web_view_get_user_content_manager(webkitWebViewPointer)!!.run {
-            InstanceCache.get(this, true) { UserContentManager(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { UserContentManager(reinterpret()) }!!
         }
 
     /**
@@ -630,7 +630,7 @@ public open class WebView(
          * @since 2.30
          */
         get() = webkit_web_view_get_website_policies(webkitWebViewPointer)!!.run {
-            InstanceCache.get(this, true) { WebsitePolicies(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { WebsitePolicies(reinterpret()) }!!
         }
 
     /**
@@ -764,7 +764,7 @@ public open class WebView(
     public open fun callAsyncJavascriptFunctionFinish(result: AsyncResult): Result<Value> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_call_async_javascript_function_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Value(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Value(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -836,7 +836,7 @@ public open class WebView(
      *    the download operation.
      */
     public open fun downloadUri(uri: String): Download = webkit_web_view_download_uri(webkitWebViewPointer, uri)!!.run {
-        InstanceCache.get(this, true) { Download(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Download(reinterpret()) }!!
     }
 
     /**
@@ -925,7 +925,7 @@ public open class WebView(
     public open fun evaluateJavascriptFinish(result: AsyncResult): Result<Value> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_evaluate_javascript_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Value(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Value(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -967,7 +967,7 @@ public open class WebView(
      * @return the #WebKitBackForwardList
      */
     public open fun getBackForwardList(): BackForwardList = webkit_web_view_get_back_forward_list(webkitWebViewPointer)!!.run {
-        InstanceCache.get(this, true) { BackForwardList(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { BackForwardList(reinterpret()) }!!
     }
 
     /**
@@ -989,7 +989,7 @@ public open class WebView(
      * @return the #WebKitWebContext of the view
      */
     public open fun getContext(): WebContext = webkit_web_view_get_context(webkitWebViewPointer)!!.run {
-        InstanceCache.get(this, true) { WebContext(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WebContext(reinterpret()) }!!
     }
 
     /**
@@ -1008,7 +1008,7 @@ public open class WebView(
      */
     @WebKitVersion2_10
     public open fun getEditorState(): EditorState = webkit_web_view_get_editor_state(webkitWebViewPointer)!!.run {
-        InstanceCache.get(this, true) { EditorState(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { EditorState(reinterpret()) }!!
     }
 
     /**
@@ -1021,7 +1021,7 @@ public open class WebView(
      * this particular #WebKitWebView.
      */
     public open fun getFindController(): FindController = webkit_web_view_get_find_controller(webkitWebViewPointer)!!.run {
-        InstanceCache.get(this, true) { FindController(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { FindController(reinterpret()) }!!
     }
 
     /**
@@ -1034,7 +1034,7 @@ public open class WebView(
      */
     @WebKitVersion2_28
     public open fun getInputMethodContext(): InputMethodContext? = webkit_web_view_get_input_method_context(webkitWebViewPointer)?.run {
-        InstanceCache.get(this, true) { InputMethodContext.InputMethodContextImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { InputMethodContext.InputMethodContextImpl(reinterpret()) }!!
     }
 
     /**
@@ -1043,7 +1043,7 @@ public open class WebView(
      * @return the #WebKitWebInspector of @web_view
      */
     public open fun getInspector(): WebInspector = webkit_web_view_get_inspector(webkitWebViewPointer)!!.run {
-        InstanceCache.get(this, true) { WebInspector(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WebInspector(reinterpret()) }!!
     }
 
     /**
@@ -1053,7 +1053,7 @@ public open class WebView(
      *    or null if nothing has been loaded.
      */
     public open fun getMainResource(): WebResource = webkit_web_view_get_main_resource(webkitWebViewPointer)!!.run {
-        InstanceCache.get(this, true) { WebResource(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WebResource(reinterpret()) }!!
     }
 
     /**
@@ -1085,7 +1085,7 @@ public open class WebView(
      * @return the #WebKitSettings attached to @web_view
      */
     public open fun getWebViewSettings(): Settings = webkit_web_view_get_settings(webkitWebViewPointer)!!.run {
-        InstanceCache.get(this, true) { Settings(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Settings(reinterpret()) }!!
     }
 
     /**
@@ -1118,7 +1118,7 @@ public open class WebView(
     public open fun getSnapshotFinish(result: AsyncResult): Result<Texture> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_get_snapshot_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -1137,7 +1137,7 @@ public open class WebView(
      * @return the #WebKitWindowProperties of @web_view
      */
     public open fun getWindowProperties(): WindowProperties = webkit_web_view_get_window_properties(webkitWebViewPointer)!!.run {
-        InstanceCache.get(this, true) { WindowProperties(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { WindowProperties(reinterpret()) }!!
     }
 
     /**
@@ -1359,7 +1359,7 @@ public open class WebView(
     public open fun saveFinish(result: AsyncResult): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_save_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -1439,7 +1439,7 @@ public open class WebView(
     public open fun sendMessageToPageFinish(result: AsyncResult): Result<UserMessage> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_send_message_to_page_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { UserMessage(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { UserMessage(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

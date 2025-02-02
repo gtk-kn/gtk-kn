@@ -165,7 +165,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
          * @since 2.48
          */
         get() = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
         }
         /**
          * Sets the certificate database that is used to verify peer certificates.
@@ -204,7 +204,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
          * @since 2.48
          */
         get() = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
         }
         /**
          * Set the object that will be used to interact with the user. It will be used
@@ -263,7 +263,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
          * @since 2.48
          */
         get() = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**
@@ -514,7 +514,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getCertificate(): TlsCertificate? = g_dtls_connection_get_certificate(gioDtlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**
@@ -542,7 +542,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getDatabase(): TlsDatabase? = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
     }
 
     /**
@@ -555,7 +555,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getInteraction(): TlsInteraction? = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
     }
 
     /**
@@ -583,7 +583,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getPeerCertificate(): TlsCertificate? = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**

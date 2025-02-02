@@ -177,7 +177,7 @@ public class WebContext(
      */
     @WebKitVersion2_26
     public fun getGeolocationManager(): GeolocationManager = webkit_web_context_get_geolocation_manager(webkitWebContextPointer)!!.run {
-        InstanceCache.get(this, true) { GeolocationManager(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { GeolocationManager(reinterpret()) }!!
     }
 
     /**
@@ -188,7 +188,7 @@ public class WebContext(
      */
     @WebKitVersion2_40
     public fun getNetworkSessionForAutomation(): NetworkSession? = webkit_web_context_get_network_session_for_automation(webkitWebContextPointer)?.run {
-        InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!
     }
 
     /**
@@ -197,7 +197,7 @@ public class WebContext(
      * @return the #WebKitSecurityManager of @context.
      */
     public fun getSecurityManager(): SecurityManager = webkit_web_context_get_security_manager(webkitWebContextPointer)!!.run {
-        InstanceCache.get(this, true) { SecurityManager(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { SecurityManager(reinterpret()) }!!
     }
 
     /**
@@ -527,7 +527,7 @@ public class WebContext(
          * @return a #WebKitWebContext
          */
         public fun getDefault(): WebContext = webkit_web_context_get_default()!!.run {
-            InstanceCache.get(this, true) { WebContext(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { WebContext(reinterpret()) }!!
         }
 
         /**

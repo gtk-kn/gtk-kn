@@ -82,7 +82,7 @@ public class WebResource(
          *     the response hasn't been received yet.
          */
         get() = webkit_web_resource_get_response(webkitWebResourcePointer)!!.run {
-            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!
         }
 
     /**

@@ -269,7 +269,7 @@ public open class Dialog(
      * @return the `GtkButton` widget that was added
      */
     public open fun addButton(buttonText: String, responseId: gint): Widget = gtk_dialog_add_button(gtkDialogPointer, buttonText, responseId)!!.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -285,7 +285,7 @@ public open class Dialog(
      * @return the content area `GtkBox`.
      */
     public open fun getContentArea(): Box = gtk_dialog_get_content_area(gtkDialogPointer)!!.run {
-        InstanceCache.get(reinterpret(), true) { Box(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(reinterpret(), true) { Box(reinterpret()) }!!
     }
 
     /**
@@ -304,7 +304,7 @@ public open class Dialog(
      * @return the header bar
      */
     public open fun getHeaderBar(): HeaderBar = gtk_dialog_get_header_bar(gtkDialogPointer)!!.run {
-        InstanceCache.get(reinterpret(), true) { HeaderBar(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(reinterpret(), true) { HeaderBar(reinterpret()) }!!
     }
 
     /**
@@ -340,7 +340,7 @@ public open class Dialog(
      *   @response_id
      */
     public open fun getWidgetForResponse(responseId: gint): Widget? = gtk_dialog_get_widget_for_response(gtkDialogPointer, responseId)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**

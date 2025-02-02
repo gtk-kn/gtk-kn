@@ -108,7 +108,7 @@ public open class CenterLayout(
      * @return the current center widget of @self
      */
     public open fun getCenterWidget(): Widget? = gtk_center_layout_get_center_widget(gtkCenterLayoutPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -117,7 +117,7 @@ public open class CenterLayout(
      * @return the current end widget of @self
      */
     public open fun getEndWidget(): Widget? = gtk_center_layout_get_end_widget(gtkCenterLayoutPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -134,7 +134,7 @@ public open class CenterLayout(
      * @return The current start widget of @self
      */
     public open fun getStartWidget(): Widget? = gtk_center_layout_get_start_widget(gtkCenterLayoutPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**

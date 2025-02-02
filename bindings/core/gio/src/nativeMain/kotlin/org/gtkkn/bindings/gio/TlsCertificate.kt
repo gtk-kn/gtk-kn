@@ -113,7 +113,7 @@ public abstract class TlsCertificate(
          * @since 2.28
          */
         get() = g_tls_certificate_get_issuer(gioTlsCertificatePointer)?.run {
-            InstanceCache.get(this, true) { TlsCertificateImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**

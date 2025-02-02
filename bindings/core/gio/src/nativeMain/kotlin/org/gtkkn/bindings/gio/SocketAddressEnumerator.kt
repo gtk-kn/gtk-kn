@@ -75,7 +75,7 @@ public abstract class SocketAddressEnumerator(
     public open fun next(cancellable: Cancellable? = null): Result<SocketAddress?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_address_enumerator_next(gioSocketAddressEnumeratorPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -112,7 +112,7 @@ public abstract class SocketAddressEnumerator(
     public open fun nextFinish(result: AsyncResult): Result<SocketAddress?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_address_enumerator_next_finish(gioSocketAddressEnumeratorPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

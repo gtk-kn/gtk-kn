@@ -34,7 +34,7 @@ public open class GrabBrokenEvent(
      * @return the grab surface of @event
      */
     public open fun getGrabSurface(): Surface = gdk_grab_broken_event_get_grab_surface(gdkGrabBrokenEventPointer.reinterpret())!!.run {
-        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
     }
 
     /**

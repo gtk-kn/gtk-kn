@@ -27,7 +27,6 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.GLib
 import org.gtkkn.bindings.glib.MainContext
 import org.gtkkn.bindings.gobject.InitiallyUnowned
-import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.extensions.GtkKn
@@ -38,7 +37,6 @@ import org.gtkkn.extensions.glib.util.log.LogLevel
 import org.gtkkn.extensions.gobject.InstanceCache.Ref.Strong
 import org.gtkkn.extensions.gobject.ext.isGObject
 import org.gtkkn.native.gobject.GToggleNotify
-import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject._GObject
 import org.gtkkn.native.gobject.g_object_add_toggle_ref
 import org.gtkkn.native.gobject.g_object_remove_toggle_ref
@@ -59,7 +57,7 @@ import kotlin.native.ref.createCleaner
  * ### **How It Works**
  * - Uses **toggle references** to track Kotlin/Native-to-GObject bindings.
  * - Ensures that each GObject is associated with **only one Kotlin instance**.
- * - Prevents manual `g_object_ref()` and `g_object_unref()` calls in Kotlin.
+ * - Eliminates the need for manual `g_object_ref()` and `g_object_unref()` calls in Kotlin.
  * - Uses a **global cache** of objects, switching between strong and weak references.
  * - Ensures safe disposal when objects are no longer needed.
  *
@@ -102,19 +100,15 @@ public object InstanceCache {
     /** Cache mapping native pointers ([gpointer]) to references (strong or weak). */
     private val references = ConcurrentMap<gpointer, Ref<out Proxy>>()
 
-    /** The GObject fundamental type, used to verify if an object is a GObject-based instance. */
-    private val GOBJECT_TYPE: GType by lazy { Object.getType() }
-
     /**
      * Callback function for GObject's toggle references.
      *
      * This function is executed when the last reference is dropped (or added back).
      */
-    private val toggleNotifyCallback = staticCFunction<
-        gpointer?, CPointer<_GObject>?, gboolean, Unit,
-        > { _, gobjectPtr, isLastRef ->
-        gobjectPtr?.let { handleToggleNotify(it, isLastRef.asBoolean()) }
-    }
+    private val toggleNotifyCallback =
+        staticCFunction<gpointer?, CPointer<_GObject>?, gboolean, Unit> { _, gobjectPtr, isLastRef ->
+            gobjectPtr?.let { handleToggleNotify(it, isLastRef.asBoolean()) }
+        }
 
     /**
      * Retrieves a [T] instance for the given [gpointer].

@@ -83,7 +83,7 @@ public abstract class Drag(
          * @return The `GdkContentProvider` associated to @drag.
          */
         get() = gdk_drag_get_content(gdkDragPointer)!!.run {
-            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
         }
 
     /**
@@ -96,7 +96,7 @@ public abstract class Drag(
          * @return The `GdkDevice` associated to @drag.
          */
         get() = gdk_drag_get_device(gdkDragPointer)!!.run {
-            InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
         }
 
     /**
@@ -109,7 +109,7 @@ public abstract class Drag(
          * @return a `GdkDisplay`
          */
         get() = gdk_drag_get_display(gdkDragPointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -146,7 +146,7 @@ public abstract class Drag(
          * @return The `GdkSurface` where the drag originates
          */
         get() = gdk_drag_get_surface(gdkDragPointer)!!.run {
-            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
         }
 
     /**
@@ -178,7 +178,7 @@ public abstract class Drag(
      * @return the drag surface
      */
     public open fun getDragSurface(): Surface? = gdk_drag_get_drag_surface(gdkDragPointer)?.run {
-        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
     }
 
     /**
@@ -289,7 +289,7 @@ public abstract class Drag(
             dx: gdouble,
             dy: gdouble,
         ): Drag? = gdk_drag_begin(surface.gdkSurfacePointer, device.gdkDevicePointer, content.gdkContentProviderPointer, actions.mask, dx, dy)?.run {
-            InstanceCache.get(this, true) { DragImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { DragImpl(reinterpret()) }!!
         }
 
         /**

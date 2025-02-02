@@ -268,7 +268,7 @@ public open class ComboBox(
          * @return the child widget of @combo_box
          */
         get() = gtk_combo_box_get_child(gtkComboBoxPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * # ⚠️ Deprecated ⚠️

@@ -213,7 +213,7 @@ public open class TextBuffer(
          * @return the buffer’s tag table
          */
         get() = gtk_text_buffer_get_tag_table(gtkTextBufferPointer)!!.run {
-            InstanceCache.get(this, true) { TextTagTable(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TextTagTable(reinterpret()) }!!
         }
 
     /**
@@ -368,7 +368,7 @@ public open class TextBuffer(
      * @return the created child anchor
      */
     public open fun createChildAnchor(iter: TextIter): TextChildAnchor = gtk_text_buffer_create_child_anchor(gtkTextBufferPointer, iter.gtkTextIterPointer)!!.run {
-        InstanceCache.get(this, true) { TextChildAnchor(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TextChildAnchor(reinterpret()) }!!
     }
 
     /**
@@ -402,7 +402,7 @@ public open class TextBuffer(
         `where`: TextIter,
         leftGravity: Boolean,
     ): TextMark = gtk_text_buffer_create_mark(gtkTextBufferPointer, markName, `where`.gtkTextIterPointer, leftGravity.asGBoolean())!!.run {
-        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!
     }
 
     /**
@@ -560,7 +560,7 @@ public open class TextBuffer(
      * @return insertion point mark
      */
     public open fun getInsert(): TextMark = gtk_text_buffer_get_insert(gtkTextBufferPointer)!!.run {
-        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!
     }
 
     /**
@@ -663,7 +663,7 @@ public open class TextBuffer(
      * @return a `GtkTextMark`
      */
     public open fun getMark(name: String): TextMark? = gtk_text_buffer_get_mark(gtkTextBufferPointer, name)?.run {
-        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!
     }
 
     /**
@@ -705,7 +705,7 @@ public open class TextBuffer(
      * @return selection bound mark
      */
     public open fun getSelectionBound(): TextMark = gtk_text_buffer_get_selection_bound(gtkTextBufferPointer)!!.run {
-        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!
     }
 
     /**
@@ -732,7 +732,7 @@ public open class TextBuffer(
      * @return a new `GdkContentProvider`.
      */
     public open fun getSelectionContent(): ContentProvider = gtk_text_buffer_get_selection_content(gtkTextBufferPointer)!!.run {
-        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
     }
 
     /**

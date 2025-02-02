@@ -85,7 +85,7 @@ public open class Cursor(
          *   to use the default cursor as fallback
          */
         get() = gdk_cursor_get_fallback(gdkCursorPointer)?.run {
-            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!
         }
 
     /**
@@ -153,7 +153,7 @@ public open class Cursor(
          *   if it is a named cursor
          */
         get() = gdk_cursor_get_texture(gdkCursorPointer)?.run {
-            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
         }
 
     /**

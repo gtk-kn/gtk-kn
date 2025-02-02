@@ -222,7 +222,7 @@ public open class Session(
          * @return a #GInetSocketAddress
          */
         get() = soup_session_get_local_address(soupSessionPointer)?.run {
-            InstanceCache.get(this, true) { InetSocketAddress(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { InetSocketAddress(reinterpret()) }!!
         }
 
     /**
@@ -342,7 +342,7 @@ public open class Session(
          * @return a #GTlsDatabase
          */
         get() = soup_session_get_tls_database(soupSessionPointer)?.run {
-            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
         }
         /**
          * Set a [class@GIo.TlsDatabase] to be used by @session on new connections.
@@ -367,7 +367,7 @@ public open class Session(
          * @return a #GTlsInteraction
          */
         get() = soup_session_get_tls_interaction(soupSessionPointer)?.run {
-            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
         }
         /**
          * Set a [class@Gio.TlsInteraction] to be used by @session on new connections.
@@ -443,7 +443,7 @@ public open class Session(
      *   null if @result is not a valid @session async operation result.
      */
     public open fun getAsyncResultMessage(result: AsyncResult): Message? = soup_session_get_async_result_message(soupSessionPointer, result.gioAsyncResultPointer)?.run {
-        InstanceCache.get(this, true) { Message(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Message(reinterpret()) }!!
     }
 
     /**
@@ -569,7 +569,7 @@ public open class Session(
     public open fun send(msg: Message, cancellable: Cancellable? = null): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send(soupSessionPointer, msg.soupMessagePointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -753,7 +753,7 @@ public open class Session(
     public open fun sendFinish(result: AsyncResult): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -838,7 +838,7 @@ public open class Session(
     public open fun websocketConnectFinish(result: AsyncResult): Result<WebsocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_websocket_connect_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { WebsocketConnection(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { WebsocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

@@ -62,7 +62,7 @@ public class ViewStackPages(
      */
     @AdwVersion1_4
     public fun getSelectedPage(): ViewStackPage? = adw_view_stack_pages_get_selected_page(adwViewStackPagesPointer)?.run {
-        InstanceCache.get(this, true) { ViewStackPage(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { ViewStackPage(reinterpret()) }!!
     }
 
     /**

@@ -197,7 +197,7 @@ public open class PixbufLoader(
      *   currently loading
      */
     public open fun getAnimation(): PixbufAnimation? = gdk_pixbuf_loader_get_animation(gdkPixbufLoaderPointer)?.run {
-        InstanceCache.get(this, true) { PixbufAnimation(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { PixbufAnimation(reinterpret()) }!!
     }
 
     /**
@@ -232,7 +232,7 @@ public open class PixbufLoader(
      *   creating
      */
     public open fun getPixbuf(): Pixbuf? = gdk_pixbuf_loader_get_pixbuf(gdkPixbufLoaderPointer)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**

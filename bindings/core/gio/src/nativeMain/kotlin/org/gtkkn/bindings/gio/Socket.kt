@@ -598,7 +598,7 @@ public open class Socket(
     public open fun accept(cancellable: Cancellable? = null): Result<Socket> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_accept(gioSocketPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Socket(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Socket(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -850,7 +850,7 @@ public open class Socket(
      */
     @GioVersion2_22
     public open fun connectionFactoryCreateConnection(): SocketConnection = g_socket_connection_factory_create_connection(gioSocketPointer)!!.run {
-        InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
     }
 
     /**
@@ -935,7 +935,7 @@ public open class Socket(
     public open fun getCredentials(): Result<Credentials> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_credentials(gioSocketPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -958,7 +958,7 @@ public open class Socket(
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_local_address(gioSocketPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -980,7 +980,7 @@ public open class Socket(
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_remote_address(gioSocketPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

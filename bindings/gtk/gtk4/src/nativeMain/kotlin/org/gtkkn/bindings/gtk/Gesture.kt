@@ -180,7 +180,7 @@ public abstract class Gesture(
      * @return a `GdkDevice`
      */
     public open fun getDevice(): Device? = gtk_gesture_get_device(gtkGesturePointer)?.run {
-        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
     }
 
     /**

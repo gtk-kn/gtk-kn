@@ -42,7 +42,7 @@ public open class NeverTrigger(
          * @return The never trigger
          */
         public fun `get`(): NeverTrigger = gtk_never_trigger_get()!!.run {
-            InstanceCache.get(reinterpret(), true) { NeverTrigger(reinterpret()) }!!.apply { ref() }
+            InstanceCache.get(reinterpret(), true) { NeverTrigger(reinterpret()) }!!
         }
 
         /**

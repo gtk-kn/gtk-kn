@@ -149,7 +149,7 @@ interface KDocGenerator {
     fun CodeBlock.Builder.addDeprecation(deprecatedBlueprint: DeprecatedBlueprint?) {
         deprecatedBlueprint?.let { deprecated ->
             add("# ⚠\uFE0F Deprecated ⚠\uFE0F\n")
-            add("\nThis is deprecated%L.\n", deprecated.version?.let { " since version $it" } ?: "")
+            add("\nThis is deprecated%L.\n", deprecated.version?.let { " since version $it" }.orEmpty())
             deprecated.message?.let { message ->
                 add("\n%L\n", message)
             }

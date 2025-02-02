@@ -57,7 +57,7 @@ public abstract class Fontset(
      * @return a `PangoFont`
      */
     public open fun getFont(wc: guint): Font = pango_fontset_get_font(pangoFontsetPointer, wc)!!.run {
-        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.apply { ref() }
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
     }
 
     /**
