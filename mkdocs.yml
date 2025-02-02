@@ -65,8 +65,10 @@ nav:
       - Deploying to MavenLocal: contributor-guide/deploying-to-mavenlocal.md
       #      - MkDocs: contributor-guide/mkdocs.md
       #      - CI and Docker images: contributor-guide/ci-and-docker-images.md
-  - FAQ: faq/index.md
   - API: dokka/index.html
+  - FAQ: faq/index.md
+  - Sponsor: sponsor/index.md
+  - Contact: contact-us/index.md
 
 # Copyright
 copyright: >
@@ -149,6 +151,7 @@ markdown_extensions:
   - attr_list
   - codehilite:
       guess_lang: false
+  - def_list
   - footnotes
   - md_in_html
   - meta
@@ -169,6 +172,8 @@ markdown_extensions:
   - pymdownx.snippets:
       base_path: '.'
   - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - smarty
   - tables
   - toc:

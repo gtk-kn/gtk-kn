@@ -3,8 +3,6 @@ title: Contributor Guide
 description: Learn how to set up your development environment, generate bindings, and contribute to the gtk-kn project.
 ---
 
-Thank you for your interest in contributing to **gtk-kn**! 🎉
-
 We appreciate all contributions, whether you're **fixing a bug, adding features, or improving the documentation**.
 Before you begin, please read our
 full [Contribution Guidelines](https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/CONTRIBUTING.md).
@@ -28,7 +26,7 @@ the [Environment Setup Guide](../developer-guide/environment-setup.md).
     - Application developers who use `gtk-kn` to build apps.
     - Contributors who want to build and modify `gtk-kn` itself.
 
-    🛠️ As a contributor, skip the app developer instructions and focus on the CI setup scripts.
+    As a contributor, skip the app developer instructions and focus on the CI setup scripts.
     These scripts:
 
     - Install all required dependencies for your OS.
@@ -37,7 +35,7 @@ the [Environment Setup Guide](../developer-guide/environment-setup.md).
 ### JDK Requirement
 
 gtk-kn **requires JDK 17**.
-Newer versions **may not work**, so make sure you're using the correct version.
+Newer versions **may not work**, so make sure you've installed the correct version.
 
 ## Cloning the Repository
 
