@@ -27,8 +27,9 @@ import com.squareup.kotlinpoet.TypeName
 data class InterfaceBlueprint(
     val kotlinName: String,
     val nativeName: String,
-    val typeName: ClassName,
+    override val kotlinTypeName: ClassName,
     val methods: List<MethodBlueprint>,
+    val constants: List<ConstantBlueprint>,
     val properties: List<PropertyBlueprint>,
     val signals: List<SignalBlueprint>,
     val functions: List<FunctionBlueprint>,
@@ -37,9 +38,10 @@ data class InterfaceBlueprint(
     val objectPointerTypeName: TypeName,
     val parentInterfaces: List<ImplementsInterfaceBlueprint>,
     val implClassSuperclassTypeName: ClassName,
-    val glibGetTypeFunc: MemberName?,
+    override val glibGetTypeFunc: MemberName?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
-) {
-    val instanceTypeName = typeName.nestedClass("${typeName.simpleName}Impl")
+) : TypeToRegister {
+    override val instanceTypeName: ClassName = kotlinTypeName.nestedClass("${kotlinTypeName.simpleName}Impl")
 }

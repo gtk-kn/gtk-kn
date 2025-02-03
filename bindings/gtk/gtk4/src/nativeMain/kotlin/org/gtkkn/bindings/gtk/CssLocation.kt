@@ -10,15 +10,13 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gtk.GtkCssLocation
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
-public class CssLocation(public val gtkCssLocationPointer: CPointer<GtkCssLocation>, cleaner: Cleaner? = null) :
+public class CssLocation(public val gtkCssLocationPointer: CPointer<GtkCssLocation>) :
     ProxyInstance(gtkCssLocationPointer) {
     public var bytes: gsize
         get() = gtkCssLocationPointer.pointed.bytes
@@ -66,21 +64,9 @@ public class CssLocation(public val gtkCssLocationPointer: CPointer<GtkCssLocati
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkCssLocation>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to CssLocation and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkCssLocation>, Cleaner>,
-    ) : this(gtkCssLocationPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkCssLocation>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new CssLocation using the provided [AutofreeScope].

@@ -25,14 +25,13 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GMount
 import org.gtkkn.native.gio.g_mount_can_eject
 import org.gtkkn.native.gio.g_mount_can_unmount
@@ -115,6 +114,13 @@ public interface Mount :
     public fun canUnmount(): Boolean = g_mount_can_unmount(gioMountPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_mount_eject_with_operation() instead.
+     * ---
+     *
      * Ejects a mount. This is an asynchronous operation, and is
      * finished by calling g_mount_eject_finish() with the @mount
      * and #GAsyncResult data returned in the @callback.
@@ -135,6 +141,13 @@ public interface Mount :
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_mount_eject_with_operation_finish() instead.
+     * ---
+     *
      * Finishes ejecting a mount. If any errors occurred during the operation,
      * @error will be set to contain the errors and false will be returned.
      *
@@ -498,6 +511,13 @@ public interface Mount :
     public fun shadow(): Unit = g_mount_shadow(gioMountPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_mount_unmount_with_operation() instead.
+     * ---
+     *
      * Unmounts a mount. This is an asynchronous operation, and is
      * finished by calling g_mount_unmount_finish() with the @mount
      * and #GAsyncResult data returned in the @callback.
@@ -521,6 +541,13 @@ public interface Mount :
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_mount_unmount_with_operation_finish() instead.
+     * ---
+     *
      * Finishes unmounting a mount. If any errors occurred during the operation,
      * @error will be set to contain the errors and false will be returned.
      *
@@ -662,13 +689,19 @@ public interface Mount :
      *
      * @constructor Creates a new instance of Mount for the provided [CPointer].
      */
-    public data class MountImpl(override val gioMountPointer: CPointer<GMount>) :
+    public class MountImpl(gioMountPointer: CPointer<GMount>) :
         Object(gioMountPointer.reinterpret()),
-        Mount
+        Mount {
+        init {
+            Gio
+        }
+
+        override val gioMountPointer: CPointer<GMount> = gioMountPointer
+    }
 
     public companion object : TypeCompanion<Mount> {
         override val type: GeneratedInterfaceKGType<Mount> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_mount_get_type")!!) { MountImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { MountImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -680,6 +713,16 @@ public interface Mount :
          * @return the GType
          */
         public fun getType(): GType = g_mount_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_mount_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_mount_get_type")
     }
 }
 

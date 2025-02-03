@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GMemoryInputStream
 import org.gtkkn.native.gio.GPollableInputStream
 import org.gtkkn.native.gio.GSeekable
@@ -38,6 +38,10 @@ public open class MemoryInputStream(public val gioMemoryInputStreamPointer: CPoi
     PollableInputStream,
     Seekable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
         get() = handle.reinterpret()
 
@@ -49,7 +53,9 @@ public open class MemoryInputStream(public val gioMemoryInputStreamPointer: CPoi
      *
      * @return a new #GInputStream
      */
-    public constructor() : this(g_memory_input_stream_new()!!.reinterpret())
+    public constructor() : this(g_memory_input_stream_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GMemoryInputStream with data from the given @bytes.
@@ -60,7 +66,9 @@ public open class MemoryInputStream(public val gioMemoryInputStreamPointer: CPoi
      */
     public constructor(
         bytes: Bytes,
-    ) : this(g_memory_input_stream_new_from_bytes(bytes.glibBytesPointer)!!.reinterpret())
+    ) : this(g_memory_input_stream_new_from_bytes(bytes.glibBytesPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends @bytes to data that can be read from the input stream.
@@ -74,9 +82,7 @@ public open class MemoryInputStream(public val gioMemoryInputStreamPointer: CPoi
 
     public companion object : TypeCompanion<MemoryInputStream> {
         override val type: GeneratedClassKGType<MemoryInputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_memory_input_stream_get_type")!!) {
-                MemoryInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { MemoryInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -88,5 +94,16 @@ public open class MemoryInputStream(public val gioMemoryInputStreamPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = g_memory_input_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_memory_input_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_memory_input_stream_get_type")
     }
 }

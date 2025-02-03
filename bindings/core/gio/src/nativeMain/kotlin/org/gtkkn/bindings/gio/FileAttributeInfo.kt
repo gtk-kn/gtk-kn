@@ -11,22 +11,18 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GFileAttributeInfo
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Information about a specific attribute.
  */
-public class FileAttributeInfo(
-    public val gioFileAttributeInfoPointer: CPointer<GFileAttributeInfo>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gioFileAttributeInfoPointer) {
+public class FileAttributeInfo(public val gioFileAttributeInfoPointer: CPointer<GFileAttributeInfo>) :
+    ProxyInstance(gioFileAttributeInfoPointer) {
     /**
      * the name of the attribute.
      */
@@ -71,21 +67,9 @@ public class FileAttributeInfo(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GFileAttributeInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to FileAttributeInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GFileAttributeInfo>, Cleaner>,
-    ) : this(gioFileAttributeInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GFileAttributeInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new FileAttributeInfo using the provided [AutofreeScope].

@@ -9,11 +9,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_18
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontFace
 import org.gtkkn.native.pango.pango_font_face_describe
@@ -35,6 +35,10 @@ import kotlin.String
 public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFontFace>) :
     Object(pangoFontFacePointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Returns a font description that matches the face.
      *
@@ -71,7 +75,7 @@ public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFo
      */
     @PangoVersion1_46
     public open fun getFamily(): FontFamily = pango_font_face_get_family(pangoFontFacePointer)!!.run {
-        FontFamily.FontFamilyImpl(this)
+        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!
     }
 
     /**
@@ -96,7 +100,7 @@ public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFo
 
     public companion object : TypeCompanion<FontFace> {
         override val type: GeneratedClassKGType<FontFace> =
-            GeneratedClassKGType(getTypeOrNull("pango_font_face_get_type")!!) { FontFaceImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FontFaceImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()
@@ -108,5 +112,16 @@ public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFo
          * @return the GType
          */
         public fun getType(): GType = pango_font_face_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_font_face_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_font_face_get_type")
     }
 }

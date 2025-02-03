@@ -9,10 +9,9 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTooltip
 import org.gtkkn.native.gtk.gtk_tooltip_get_type
@@ -58,6 +57,10 @@ import kotlin.Unit
 public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
     Object(gtkTooltipPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Replaces the widget packed into the tooltip with
      * @custom_widget. @custom_widget does not get destroyed when the tooltip goes
@@ -137,7 +140,7 @@ public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
 
     public companion object : TypeCompanion<Tooltip> {
         override val type: GeneratedClassKGType<Tooltip> =
-            GeneratedClassKGType(getTypeOrNull("gtk_tooltip_get_type")!!) { Tooltip(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Tooltip(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -149,5 +152,15 @@ public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_tooltip_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tooltip_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tooltip_get_type")
     }
 }

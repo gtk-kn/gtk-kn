@@ -5,10 +5,9 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkButtonEvent
 import org.gtkkn.native.gdk.gdk_button_event_get_button
 import org.gtkkn.native.gdk.gdk_button_event_get_type
@@ -21,6 +20,10 @@ import org.gtkkn.native.gobject.GType
 public open class ButtonEvent(public val gdkButtonEventPointer: CPointer<GdkButtonEvent>) :
     Event(gdkButtonEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extract the button number from a button event.
      *
@@ -30,7 +33,7 @@ public open class ButtonEvent(public val gdkButtonEventPointer: CPointer<GdkButt
 
     public companion object : TypeCompanion<ButtonEvent> {
         override val type: GeneratedClassKGType<ButtonEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_button_event_get_type")!!) { ButtonEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ButtonEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -42,5 +45,16 @@ public open class ButtonEvent(public val gdkButtonEventPointer: CPointer<GdkButt
          * @return the GType
          */
         public fun getType(): GType = gdk_button_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_button_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_button_event_get_type")
     }
 }

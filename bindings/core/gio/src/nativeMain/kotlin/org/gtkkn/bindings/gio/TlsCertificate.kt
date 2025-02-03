@@ -20,11 +20,11 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.g_tls_certificate_get_issuer
 import org.gtkkn.native.gio.g_tls_certificate_get_issuer_name
@@ -77,6 +77,10 @@ import kotlin.Throws
 public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPointer<GTlsCertificate>) :
     Object(gioTlsCertificatePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * A #GTlsCertificate representing the entity that issued this
      * certificate. If null, this means that the certificate is either
@@ -108,7 +112,7 @@ public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPoint
          * @since 2.28
          */
         get() = g_tls_certificate_get_issuer(gioTlsCertificatePointer)?.run {
-            TlsCertificateImpl(this)
+            InstanceCache.get(this, true) { TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**
@@ -198,13 +202,16 @@ public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPoint
     public constructor(`file`: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_tls_certificate_new_from_file(`file`, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a #GTlsCertificate from the PEM-encoded data in @cert_file
@@ -233,13 +240,16 @@ public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPoint
     public constructor(certFile: String, keyFile: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_tls_certificate_new_from_files(certFile, keyFile, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a #GTlsCertificate from the PEM-encoded data in @data. If
@@ -266,13 +276,16 @@ public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPoint
     public constructor(`data`: String, length: Long) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_tls_certificate_new_from_pem(`data`, length, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a #GTlsCertificate from a
@@ -309,13 +322,16 @@ public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPoint
     public constructor(pkcs11Uri: String, privateKeyPkcs11Uri: String? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_tls_certificate_new_from_pkcs11_uris(pkcs11Uri, privateKeyPkcs11Uri, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Check if two #GTlsCertificate objects represent the same certificate.
@@ -393,72 +409,10 @@ public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPoint
 
     public companion object : TypeCompanion<TlsCertificate> {
         override val type: GeneratedClassKGType<TlsCertificate> =
-            GeneratedClassKGType(getTypeOrNull("g_tls_certificate_get_type")!!) {
-                TlsCertificateImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { TlsCertificateImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
-        }
-
-        /**
-         * Creates a #GTlsCertificate from the PEM-encoded data in @cert_file
-         * and @key_file. The returned certificate will be the first certificate
-         * found in @cert_file. As of GLib 2.44, if @cert_file contains more
-         * certificates it will try to load a certificate chain. All
-         * certificates will be verified in the order found (top-level
-         * certificate should be the last one in the file) and the
-         * #GTlsCertificate:issuer property of each certificate will be set
-         * accordingly if the verification succeeds. If any certificate in the
-         * chain cannot be verified, the first certificate in the file will
-         * still be returned.
-         *
-         * If either file cannot be read or parsed, the function will return
-         * null and set @error. Otherwise, this behaves like
-         * g_tls_certificate_new_from_pem().
-         *
-         * @param certFile file containing one or more PEM-encoded
-         *     certificates to import
-         * @param keyFile file containing a PEM-encoded private key
-         *     to import
-         * @return the new certificate, or null on error
-         * @since 2.28
-         */
-        public fun newFromFiles(certFile: String, keyFile: String): Result<TlsCertificateImpl> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = g_tls_certificate_new_from_files(certFile, keyFile, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(TlsCertificateImpl(checkNotNull(gResult).reinterpret()))
-            }
-        }
-
-        /**
-         * Creates a #GTlsCertificate from the data in @file.
-         *
-         * If @file cannot be read or parsed, the function will return null and
-         * set @error.
-         *
-         * Any unknown file types will error with %G_IO_ERROR_NOT_SUPPORTED.
-         * Currently only `.p12` and `.pfx` files are supported.
-         * See g_tls_certificate_new_from_pkcs12() for more details.
-         *
-         * @param file file containing a certificate to import
-         * @param password password for PKCS #12 files
-         * @return the new certificate, or null on error
-         * @since 2.72
-         */
-        public fun newFromFileWithPassword(`file`: String, password: String): Result<TlsCertificateImpl> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(TlsCertificateImpl(checkNotNull(gResult).reinterpret()))
-            }
         }
 
         /**
@@ -494,5 +448,46 @@ public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = g_tls_certificate_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_tls_certificate_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_tls_certificate_get_type")
+
+        /**
+         * Creates a #GTlsCertificate from the data in @file.
+         *
+         * If @file cannot be read or parsed, the function will return null and
+         * set @error.
+         *
+         * Any unknown file types will error with %G_IO_ERROR_NOT_SUPPORTED.
+         * Currently only `.p12` and `.pfx` files are supported.
+         * See g_tls_certificate_new_from_pkcs12() for more details.
+         *
+         * @param file file containing a certificate to import
+         * @param password password for PKCS #12 files
+         * @return the new certificate, or null on error
+         * @since 2.72
+         */
+        public fun fromFileWithPassword(`file`: String, password: String): Result<TlsCertificateImpl> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = TlsCertificateImpl(checkNotNull(gResult))
+                    InstanceCache.put(instance)
+                    Result.success(instance)
+                }
+            }
+        }
     }
 }

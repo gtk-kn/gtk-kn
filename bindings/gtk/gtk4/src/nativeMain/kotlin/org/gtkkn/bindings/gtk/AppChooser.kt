@@ -8,10 +8,9 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.AppInfo
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAppChooser
 import org.gtkkn.native.gtk.gtk_app_chooser_get_app_info
@@ -22,6 +21,15 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * The application selection widgets should be
+ *   implemented according to the design of each platform and/or
+ *   application requiring them.
+ * ---
+ *
  * `GtkAppChooser` is an interface for widgets which allow the user to
  * choose an application.
  *
@@ -54,6 +62,13 @@ public interface AppChooser :
      */
     public val contentType: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Returns the content type for which the `GtkAppChooser`
          * shows applications.
          *
@@ -62,6 +77,13 @@ public interface AppChooser :
         get() = gtk_app_chooser_get_content_type(gtkAppChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the currently selected application.
      *
      * @return a `GAppInfo` for the
@@ -72,6 +94,13 @@ public interface AppChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the content type for which the `GtkAppChooser`
      * shows applications.
      *
@@ -81,6 +110,13 @@ public interface AppChooser :
         gtk_app_chooser_get_content_type(gtkAppChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Reloads the list of applications.
      */
     public fun refresh(): Unit = gtk_app_chooser_refresh(gtkAppChooserPointer)
@@ -90,15 +126,19 @@ public interface AppChooser :
      *
      * @constructor Creates a new instance of AppChooser for the provided [CPointer].
      */
-    public data class AppChooserImpl(override val gtkAppChooserPointer: CPointer<GtkAppChooser>) :
+    public class AppChooserImpl(gtkAppChooserPointer: CPointer<GtkAppChooser>) :
         Widget(gtkAppChooserPointer.reinterpret()),
-        AppChooser
+        AppChooser {
+        init {
+            Gtk
+        }
+
+        override val gtkAppChooserPointer: CPointer<GtkAppChooser> = gtkAppChooserPointer
+    }
 
     public companion object : TypeCompanion<AppChooser> {
         override val type: GeneratedInterfaceKGType<AppChooser> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_app_chooser_get_type")!!) {
-                AppChooserImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { AppChooserImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -110,5 +150,16 @@ public interface AppChooser :
          * @return the GType
          */
         public fun getType(): GType = gtk_app_chooser_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_app_chooser_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_app_chooser_get_type")
     }
 }

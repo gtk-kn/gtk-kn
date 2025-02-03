@@ -24,13 +24,12 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GVolume
 import org.gtkkn.native.gio.g_volume_can_eject
 import org.gtkkn.native.gio.g_volume_can_mount
@@ -125,6 +124,13 @@ public interface Volume :
     public fun canMount(): Boolean = g_volume_can_mount(gioVolumePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_volume_eject_with_operation() instead.
+     * ---
+     *
      * Ejects a volume. This is an asynchronous operation, and is
      * finished by calling g_volume_eject_finish() with the @volume
      * and #GAsyncResult returned in the @callback.
@@ -145,6 +151,13 @@ public interface Volume :
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_volume_eject_with_operation_finish() instead.
+     * ---
+     *
      * Finishes ejecting a volume. If any errors occurred during the operation,
      * @error will be set to contain the errors and false will be returned.
      *
@@ -442,13 +455,19 @@ public interface Volume :
      *
      * @constructor Creates a new instance of Volume for the provided [CPointer].
      */
-    public data class VolumeImpl(override val gioVolumePointer: CPointer<GVolume>) :
+    public class VolumeImpl(gioVolumePointer: CPointer<GVolume>) :
         Object(gioVolumePointer.reinterpret()),
-        Volume
+        Volume {
+        init {
+            Gio
+        }
+
+        override val gioVolumePointer: CPointer<GVolume> = gioVolumePointer
+    }
 
     public companion object : TypeCompanion<Volume> {
         override val type: GeneratedInterfaceKGType<Volume> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_volume_get_type")!!) { VolumeImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { VolumeImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -460,6 +479,16 @@ public interface Volume :
          * @return the GType
          */
         public fun getType(): GType = g_volume_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_volume_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_volume_get_type")
     }
 }
 

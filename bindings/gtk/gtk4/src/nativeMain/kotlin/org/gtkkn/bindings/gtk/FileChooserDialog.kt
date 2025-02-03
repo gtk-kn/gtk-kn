@@ -5,10 +5,9 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -21,6 +20,13 @@ import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.gtk_file_chooser_dialog_get_type
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FileDialog] instead
+ * ---
+ *
  * `GtkFileChooserDialog` is a dialog suitable for use with
  * “File Open” or “File Save” commands.
  *
@@ -202,6 +208,10 @@ public open class FileChooserDialog(public val gtkFileChooserDialogPointer: CPoi
     Dialog(gtkFileChooserDialogPointer.reinterpret()),
     FileChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkFileChooserPointer: CPointer<GtkFileChooser>
         get() = handle.reinterpret()
 
@@ -225,9 +235,7 @@ public open class FileChooserDialog(public val gtkFileChooserDialogPointer: CPoi
 
     public companion object : TypeCompanion<FileChooserDialog> {
         override val type: GeneratedClassKGType<FileChooserDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_file_chooser_dialog_get_type")!!) {
-                FileChooserDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { FileChooserDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -239,5 +247,16 @@ public open class FileChooserDialog(public val gtkFileChooserDialogPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = gtk_file_chooser_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_file_chooser_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_file_chooser_dialog_get_type")
     }
 }

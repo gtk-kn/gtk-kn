@@ -30,8 +30,11 @@ import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
 import org.gtkkn.bindings.gtk.DrawingArea
+import org.gtkkn.extensions.GtkKn
 import org.gtkkn.extensions.cairo.setDash
 import org.gtkkn.extensions.gio.runApplication
+import org.gtkkn.extensions.glib.util.log.Log
+import org.gtkkn.extensions.glib.util.log.writer.installConsoleLogWriter
 
 /**
  * This is a porting of the PyGObject sample from:
@@ -40,6 +43,8 @@ import org.gtkkn.extensions.gio.runApplication
  * It demonstrates drawing different shapes and line joins with Cairo.
  */
 fun main() {
+    Log.installConsoleLogWriter()
+    GtkKn.debugLogs = true
     val app = Application("org.gtkkn.samples.cairo.shapes", ApplicationFlags.FLAGS_NONE)
     app.onActivate {
         val window = buildWindow(app)

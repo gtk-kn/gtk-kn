@@ -10,21 +10,18 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gtk.GtkPageRange
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A range of pages to print.
  *
  * See also [method@Gtk.PrintSettings.set_page_ranges].
  */
-public class PageRange(public val gtkPageRangePointer: CPointer<GtkPageRange>, cleaner: Cleaner? = null) :
-    ProxyInstance(gtkPageRangePointer) {
+public class PageRange(public val gtkPageRangePointer: CPointer<GtkPageRange>) : ProxyInstance(gtkPageRangePointer) {
     /**
      * start of page range.
      */
@@ -53,21 +50,9 @@ public class PageRange(public val gtkPageRangePointer: CPointer<GtkPageRange>, c
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkPageRange>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PageRange and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkPageRange>, Cleaner>,
-    ) : this(gtkPageRangePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkPageRange>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PageRange using the provided [AutofreeScope].

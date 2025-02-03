@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkLayoutManager
@@ -78,6 +78,10 @@ import kotlin.Unit
 public abstract class LayoutManager(public val gtkLayoutManagerPointer: CPointer<GtkLayoutManager>) :
     Object(gtkLayoutManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Assigns the given @width, @height, and @baseline to
      * a @widget, and computes the position and sizes of the children of
@@ -106,7 +110,7 @@ public abstract class LayoutManager(public val gtkLayoutManagerPointer: CPointer
      */
     public open fun getLayoutChild(child: Widget): LayoutChild =
         gtk_layout_manager_get_layout_child(gtkLayoutManagerPointer, child.gtkWidgetPointer)!!.run {
-            LayoutChild.LayoutChildImpl(this)
+            InstanceCache.get(this, true) { LayoutChild.LayoutChildImpl(reinterpret()) }!!
         }
 
     /**
@@ -125,7 +129,7 @@ public abstract class LayoutManager(public val gtkLayoutManagerPointer: CPointer
      * @return a `GtkWidget`
      */
     public open fun getWidget(): Widget? = gtk_layout_manager_get_widget(gtkLayoutManagerPointer)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -145,9 +149,7 @@ public abstract class LayoutManager(public val gtkLayoutManagerPointer: CPointer
 
     public companion object : TypeCompanion<LayoutManager> {
         override val type: GeneratedClassKGType<LayoutManager> =
-            GeneratedClassKGType(getTypeOrNull("gtk_layout_manager_get_type")!!) {
-                LayoutManagerImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { LayoutManagerImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -159,5 +161,16 @@ public abstract class LayoutManager(public val gtkLayoutManagerPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gtk_layout_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_layout_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_layout_manager_get_type")
     }
 }

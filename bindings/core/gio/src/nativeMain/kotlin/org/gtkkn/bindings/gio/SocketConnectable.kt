@@ -11,10 +11,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_socket_connectable_enumerate
 import org.gtkkn.native.gio.g_socket_connectable_get_type
@@ -96,7 +96,7 @@ public interface SocketConnectable :
     @GioVersion2_22
     public fun enumerate(): SocketAddressEnumerator =
         g_socket_connectable_enumerate(gioSocketConnectablePointer)!!.run {
-            SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)
+            InstanceCache.get(this, true) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(reinterpret()) }!!
         }
 
     /**
@@ -114,7 +114,7 @@ public interface SocketConnectable :
     @GioVersion2_26
     public fun proxyEnumerate(): SocketAddressEnumerator =
         g_socket_connectable_proxy_enumerate(gioSocketConnectablePointer)!!.run {
-            SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)
+            InstanceCache.get(this, true) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(reinterpret()) }!!
         }
 
     /**
@@ -138,15 +138,20 @@ public interface SocketConnectable :
      *
      * @constructor Creates a new instance of SocketConnectable for the provided [CPointer].
      */
-    public data class SocketConnectableImpl(override val gioSocketConnectablePointer: CPointer<GSocketConnectable>) :
+    public class SocketConnectableImpl(gioSocketConnectablePointer: CPointer<GSocketConnectable>) :
         Object(gioSocketConnectablePointer.reinterpret()),
-        SocketConnectable
+        SocketConnectable {
+        init {
+            Gio
+        }
+
+        override val gioSocketConnectablePointer: CPointer<GSocketConnectable> =
+            gioSocketConnectablePointer
+    }
 
     public companion object : TypeCompanion<SocketConnectable> {
         override val type: GeneratedInterfaceKGType<SocketConnectable> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_socket_connectable_get_type")!!) {
-                SocketConnectableImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { SocketConnectableImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -158,5 +163,16 @@ public interface SocketConnectable :
          * @return the GType
          */
         public fun getType(): GType = g_socket_connectable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_socket_connectable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_socket_connectable_get_type")
     }
 }

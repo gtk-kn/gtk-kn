@@ -9,9 +9,12 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
+import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDir
 import org.gtkkn.native.glib.GError
@@ -27,12 +30,40 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_dir_get_type
 import kotlin.Result
 import kotlin.String
+import kotlin.Throws
 import kotlin.Unit
 
 /**
  * An opaque structure representing an opened directory.
  */
 public class Dir(public val glibDirPointer: CPointer<GDir>) : ProxyInstance(glibDirPointer) {
+    /**
+     * Opens a directory for reading. The names of the files in the
+     * directory can then be retrieved using g_dir_read_name().  Note
+     * that the ordering is not defined.
+     *
+     * @param path the path to the directory you are interested in. On Unix
+     *         in the on-disk encoding. On Windows in UTF-8
+     * @param flags Currently must be set to 0. Reserved for future use.
+     * @return a newly allocated #GDir on success, null on failure.
+     *   If non-null, you must free the result with g_dir_close()
+     *   when you are finished with it.
+     */
+    @Throws(GLibException::class)
+    public constructor(path: String, flags: guint) : this(
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = g_dir_open(path, flags, gError.ptr)
+            if (gError.pointed != null) {
+                throw resolveException(Error(gError.pointed!!.ptr))
+            }
+            gResult!!
+        }
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Closes the directory immediately and decrements the reference count.
      *
@@ -102,30 +133,6 @@ public class Dir(public val glibDirPointer: CPointer<GDir>) : ProxyInstance(glib
     public fun unref(): Unit = g_dir_unref(glibDirPointer)
 
     public companion object {
-        /**
-         * Opens a directory for reading. The names of the files in the
-         * directory can then be retrieved using g_dir_read_name().  Note
-         * that the ordering is not defined.
-         *
-         * @param path the path to the directory you are interested in. On Unix
-         *         in the on-disk encoding. On Windows in UTF-8
-         * @param flags Currently must be set to 0. Reserved for future use.
-         * @return a newly allocated #GDir on success, null on failure.
-         *   If non-null, you must free the result with g_dir_close()
-         *   when you are finished with it.
-         */
-        public fun `open`(path: String, flags: guint): Result<Dir> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_dir_open(path, flags, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(Dir(checkNotNull(gResult)))
-                }
-            }
-        }
-
         /**
          * Creates a subdirectory in the preferred directory for temporary
          * files (as returned by g_get_tmp_dir()).

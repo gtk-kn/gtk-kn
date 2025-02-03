@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkConstraintGuide
@@ -57,6 +57,10 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
     Object(gtkConstraintGuidePointer.reinterpret()),
     ConstraintTarget,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = handle.reinterpret()
 
@@ -107,7 +111,9 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
      *
      * @return a new `GtkConstraintGuide` object.
      */
-    public constructor() : this(gtk_constraint_guide_new()!!.reinterpret())
+    public constructor() : this(gtk_constraint_guide_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Sets the maximum size of @guide.
@@ -147,9 +153,7 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
 
     public companion object : TypeCompanion<ConstraintGuide> {
         override val type: GeneratedClassKGType<ConstraintGuide> =
-            GeneratedClassKGType(getTypeOrNull("gtk_constraint_guide_get_type")!!) {
-                ConstraintGuide(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ConstraintGuide(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -161,5 +165,16 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gtk_constraint_guide_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_constraint_guide_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_constraint_guide_get_type")
     }
 }

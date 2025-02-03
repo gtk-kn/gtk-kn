@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -63,6 +64,16 @@ public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInsta
         set(`value`) {
             pangoItemPointer.pointed.num_chars = value
         }
+
+    /**
+     * Creates a new `PangoItem` structure initialized to default values.
+     *
+     * @return the newly allocated `PangoItem`, which should
+     *   be freed with [method@Pango.Item.free].
+     */
+    public constructor() : this(pango_item_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Add attributes to a `PangoItem`.
@@ -126,14 +137,6 @@ public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInsta
     override fun toString(): String = "Item(offset=$offset, length=$length, numChars=$numChars)"
 
     public companion object {
-        /**
-         * Creates a new `PangoItem` structure initialized to default values.
-         *
-         * @return the newly allocated `PangoItem`, which should
-         *   be freed with [method@Pango.Item.free].
-         */
-        public fun new(): Item = Item(pango_item_new()!!)
-
         /**
          * Get the GType of Item
          *

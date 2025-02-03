@@ -47,7 +47,7 @@ fun main() {
         window.setDefaultSize(420, 420)
 
         window.child = Image().apply {
-            setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+            setFromPixbuf(Pixbuf.fromResource("/images/kotlin.png").getOrThrow())
         }
         window.show()
     }

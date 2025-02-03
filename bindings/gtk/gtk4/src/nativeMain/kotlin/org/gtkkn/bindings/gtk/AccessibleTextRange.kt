@@ -11,23 +11,19 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gtk.GtkAccessibleTextRange
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A range inside the text of an accessible object.
  * @since 4.14
  */
 @GtkVersion4_14
-public class AccessibleTextRange(
-    public val gtkAccessibleTextRangePointer: CPointer<GtkAccessibleTextRange>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gtkAccessibleTextRangePointer) {
+public class AccessibleTextRange(public val gtkAccessibleTextRangePointer: CPointer<GtkAccessibleTextRange>) :
+    ProxyInstance(gtkAccessibleTextRangePointer) {
     /**
      * the start of the range, in characters
      */
@@ -56,21 +52,9 @@ public class AccessibleTextRange(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkAccessibleTextRange>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to AccessibleTextRange and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkAccessibleTextRange>, Cleaner>,
-    ) : this(gtkAccessibleTextRangePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkAccessibleTextRange>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new AccessibleTextRange using the provided [AutofreeScope].

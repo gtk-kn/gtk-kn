@@ -10,10 +10,10 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwApplicationWindow
 import org.gtkkn.native.adw.adw_application_window_add_breakpoint
 import org.gtkkn.native.adw.adw_application_window_get_content
@@ -70,6 +70,10 @@ import kotlin.Unit
 public open class ApplicationWindow(public val adwApplicationWindowPointer: CPointer<AdwApplicationWindow>) :
     org.gtkkn.bindings.gtk.ApplicationWindow(adwApplicationWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
 
@@ -108,7 +112,7 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
          * @return the content widget of @self
          */
         get() = adw_application_window_get_content(adwApplicationWindowPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -134,7 +138,7 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
          * @since 1.4
          */
         get() = adw_application_window_get_current_breakpoint(adwApplicationWindowPointer)?.run {
-            Breakpoint(this)
+            InstanceCache.get(this, true) { Breakpoint(reinterpret()) }!!
         }
 
     /**
@@ -170,7 +174,7 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
          * @since 1.5
          */
         get() = adw_application_window_get_visible_dialog(adwApplicationWindowPointer)?.run {
-            Dialog(this)
+            InstanceCache.get(this, true) { Dialog(reinterpret()) }!!
         }
 
     /**
@@ -179,7 +183,9 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
      * @param app an application instance
      * @return the newly created `AdwApplicationWindow`
      */
-    public constructor(app: Application) : this(adw_application_window_new(app.gtkApplicationPointer)!!.reinterpret())
+    public constructor(app: Application) : this(adw_application_window_new(app.gtkApplicationPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @breakpoint to @self.
@@ -193,9 +199,7 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =
-            GeneratedClassKGType(getTypeOrNull("adw_application_window_get_type")!!) {
-                ApplicationWindow(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ApplicationWindow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -207,5 +211,16 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = adw_application_window_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_application_window_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_application_window_get_type")
     }
 }

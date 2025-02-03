@@ -6,12 +6,12 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
@@ -104,6 +104,10 @@ import kotlin.Unit
 public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
     Widget(gtkStackPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -264,7 +268,9 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
      *
      * @return a new `GtkStack`
      */
-    public constructor() : this(gtk_stack_new()!!.reinterpret())
+    public constructor() : this(gtk_stack_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a child to @stack.
@@ -274,7 +280,7 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
      */
     public open fun addChild(child: Widget): StackPage =
         gtk_stack_add_child(gtkStackPointer, child.gtkWidgetPointer)!!.run {
-            StackPage(this)
+            InstanceCache.get(this, true) { StackPage(reinterpret()) }!!
         }
 
     /**
@@ -288,7 +294,7 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
      */
     public open fun addNamed(child: Widget, name: String? = null): StackPage =
         gtk_stack_add_named(gtkStackPointer, child.gtkWidgetPointer, name)!!.run {
-            StackPage(this)
+            InstanceCache.get(this, true) { StackPage(reinterpret()) }!!
         }
 
     /**
@@ -305,7 +311,7 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
      */
     public open fun addTitled(child: Widget, name: String? = null, title: String): StackPage =
         gtk_stack_add_titled(gtkStackPointer, child.gtkWidgetPointer, name, title)!!.run {
-            StackPage(this)
+            InstanceCache.get(this, true) { StackPage(reinterpret()) }!!
         }
 
     /**
@@ -318,7 +324,7 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
      *   of the `GtkStack`
      */
     public open fun getChildByName(name: String): Widget? = gtk_stack_get_child_by_name(gtkStackPointer, name)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -329,7 +335,7 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
      */
     public open fun getPage(child: Widget): StackPage =
         gtk_stack_get_page(gtkStackPointer, child.gtkWidgetPointer)!!.run {
-            StackPage(this)
+            InstanceCache.get(this, true) { StackPage(reinterpret()) }!!
         }
 
     /**
@@ -340,7 +346,7 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
      * @return the visible child of the `GtkStack`
      */
     public open fun getVisibleChild(): Widget? = gtk_stack_get_visible_child(gtkStackPointer)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -406,7 +412,7 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
 
     public companion object : TypeCompanion<Stack> {
         override val type: GeneratedClassKGType<Stack> =
-            GeneratedClassKGType(getTypeOrNull("gtk_stack_get_type")!!) { Stack(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Stack(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -418,5 +424,15 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_stack_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_stack_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_stack_get_type")
     }
 }

@@ -3,12 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -22,10 +19,7 @@ import org.gtkkn.native.graphene.graphene_quad_init
 import org.gtkkn.native.graphene.graphene_quad_init_from_rect
 import org.gtkkn.native.graphene.graphene_quad_t
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A 4 vertex quadrilateral, as represented by four #graphene_point_t.
@@ -40,38 +34,18 @@ import kotlin.native.ref.createCleaner
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Quad(public val grapheneQuadPointer: CPointer<graphene_quad_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(grapheneQuadPointer) {
+public class Quad(public val grapheneQuadPointer: CPointer<graphene_quad_t>) : ProxyInstance(grapheneQuadPointer) {
     /**
-     * Allocate a new Quad.
+     * Allocates a new #graphene_quad_t instance.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the returned instance are undefined.
+     *
+     * @return the newly created #graphene_quad_t instance
+     * @since 1.0
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_quad_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Quad and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_quad_t>, Cleaner>,
-    ) : this(grapheneQuadPointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Quad using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_quad_t>().ptr)
+    public constructor() : this(graphene_quad_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Computes the bounding rectangle of @q and places it into @r.
@@ -148,16 +122,6 @@ public class Quad(public val grapheneQuadPointer: CPointer<graphene_quad_t>, cle
         }
 
     public companion object {
-        /**
-         * Allocates a new #graphene_quad_t instance.
-         *
-         * The contents of the returned instance are undefined.
-         *
-         * @return the newly created #graphene_quad_t instance
-         * @since 1.0
-         */
-        public fun alloc(): Quad = Quad(graphene_quad_alloc()!!)
-
         /**
          * Get the GType of Quad
          *

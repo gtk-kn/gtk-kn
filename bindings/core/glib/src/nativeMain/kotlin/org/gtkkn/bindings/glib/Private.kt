@@ -9,16 +9,14 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPrivate
 import org.gtkkn.native.glib.g_private_get
 import org.gtkkn.native.glib.g_private_replace
 import org.gtkkn.native.glib.g_private_set
 import org.gtkkn.native.glib.gpointer
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GPrivate struct is an opaque data structure to represent a
@@ -43,29 +41,16 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `notify`: DestroyNotify
  */
-public class Private(public val glibPrivatePointer: CPointer<GPrivate>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibPrivatePointer) {
+public class Private(public val glibPrivatePointer: CPointer<GPrivate>) : ProxyInstance(glibPrivatePointer) {
     /**
      * Allocate a new Private.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GPrivate>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Private and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GPrivate>, Cleaner>,
-    ) : this(glibPrivatePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GPrivate>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Private using the provided [AutofreeScope].

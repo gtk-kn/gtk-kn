@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Icon
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkAppLaunchContext
 import org.gtkkn.native.gdk.gdk_app_launch_context_get_display
 import org.gtkkn.native.gdk.gdk_app_launch_context_get_type
@@ -47,6 +47,10 @@ import kotlin.Unit
 public open class AppLaunchContext(public val gdkAppLaunchContextPointer: CPointer<GdkAppLaunchContext>) :
     org.gtkkn.bindings.gio.AppLaunchContext(gdkAppLaunchContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The display that the `GdkAppLaunchContext` is on.
      */
@@ -57,7 +61,7 @@ public open class AppLaunchContext(public val gdkAppLaunchContextPointer: CPoint
          * @return the display of @context
          */
         get() = gdk_app_launch_context_get_display(gdkAppLaunchContextPointer)!!.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -128,9 +132,7 @@ public open class AppLaunchContext(public val gdkAppLaunchContextPointer: CPoint
 
     public companion object : TypeCompanion<AppLaunchContext> {
         override val type: GeneratedClassKGType<AppLaunchContext> =
-            GeneratedClassKGType(getTypeOrNull("gdk_app_launch_context_get_type")!!) {
-                AppLaunchContext(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { AppLaunchContext(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -142,5 +144,16 @@ public open class AppLaunchContext(public val gdkAppLaunchContextPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gdk_app_launch_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_app_launch_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_app_launch_context_get_type")
     }
 }

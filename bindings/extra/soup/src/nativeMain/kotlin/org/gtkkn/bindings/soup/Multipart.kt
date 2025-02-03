@@ -6,6 +6,7 @@ package org.gtkkn.bindings.soup
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -42,6 +43,38 @@ import kotlin.Unit
  */
 public class Multipart(public val soupMultipartPointer: CPointer<SoupMultipart>) :
     ProxyInstance(soupMultipartPointer) {
+    /**
+     * Creates a new empty #SoupMultipart with a randomly-generated
+     * boundary string.
+     *
+     * Note that @mime_type must be the full MIME type, including "multipart/".
+     *
+     * See also: [ctor@Message.new_from_multipart].
+     *
+     * @param mimeType the MIME type of the multipart to create.
+     * @return a new empty #SoupMultipart of the given @mime_type
+     */
+    public constructor(mimeType: String) : this(soup_multipart_new(mimeType)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Parses @headers and @body to form a new #SoupMultipart
+     *
+     * @param headers the headers of the HTTP message to parse
+     * @param body the body of the HTTP message to parse
+     * @return a new #SoupMultipart (or null if the
+     *   message couldn't be parsed or wasn't multipart).
+     */
+    public constructor(
+        headers: MessageHeaders,
+        body: Bytes,
+    ) : this(
+        soup_multipart_new_from_message(headers.soupMessageHeadersPointer, body.glibBytesPointer)!!.reinterpret()
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Adds a new MIME part containing @body to @multipart
      *
@@ -97,34 +130,6 @@ public class Multipart(public val soupMultipartPointer: CPointer<SoupMultipart>)
     public fun getLength(): gint = soup_multipart_get_length(soupMultipartPointer)
 
     public companion object {
-        /**
-         * Creates a new empty #SoupMultipart with a randomly-generated
-         * boundary string.
-         *
-         * Note that @mime_type must be the full MIME type, including "multipart/".
-         *
-         * See also: [ctor@Message.new_from_multipart].
-         *
-         * @param mimeType the MIME type of the multipart to create.
-         * @return a new empty #SoupMultipart of the given @mime_type
-         */
-        public fun new(mimeType: String): Multipart = Multipart(soup_multipart_new(mimeType)!!.reinterpret())
-
-        /**
-         * Parses @headers and @body to form a new #SoupMultipart
-         *
-         * @param headers the headers of the HTTP message to parse
-         * @param body the body of the HTTP message to parse
-         * @return a new #SoupMultipart (or null if the
-         *   message couldn't be parsed or wasn't multipart).
-         */
-        public fun newFromMessage(headers: MessageHeaders, body: Bytes): Multipart? = Multipart(
-            soup_multipart_new_from_message(
-                headers.soupMessageHeadersPointer,
-                body.glibBytesPointer
-            )!!.reinterpret()
-        )
-
         /**
          * Get the GType of Multipart
          *

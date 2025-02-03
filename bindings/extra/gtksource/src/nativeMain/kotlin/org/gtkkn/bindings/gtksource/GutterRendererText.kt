@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtksource
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
@@ -39,6 +39,10 @@ public open class GutterRendererText(
     public val gtksourceGutterRendererTextPointer: CPointer<GtkSourceGutterRendererText>,
 ) : GutterRenderer(gtksourceGutterRendererTextPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -53,7 +57,9 @@ public open class GutterRendererText(
      *
      * @return A #GtkSourceGutterRenderer
      */
-    public constructor() : this(gtk_source_gutter_renderer_text_new()!!.reinterpret())
+    public constructor() : this(gtk_source_gutter_renderer_text_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public open fun setMarkup(markup: String, length: gint): Unit =
         gtk_source_gutter_renderer_text_set_markup(gtksourceGutterRendererTextPointer, markup, length)
@@ -63,12 +69,10 @@ public open class GutterRendererText(
 
     public companion object : TypeCompanion<GutterRendererText> {
         override val type: GeneratedClassKGType<GutterRendererText> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_renderer_text_get_type")!!) {
-                GutterRendererText(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { GutterRendererText(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -77,5 +81,16 @@ public open class GutterRendererText(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_gutter_renderer_text_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_gutter_renderer_text_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_gutter_renderer_text_get_type")
     }
 }

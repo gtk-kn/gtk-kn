@@ -6,11 +6,11 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -51,6 +51,10 @@ import kotlin.Boolean
 public open class Constraint(public val gtkConstraintPointer: CPointer<GtkConstraint>) :
     Object(gtkConstraintPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The constant value to be added to the [property@Gtk.Constraint:source-attribute].
      */
@@ -205,8 +209,10 @@ public open class Constraint(public val gtkConstraintPointer: CPointer<GtkConstr
             multiplier,
             constant,
             strength
-        )!!.reinterpret()
-    )
+        )!!
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new constraint representing a relation between a layout
@@ -232,8 +238,10 @@ public open class Constraint(public val gtkConstraintPointer: CPointer<GtkConstr
             relation.nativeValue,
             constant,
             strength
-        )!!.reinterpret()
-    )
+        )!!
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Checks whether the constraint is attached to a [class@Gtk.ConstraintLayout],
@@ -261,7 +269,7 @@ public open class Constraint(public val gtkConstraintPointer: CPointer<GtkConstr
 
     public companion object : TypeCompanion<Constraint> {
         override val type: GeneratedClassKGType<Constraint> =
-            GeneratedClassKGType(getTypeOrNull("gtk_constraint_get_type")!!) { Constraint(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Constraint(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -273,5 +281,16 @@ public open class Constraint(public val gtkConstraintPointer: CPointer<GtkConstr
          * @return the GType
          */
         public fun getType(): GType = gtk_constraint_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_constraint_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_constraint_get_type")
     }
 }

@@ -9,11 +9,9 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusSubtreeVTable
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Virtual table for handling subtrees registered with g_dbus_connection_register_subtree().
@@ -27,31 +25,17 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusSubtreeVTable(
-    public val gioDBusSubtreeVTablePointer: CPointer<GDBusSubtreeVTable>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gioDBusSubtreeVTablePointer) {
+public class DBusSubtreeVTable(public val gioDBusSubtreeVTablePointer: CPointer<GDBusSubtreeVTable>) :
+    ProxyInstance(gioDBusSubtreeVTablePointer) {
     /**
      * Allocate a new DBusSubtreeVTable.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusSubtreeVTable>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DBusSubtreeVTable and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDBusSubtreeVTable>, Cleaner>,
-    ) : this(gioDBusSubtreeVTablePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDBusSubtreeVTable>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DBusSubtreeVTable using the provided [AutofreeScope].

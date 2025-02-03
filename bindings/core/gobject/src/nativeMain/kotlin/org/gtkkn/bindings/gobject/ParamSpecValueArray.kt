@@ -11,4 +11,8 @@ import org.gtkkn.native.gobject.GParamSpecValueArray
  * A #GParamSpec derived structure that contains the meta data for #GValueArray properties.
  */
 public open class ParamSpecValueArray(public val gobjectParamSpecValueArrayPointer: CPointer<GParamSpecValueArray>) :
-    ParamSpec(gobjectParamSpecValueArrayPointer.reinterpret())
+    ParamSpec(gobjectParamSpecValueArrayPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

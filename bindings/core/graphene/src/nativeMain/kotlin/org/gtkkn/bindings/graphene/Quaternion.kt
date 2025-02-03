@@ -3,14 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
@@ -38,10 +35,7 @@ import org.gtkkn.native.graphene.graphene_quaternion_t
 import org.gtkkn.native.graphene.graphene_quaternion_to_matrix
 import org.gtkkn.native.graphene.graphene_quaternion_to_vec4
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A quaternion.
@@ -58,40 +52,19 @@ import kotlin.native.ref.createCleaner
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Quaternion(
-    public val grapheneQuaternionPointer: CPointer<graphene_quaternion_t>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(grapheneQuaternionPointer) {
+public class Quaternion(public val grapheneQuaternionPointer: CPointer<graphene_quaternion_t>) :
+    ProxyInstance(grapheneQuaternionPointer) {
     /**
-     * Allocate a new Quaternion.
+     * Allocates a new #graphene_quaternion_t.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the returned value are undefined.
+     *
+     * @return the newly allocated #graphene_quaternion_t
+     * @since 1.0
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_quaternion_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Quaternion and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_quaternion_t>, Cleaner>,
-    ) : this(grapheneQuaternionPointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Quaternion using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_quaternion_t>().ptr)
+    public constructor() : this(graphene_quaternion_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Adds two #graphene_quaternion_t @a and @b.
@@ -359,16 +332,6 @@ public class Quaternion(
     public fun toVec4(res: Vec4): Unit = graphene_quaternion_to_vec4(grapheneQuaternionPointer, res.grapheneVec4Pointer)
 
     public companion object {
-        /**
-         * Allocates a new #graphene_quaternion_t.
-         *
-         * The contents of the returned value are undefined.
-         *
-         * @return the newly allocated #graphene_quaternion_t
-         * @since 1.0
-         */
-        public fun alloc(): Quaternion = Quaternion(graphene_quaternion_alloc()!!)
-
         /**
          * Get the GType of Quaternion
          *

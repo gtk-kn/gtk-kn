@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -32,6 +33,16 @@ import kotlin.Unit
 @GtkVersion4_12
 public class ScrollInfo(public val gtkScrollInfoPointer: CPointer<GtkScrollInfo>) :
     ProxyInstance(gtkScrollInfoPointer) {
+    /**
+     * Creates a new scroll info for scrolling an element into view.
+     *
+     * @return A new scroll info
+     * @since 4.12
+     */
+    public constructor() : this(gtk_scroll_info_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Checks if horizontal scrolling is enabled.
      *
@@ -94,14 +105,6 @@ public class ScrollInfo(public val gtkScrollInfoPointer: CPointer<GtkScrollInfo>
     public fun unref(): Unit = gtk_scroll_info_unref(gtkScrollInfoPointer)
 
     public companion object {
-        /**
-         * Creates a new scroll info for scrolling an element into view.
-         *
-         * @return A new scroll info
-         * @since 4.12
-         */
-        public fun new(): ScrollInfo = ScrollInfo(gtk_scroll_info_new()!!)
-
         /**
          * Get the GType of ScrollInfo
          *

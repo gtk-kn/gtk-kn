@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -47,6 +48,19 @@ public class Requisition(public val gtkRequisitionPointer: CPointer<GtkRequisiti
         }
 
     /**
+     * Allocates a new `GtkRequisition`.
+     *
+     * The struct is initialized to zero.
+     *
+     * @return a new empty `GtkRequisition`. The newly
+     *   allocated `GtkRequisition` should be freed with
+     *   [method@Gtk.Requisition.free]
+     */
+    public constructor() : this(gtk_requisition_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
      * Copies a `GtkRequisition`.
      *
      * @return a copy of @requisition
@@ -63,17 +77,6 @@ public class Requisition(public val gtkRequisitionPointer: CPointer<GtkRequisiti
     override fun toString(): String = "Requisition(width=$width, height=$height)"
 
     public companion object {
-        /**
-         * Allocates a new `GtkRequisition`.
-         *
-         * The struct is initialized to zero.
-         *
-         * @return a new empty `GtkRequisition`. The newly
-         *   allocated `GtkRequisition` should be freed with
-         *   [method@Gtk.Requisition.free]
-         */
-        public fun new(): Requisition = Requisition(gtk_requisition_new()!!)
-
         /**
          * Get the GType of Requisition
          *

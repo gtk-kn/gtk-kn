@@ -9,6 +9,15 @@ import org.gtkkn.native.gio.g_tls_rehandshake_mode_get_type
 import org.gtkkn.native.gobject.GType
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.60..
+ *
+ * Changing the rehandshake mode is no longer
+ *   required for compatibility. Also, rehandshaking has been removed
+ *   from the TLS protocol in TLS 1.3.
+ * ---
+ *
  * When to allow rehandshaking. See
  * g_tls_connection_set_rehandshake_mode().
  * @since 2.28
@@ -16,16 +25,43 @@ import org.gtkkn.native.gobject.GType
 @GioVersion2_28
 public enum class TlsRehandshakeMode(public val nativeValue: GTlsRehandshakeMode) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.60..
+     *
+     * Changing the rehandshake mode is no longer
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
+     * ---
+     *
      * Never allow rehandshaking
      */
     NEVER(GTlsRehandshakeMode.G_TLS_REHANDSHAKE_NEVER),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.60..
+     *
+     * Changing the rehandshake mode is no longer
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
+     * ---
+     *
      * Allow safe rehandshaking only
      */
     SAFELY(GTlsRehandshakeMode.G_TLS_REHANDSHAKE_SAFELY),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.60..
+     *
+     * Changing the rehandshake mode is no longer
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
+     * ---
+     *
      * Allow unsafe rehandshaking
      */
     UNSAFELY(GTlsRehandshakeMode.G_TLS_REHANDSHAKE_UNSAFELY),

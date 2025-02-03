@@ -14,13 +14,13 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -42,6 +42,13 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.ColorDialogButton] instead
+ * ---
+ *
  * The `GtkColorButton` allows to open a color chooser dialog to change
  * the color.
  *
@@ -69,6 +76,10 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
     Widget(gtkColorButtonPointer.reinterpret()),
     ColorChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkColorChooserPointer: CPointer<GtkColorChooser>
         get() = handle.reinterpret()
 
@@ -86,6 +97,13 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
      */
     public open var modal: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialogButton] instead
+         * ---
+         *
          * Gets whether the dialog is modal.
          *
          * @return true if the dialog is modal
@@ -93,6 +111,13 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
         get() = gtk_color_button_get_modal(gtkColorButtonPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialogButton] instead
+         * ---
+         *
          * Sets whether the dialog should be modal.
          *
          * @param modal true to make the dialog modal
@@ -104,6 +129,13 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
      */
     public open var title: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialogButton] instead
+         * ---
+         *
          * Gets the title of the color chooser dialog.
          *
          * @return An internal string, do not free the return value
@@ -111,6 +143,13 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
         get() = gtk_color_button_get_title(gtkColorButtonPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialogButton] instead
+         * ---
+         *
          * Sets the title for the color chooser dialog.
          *
          * @param title String containing new window title
@@ -118,6 +157,13 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
         set(title) = gtk_color_button_set_title(gtkColorButtonPointer, title)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialogButton] instead
+     * ---
+     *
      * Creates a new color button.
      *
      * This returns a widget in the form of a small button containing
@@ -128,7 +174,9 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
      *
      * @return a new color button
      */
-    public constructor() : this(gtk_color_button_new()!!.reinterpret())
+    public constructor() : this(gtk_color_button_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new color button showing the given color.
@@ -136,7 +184,9 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
      * @param rgba A `GdkRGBA` to set the current color with
      * @return a new color button
      */
-    public constructor(rgba: Rgba) : this(gtk_color_button_new_with_rgba(rgba.gdkRgbaPointer)!!.reinterpret())
+    public constructor(rgba: Rgba) : this(gtk_color_button_new_with_rgba(rgba.gdkRgbaPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted to when the color button is activated.
@@ -201,7 +251,7 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
 
     public companion object : TypeCompanion<ColorButton> {
         override val type: GeneratedClassKGType<ColorButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_color_button_get_type")!!) { ColorButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ColorButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -213,6 +263,17 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
          * @return the GType
          */
         public fun getType(): GType = gtk_color_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_color_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_color_button_get_type")
     }
 }
 

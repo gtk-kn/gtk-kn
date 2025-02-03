@@ -8,11 +8,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkFileFilter
@@ -89,6 +89,10 @@ public open class FileFilter(public val gtkFileFilterPointer: CPointer<GtkFileFi
     Filter(gtkFileFilterPointer.reinterpret()),
     Buildable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 
@@ -137,7 +141,9 @@ public open class FileFilter(public val gtkFileFilterPointer: CPointer<GtkFileFi
      *
      * @return a new `GtkFileFilter`
      */
-    public constructor() : this(gtk_file_filter_new()!!.reinterpret())
+    public constructor() : this(gtk_file_filter_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Deserialize a file filter from a `GVariant`.
@@ -148,9 +154,9 @@ public open class FileFilter(public val gtkFileFilterPointer: CPointer<GtkFileFi
      * @param variant an `a{sv}` `GVariant`
      * @return a new `GtkFileFilter` object
      */
-    public constructor(
-        variant: Variant,
-    ) : this(gtk_file_filter_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
+    public constructor(variant: Variant) : this(gtk_file_filter_new_from_gvariant(variant.glibVariantPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a rule allowing a given mime type to @filter.
@@ -218,7 +224,7 @@ public open class FileFilter(public val gtkFileFilterPointer: CPointer<GtkFileFi
 
     public companion object : TypeCompanion<FileFilter> {
         override val type: GeneratedClassKGType<FileFilter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_file_filter_get_type")!!) { FileFilter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FileFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -230,5 +236,16 @@ public open class FileFilter(public val gtkFileFilterPointer: CPointer<GtkFileFi
          * @return the GType
          */
         public fun getType(): GType = gtk_file_filter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_file_filter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_file_filter_get_type")
     }
 }

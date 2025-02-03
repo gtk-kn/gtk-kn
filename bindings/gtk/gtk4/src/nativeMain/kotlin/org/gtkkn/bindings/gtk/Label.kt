@@ -21,13 +21,13 @@ import org.gtkkn.bindings.pango.EllipsizeMode
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.bindings.pango.TabArray
 import org.gtkkn.bindings.pango.WrapMode
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
@@ -288,6 +288,10 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
     Widget(gtkLabelPointer.reinterpret()),
     AccessibleText,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = handle.reinterpret()
 
@@ -380,7 +384,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return the menu model
          */
         get() = gtk_label_get_extra_menu(gtkLabelPointer)?.run {
-            MenuModel.MenuModelImpl(this)
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
 
         /**
@@ -544,7 +548,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          *   or null if none has been set and the default algorithm will be used.
          */
         get() = gtk_label_get_mnemonic_widget(gtkLabelPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -878,7 +882,9 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @param str The text of the label
      * @return the new `GtkLabel`
      */
-    public constructor(str: String? = null) : this(gtk_label_new(str)!!.reinterpret())
+    public constructor(str: String? = null) : this(gtk_label_new(str)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the URI for the currently active link in the label.
@@ -906,7 +912,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @return the [class@Pango.Layout] for this label
      */
     public open fun getLayout(): Layout = gtk_label_get_layout(gtkLabelPointer)!!.run {
-        Layout(this)
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**
@@ -1148,21 +1154,28 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
 
     public companion object : TypeCompanion<Label> {
         override val type: GeneratedClassKGType<Label> =
-            GeneratedClassKGType(getTypeOrNull("gtk_label_get_type")!!) { Label(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Label(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
 
         /**
-         * Creates a new label with the given text inside it.
+         * Get the GType of Label
          *
-         * You can pass null to get an empty label widget.
-         *
-         * @param str The text of the label
-         * @return the new `GtkLabel`
+         * @return the GType
          */
-        public fun new(str: String? = null): Label = Label(gtk_label_new(str)!!.reinterpret())
+        public fun getType(): GType = gtk_label_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_label_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_label_get_type")
 
         /**
          * Creates a new `GtkLabel`, containing the text in @str.
@@ -1184,14 +1197,10 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          *   mnemonic character
          * @return the new `GtkLabel`
          */
-        public fun newWithMnemonic(str: String? = null): Label = Label(gtk_label_new_with_mnemonic(str)!!.reinterpret())
-
-        /**
-         * Get the GType of Label
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_label_get_type()
+        public fun withMnemonic(str: String? = null): Label =
+            Label(gtk_label_new_with_mnemonic(str)!!.reinterpret()).apply {
+                InstanceCache.put(this)
+            }
     }
 }
 

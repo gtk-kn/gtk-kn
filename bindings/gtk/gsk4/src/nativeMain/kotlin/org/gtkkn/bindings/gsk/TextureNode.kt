@@ -7,12 +7,14 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.graphene.Rect
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTextureNode
+import org.gtkkn.native.gsk.gsk_render_node_unref
 import org.gtkkn.native.gsk.gsk_texture_node_get_texture
 import org.gtkkn.native.gsk.gsk_texture_node_get_type
 import org.gtkkn.native.gsk.gsk_texture_node_new
@@ -23,6 +25,10 @@ import org.gtkkn.native.gsk.gsk_texture_node_new
 public open class TextureNode(public val gskTextureNodePointer: CPointer<GskTextureNode>) :
     RenderNode(gskTextureNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will render the given
      * @texture into the area given by @bounds.
@@ -38,7 +44,9 @@ public open class TextureNode(public val gskTextureNodePointer: CPointer<GskText
     public constructor(
         texture: Texture,
         bounds: Rect,
-    ) : this(gsk_texture_node_new(texture.gdkTexturePointer, bounds.grapheneRectPointer)!!.reinterpret())
+    ) : this(gsk_texture_node_new(texture.gdkTexturePointer, bounds.grapheneRectPointer)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the `GdkTexture` used when creating this `GskRenderNode`.
@@ -46,12 +54,12 @@ public open class TextureNode(public val gskTextureNodePointer: CPointer<GskText
      * @return the `GdkTexture`
      */
     public open fun getTexture(): Texture = gsk_texture_node_get_texture(gskTextureNodePointer.reinterpret())!!.run {
-        Texture.TextureImpl(this)
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<TextureNode> {
         override val type: GeneratedClassKGType<TextureNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_texture_node_get_type")!!) { TextureNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TextureNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -63,5 +71,16 @@ public open class TextureNode(public val gskTextureNodePointer: CPointer<GskText
          * @return the GType
          */
         public fun getType(): GType = gsk_texture_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_texture_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_texture_node_get_type")
     }
 }

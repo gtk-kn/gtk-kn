@@ -186,14 +186,15 @@ interface ConversionBlockGenerator {
 
     fun buildNativeToKotlinConversionsBlock(
         returnTypeInfo: TypeInfo,
-        reinterpretReturnValue: Boolean = false
+        reinterpretReturnValue: Boolean = false,
+        upCall: Boolean = false,
     ): CodeBlock =
         CodeBlock.builder().apply {
             val isNullable = returnTypeInfo.kotlinTypeName.isNullable
 
             when (returnTypeInfo) {
                 is TypeInfo.Enumeration -> NativeToKotlinConversions.buildEnumeration(this, returnTypeInfo)
-                is TypeInfo.ObjectPointer -> NativeToKotlinConversions.buildObjectPointer(returnTypeInfo, this)
+                is TypeInfo.ObjectPointer -> NativeToKotlinConversions.buildObjectPointer(returnTypeInfo, this, upCall)
                 is TypeInfo.InterfacePointer -> NativeToKotlinConversions.buildInterfacePointer(
                     isNullable,
                     this,
@@ -241,21 +242,23 @@ private object NativeToKotlinConversions {
     fun buildObjectPointer(
         returnTypeInfo: TypeInfo.ObjectPointer,
         codeBlockBuilder: CodeBlock.Builder,
+        upCall: Boolean,
     ) {
         codeBlockBuilder.apply {
-            if (returnTypeInfo.kotlinTypeName.isNullable) {
-                beginControlFlow("?.run")
-            } else {
-                // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
-                // nullable type, so we use force !! here
-                beginControlFlow("!!.run")
-            }
+            // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+            // nullable type, so we use force !! here
+            beginControlFlow("${if (returnTypeInfo.kotlinTypeName.isNullable) "?" else "!!"}.run")
             val returnTypeName = returnTypeInfo.withNullable(false).run { kotlinTypeNameImpl ?: kotlinTypeName }
-            if (returnTypeInfo.needsReinterpret()) {
-                add("%T(%M())", returnTypeName, BindingsGenerator.REINTERPRET_FUNC)
+            if (returnTypeInfo.isGObject) {
+                add("%T.get(", BindingsGenerator.INSTANCE_CACHE_TYPE)
+                if (returnTypeInfo.needsReinterpret()) add("%M()", BindingsGenerator.REINTERPRET_FUNC) else add("this")
+                add(", %L) { %T(%M()) }!!", !upCall, returnTypeName, BindingsGenerator.REINTERPRET_FUNC)
             } else {
-                add("%T(this)", returnTypeName)
+                add("%T(", returnTypeName)
+                if (returnTypeInfo.needsReinterpret()) add("%M()", BindingsGenerator.REINTERPRET_FUNC) else add("this")
+                add(")")
             }
+            add("\n")
             endControlFlow()
         }
     }

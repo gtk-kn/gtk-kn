@@ -17,12 +17,12 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.ImContext
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -93,6 +93,10 @@ import kotlin.Unit
 public open class VimImContext(public val gtksourceVimImContextPointer: CPointer<GtkSourceVimIMContext>) :
     ImContext(gtksourceVimImContextPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open val commandBarText: String
         /**
          * Gets the current command-bar text as it is entered by the user.
@@ -113,7 +117,9 @@ public open class VimImContext(public val gtksourceVimImContextPointer: CPointer
         get() = gtk_source_vim_im_context_get_command_text(gtksourceVimImContextPointer)?.toKString()
             ?: error("Expected not null string")
 
-    public constructor() : this(gtk_source_vim_im_context_new()!!.reinterpret())
+    public constructor() : this(gtk_source_vim_im_context_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Executes @command as if it was typed into the command bar by the
@@ -268,12 +274,10 @@ public open class VimImContext(public val gtksourceVimImContextPointer: CPointer
 
     public companion object : TypeCompanion<VimImContext> {
         override val type: GeneratedClassKGType<VimImContext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_vim_im_context_get_type")!!) {
-                VimImContext(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { VimImContext(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -282,6 +286,17 @@ public open class VimImContext(public val gtksourceVimImContextPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gtk_source_vim_im_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_vim_im_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_vim_im_context_get_type")
     }
 }
 
@@ -294,7 +309,7 @@ private val onEditFunc: CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<By
         ->
         userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(
             view!!.run {
-                View(this)
+                InstanceCache.get(this, false) { View(reinterpret()) }!!
             },
             path?.toKString()
         )
@@ -341,7 +356,7 @@ private val onWriteFunc: CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<B
         ->
         userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(
             view!!.run {
-                View(this)
+                InstanceCache.get(this, false) { View(reinterpret()) }!!
             },
             path?.toKString()
         )

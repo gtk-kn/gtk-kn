@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GMenu
 import org.gtkkn.native.gio.g_menu_append
 import org.gtkkn.native.gio.g_menu_append_item
@@ -49,6 +49,10 @@ import kotlin.Unit
 public open class Menu(public val gioMenuPointer: CPointer<GMenu>) :
     MenuModel(gioMenuPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GMenu.
      *
@@ -57,7 +61,9 @@ public open class Menu(public val gioMenuPointer: CPointer<GMenu>) :
      * @return a new #GMenu
      * @since 2.32
      */
-    public constructor() : this(g_menu_new()!!.reinterpret())
+    public constructor() : this(g_menu_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Convenience function for appending a normal menu item to the end of
@@ -271,7 +277,7 @@ public open class Menu(public val gioMenuPointer: CPointer<GMenu>) :
 
     public companion object : TypeCompanion<Menu> {
         override val type: GeneratedClassKGType<Menu> =
-            GeneratedClassKGType(getTypeOrNull("g_menu_get_type")!!) { Menu(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Menu(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -283,5 +289,15 @@ public open class Menu(public val gioMenuPointer: CPointer<GMenu>) :
          * @return the GType
          */
         public fun getType(): GType = g_menu_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_menu_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_menu_get_type")
     }
 }

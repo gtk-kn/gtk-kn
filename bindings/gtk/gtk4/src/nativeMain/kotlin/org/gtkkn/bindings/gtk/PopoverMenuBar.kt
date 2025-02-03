@@ -6,11 +6,11 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.MenuModel
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -59,6 +59,10 @@ import kotlin.String
 public open class PopoverMenuBar(public val gtkPopoverMenuBarPointer: CPointer<GtkPopoverMenuBar>) :
     Widget(gtkPopoverMenuBarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -80,7 +84,7 @@ public open class PopoverMenuBar(public val gtkPopoverMenuBarPointer: CPointer<G
          * @return a `GMenuModel`
          */
         get() = gtk_popover_menu_bar_get_menu_model(gtkPopoverMenuBarPointer)?.run {
-            MenuModel.MenuModelImpl(this)
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
 
         /**
@@ -99,7 +103,9 @@ public open class PopoverMenuBar(public val gtkPopoverMenuBarPointer: CPointer<G
      */
     public constructor(
         model: MenuModel? = null,
-    ) : this(gtk_popover_menu_bar_new_from_model(model?.gioMenuModelPointer)!!.reinterpret())
+    ) : this(gtk_popover_menu_bar_new_from_model(model?.gioMenuModelPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a custom widget to a generated menubar.
@@ -126,9 +132,7 @@ public open class PopoverMenuBar(public val gtkPopoverMenuBarPointer: CPointer<G
 
     public companion object : TypeCompanion<PopoverMenuBar> {
         override val type: GeneratedClassKGType<PopoverMenuBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_popover_menu_bar_get_type")!!) {
-                PopoverMenuBar(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PopoverMenuBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -140,5 +144,16 @@ public open class PopoverMenuBar(public val gtkPopoverMenuBarPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_popover_menu_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_popover_menu_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_popover_menu_bar_get_type")
     }
 }

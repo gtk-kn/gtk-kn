@@ -14,14 +14,14 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -78,6 +78,10 @@ public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScal
     AccessibleRange,
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = handle.reinterpret()
 
@@ -123,7 +127,7 @@ public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScal
          * @return the adjustment associated with the scale
          */
         get() = gtk_scale_button_get_adjustment(gtkScaleButtonPointer)!!.run {
-            Adjustment(this)
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
         }
 
         /**
@@ -208,7 +212,9 @@ public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScal
         memScoped {
             gtk_scale_button_new(min, max, step, icons?.toCStringList(this))!!.reinterpret()
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Retrieves the minus button of the `GtkScaleButton`.
@@ -217,7 +223,7 @@ public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScal
      *   of the `GtkScaleButton`
      */
     public open fun getMinusButton(): Button = gtk_scale_button_get_minus_button(gtkScaleButtonPointer)!!.run {
-        Button(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!
     }
 
     /**
@@ -227,7 +233,7 @@ public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScal
      *   of the `GtkScaleButton`
      */
     public open fun getPlusButton(): Button = gtk_scale_button_get_plus_button(gtkScaleButtonPointer)!!.run {
-        Button(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!
     }
 
     /**
@@ -236,7 +242,7 @@ public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScal
      * @return the popup of the `GtkScaleButton`
      */
     public open fun getPopup(): Widget = gtk_scale_button_get_popup(gtkScaleButtonPointer)!!.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -332,7 +338,7 @@ public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScal
 
     public companion object : TypeCompanion<ScaleButton> {
         override val type: GeneratedClassKGType<ScaleButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_scale_button_get_type")!!) { ScaleButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ScaleButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -344,6 +350,17 @@ public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScal
          * @return the GType
          */
         public fun getType(): GType = gtk_scale_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_scale_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_scale_button_get_type")
     }
 }
 

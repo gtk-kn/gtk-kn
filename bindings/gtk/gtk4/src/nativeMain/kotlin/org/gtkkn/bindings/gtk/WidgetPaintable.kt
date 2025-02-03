@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkWidgetPaintable
@@ -45,6 +45,10 @@ public open class WidgetPaintable(public val gtkWidgetPaintablePointer: CPointer
     Object(gtkWidgetPaintablePointer.reinterpret()),
     Paintable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 
@@ -58,7 +62,7 @@ public open class WidgetPaintable(public val gtkWidgetPaintablePointer: CPointer
          * @return the observed widget.
          */
         get() = gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -76,13 +80,13 @@ public open class WidgetPaintable(public val gtkWidgetPaintablePointer: CPointer
      */
     public constructor(
         widget: Widget? = null,
-    ) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer)!!.reinterpret())
+    ) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<WidgetPaintable> {
         override val type: GeneratedClassKGType<WidgetPaintable> =
-            GeneratedClassKGType(getTypeOrNull("gtk_widget_paintable_get_type")!!) {
-                WidgetPaintable(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { WidgetPaintable(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -94,5 +98,16 @@ public open class WidgetPaintable(public val gtkWidgetPaintablePointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gtk_widget_paintable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_widget_paintable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_widget_paintable_get_type")
     }
 }

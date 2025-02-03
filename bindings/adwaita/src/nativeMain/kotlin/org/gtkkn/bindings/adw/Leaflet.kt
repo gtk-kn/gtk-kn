@@ -9,12 +9,12 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.SelectionModel
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwLeaflet
 import org.gtkkn.native.adw.AdwSwipeable
 import org.gtkkn.native.adw.adw_leaflet_append
@@ -62,6 +62,13 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+ * ---
+ *
  * An adaptive container acting like a box or a stack.
  *
  * <picture>
@@ -104,6 +111,10 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
     Swipeable,
     Orientable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
         get() = handle.reinterpret()
 
@@ -120,6 +131,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Whether gestures and shortcuts for navigating backward are enabled.
      *
      * The supported gestures are:
@@ -140,6 +158,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public var canNavigateBack: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets whether gestures and shortcuts for navigating backward are enabled.
          *
          * @return Whether gestures and shortcuts are enabled.
@@ -147,6 +172,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         get() = adw_leaflet_get_can_navigate_back(adwLeafletPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets whether gestures and shortcuts for navigating backward are enabled.
          *
          * The supported gestures are:
@@ -170,6 +202,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         set(canNavigateBack) = adw_leaflet_set_can_navigate_back(adwLeafletPointer, canNavigateBack.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Whether gestures and shortcuts for navigating forward are enabled.
      *
      * The supported gestures are:
@@ -190,6 +229,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public var canNavigateForward: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets whether gestures and shortcuts for navigating forward are enabled.
          *
          * @return Whether gestures and shortcuts are enabled.
@@ -197,6 +243,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         get() = adw_leaflet_get_can_navigate_forward(adwLeafletPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets whether gestures and shortcuts for navigating forward are enabled.
          *
          * The supported gestures are:
@@ -222,10 +275,24 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         ) = adw_leaflet_set_can_navigate_forward(adwLeafletPointer, canNavigateForward.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Whether or not the leaflet can unfold.
      */
     public var canUnfold: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets whether @self can unfold.
          *
          * @return whether @self can unfold
@@ -233,6 +300,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         get() = adw_leaflet_get_can_unfold(adwLeafletPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets whether @self can unfold.
          *
          * @param canUnfold whether @self can unfold
@@ -240,6 +314,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         set(canUnfold) = adw_leaflet_set_can_unfold(adwLeafletPointer, canUnfold.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * The child transition spring parameters.
      *
      * The default value is equivalent to:
@@ -250,6 +331,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public var childTransitionParams: SpringParams
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets the child transition spring parameters for @self.
          *
          * @return the child transition parameters
@@ -259,6 +347,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets the child transition spring parameters for @self.
          *
          * The default value is equivalent to:
@@ -272,10 +367,24 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         set(params) = adw_leaflet_set_child_transition_params(adwLeafletPointer, params.adwSpringParamsPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Whether a child transition is currently running.
      */
     public val childTransitionRunning: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets whether a child transition is currently running for @self.
          *
          * @return whether a transition is currently running
@@ -283,6 +392,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         get() = adw_leaflet_get_child_transition_running(adwLeafletPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Determines when the leaflet will fold.
      *
      * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
@@ -294,6 +410,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public var foldThresholdPolicy: FoldThresholdPolicy
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets the fold threshold policy for @self.
          */
         get() = adw_leaflet_get_fold_threshold_policy(adwLeafletPointer).run {
@@ -301,6 +424,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets the fold threshold policy for @self.
          *
          * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
@@ -315,6 +445,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         set(policy) = adw_leaflet_set_fold_threshold_policy(adwLeafletPointer, policy.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Whether the leaflet is folded.
      *
      * The leaflet will be folded if the size allocated to it is smaller than the
@@ -323,6 +460,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public val folded: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets whether @self is folded.
          *
          * The leaflet will be folded if the size allocated to it is smaller than the
@@ -334,6 +478,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         get() = adw_leaflet_get_folded(adwLeafletPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Whether the leaflet allocates the same size for all children when folded.
      *
      * If set to `FALSE`, different children can have different size along the
@@ -341,6 +492,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public var homogeneous: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets whether @self is homogeneous.
          *
          * @return whether @self is homogeneous
@@ -348,6 +506,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         get() = adw_leaflet_get_homogeneous(adwLeafletPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets @self to be homogeneous or not.
          *
          * If set to `FALSE`, different children can have different size along the
@@ -358,10 +523,24 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         set(homogeneous) = adw_leaflet_set_homogeneous(adwLeafletPointer, homogeneous.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * The mode transition animation duration, in milliseconds.
      */
     public var modeTransitionDuration: guint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets the mode transition animation duration for @self.
          *
          * @return the mode transition duration, in milliseconds.
@@ -369,6 +548,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         get() = adw_leaflet_get_mode_transition_duration(adwLeafletPointer)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets the mode transition animation duration for @self.
          *
          * @param duration the new duration, in milliseconds
@@ -376,6 +562,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         set(duration) = adw_leaflet_set_mode_transition_duration(adwLeafletPointer, duration)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * A selection model with the leaflet's pages.
      *
      * This can be used to keep an up-to-date view. The model also implements
@@ -384,6 +577,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public val pages: SelectionModel
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Returns a [iface@Gio.ListModel] that contains the pages of the leaflet.
          *
          * This can be used to keep an up-to-date view. The model also implements
@@ -397,6 +597,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * The type of animation used for transitions between modes and children.
      *
      * The transition type can be changed without problems at runtime, so it is
@@ -405,6 +612,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public var transitionType: LeafletTransitionType
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets the type of animation used for transitions between modes and children.
          *
          * @return the current transition type of @self
@@ -414,6 +628,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets the type of animation used for transitions between modes and children.
          *
          * The transition type can be changed without problems at runtime, so it is
@@ -425,13 +646,29 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         set(transition) = adw_leaflet_set_transition_type(adwLeafletPointer, transition.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Creates a new `AdwLeaflet`.
      *
      * @return the new created `AdwLeaflet`
      */
-    public constructor() : this(adw_leaflet_new()!!.reinterpret())
+    public constructor() : this(adw_leaflet_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Adds a child to @self.
      *
      * @param child the widget to add
@@ -439,10 +676,17 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public fun append(child: Widget): LeafletPage =
         adw_leaflet_append(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
-            LeafletPage(this)
+            InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Finds the previous or next navigatable child.
      *
      * This will be the same child [method@Leaflet.navigate] or swipe gestures will
@@ -457,10 +701,17 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public fun getAdjacentChild(direction: NavigationDirection): Widget? =
         adw_leaflet_get_adjacent_child(adwLeafletPointer, direction.nativeValue)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Finds the child of @self with @name.
      *
      * Returns `NULL` if there is no child with this name.
@@ -471,10 +722,17 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      * @return the requested child of @self
      */
     public fun getChildByName(name: String): Widget? = adw_leaflet_get_child_by_name(adwLeafletPointer, name)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Returns the [class@LeafletPage] object for @child.
      *
      * @param child a child of @self
@@ -482,19 +740,33 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public fun getPage(child: Widget): LeafletPage =
         adw_leaflet_get_page(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
-            LeafletPage(this)
+            InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Gets the widget currently visible when the leaflet is folded.
      *
      * @return the visible child
      */
     public fun getVisibleChild(): Widget? = adw_leaflet_get_visible_child(adwLeafletPointer)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Gets the name of the currently visible child widget.
      *
      * @return the name of the visible child
@@ -502,6 +774,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
     public fun getVisibleChildName(): String? = adw_leaflet_get_visible_child_name(adwLeafletPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Inserts @child in the position after @sibling in the list of children.
      *
      * If @sibling is `NULL`, inserts @child at the first position.
@@ -512,10 +791,17 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public fun insertChildAfter(child: Widget, sibling: Widget? = null): LeafletPage =
         adw_leaflet_insert_child_after(adwLeafletPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)!!.run {
-            LeafletPage(this)
+            InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Navigates to the previous or next child.
      *
      * The child must have the [property@LeafletPage:navigatable] property set to
@@ -531,6 +817,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         adw_leaflet_navigate(adwLeafletPointer, direction.nativeValue).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Inserts @child at the first position in @self.
      *
      * @param child the widget to prepend
@@ -538,10 +831,17 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
      */
     public fun prepend(child: Widget): LeafletPage =
         adw_leaflet_prepend(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
-            LeafletPage(this)
+            InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Removes a child widget from @self.
      *
      * @param child the child to remove
@@ -549,6 +849,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
     public fun remove(child: Widget): Unit = adw_leaflet_remove(adwLeafletPointer, child.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Moves @child to the position after @sibling in the list of children.
      *
      * If @sibling is `NULL`, moves @child to the first position.
@@ -560,6 +867,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         adw_leaflet_reorder_child_after(adwLeafletPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Sets the widget currently visible when the leaflet is folded.
      *
      * The transition is determined by [property@Leaflet:transition-type] and
@@ -573,6 +887,13 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
         adw_leaflet_set_visible_child(adwLeafletPointer, visibleChild.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Makes the child with the name @name visible.
      *
      * See [property@Leaflet:visible-child].
@@ -583,7 +904,7 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
 
     public companion object : TypeCompanion<Leaflet> {
         override val type: GeneratedClassKGType<Leaflet> =
-            GeneratedClassKGType(getTypeOrNull("adw_leaflet_get_type")!!) { Leaflet(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Leaflet(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -595,5 +916,15 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
          * @return the GType
          */
         public fun getType(): GType = adw_leaflet_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_leaflet_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_leaflet_get_type")
     }
 }

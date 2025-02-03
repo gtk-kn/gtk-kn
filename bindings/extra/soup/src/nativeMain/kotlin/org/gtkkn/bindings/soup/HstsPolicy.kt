@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -52,6 +53,93 @@ import kotlin.Unit
  */
 public class HstsPolicy(public val soupHstsPolicyPointer: CPointer<SoupHSTSPolicy>) :
     ProxyInstance(soupHstsPolicyPointer) {
+    /**
+     * Creates a new #SoupHSTSPolicy with the given attributes.
+     *
+     * @domain is a domain on which the strict transport security policy
+     * represented by this object must be enforced.
+     *
+     * @max_age is used to set the "expires" attribute on the policy; pass
+     * %SOUP_HSTS_POLICY_MAX_AGE_PAST for an already-expired policy, or a
+     * lifetime in seconds.
+     *
+     * If @include_subdomains is true, the strict transport security policy
+     * must also be enforced on all subdomains of @domain.
+     *
+     * @param domain policy domain or hostname
+     * @param maxAge max age of the policy
+     * @param includeSubdomains true if the policy applies on subdomains
+     * @return a new #SoupHSTSPolicy.
+     */
+    public constructor(
+        domain: String,
+        maxAge: gulong,
+        includeSubdomains: Boolean,
+    ) : this(soup_hsts_policy_new(domain, maxAge, includeSubdomains.asGBoolean())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Parses @msg's first "Strict-Transport-Security" response header and
+     * returns a #SoupHSTSPolicy.
+     *
+     * @param msg a #SoupMessage
+     * @return a new #SoupHSTSPolicy, or null if no valid
+     *   "Strict-Transport-Security" response header was found.
+     */
+    public constructor(
+        msg: Message,
+    ) : this(soup_hsts_policy_new_from_response(msg.soupMessagePointer)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Full version of [ctor@HSTSPolicy.new], to use with an existing
+     * expiration date.
+     *
+     * See [ctor@HSTSPolicy.new] for details.
+     *
+     * @param domain policy domain or hostname
+     * @param maxAge max age of the policy
+     * @param expires the date of expiration of the policy or null for a permanent policy
+     * @param includeSubdomains true if the policy applies on subdomains
+     * @return a new #SoupHSTSPolicy.
+     */
+    public constructor(
+        domain: String,
+        maxAge: gulong,
+        expires: DateTime,
+        includeSubdomains: Boolean,
+    ) : this(soup_hsts_policy_new_full(domain, maxAge, expires.glibDateTimePointer, includeSubdomains.asGBoolean())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new session #SoupHSTSPolicy with the given attributes.
+     *
+     * A session policy is a policy that is valid during the lifetime of
+     * the [class@HSTSEnforcer] it is added to. Contrary to regular policies,
+     * it has no expiration date and is not stored in persistent
+     * enforcers. These policies are useful for user-agent to load their
+     * own or user-defined rules.
+     *
+     * @domain is a domain on which the strict transport security policy
+     * represented by this object must be enforced.
+     *
+     * If @include_subdomains is true, the strict transport security policy
+     * must also be enforced on all subdomains of @domain.
+     *
+     * @param domain policy domain or hostname
+     * @param includeSubdomains true if the policy applies on sub domains
+     * @return a new #SoupHSTSPolicy.
+     */
+    public constructor(
+        domain: String,
+        includeSubdomains: Boolean,
+    ) : this(soup_hsts_policy_new_session_policy(domain, includeSubdomains.asGBoolean())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies @policy.
      *
@@ -125,82 +213,6 @@ public class HstsPolicy(public val soupHstsPolicyPointer: CPointer<SoupHSTSPolic
     public fun isSessionPolicy(): Boolean = soup_hsts_policy_is_session_policy(soupHstsPolicyPointer).asBoolean()
 
     public companion object {
-        /**
-         * Creates a new #SoupHSTSPolicy with the given attributes.
-         *
-         * @domain is a domain on which the strict transport security policy
-         * represented by this object must be enforced.
-         *
-         * @max_age is used to set the "expires" attribute on the policy; pass
-         * %SOUP_HSTS_POLICY_MAX_AGE_PAST for an already-expired policy, or a
-         * lifetime in seconds.
-         *
-         * If @include_subdomains is true, the strict transport security policy
-         * must also be enforced on all subdomains of @domain.
-         *
-         * @param domain policy domain or hostname
-         * @param maxAge max age of the policy
-         * @param includeSubdomains true if the policy applies on subdomains
-         * @return a new #SoupHSTSPolicy.
-         */
-        public fun new(domain: String, maxAge: gulong, includeSubdomains: Boolean): HstsPolicy =
-            HstsPolicy(soup_hsts_policy_new(domain, maxAge, includeSubdomains.asGBoolean())!!.reinterpret())
-
-        /**
-         * Parses @msg's first "Strict-Transport-Security" response header and
-         * returns a #SoupHSTSPolicy.
-         *
-         * @param msg a #SoupMessage
-         * @return a new #SoupHSTSPolicy, or null if no valid
-         *   "Strict-Transport-Security" response header was found.
-         */
-        public fun newFromResponse(msg: Message): HstsPolicy? =
-            HstsPolicy(soup_hsts_policy_new_from_response(msg.soupMessagePointer)!!.reinterpret())
-
-        /**
-         * Full version of [ctor@HSTSPolicy.new], to use with an existing
-         * expiration date.
-         *
-         * See [ctor@HSTSPolicy.new] for details.
-         *
-         * @param domain policy domain or hostname
-         * @param maxAge max age of the policy
-         * @param expires the date of expiration of the policy or null for a permanent policy
-         * @param includeSubdomains true if the policy applies on subdomains
-         * @return a new #SoupHSTSPolicy.
-         */
-        public fun newFull(domain: String, maxAge: gulong, expires: DateTime, includeSubdomains: Boolean): HstsPolicy =
-            HstsPolicy(
-                soup_hsts_policy_new_full(
-                    domain,
-                    maxAge,
-                    expires.glibDateTimePointer,
-                    includeSubdomains.asGBoolean()
-                )!!.reinterpret()
-            )
-
-        /**
-         * Creates a new session #SoupHSTSPolicy with the given attributes.
-         *
-         * A session policy is a policy that is valid during the lifetime of
-         * the [class@HSTSEnforcer] it is added to. Contrary to regular policies,
-         * it has no expiration date and is not stored in persistent
-         * enforcers. These policies are useful for user-agent to load their
-         * own or user-defined rules.
-         *
-         * @domain is a domain on which the strict transport security policy
-         * represented by this object must be enforced.
-         *
-         * If @include_subdomains is true, the strict transport security policy
-         * must also be enforced on all subdomains of @domain.
-         *
-         * @param domain policy domain or hostname
-         * @param includeSubdomains true if the policy applies on sub domains
-         * @return a new #SoupHSTSPolicy.
-         */
-        public fun newSessionPolicy(domain: String, includeSubdomains: Boolean): HstsPolicy =
-            HstsPolicy(soup_hsts_policy_new_session_policy(domain, includeSubdomains.asGBoolean())!!.reinterpret())
-
         /**
          * Get the GType of HSTSPolicy
          *

@@ -12,13 +12,13 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
@@ -79,6 +79,10 @@ import kotlin.Unit
 public open class Overlay(public val gtkOverlayPointer: CPointer<GtkOverlay>) :
     Widget(gtkOverlayPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -98,7 +102,7 @@ public open class Overlay(public val gtkOverlayPointer: CPointer<GtkOverlay>) :
          * @return the child widget of @overlay
          */
         get() = gtk_overlay_get_child(gtkOverlayPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -113,7 +117,9 @@ public open class Overlay(public val gtkOverlayPointer: CPointer<GtkOverlay>) :
      *
      * @return a new `GtkOverlay` object.
      */
-    public constructor() : this(gtk_overlay_new()!!.reinterpret())
+    public constructor() : this(gtk_overlay_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @widget to @overlay.
@@ -213,7 +219,7 @@ public open class Overlay(public val gtkOverlayPointer: CPointer<GtkOverlay>) :
 
     public companion object : TypeCompanion<Overlay> {
         override val type: GeneratedClassKGType<Overlay> =
-            GeneratedClassKGType(getTypeOrNull("gtk_overlay_get_type")!!) { Overlay(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Overlay(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -225,6 +231,16 @@ public open class Overlay(public val gtkOverlayPointer: CPointer<GtkOverlay>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_overlay_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_overlay_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_overlay_get_type")
     }
 }
 
@@ -238,7 +254,7 @@ private val onGetChildPositionFunc:
         ->
         userData.asStableRef<(widget: Widget, allocation: Rectangle) -> Boolean>().get().invoke(
             widget!!.run {
-                Widget.WidgetImpl(this)
+                InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
             },
             allocation!!.run {
                 Rectangle(this)

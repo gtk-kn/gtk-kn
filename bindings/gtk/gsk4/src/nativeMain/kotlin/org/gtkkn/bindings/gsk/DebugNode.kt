@@ -7,16 +7,17 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskDebugNode
 import org.gtkkn.native.gsk.gsk_debug_node_get_child
 import org.gtkkn.native.gsk.gsk_debug_node_get_message
 import org.gtkkn.native.gsk.gsk_debug_node_get_type
 import org.gtkkn.native.gsk.gsk_debug_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 import kotlin.String
 
 /**
@@ -26,6 +27,10 @@ import kotlin.String
 public open class DebugNode(public val gskDebugNodePointer: CPointer<GskDebugNode>) :
     RenderNode(gskDebugNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will add debug information about
      * the given @child.
@@ -39,7 +44,9 @@ public open class DebugNode(public val gskDebugNodePointer: CPointer<GskDebugNod
     public constructor(
         child: RenderNode,
         message: String,
-    ) : this(gsk_debug_node_new(child.gskRenderNodePointer, message.cstr)!!.reinterpret())
+    ) : this(gsk_debug_node_new(child.gskRenderNodePointer, message.cstr)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -60,7 +67,7 @@ public open class DebugNode(public val gskDebugNodePointer: CPointer<GskDebugNod
 
     public companion object : TypeCompanion<DebugNode> {
         override val type: GeneratedClassKGType<DebugNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_debug_node_get_type")!!) { DebugNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DebugNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -72,5 +79,16 @@ public open class DebugNode(public val gskDebugNodePointer: CPointer<GskDebugNod
          * @return the GType
          */
         public fun getType(): GType = gsk_debug_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_debug_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_debug_node_get_type")
     }
 }

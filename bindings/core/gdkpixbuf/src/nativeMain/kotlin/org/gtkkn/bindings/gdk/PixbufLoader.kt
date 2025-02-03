@@ -23,12 +23,12 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPixbufLoader
 import org.gtkkn.native.gdk.gdk_pixbuf_loader_close
 import org.gtkkn.native.gdk.gdk_pixbuf_loader_get_animation
@@ -106,12 +106,18 @@ import kotlin.Unit
 public open class PixbufLoader(public val gdkPixbufLoaderPointer: CPointer<GdkPixbufLoader>) :
     Object(gdkPixbufLoaderPointer.reinterpret()),
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     /**
      * Creates a new pixbuf loader object.
      *
      * @return A newly-created pixbuf loader.
      */
-    public constructor() : this(gdk_pixbuf_loader_new()!!.reinterpret())
+    public constructor() : this(gdk_pixbuf_loader_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf loader object that always attempts to parse
@@ -136,13 +142,16 @@ public open class PixbufLoader(public val gdkPixbufLoaderPointer: CPointer<GdkPi
     public constructor(imageType: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = gdk_pixbuf_loader_new_with_type(imageType, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Informs a pixbuf loader that no further writes with
@@ -188,7 +197,7 @@ public open class PixbufLoader(public val gdkPixbufLoaderPointer: CPointer<GdkPi
      *   currently loading
      */
     public open fun getAnimation(): PixbufAnimation? = gdk_pixbuf_loader_get_animation(gdkPixbufLoaderPointer)?.run {
-        PixbufAnimation(this)
+        InstanceCache.get(this, true) { PixbufAnimation(reinterpret()) }!!
     }
 
     /**
@@ -224,7 +233,7 @@ public open class PixbufLoader(public val gdkPixbufLoaderPointer: CPointer<GdkPi
      *   creating
      */
     public open fun getPixbuf(): Pixbuf? = gdk_pixbuf_loader_get_pixbuf(gdkPixbufLoaderPointer)?.run {
-        Pixbuf(this)
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**
@@ -401,41 +410,29 @@ public open class PixbufLoader(public val gdkPixbufLoaderPointer: CPointer<GdkPi
 
     public companion object : TypeCompanion<PixbufLoader> {
         override val type: GeneratedClassKGType<PixbufLoader> =
-            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_loader_get_type")!!) { PixbufLoader(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { PixbufLoader(it.reinterpret()) }
 
         init {
-            GdkpixbufTypeProvider.register()
+            GdkPixbufTypeProvider.register()
         }
 
         /**
-         * Creates a new pixbuf loader object that always attempts to parse
-         * image data as if it were an image of type @image_type, instead of
-         * identifying the type automatically.
+         * Get the GType of PixbufLoader
          *
-         * This function is useful if you want an error if the image isn't the
-         * expected type; for loading image formats that can't be reliably
-         * identified by looking at the data; or if the user manually forces
-         * a specific type.
-         *
-         * The list of supported image formats depends on what image loaders
-         * are installed, but typically "png", "jpeg", "gif", "tiff" and
-         * "xpm" are among the supported formats. To obtain the full list of
-         * supported image formats, call gdk_pixbuf_format_get_name() on each
-         * of the #GdkPixbufFormat structs returned by gdk_pixbuf_get_formats().
-         *
-         * @param imageType name of the image format to be loaded with the image
-         * @return A newly-created pixbuf loader.
+         * @return the GType
          */
-        public fun newWithType(imageType: String): Result<PixbufLoader> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = gdk_pixbuf_loader_new_with_type(imageType, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(PixbufLoader(checkNotNull(gResult).reinterpret()))
-            }
-        }
+        public fun getType(): GType = gdk_pixbuf_loader_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_pixbuf_loader_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_pixbuf_loader_get_type")
 
         /**
          * Creates a new pixbuf loader object that always attempts to parse
@@ -458,23 +455,20 @@ public open class PixbufLoader(public val gdkPixbufLoaderPointer: CPointer<GdkPi
          * @return A newly-created pixbuf loader.
          * @since 2.4
          */
-        public fun newWithMimeType(mimeType: String): Result<PixbufLoader> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = gdk_pixbuf_loader_new_with_mime_type(mimeType, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(PixbufLoader(checkNotNull(gResult).reinterpret()))
+        public fun withMimeType(mimeType: String): Result<PixbufLoader> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = gdk_pixbuf_loader_new_with_mime_type(mimeType, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = PixbufLoader(checkNotNull(gResult))
+                    InstanceCache.put(instance)
+                    Result.success(instance)
+                }
             }
         }
-
-        /**
-         * Get the GType of PixbufLoader
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gdk_pixbuf_loader_get_type()
     }
 }
 

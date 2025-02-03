@@ -27,7 +27,7 @@ import org.gtkkn.gir.blueprints.PropertyBlueprint
 interface PropertyGenerator : MethodGenerator, ConversionBlockGenerator, KDocGenerator {
     fun buildProperty(property: PropertyBlueprint, instancePointer: String?): PropertySpec =
         PropertySpec.builder(property.kotlinName, property.typeInfo.kotlinTypeName, KModifier.PUBLIC).apply {
-            addKdoc(buildPropertyKDoc(property.kdoc, property.optInVersionBlueprint))
+            addKdoc(buildPropertyKDoc(property.kdoc, property.optInVersionBlueprint, property.deprecatedBlueprint))
 
             // optInVersion
             property.optInVersionBlueprint?.typeName?.let { annotationClassName ->

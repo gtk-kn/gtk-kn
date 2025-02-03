@@ -12,6 +12,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusSignalInfo
 import org.gtkkn.native.gio.g_dbus_signal_info_get_type
@@ -21,11 +22,8 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Information about a signal on a D-Bus interface.
@@ -38,7 +36,7 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusSignalInfo(public val gioDBusSignalInfoPointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner? = null) :
+public class DBusSignalInfo(public val gioDBusSignalInfoPointer: CPointer<GDBusSignalInfo>) :
     ProxyInstance(gioDBusSignalInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
@@ -69,21 +67,9 @@ public class DBusSignalInfo(public val gioDBusSignalInfoPointer: CPointer<GDBusS
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusSignalInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DBusSignalInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDBusSignalInfo>, Cleaner>,
-    ) : this(gioDBusSignalInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDBusSignalInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DBusSignalInfo using the provided [AutofreeScope].

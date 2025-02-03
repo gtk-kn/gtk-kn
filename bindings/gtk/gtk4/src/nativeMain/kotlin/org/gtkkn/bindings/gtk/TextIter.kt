@@ -14,9 +14,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.Language
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
@@ -113,11 +115,8 @@ import org.gtkkn.native.gtk.gtk_text_iter_starts_tag
 import org.gtkkn.native.gtk.gtk_text_iter_starts_word
 import org.gtkkn.native.gtk.gtk_text_iter_toggles_tag
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An iterator for the contents of a `GtkTextBuffer`.
@@ -127,29 +126,16 @@ import kotlin.native.ref.createCleaner
  * which gives an overview of all the objects and data types
  * related to the text widget and how they work together.
  */
-public class TextIter(public val gtkTextIterPointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) :
-    ProxyInstance(gtkTextIterPointer) {
+public class TextIter(public val gtkTextIterPointer: CPointer<GtkTextIter>) : ProxyInstance(gtkTextIterPointer) {
     /**
      * Allocate a new TextIter.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkTextIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TextIter and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkTextIter>, Cleaner>,
-    ) : this(gtkTextIterPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkTextIter>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TextIter using the provided [AutofreeScope].
@@ -888,7 +874,7 @@ public class TextIter(public val gtkTextIterPointer: CPointer<GtkTextIter>, clea
      * @return the buffer
      */
     public fun getBuffer(): TextBuffer = gtk_text_iter_get_buffer(gtkTextIterPointer)!!.run {
-        TextBuffer(this)
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!
     }
 
     /**
@@ -931,7 +917,7 @@ public class TextIter(public val gtkTextIterPointer: CPointer<GtkTextIter>, clea
      * @return the anchor at @iter
      */
     public fun getChildAnchor(): TextChildAnchor? = gtk_text_iter_get_child_anchor(gtkTextIterPointer)?.run {
-        TextChildAnchor(this)
+        InstanceCache.get(this, true) { TextChildAnchor(reinterpret()) }!!
     }
 
     /**

@@ -10,6 +10,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeInterface
@@ -18,10 +19,7 @@ import org.gtkkn.native.gobject.g_type_interface_get_plugin
 import org.gtkkn.native.gobject.g_type_interface_instantiatable_prerequisite
 import org.gtkkn.native.gobject.g_type_interface_peek
 import org.gtkkn.native.gobject.g_type_interface_peek_parent
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used as the base of all interface types.
@@ -30,31 +28,17 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `n_prerequisites`: n_prerequisites: Out parameter is not supported
  */
-public class TypeInterface(
-    public val gobjectTypeInterfacePointer: CPointer<GTypeInterface>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gobjectTypeInterfacePointer) {
+public class TypeInterface(public val gobjectTypeInterfacePointer: CPointer<GTypeInterface>) :
+    ProxyInstance(gobjectTypeInterfacePointer) {
     /**
      * Allocate a new TypeInterface.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeInterface>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TypeInterface and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTypeInterface>, Cleaner>,
-    ) : this(gobjectTypeInterfacePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTypeInterface>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TypeInterface using the provided [AutofreeScope].

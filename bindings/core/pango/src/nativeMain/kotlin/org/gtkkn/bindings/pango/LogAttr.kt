@@ -10,20 +10,17 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.pango.PangoLogAttr
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoLogAttr` structure stores information about the attributes of a
  * single character.
  */
-public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoLogAttrPointer) {
+public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>) : ProxyInstance(pangoLogAttrPointer) {
     /**
      * if set, can break line in front of character
      */
@@ -232,21 +229,9 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoLogAttr>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to LogAttr and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoLogAttr>, Cleaner>,
-    ) : this(pangoLogAttrPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoLogAttr>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new LogAttr using the provided [AutofreeScope].

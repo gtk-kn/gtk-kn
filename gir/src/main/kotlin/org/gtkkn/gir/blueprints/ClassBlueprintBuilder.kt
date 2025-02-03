@@ -24,7 +24,9 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import net.pearx.kasechange.toPascalCase
+import org.gtkkn.gir.blueprints.MemoryManagement.MemoryCleaner.FreeOperation.CustomFreeFunction
 import org.gtkkn.gir.model.GirClass
+import org.gtkkn.gir.model.GirConstant
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
@@ -32,8 +34,10 @@ import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirProperty
 import org.gtkkn.gir.model.GirSignal
+import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.RegisteredType
 import org.gtkkn.gir.processor.UnresolvableTypeException
 import org.gtkkn.gir.processor.namespaceBindingsPackageName
 import org.gtkkn.gir.processor.namespaceNativePackageName
@@ -47,12 +51,13 @@ class ClassBlueprintBuilder(
     context,
 ) {
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
-    private val methodBluePrints = mutableListOf<MethodBlueprint>()
-    private val propertyBluePrints = mutableListOf<PropertyBlueprint>()
-    private val signalBluePrints = mutableListOf<SignalBlueprint>()
+    private val methodBlueprints = mutableListOf<MethodBlueprint>()
+    private val constantBlueprints = mutableListOf<ConstantBlueprint>()
+    private val propertyBlueprints = mutableListOf<PropertyBlueprint>()
+    private val signalBlueprints = mutableListOf<SignalBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
-    private val propertyMethodBluePrintMap = hashMapOf<String, MethodBlueprint>()
+    private val propertyMethodBlueprintMap = hashMapOf<String, MethodBlueprint>()
     private var parentClassName: ClassName? = null
     private val interfacePointerOverrides = mutableListOf<ImplementsInterfaceBlueprint>()
 
@@ -97,15 +102,16 @@ class ClassBlueprintBuilder(
         addInterfaceOverrides()
 
         val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girNode)
-
+        val registeredType = context.typeRegistry.get(girNode)
         girNode.methods.forEach { addMethod(it, objectPointerTypeName) }
+        girNode.constants.forEach { addConstant(it) }
         girNode.properties.forEach { addProperty(it) }
-        girNode.constructors.forEach { addConstructor(it) }
+        girNode.constructors.forEach { addConstructor(it, getMemoryManagement(registeredType)) }
         girNode.signals.forEach { addSignal(it) }
         girNode.functions.forEach { addFunction(it) }
-        propertyMethodBluePrintMap.addSuperPropertyOverrides(propertyBluePrints, superClasses, interfaces)
+        propertyMethodBlueprintMap.addSuperPropertyOverrides(propertyBlueprints, superClasses, interfaces)
 
-        val kotlinClassName = context.typeRegistry.get(girNode).className
+        val kotlinClassName = registeredType.className
 
         val objectPointerName = "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
 
@@ -118,11 +124,12 @@ class ClassBlueprintBuilder(
         return ClassBlueprint(
             kotlinName = kotlinClassName.simpleName,
             nativeName = girNode.name,
-            typeName = kotlinClassName,
-            methods = methodBluePrints,
-            properties = propertyBluePrints,
+            kotlinTypeName = kotlinClassName,
+            methods = methodBlueprints,
+            constants = constantBlueprints,
+            properties = propertyBlueprints,
             constructors = constructorBlueprints,
-            signals = signalBluePrints,
+            signals = signalBlueprints,
             functions = functionBlueprints,
             skippedObjects = skippedObjects,
             implementsInterfaces = implementsInterfaces,
@@ -134,15 +141,23 @@ class ClassBlueprintBuilder(
             interfacePointerOverrides = interfacePointerOverrides,
             glibGetTypeFunc = glibGetTypeMember,
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(
-                context,
-                girNamespace,
-                girNode.info,
+                context = context,
+                girNamespace = girNamespace,
+                girInfo = girNode.info,
             ).build().getOrNull(),
+            deprecatedBlueprint = DeprecatedBlueprintBuilder(context, girNode.info, girNode.doc).build().getOrNull(),
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
         )
     }
 
     override fun blueprintObjectName(): String = girNode.name
+
+    private fun addConstant(girConstant: GirConstant) {
+        when (val result = ConstantBlueprintBuilder(context, girNamespace, girConstant).build()) {
+            is BlueprintResult.Ok -> constantBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
 
     private fun addProperty(property: GirProperty) {
         when (val result =
@@ -150,17 +165,17 @@ class ClassBlueprintBuilder(
                 context,
                 girNamespace,
                 property,
-                propertyMethodBluePrintMap,
+                propertyMethodBlueprintMap,
                 superClasses,
                 interfaces,
                 isOpen = girNode.final != true,
             ).build()
         ) {
             is BlueprintResult.Ok -> {
-                propertyBluePrints.add(result.blueprint)
-                // Removing any duplicate getter and setter methods from methodBluePrints
-                methodBluePrints.remove(result.blueprint.getter)
-                result.blueprint.setter?.let { methodBluePrints.remove(it) }
+                propertyBlueprints.add(result.blueprint)
+                // Removing any duplicate getter and setter methods from methodBlueprints
+                methodBlueprints.remove(result.blueprint.getter)
+                result.blueprint.setter?.let { methodBlueprints.remove(it) }
             }
 
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
@@ -179,11 +194,11 @@ class ClassBlueprintBuilder(
                 objectPointerTypeName = objectPointerTypeName,
             ).build()) {
             is BlueprintResult.Ok -> {
-                methodBluePrints.add(result.blueprint)
+                methodBlueprints.add(result.blueprint)
                 if (method.callable.getName().startsWith("get") && result.blueprint.parameters.isEmpty() ||
                     method.callable.getName().startsWith("set") && result.blueprint.parameters.size == 1
                 ) {
-                    propertyMethodBluePrintMap[method.callable.getName()] = result.blueprint
+                    propertyMethodBlueprintMap[method.callable.getName()] = result.blueprint
                 }
             }
 
@@ -191,12 +206,44 @@ class ClassBlueprintBuilder(
         }
     }
 
-    private fun addConstructor(constructor: GirConstructor) {
-        when (val result = ConstructorBlueprintBuilder(context, girNamespace, constructor).build()) {
+    private fun addConstructor(constructor: GirConstructor, memoryManagement: MemoryManagement) {
+        when (val result = ConstructorBlueprintBuilder(context, girNamespace, constructor, memoryManagement).build()) {
             is BlueprintResult.Ok -> constructorBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }
+
+    private fun getMemoryManagement(registeredType: RegisteredType): MemoryManagement =
+        if (registeredType.isGObject) {
+            MemoryManagement.InstanceCache
+        } else {
+            val girNode = registeredType.girNamedElement as GirClass
+            val unrefMethod = girNode.methods.firstOrNull { it.isUnref() }
+            when {
+                !girNode.glibUnrefFunc.isNullOrBlank() -> MemoryManagement.MemoryCleaner(
+                    freeOperation = CustomFreeFunction(
+                        memberName = MemberName(namespaceNativePackageName(girNode.namespace), girNode.glibUnrefFunc),
+                    ),
+                )
+
+                unrefMethod != null -> MemoryManagement.MemoryCleaner(
+                    freeOperation = CustomFreeFunction(
+                        MemberName(
+                            namespaceNativePackageName(unrefMethod.namespace),
+                            checkNotNull(unrefMethod.callable.cIdentifier),
+                        ),
+                    ),
+                )
+
+                registeredType.allAncestors.isNotEmpty() -> getMemoryManagement(registeredType.allAncestors.first())
+                else -> MemoryManagement.MemoryCleaner()
+            }
+        }
+
+    private fun GirMethod.isUnref(): Boolean =
+        callable.getName() == "unref" &&
+            parameters?.parameters?.isEmpty() == true &&
+            (returnValue?.type as? GirType)?.cType == "void"
 
     private fun addSignal(signal: GirSignal) {
         when (val result = SignalBlueprintBuilder(
@@ -206,7 +253,7 @@ class ClassBlueprintBuilder(
             methods = girNode.methods,
             functions = girNode.functions,
         ).build()) {
-            is BlueprintResult.Ok -> signalBluePrints.add(result.blueprint)
+            is BlueprintResult.Ok -> signalBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }
@@ -223,17 +270,17 @@ class ClassBlueprintBuilder(
      *
      * This function identifies unused getters and setters in the current class that are defined in the
      * superclasses or interfaces (`superProperties`) and should be overridden.
-     * The resulting overrides are added to the `propertyBluePrints`.
+     * The resulting overrides are added to the `propertyBlueprints`.
      *
      * @receiver A map of method names to their corresponding `MethodBlueprint` objects.
-     * @param propertyBluePrints A list of `PropertyBlueprint` objects where the new overrides
+     * @param propertyBlueprints A list of `PropertyBlueprint` objects where the new overrides
      * will be added.
      * @param superClasses A list of `GirClass` objects representing the superclasses of the current class.
      * @param interfaces A list of `GirInterface` objects representing the interfaces implemented by the
      * current class.
      */
     private fun HashMap<String, MethodBlueprint>.addSuperPropertyOverrides(
-        propertyBluePrints: List<PropertyBlueprint>,
+        propertyBlueprints: List<PropertyBlueprint>,
         superClasses: List<GirClass>,
         interfaces: List<GirInterface>
     ) {
@@ -252,8 +299,8 @@ class ClassBlueprintBuilder(
         val allKeys = getterKeys.union(setterKeys)
 
         // Collect existing getters and setters from the property blueprints
-        val existingGetters = propertyBluePrints.map { it.getter }.toSet()
-        val existingSetters = propertyBluePrints.mapNotNull { it.setter }.toSet()
+        val existingGetters = propertyBlueprints.map { it.getter }.toSet()
+        val existingSetters = propertyBlueprints.mapNotNull { it.setter }.toSet()
 
         // Iterate over all keys to find and add unused property overrides
         for (key in allKeys) {

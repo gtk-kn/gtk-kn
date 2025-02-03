@@ -10,11 +10,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Callback
 import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.jsc.JSCClass
 import org.gtkkn.native.jsc.jsc_class_add_constructor_variadic
@@ -42,6 +42,10 @@ import kotlin.Unit
 public class Class(public val jscClassPointer: CPointer<JSCClass>) :
     Object(jscClassPointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * The name of the class.
      */
@@ -63,7 +67,7 @@ public class Class(public val jscClassPointer: CPointer<JSCClass>) :
          * @return the parent class of @jsc_class
          */
         get() = jsc_class_get_parent(jscClassPointer)!!.run {
-            Class(this)
+            InstanceCache.get(this, true) { Class(reinterpret()) }!!
         }
 
     /**
@@ -92,7 +96,7 @@ public class Class(public val jscClassPointer: CPointer<JSCClass>) :
             staticStableRefDestroy.reinterpret(),
             returnType
         )!!.run {
-            Value(this)
+            InstanceCache.get(this, true) { Value(reinterpret()) }!!
         }
 
     /**
@@ -122,10 +126,10 @@ public class Class(public val jscClassPointer: CPointer<JSCClass>) :
 
     public companion object : TypeCompanion<Class> {
         override val type: GeneratedClassKGType<Class> =
-            GeneratedClassKGType(getTypeOrNull("jsc_class_get_type")!!) { Class(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Class(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
+            JavaScriptCoreTypeProvider.register()
         }
 
         /**
@@ -134,5 +138,15 @@ public class Class(public val jscClassPointer: CPointer<JSCClass>) :
          * @return the GType
          */
         public fun getType(): GType = jsc_class_get_type()
+
+        /**
+         * Gets the GType of from the symbol `jsc_class_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("jsc_class_get_type")
     }
 }

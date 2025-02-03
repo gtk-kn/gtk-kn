@@ -762,12 +762,26 @@ public object GLib {
     public const val GINTPTR_MODIFIER: kotlin.String = "l"
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.16.
+     *
+     * Use G_STRFUNC() instead
+     * ---
+     *
      * Expands to "" on all modern compilers, and to  __FUNCTION__ on gcc
      * version 2.x. Don't use it.
      */
     public const val GNUC_FUNCTION: kotlin.String = ""
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.16.
+     *
+     * Use G_STRFUNC() instead
+     * ---
+     *
      * Expands to "" on all modern compilers, and to __PRETTY_FUNCTION__
      * on gcc version 2.x. Don't use it.
      */
@@ -1803,6 +1817,16 @@ public object GLib {
     public fun atomicRcBoxRelease(memBlock: gpointer): Unit = g_atomic_rc_box_release(memBlock)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * Use g_path_get_basename() instead, but notice
+     *   that g_path_get_basename() allocates new memory for the
+     *   returned string, unlike this function which returns a pointer
+     *   into the argument.
+     * ---
+     *
      * Gets the name of the file without any leading directory
      * components. It returns a pointer into the given file name
      * string.
@@ -2775,6 +2799,14 @@ public object GLib {
         g_format_size(size)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.30.
+     *
+     * This function is broken due to its use of SI
+     *     suffixes to denote IEC units. Use g_format_size() instead.
+     * ---
+     *
      * Formats a size (for example the size of a file) into a human
      * readable string. Sizes are rounded to the nearest size prefix
      * (KB, MB, GB) and are displayed rounded to the nearest tenth.
@@ -2890,6 +2922,14 @@ public object GLib {
     public fun getCurrentDir(): kotlin.String = g_get_current_dir()?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use g_get_real_time()
+     *    instead.
+     * ---
+     *
      * Equivalent to the UNIX gettimeofday() function, but portable.
      *
      * You may find g_get_real_time() to be more convenient.
@@ -4219,6 +4259,14 @@ public object GLib {
         g_markup_escape_text(text, length)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * GLib always uses the system malloc, so this function always
+     * returns %TRUE.
+     * ---
+     *
      * Checks whether the allocator used by g_malloc() is the system's
      * malloc implementation. If it returns true memory allocated with
      * malloc() can be used interchangeably with memory allocated using g_malloc().
@@ -4230,6 +4278,13 @@ public object GLib {
     public fun memIsSystemMalloc(): Boolean = g_mem_is_system_malloc().asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use other memory profiling tools instead
+     * ---
+     *
      * GLib used to support some tools for memory profiling, but this
      * no longer works. There are many other useful tools for memory
      * profiling these days which can be used instead.
@@ -4237,6 +4292,14 @@ public object GLib {
     public fun memProfile(): Unit = g_mem_profile()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * This function now does nothing. Use other memory
+     * profiling tools instead
+     * ---
+     *
      * This function used to let you override the memory allocation function.
      * However, its use was incompatible with the use of global constructors
      * in GLib and GIO, because those use the GLib allocators before main is
@@ -4247,6 +4310,15 @@ public object GLib {
     public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.glibMemVTablePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.68.
+     *
+     * Use [func@GLib.memdup2] instead, as it accepts a gsize argument
+     *   for @byte_size, avoiding the possibility of overflow in a `gsize` → `guint`
+     *   conversion
+     * ---
+     *
      * Allocates @byte_size bytes of memory, and copies @byte_size bytes into it
      * from @mem. If @mem is `NULL` it returns `NULL`.
      *
@@ -4536,6 +4608,13 @@ public object GLib {
     public fun pathSkipRoot(fileName: kotlin.String): kotlin.String? = g_path_skip_root(fileName)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.70.
+     *
+     * Use g_pattern_spec_match() instead
+     * ---
+     *
      * Matches a string against a compiled pattern. Passing the correct
      * length of the string given is mandatory. The reversed string can be
      * omitted by passing null, this is more efficient if the reversed
@@ -4582,6 +4661,13 @@ public object GLib {
         g_pattern_match_simple(pattern, string).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.70.
+     *
+     * Use g_pattern_spec_match_string() instead
+     * ---
+     *
      * Matches a string against a compiled pattern. If the string is to be
      * matched against more than one pattern, consider using
      * g_pattern_match() instead while supplying the reversed string.
@@ -5258,6 +5344,13 @@ public object GLib {
     public fun spacedPrimesClosest(num: guint): guint = g_spaced_primes_closest(num)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.70.
+     *
+     * Use g_spawn_check_wait_status() instead, and check whether your code is conflating wait and exit statuses.
+     * ---
+     *
      * An old name for g_spawn_check_wait_status(), deprecated because its
      * name is misleading.
      *
@@ -5543,6 +5636,14 @@ public object GLib {
         g_strcanon(string.cstr, validChars, substitutor.code.toByte())?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * See [func@GLib.strncasecmp] for a discussion of why this
+     *   function is deprecated and how to replace it.
+     * ---
+     *
      * A case-insensitive string comparison, corresponding to the standard
      * `strcasecmp()` function on platforms which support it.
      *
@@ -5646,6 +5747,15 @@ public object GLib {
         ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * This function is totally broken for the reasons discussed
+     *   in the [func@GLib.strncasecmp] docs — use [func@GLib.ascii_strdown] or
+     *   [func@GLib.utf8_strdown] instead.
+     * ---
+     *
      * Converts a string to lower case.
      *
      * @param string the string to convert
@@ -5817,6 +5927,26 @@ public object GLib {
         g_strlcpy(dest.cstr, src, destSize)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * The problem with `g_strncasecmp()` is that it does
+     *   the comparison by calling `toupper()`/`tolower()`. These functions
+     *   are locale-specific and operate on single bytes. However, it is
+     *   impossible to handle things correctly from an internationalization
+     *   standpoint by operating on bytes, since characters may be multibyte.
+     *   Thus `g_strncasecmp()` is broken if your string is guaranteed to be
+     *   ASCII, since it is locale-sensitive, and it's broken if your string
+     *   is localized, since it doesn't work on many encodings at all,
+     *   including UTF-8, EUC-JP, etc.
+     *
+     *   There are therefore two replacement techniques: [func@GLib.ascii_strncasecmp],
+     *   which only works on ASCII and is not locale-sensitive, and
+     *   [func@GLib.utf8_casefold] followed by `strcmp()` on the resulting strings,
+     *   which is good for case-insensitive sorting of UTF-8.
+     * ---
+     *
      * A case-insensitive string comparison, corresponding to the standard
      * `strncasecmp()` function on platforms which support it. It is similar
      * to [func@GLib.strcasecmp] except it only compares the first @n characters of
@@ -5989,6 +6119,15 @@ public object GLib {
         g_strstr_len(haystack, haystackLen, needle)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * This function is totally broken for the reasons discussed
+     *   in the [func@GLib.strncasecmp] docs — use [func@GLib.ascii_strup] or
+     *   [func@GLib.utf8_strup] instead.
+     * ---
+     *
      * Converts a string to upper case.
      *
      * @param string the string to convert
@@ -6499,6 +6638,16 @@ public object GLib {
     ): Unit = g_test_trap_assertions(domain, `file`, line, func, assertionFlags, pattern)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated.
+     *
+     * This function is implemented only on Unix platforms,
+     * is not always reliable due to problems inherent in fork-without-exec
+     * and doesn't set close-on-exec flag on its file descriptors.
+     * Use g_test_trap_subprocess() instead.
+     * ---
+     *
      * Fork the current test program to execute a test case that might
      * not return or that might abort.
      *
@@ -9478,6 +9627,14 @@ public typealias RecMutexLocker = Unit
 public typealias RefString = Char
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.62.
+ *
+ * This is not [Y2038-safe](https://en.wikipedia.org/wiki/Year_2038_problem).
+ *    Use #GDateTime or #time_t instead.
+ * ---
+ *
  * Simply a replacement for `time_t`. It has been deprecated
  * since it is not equivalent to `time_t` on 64-bit platforms
  * with a 64-bit `time_t`.

@@ -9,11 +9,9 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GUnixPipe
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A Unix pipe. The advantage of this type over `int[2]` is that it can
@@ -27,29 +25,16 @@ import kotlin.native.ref.createCleaner
  * @since 2.80
  */
 @GLibVersion2_80
-public class UnixPipe(public val glibUnixPipePointer: CPointer<GUnixPipe>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibUnixPipePointer) {
+public class UnixPipe(public val glibUnixPipePointer: CPointer<GUnixPipe>) : ProxyInstance(glibUnixPipePointer) {
     /**
      * Allocate a new UnixPipe.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GUnixPipe>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to UnixPipe and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GUnixPipe>, Cleaner>,
-    ) : this(glibUnixPipePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GUnixPipe>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new UnixPipe using the provided [AutofreeScope].

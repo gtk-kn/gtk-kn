@@ -6,7 +6,7 @@ hide:
 ---
 
 <div style="text-align: center;" markdown>
-![GTK-kn logo](assets/logo-256.png)
+![GTK-kn logo](assets/logo.svg){ width="178" }
 
 Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries.
 <br>

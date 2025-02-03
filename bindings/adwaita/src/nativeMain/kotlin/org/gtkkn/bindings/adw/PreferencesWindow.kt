@@ -8,12 +8,12 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwPreferencesWindow
 import org.gtkkn.native.adw.adw_preferences_window_add
 import org.gtkkn.native.adw.adw_preferences_window_add_toast
@@ -67,6 +67,10 @@ import kotlin.Unit
 public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPointer<AdwPreferencesWindow>) :
     Window(adwPreferencesWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -86,6 +90,16 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use [property@NavigationPage:can-pop] instead.
+     *
+     * Has no effect for subpages added with
+     * [method@PreferencesWindow.push_subpage].
+     * ---
+     *
      * Whether gestures and shortcuts for closing subpages are enabled.
      *
      * The supported gestures are:
@@ -101,6 +115,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
      */
     public open var canNavigateBack: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * Use [method@NavigationPage.get_can_pop] instead.
+         * ---
+         *
          * Gets whether gestures and shortcuts for closing subpages are enabled.
          *
          * @return whether gestures and shortcuts are enabled.
@@ -108,6 +129,15 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         get() = adw_preferences_window_get_can_navigate_back(adwPreferencesWindowPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * Use [method@NavigationPage.set_can_pop] instead.
+         *
+         * Has no effect for subpages added with [method@PreferencesWindow.push_subpage].
+         * ---
+         *
          * Sets whether gestures and shortcuts for closing subpages are enabled.
          *
          * The supported gestures are:
@@ -152,7 +182,9 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
      *
      * @return the newly created `AdwPreferencesWindow`
      */
-    public constructor() : this(adw_preferences_window_new()!!.reinterpret())
+    public constructor() : this(adw_preferences_window_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a preferences page to @self.
@@ -173,6 +205,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         adw_preferences_window_add_toast(adwPreferencesWindowPointer, toast.adwToastPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use [method@PreferencesWindow.pop_subpage] instead.
+     * ---
+     *
      * Closes the current subpage.
      *
      * If there is no presented subpage, this does nothing.
@@ -186,7 +225,7 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
      */
     public open fun getVisiblePage(): PreferencesPage? =
         adw_preferences_window_get_visible_page(adwPreferencesWindowPointer)?.run {
-            PreferencesPage(this)
+            InstanceCache.get(this, true) { PreferencesPage(reinterpret()) }!!
         }
 
     /**
@@ -207,6 +246,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
     public open fun popSubpage(): Boolean = adw_preferences_window_pop_subpage(adwPreferencesWindowPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use [method@PreferencesWindow.push_subpage] instead.
+     * ---
+     *
      * Sets @subpage as the window's subpage and opens it.
      *
      * The transition can be cancelled by the user, in which case visible child will
@@ -257,9 +303,7 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
 
     public companion object : TypeCompanion<PreferencesWindow> {
         override val type: GeneratedClassKGType<PreferencesWindow> =
-            GeneratedClassKGType(getTypeOrNull("adw_preferences_window_get_type")!!) {
-                PreferencesWindow(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PreferencesWindow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -271,5 +315,16 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = adw_preferences_window_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_preferences_window_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_preferences_window_get_type")
     }
 }

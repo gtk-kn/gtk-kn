@@ -7,12 +7,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_18
 import org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPixbufSimpleAnim
 import org.gtkkn.native.gdk.gdk_pixbuf_simple_anim_add_frame
 import org.gtkkn.native.gdk.gdk_pixbuf_simple_anim_get_loop
@@ -31,6 +31,10 @@ import kotlin.Unit
 public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPointer<GdkPixbufSimpleAnim>) :
     PixbufAnimation(gdkPixbufSimpleAnimPointer.reinterpret()),
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     /**
      * Whether the animation should loop when it reaches the end.
      *
@@ -68,7 +72,9 @@ public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPoint
         width: gint,
         height: gint,
         rate: gfloat,
-    ) : this(gdk_pixbuf_simple_anim_new(width, height, rate)!!.reinterpret())
+    ) : this(gdk_pixbuf_simple_anim_new(width, height, rate)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a new frame to @animation. The @pixbuf must
@@ -84,12 +90,10 @@ public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPoint
 
     public companion object : TypeCompanion<PixbufSimpleAnim> {
         override val type: GeneratedClassKGType<PixbufSimpleAnim> =
-            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_simple_anim_get_type")!!) {
-                PixbufSimpleAnim(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PixbufSimpleAnim(it.reinterpret()) }
 
         init {
-            GdkpixbufTypeProvider.register()
+            GdkPixbufTypeProvider.register()
         }
 
         /**
@@ -98,5 +102,16 @@ public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gdk_pixbuf_simple_anim_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_pixbuf_simple_anim_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_pixbuf_simple_anim_get_type")
     }
 }

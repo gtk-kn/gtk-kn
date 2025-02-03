@@ -9,17 +9,18 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GCharsetConverter
 import org.gtkkn.native.gio.GConverter
 import org.gtkkn.native.gio.GInitable
@@ -49,6 +50,10 @@ public open class CharsetConverter(public val gioCharsetConverterPointer: CPoint
     Converter,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioConverterPointer: CPointer<GConverter>
         get() = handle.reinterpret()
 
@@ -91,13 +96,16 @@ public open class CharsetConverter(public val gioCharsetConverterPointer: CPoint
     public constructor(toCharset: String, fromCharset: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_charset_converter_new(toCharset, fromCharset, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the number of fallbacks that @converter has applied so far.
@@ -110,9 +118,7 @@ public open class CharsetConverter(public val gioCharsetConverterPointer: CPoint
 
     public companion object : TypeCompanion<CharsetConverter> {
         override val type: GeneratedClassKGType<CharsetConverter> =
-            GeneratedClassKGType(getTypeOrNull("g_charset_converter_get_type")!!) {
-                CharsetConverter(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { CharsetConverter(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -124,5 +130,16 @@ public open class CharsetConverter(public val gioCharsetConverterPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = g_charset_converter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_charset_converter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_charset_converter_get_type")
     }
 }

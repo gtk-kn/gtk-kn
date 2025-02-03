@@ -9,6 +9,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
@@ -22,12 +23,12 @@ import org.gtkkn.bindings.glib.IoCondition
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDatagramBased
 import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.GSocket
@@ -190,6 +191,10 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
     DatagramBased,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDatagramBasedPointer: CPointer<GDatagramBased>
         get() = handle.reinterpret()
 
@@ -537,13 +542,16 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_socket_new(family.nativeValue, type.nativeValue, protocol.nativeValue, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSocket from a native file descriptor
@@ -569,13 +577,16 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
     public constructor(fd: gint) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_socket_new_from_fd(fd, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Accept incoming connections on a connection-based socket. This removes
@@ -598,7 +609,7 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
     public open fun accept(cancellable: Cancellable? = null): Result<Socket> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_accept(gioSocketPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            Socket(this)
+            InstanceCache.get(this, true) { Socket(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -875,7 +886,7 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
     @GioVersion2_22
     public open fun connectionFactoryCreateConnection(): SocketConnection =
         g_socket_connection_factory_create_connection(gioSocketPointer)!!.run {
-            SocketConnection(this)
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
     /**
@@ -962,7 +973,7 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
     public open fun getCredentials(): Result<Credentials> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_credentials(gioSocketPointer, gError.ptr)?.run {
-            Credentials(this)
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -985,7 +996,7 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_local_address(gioSocketPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -1007,7 +1018,7 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_remote_address(gioSocketPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -1364,7 +1375,7 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
 
     public companion object : TypeCompanion<Socket> {
         override val type: GeneratedClassKGType<Socket> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_get_type")!!) { Socket(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Socket(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -1376,5 +1387,15 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
          * @return the GType
          */
         public fun getType(): GType = g_socket_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_socket_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_socket_get_type")
     }
 }

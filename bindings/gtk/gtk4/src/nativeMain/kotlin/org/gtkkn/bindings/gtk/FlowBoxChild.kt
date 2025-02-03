@@ -11,12 +11,12 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -42,6 +42,10 @@ import kotlin.Unit
 public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFlowBoxChild>) :
     Widget(gtkFlowBoxChildPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -61,7 +65,7 @@ public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFl
          * @return the child widget of @self
          */
         get() = gtk_flow_box_child_get_child(gtkFlowBoxChildPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -78,7 +82,9 @@ public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFl
      *
      * @return a new `GtkFlowBoxChild`
      */
-    public constructor() : this(gtk_flow_box_child_new()!!.reinterpret())
+    public constructor() : this(gtk_flow_box_child_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Marks @child as changed, causing any state that depends on this
@@ -152,7 +158,7 @@ public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFl
 
     public companion object : TypeCompanion<FlowBoxChild> {
         override val type: GeneratedClassKGType<FlowBoxChild> =
-            GeneratedClassKGType(getTypeOrNull("gtk_flow_box_child_get_type")!!) { FlowBoxChild(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FlowBoxChild(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -164,6 +170,17 @@ public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFl
          * @return the GType
          */
         public fun getType(): GType = gtk_flow_box_child_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_flow_box_child_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_flow_box_child_get_type")
     }
 }
 

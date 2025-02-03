@@ -22,15 +22,15 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -101,6 +101,10 @@ import org.gtkkn.bindings.glib.List as GlibList
 public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebContext>) :
     Object(webkitWebContextPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The timezone override for this web context. Setting this property provides a better
      * alternative to configure the timezone information for all webviews managed by the WebContext.
@@ -129,7 +133,9 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @return a newly created #WebKitWebContext
      * @since 2.8
      */
-    public constructor() : this(webkit_web_context_new()!!.reinterpret())
+    public constructor() : this(webkit_web_context_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a path to be mounted in the sandbox.
@@ -174,7 +180,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
     @WebKitVersion2_26
     public fun getGeolocationManager(): GeolocationManager =
         webkit_web_context_get_geolocation_manager(webkitWebContextPointer)!!.run {
-            GeolocationManager(this)
+            InstanceCache.get(this, true) { GeolocationManager(reinterpret()) }!!
         }
 
     /**
@@ -186,7 +192,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
     @WebKitVersion2_40
     public fun getNetworkSessionForAutomation(): NetworkSession? =
         webkit_web_context_get_network_session_for_automation(webkitWebContextPointer)?.run {
-            NetworkSession(this)
+            InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!
         }
 
     /**
@@ -196,7 +202,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      */
     public fun getSecurityManager(): SecurityManager =
         webkit_web_context_get_security_manager(webkitWebContextPointer)!!.run {
-            SecurityManager(this)
+            InstanceCache.get(this, true) { SecurityManager(reinterpret()) }!!
         }
 
     /**
@@ -586,10 +592,10 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
 
     public companion object : TypeCompanion<WebContext> {
         override val type: GeneratedClassKGType<WebContext> =
-            GeneratedClassKGType(getTypeOrNull("webkit_web_context_get_type")!!) { WebContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { WebContext(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -598,7 +604,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
          * @return a #WebKitWebContext
          */
         public fun getDefault(): WebContext = webkit_web_context_get_default()!!.run {
-            WebContext(this)
+            InstanceCache.get(this, true) { WebContext(reinterpret()) }!!
         }
 
         /**
@@ -607,6 +613,17 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
          * @return the GType
          */
         public fun getType(): GType = webkit_web_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_web_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_web_context_get_type")
     }
 }
 
@@ -618,7 +635,7 @@ private val onAutomationStartedFunc:
         ->
         userData.asStableRef<(session: AutomationSession) -> Unit>().get().invoke(
             session!!.run {
-                AutomationSession(this)
+                InstanceCache.get(this, false) { AutomationSession(reinterpret()) }!!
             }
         )
     }
@@ -650,7 +667,7 @@ private val onUserMessageReceivedFunc:
         ->
         userData.asStableRef<(message: UserMessage) -> Boolean>().get().invoke(
             message!!.run {
-                UserMessage(this)
+                InstanceCache.get(this, false) { UserMessage(reinterpret()) }!!
             }
         ).asGBoolean()
     }

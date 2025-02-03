@@ -11,6 +11,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTokenValue
 import org.gtkkn.native.glib.g_free
@@ -21,15 +22,12 @@ import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.glib.guint8
 import org.gtkkn.native.glib.gulong
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A union holding the value of the token.
  */
-public class TokenValue(public val glibTokenValuePointer: CPointer<GTokenValue>, cleaner: Cleaner? = null) :
+public class TokenValue(public val glibTokenValuePointer: CPointer<GTokenValue>) :
     ProxyInstance(glibTokenValuePointer) {
     /**
      * token symbol value
@@ -172,21 +170,9 @@ public class TokenValue(public val glibTokenValuePointer: CPointer<GTokenValue>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTokenValue>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TokenValue and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTokenValue>, Cleaner>,
-    ) : this(glibTokenValuePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTokenValue>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TokenValue using the provided [AutofreeScope].

@@ -4,9 +4,9 @@
 package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -47,6 +47,24 @@ import kotlin.Unit
  * - constructor `new_with_positions`: Varargs parameter is not supported
  */
 public class TabArray(public val pangoTabArrayPointer: CPointer<PangoTabArray>) : ProxyInstance(pangoTabArrayPointer) {
+    /**
+     * Creates an array of @initial_size tab stops.
+     *
+     * Tab stops are specified in pixel units if @positions_in_pixels is true,
+     * otherwise in Pango units. All stops are initially at position 0.
+     *
+     * @param initialSize Initial number of tab stops to allocate, can be 0
+     * @param positionsInPixels whether positions are in pixel units
+     * @return the newly allocated `PangoTabArray`, which should
+     *   be freed with [method@Pango.TabArray.free].
+     */
+    public constructor(
+        initialSize: gint,
+        positionsInPixels: Boolean,
+    ) : this(pango_tab_array_new(initialSize, positionsInPixels.asGBoolean())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies a `PangoTabArray`.
      *
@@ -171,20 +189,6 @@ public class TabArray(public val pangoTabArrayPointer: CPointer<PangoTabArray>) 
         pango_tab_array_to_string(pangoTabArrayPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
-        /**
-         * Creates an array of @initial_size tab stops.
-         *
-         * Tab stops are specified in pixel units if @positions_in_pixels is true,
-         * otherwise in Pango units. All stops are initially at position 0.
-         *
-         * @param initialSize Initial number of tab stops to allocate, can be 0
-         * @param positionsInPixels whether positions are in pixel units
-         * @return the newly allocated `PangoTabArray`, which should
-         *   be freed with [method@Pango.TabArray.free].
-         */
-        public fun new(initialSize: gint, positionsInPixels: Boolean): TabArray =
-            TabArray(pango_tab_array_new(initialSize, positionsInPixels.asGBoolean())!!.reinterpret())
-
         /**
          * Deserializes a `PangoTabArray` from a string.
          *

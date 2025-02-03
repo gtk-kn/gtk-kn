@@ -12,10 +12,13 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusNodeInfo
 import org.gtkkn.native.gio.g_dbus_node_info_generate_xml
@@ -30,11 +33,8 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
-import kotlin.Result
+import kotlin.Throws
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -50,7 +50,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusNodeInfo(public val gioDBusNodeInfoPointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = null) :
+public class DBusNodeInfo(public val gioDBusNodeInfoPointer: CPointer<GDBusNodeInfo>) :
     ProxyInstance(gioDBusNodeInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
@@ -76,26 +76,44 @@ public class DBusNodeInfo(public val gioDBusNodeInfoPointer: CPointer<GDBusNodeI
         }
 
     /**
+     * Parses @xml_data and returns a #GDBusNodeInfo representing the data.
+     *
+     * The introspection XML must contain exactly one top-level
+     * <node> element.
+     *
+     * Note that this routine is using a
+     * [GMarkup][glib-Simple-XML-Subset-Parser.description]-based
+     * parser that only accepts a subset of valid XML documents.
+     *
+     * @param xmlData Valid D-Bus introspection XML.
+     * @return A #GDBusNodeInfo structure or null if @error is set. Free
+     * with g_dbus_node_info_unref().
+     * @since 2.26
+     */
+    @Throws(GLibException::class)
+    public constructor(xmlData: KotlinString) : this(
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = g_dbus_node_info_new_for_xml(xmlData, gError.ptr)
+            if (gError.pointed != null) {
+                throw resolveException(Error(gError.pointed!!.ptr))
+            }
+            gResult!!
+        }
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
      * Allocate a new DBusNodeInfo.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusNodeInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DBusNodeInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDBusNodeInfo>, Cleaner>,
-    ) : this(gioDBusNodeInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDBusNodeInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DBusNodeInfo using the provided [AutofreeScope].
@@ -192,33 +210,6 @@ public class DBusNodeInfo(public val gioDBusNodeInfoPointer: CPointer<GDBusNodeI
     override fun toString(): KotlinString = "DBusNodeInfo(refCount=$refCount, path=$path)"
 
     public companion object {
-        /**
-         * Parses @xml_data and returns a #GDBusNodeInfo representing the data.
-         *
-         * The introspection XML must contain exactly one top-level
-         * <node> element.
-         *
-         * Note that this routine is using a
-         * [GMarkup][glib-Simple-XML-Subset-Parser.description]-based
-         * parser that only accepts a subset of valid XML documents.
-         *
-         * @param xmlData Valid D-Bus introspection XML.
-         * @return A #GDBusNodeInfo structure or null if @error is set. Free
-         * with g_dbus_node_info_unref().
-         * @since 2.26
-         */
-        public fun newForXml(xmlData: KotlinString): Result<DBusNodeInfo> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_dbus_node_info_new_for_xml(xmlData, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(DBusNodeInfo(checkNotNull(gResult)))
-                }
-            }
-        }
-
         /**
          * Get the GType of DBusNodeInfo
          *

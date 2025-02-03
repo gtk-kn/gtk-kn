@@ -18,6 +18,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_46
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -44,12 +45,9 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `GThreadPool` struct represents a thread pool.
@@ -83,7 +81,7 @@ import kotlin.native.ref.createCleaner
  *
  * - field `func`: Func
  */
-public class ThreadPool(public val glibThreadPoolPointer: CPointer<GThreadPool>, cleaner: Cleaner? = null) :
+public class ThreadPool(public val glibThreadPoolPointer: CPointer<GThreadPool>) :
     ProxyInstance(glibThreadPoolPointer) {
     /**
      * the user data for the threads of this pool
@@ -113,21 +111,9 @@ public class ThreadPool(public val glibThreadPoolPointer: CPointer<GThreadPool>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GThreadPool>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to ThreadPool and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GThreadPool>, Cleaner>,
-    ) : this(glibThreadPoolPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GThreadPool>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new ThreadPool using the provided [AutofreeScope].

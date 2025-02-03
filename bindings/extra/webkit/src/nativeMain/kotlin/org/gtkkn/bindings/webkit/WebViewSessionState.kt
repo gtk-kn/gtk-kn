@@ -4,9 +4,9 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_12
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWebViewSessionState
@@ -24,6 +24,18 @@ import kotlin.Unit
 @WebKitVersion2_12
 public class WebViewSessionState(public val webkitWebViewSessionStatePointer: CPointer<WebKitWebViewSessionState>) :
     ProxyInstance(webkitWebViewSessionStatePointer) {
+    /**
+     * Creates a new #WebKitWebViewSessionState from serialized data.
+     *
+     * @param data a #GBytes
+     * @return a new #WebKitWebViewSessionState, or null if @data doesn't contain a
+     *     valid serialized #WebKitWebViewSessionState.
+     * @since 2.12
+     */
+    public constructor(`data`: Bytes) : this(webkit_web_view_session_state_new(`data`.glibBytesPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Atomically increments the reference count of @state by one.
      *
@@ -62,17 +74,6 @@ public class WebViewSessionState(public val webkitWebViewSessionStatePointer: CP
     public fun unref(): Unit = webkit_web_view_session_state_unref(webkitWebViewSessionStatePointer)
 
     public companion object {
-        /**
-         * Creates a new #WebKitWebViewSessionState from serialized data.
-         *
-         * @param data a #GBytes
-         * @return a new #WebKitWebViewSessionState, or null if @data doesn't contain a
-         *     valid serialized #WebKitWebViewSessionState.
-         * @since 2.12
-         */
-        public fun new(`data`: Bytes): WebViewSessionState =
-            WebViewSessionState(webkit_web_view_session_state_new(`data`.glibBytesPointer)!!.reinterpret())
-
         /**
          * Get the GType of WebViewSessionState
          *

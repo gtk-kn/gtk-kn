@@ -61,7 +61,7 @@ class GtkDispatcherTest {
 
     @Test
     fun `test delayed resume after delay`() = runTest {
-        val mainLoop = MainLoop.new(null, false)
+        val mainLoop = MainLoop(null, false)
         var resumed = false
 
         // Launch coroutine with a delay using the GTK dispatcher
@@ -80,7 +80,7 @@ class GtkDispatcherTest {
 
     @Test
     fun `test invoke on timeout cancellation`() = runTest {
-        val mainLoop = MainLoop.new(null, false)
+        val mainLoop = MainLoop(null, false)
         val delay: Delay = Dispatchers.Gtk as Delay
         var executed = false
 

@@ -10,12 +10,12 @@ import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -69,6 +69,10 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
     Object(gtkDirectoryListPointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 
@@ -204,7 +208,9 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
     public constructor(
         attributes: String? = null,
         `file`: File? = null,
-    ) : this(gtk_directory_list_new(attributes, `file`?.gioFilePointer)!!.reinterpret())
+    ) : this(gtk_directory_list_new(attributes, `file`?.gioFilePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns true if the children enumeration is currently in
@@ -220,7 +226,7 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<DirectoryList> {
         override val type: GeneratedClassKGType<DirectoryList> =
-            GeneratedClassKGType(getTypeOrNull("gtk_directory_list_get_type")!!) { DirectoryList(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DirectoryList(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -232,5 +238,16 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_directory_list_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_directory_list_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_directory_list_get_type")
     }
 }

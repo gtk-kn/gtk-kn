@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -19,6 +19,13 @@ import org.gtkkn.native.gtk.gtk_font_chooser_widget_get_type
 import org.gtkkn.native.gtk.gtk_font_chooser_widget_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Direct use of `GtkFontChooserWidget` is deprecated.
+ * ---
+ *
  * The `GtkFontChooserWidget` widget lets the user select a font.
  *
  * It is used in the `GtkFontChooserDialog` widget to provide a
@@ -45,6 +52,10 @@ public open class FontChooserWidget(public val gtkFontChooserWidgetPointer: CPoi
     Widget(gtkFontChooserWidgetPointer.reinterpret()),
     FontChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkFontChooserPointer: CPointer<GtkFontChooser>
         get() = handle.reinterpret()
 
@@ -58,17 +69,24 @@ public open class FontChooserWidget(public val gtkFontChooserWidgetPointer: CPoi
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Direct use of `GtkFontChooserWidget` is deprecated.
+     * ---
+     *
      * Creates a new `GtkFontChooserWidget`.
      *
      * @return a new `GtkFontChooserWidget`
      */
-    public constructor() : this(gtk_font_chooser_widget_new()!!.reinterpret())
+    public constructor() : this(gtk_font_chooser_widget_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<FontChooserWidget> {
         override val type: GeneratedClassKGType<FontChooserWidget> =
-            GeneratedClassKGType(getTypeOrNull("gtk_font_chooser_widget_get_type")!!) {
-                FontChooserWidget(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { FontChooserWidget(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -80,5 +98,16 @@ public open class FontChooserWidget(public val gtkFontChooserWidgetPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = gtk_font_chooser_widget_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_font_chooser_widget_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_font_chooser_widget_get_type")
     }
 }

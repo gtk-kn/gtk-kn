@@ -5,11 +5,10 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkFocusEvent
 import org.gtkkn.native.gdk.gdk_focus_event_get_in
 import org.gtkkn.native.gdk.gdk_focus_event_get_type
@@ -22,6 +21,10 @@ import kotlin.Boolean
 public open class FocusEvent(public val gdkFocusEventPointer: CPointer<GdkFocusEvent>) :
     Event(gdkFocusEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts whether this event is about focus entering or
      * leaving the surface.
@@ -32,7 +35,7 @@ public open class FocusEvent(public val gdkFocusEventPointer: CPointer<GdkFocusE
 
     public companion object : TypeCompanion<FocusEvent> {
         override val type: GeneratedClassKGType<FocusEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_focus_event_get_type")!!) { FocusEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FocusEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -44,5 +47,16 @@ public open class FocusEvent(public val gdkFocusEventPointer: CPointer<GdkFocusE
          * @return the GType
          */
         public fun getType(): GType = gdk_focus_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_focus_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_focus_event_get_type")
     }
 }

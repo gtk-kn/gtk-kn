@@ -6,6 +6,7 @@ package org.gtkkn.bindings.webkit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
@@ -29,6 +30,16 @@ import kotlin.Unit
  */
 public class ApplicationInfo(public val webkitApplicationInfoPointer: CPointer<WebKitApplicationInfo>) :
     ProxyInstance(webkitApplicationInfoPointer) {
+    /**
+     * Creates a new #WebKitApplicationInfo
+     *
+     * @return the newly created #WebKitApplicationInfo.
+     * @since 2.18
+     */
+    public constructor() : this(webkit_application_info_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Get the name of the application.
      *
@@ -99,14 +110,6 @@ public class ApplicationInfo(public val webkitApplicationInfoPointer: CPointer<W
     public fun unref(): Unit = webkit_application_info_unref(webkitApplicationInfoPointer)
 
     public companion object {
-        /**
-         * Creates a new #WebKitApplicationInfo
-         *
-         * @return the newly created #WebKitApplicationInfo.
-         * @since 2.18
-         */
-        public fun new(): ApplicationInfo = ApplicationInfo(webkit_application_info_new()!!)
-
         /**
          * Get the GType of ApplicationInfo
          *

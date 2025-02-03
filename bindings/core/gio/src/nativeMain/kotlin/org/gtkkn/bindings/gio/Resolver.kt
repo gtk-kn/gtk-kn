@@ -24,11 +24,11 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GResolver
 import org.gtkkn.native.gio.g_resolver_free_addresses
 import org.gtkkn.native.gio.g_resolver_free_targets
@@ -86,6 +86,10 @@ import kotlin.Unit
 public abstract class Resolver(public val gioResolverPointer: CPointer<GResolver>) :
     Object(gioResolverPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The timeout applied to all resolver lookups, in milliseconds.
      *
@@ -697,7 +701,7 @@ public abstract class Resolver(public val gioResolverPointer: CPointer<GResolver
 
     public companion object : TypeCompanion<Resolver> {
         override val type: GeneratedClassKGType<Resolver> =
-            GeneratedClassKGType(getTypeOrNull("g_resolver_get_type")!!) { ResolverImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ResolverImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -737,7 +741,7 @@ public abstract class Resolver(public val gioResolverPointer: CPointer<GResolver
          */
         @GioVersion2_22
         public fun getDefault(): Resolver = g_resolver_get_default()!!.run {
-            ResolverImpl(this)
+            InstanceCache.get(this, true) { ResolverImpl(reinterpret()) }!!
         }
 
         /**
@@ -746,6 +750,16 @@ public abstract class Resolver(public val gioResolverPointer: CPointer<GResolver
          * @return the GType
          */
         public fun getType(): GType = g_resolver_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_resolver_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_resolver_get_type")
     }
 }
 

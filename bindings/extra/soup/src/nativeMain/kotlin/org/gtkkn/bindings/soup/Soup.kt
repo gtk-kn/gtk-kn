@@ -22,6 +22,8 @@ import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHashTable
 import org.gtkkn.native.glib.g_strdup
@@ -115,6 +117,10 @@ import org.gtkkn.bindings.glib.String as GlibString
  * - record `WebsocketExtensionManagerClass`: glib type struct are ignored
  */
 public object Soup {
+    init {
+        registerTypes()
+    }
+
     /**
      * A constant corresponding to 1 day.
      *
@@ -648,6 +654,89 @@ public object Soup {
         }
         return ex ?: GLibException(error)
     }
+
+    private fun registerTypes() {
+        Auth.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Auth::class, gtype) { Auth.AuthImpl(it.reinterpret()) }
+        }
+        AuthBasic.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AuthBasic::class, gtype) { AuthBasic(it.reinterpret()) }
+        }
+        AuthDigest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AuthDigest::class, gtype) { AuthDigest(it.reinterpret()) }
+        }
+        AuthDomain.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AuthDomain::class, gtype) { AuthDomain.AuthDomainImpl(it.reinterpret()) }
+        }
+        AuthDomainBasic.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AuthDomainBasic::class, gtype) { AuthDomainBasic(it.reinterpret()) }
+        }
+        AuthDomainDigest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AuthDomainDigest::class, gtype) { AuthDomainDigest(it.reinterpret()) }
+        }
+        AuthManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AuthManager::class, gtype) { AuthManager(it.reinterpret()) }
+        }
+        AuthNtlm.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AuthNtlm::class, gtype) { AuthNtlm(it.reinterpret()) }
+        }
+        AuthNegotiate.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AuthNegotiate::class, gtype) { AuthNegotiate(it.reinterpret()) }
+        }
+        Cache.getTypeOrNull()?.let { gtype -> TypeCache.register(Cache::class, gtype) { Cache(it.reinterpret()) } }
+        ContentDecoder.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ContentDecoder::class, gtype) { ContentDecoder(it.reinterpret()) }
+        }
+        ContentSniffer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ContentSniffer::class, gtype) { ContentSniffer(it.reinterpret()) }
+        }
+        CookieJar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CookieJar::class, gtype) { CookieJar(it.reinterpret()) }
+        }
+        CookieJarDb.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CookieJarDb::class, gtype) { CookieJarDb(it.reinterpret()) }
+        }
+        CookieJarText.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CookieJarText::class, gtype) { CookieJarText(it.reinterpret()) }
+        }
+        HstsEnforcer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(HstsEnforcer::class, gtype) { HstsEnforcer(it.reinterpret()) }
+        }
+        HstsEnforcerDb.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(HstsEnforcerDb::class, gtype) { HstsEnforcerDb(it.reinterpret()) }
+        }
+        Logger.getTypeOrNull()?.let { gtype -> TypeCache.register(Logger::class, gtype) { Logger(it.reinterpret()) } }
+        Message.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Message::class, gtype) { Message(it.reinterpret()) }
+        }
+        MultipartInputStream.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MultipartInputStream::class, gtype) { MultipartInputStream(it.reinterpret()) }
+        }
+        Server.getTypeOrNull()?.let { gtype -> TypeCache.register(Server::class, gtype) { Server(it.reinterpret()) } }
+        ServerMessage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ServerMessage::class, gtype) { ServerMessage(it.reinterpret()) }
+        }
+        Session.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Session::class, gtype) { Session(it.reinterpret()) }
+        }
+        WebsocketConnection.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebsocketConnection::class, gtype) { WebsocketConnection(it.reinterpret()) }
+        }
+        WebsocketExtension.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebsocketExtension::class, gtype) {
+                WebsocketExtension.WebsocketExtensionImpl(it.reinterpret())
+            }
+        }
+        WebsocketExtensionDeflate.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebsocketExtensionDeflate::class, gtype) { WebsocketExtensionDeflate(it.reinterpret()) }
+        }
+        WebsocketExtensionManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebsocketExtensionManager::class, gtype) { WebsocketExtensionManager(it.reinterpret()) }
+        }
+        SessionFeature.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SessionFeature::class, gtype) { SessionFeature.SessionFeatureImpl(it.reinterpret()) }
+        }
+    }
 }
 
 public val AuthDomainBasicAuthCallbackFunc: CPointer<
@@ -675,10 +764,10 @@ public val AuthDomainBasicAuthCallbackFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         domain!!.run {
-            AuthDomainBasic(reinterpret())
+            InstanceCache.get(reinterpret(), false) { AuthDomainBasic(reinterpret()) }!!
         },
         msg!!.run {
-            ServerMessage(this)
+            InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
         },
         username?.toKString() ?: error("Expected not null string"),
         password?.toKString() ?: error("Expected not null string")
@@ -708,10 +797,10 @@ public val AuthDomainDigestAuthCallbackFunc: CPointer<
         ) -> KotlinString?
         >().get().invoke(
         domain!!.run {
-            AuthDomainDigest(reinterpret())
+            InstanceCache.get(reinterpret(), false) { AuthDomainDigest(reinterpret()) }!!
         },
         msg!!.run {
-            ServerMessage(this)
+            InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
         },
         username?.toKString() ?: error("Expected not null string")
     )?.let { g_strdup(it) }
@@ -727,10 +816,10 @@ public val AuthDomainFilterFunc:
         ->
         userData!!.asStableRef<(domain: AuthDomain, msg: ServerMessage) -> Boolean>().get().invoke(
             domain!!.run {
-                AuthDomain.AuthDomainImpl(this)
+                InstanceCache.get(this, false) { AuthDomain.AuthDomainImpl(reinterpret()) }!!
             },
             msg!!.run {
-                ServerMessage(this)
+                InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
             }
         ).asGBoolean()
     }
@@ -758,10 +847,10 @@ public val AuthDomainGenericAuthCallbackFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         domain!!.run {
-            AuthDomain.AuthDomainImpl(this)
+            InstanceCache.get(this, false) { AuthDomain.AuthDomainImpl(reinterpret()) }!!
         },
         msg!!.run {
-            ServerMessage(this)
+            InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
         },
         username?.toKString() ?: error("Expected not null string")
     ).asGBoolean()
@@ -777,10 +866,10 @@ public val LoggerFilterFunc:
         ->
         userData!!.asStableRef<(logger: Logger, msg: Message) -> LoggerLogLevel>().get().invoke(
             logger!!.run {
-                Logger(this)
+                InstanceCache.get(this, false) { Logger(reinterpret()) }!!
             },
             msg!!.run {
-                Message(this)
+                InstanceCache.get(this, false) { Message(reinterpret()) }!!
             }
         ).nativeValue
     }
@@ -811,7 +900,7 @@ public val LoggerPrinterFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         logger!!.run {
-            Logger(this)
+            InstanceCache.get(this, false) { Logger(reinterpret()) }!!
         },
         level.run {
             LoggerLogLevel.fromNativeValue(this)
@@ -860,10 +949,10 @@ public val ServerCallbackFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         server!!.run {
-            Server(this)
+            InstanceCache.get(this, false) { Server(reinterpret()) }!!
         },
         msg!!.run {
-            ServerMessage(this)
+            InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
         },
         path?.toKString() ?: error("Expected not null string"),
         query?.run {
@@ -898,14 +987,14 @@ public val ServerWebsocketCallbackFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         server!!.run {
-            Server(this)
+            InstanceCache.get(this, false) { Server(reinterpret()) }!!
         },
         msg!!.run {
-            ServerMessage(this)
+            InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
         },
         path?.toKString() ?: error("Expected not null string"),
         connection!!.run {
-            WebsocketConnection(this)
+            InstanceCache.get(this, false) { WebsocketConnection(reinterpret()) }!!
         }
     )
 }

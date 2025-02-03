@@ -10,18 +10,16 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gsk.GskParseLocation
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A location in a parse buffer.
  */
-public class ParseLocation(public val gskParseLocationPointer: CPointer<GskParseLocation>, cleaner: Cleaner? = null) :
+public class ParseLocation(public val gskParseLocationPointer: CPointer<GskParseLocation>) :
     ProxyInstance(gskParseLocationPointer) {
     /**
      * the offset of the location in the parse buffer, as bytes
@@ -84,21 +82,9 @@ public class ParseLocation(public val gskParseLocationPointer: CPointer<GskParse
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GskParseLocation>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to ParseLocation and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GskParseLocation>, Cleaner>,
-    ) : this(gskParseLocationPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GskParseLocation>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new ParseLocation using the provided [AutofreeScope].

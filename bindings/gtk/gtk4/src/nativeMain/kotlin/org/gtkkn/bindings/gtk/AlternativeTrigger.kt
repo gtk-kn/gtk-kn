@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAlternativeTrigger
 import org.gtkkn.native.gtk.gtk_alternative_trigger_get_first
@@ -26,6 +26,10 @@ import org.gtkkn.native.gtk.gtk_alternative_trigger_new
 public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CPointer<GtkAlternativeTrigger>) :
     ShortcutTrigger(gtkAlternativeTriggerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The first `GtkShortcutTrigger` to check.
      */
@@ -40,7 +44,7 @@ public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CP
          * @return the first alternative trigger
          */
         get() = gtk_alternative_trigger_get_first(gtkAlternativeTriggerPointer)!!.run {
-            ShortcutTrigger.ShortcutTriggerImpl(this)
+            InstanceCache.get(this, true) { ShortcutTrigger.ShortcutTriggerImpl(reinterpret()) }!!
         }
 
     /**
@@ -57,7 +61,7 @@ public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CP
          * @return the second alternative trigger
          */
         get() = gtk_alternative_trigger_get_second(gtkAlternativeTriggerPointer)!!.run {
-            ShortcutTrigger.ShortcutTriggerImpl(this)
+            InstanceCache.get(this, true) { ShortcutTrigger.ShortcutTriggerImpl(reinterpret()) }!!
         }
 
     /**
@@ -76,13 +80,13 @@ public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CP
         second: ShortcutTrigger,
     ) : this(
         gtk_alternative_trigger_new(first.gtkShortcutTriggerPointer, second.gtkShortcutTriggerPointer)!!.reinterpret()
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<AlternativeTrigger> {
         override val type: GeneratedClassKGType<AlternativeTrigger> =
-            GeneratedClassKGType(getTypeOrNull("gtk_alternative_trigger_get_type")!!) {
-                AlternativeTrigger(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { AlternativeTrigger(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -94,5 +98,16 @@ public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CP
          * @return the GType
          */
         public fun getType(): GType = gtk_alternative_trigger_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_alternative_trigger_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_alternative_trigger_get_type")
     }
 }

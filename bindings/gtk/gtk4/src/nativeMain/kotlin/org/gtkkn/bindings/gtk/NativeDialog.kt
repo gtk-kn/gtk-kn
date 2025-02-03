@@ -13,13 +13,13 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -67,6 +67,10 @@ import kotlin.Unit
 public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<GtkNativeDialog>) :
     Object(gtkNativeDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Whether the window should be modal with respect to its transient parent.
      */
@@ -102,7 +106,7 @@ public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<G
          *   or null if no transient parent has been set.
          */
         get() = gtk_native_dialog_get_transient_for(gtkNativeDialogPointer)?.run {
-            Window(this)
+            InstanceCache.get(this, true) { Window(reinterpret()) }!!
         }
 
         /**
@@ -221,9 +225,7 @@ public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<G
 
     public companion object : TypeCompanion<NativeDialog> {
         override val type: GeneratedClassKGType<NativeDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_native_dialog_get_type")!!) {
-                NativeDialogImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { NativeDialogImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -235,6 +237,17 @@ public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_native_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_native_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_native_dialog_get_type")
     }
 }
 

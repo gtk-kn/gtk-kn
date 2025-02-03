@@ -19,10 +19,10 @@ import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.gio.PollableInputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.soup.Soup.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GPollableInputStream
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
@@ -58,6 +58,10 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
     FilterInputStream(soupMultipartInputStreamPointer.reinterpret()),
     PollableInputStream,
     KGTyped {
+    init {
+        Soup
+    }
+
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
         get() = handle.reinterpret()
 
@@ -76,7 +80,9 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
     public constructor(
         msg: Message,
         baseStream: InputStream,
-    ) : this(soup_multipart_input_stream_new(msg.soupMessagePointer, baseStream.gioInputStreamPointer)!!.reinterpret())
+    ) : this(soup_multipart_input_stream_new(msg.soupMessagePointer, baseStream.gioInputStreamPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Obtains the headers for the part currently being processed.
@@ -122,7 +128,7 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            InputStream.InputStreamImpl(this)
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -167,7 +173,7 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            InputStream.InputStreamImpl(this)
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -179,9 +185,7 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
 
     public companion object : TypeCompanion<MultipartInputStream> {
         override val type: GeneratedClassKGType<MultipartInputStream> =
-            GeneratedClassKGType(getTypeOrNull("soup_multipart_input_stream_get_type")!!) {
-                MultipartInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { MultipartInputStream(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -193,5 +197,16 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
          * @return the GType
          */
         public fun getType(): GType = soup_multipart_input_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_multipart_input_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_multipart_input_stream_get_type")
     }
 }

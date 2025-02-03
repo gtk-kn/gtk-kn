@@ -11,4 +11,8 @@ import org.gtkkn.native.gobject.GParamSpecUChar
  * A #GParamSpec derived structure that contains the meta data for unsigned character properties.
  */
 public open class ParamSpecUChar(public val gobjectParamSpecUCharPointer: CPointer<GParamSpecUChar>) :
-    ParamSpec(gobjectParamSpecUCharPointer.reinterpret())
+    ParamSpec(gobjectParamSpecUCharPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

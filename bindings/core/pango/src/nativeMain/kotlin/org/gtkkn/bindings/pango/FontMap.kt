@@ -12,10 +12,10 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_32_4
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_34
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_52
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.guint
@@ -49,6 +49,10 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
     Object(pangoFontMapPointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        Pango
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 
@@ -83,7 +87,7 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
      */
     @PangoVersion1_22
     public open fun createContext(): Context = pango_font_map_create_context(pangoFontMapPointer)!!.run {
-        Context(this)
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!
     }
 
     /**
@@ -95,7 +99,7 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
      */
     @PangoVersion1_46
     public open fun getFamily(name: String): FontFamily = pango_font_map_get_family(pangoFontMapPointer, name)!!.run {
-        FontFamily.FontFamilyImpl(this)
+        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!
     }
 
     /**
@@ -131,7 +135,7 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
         context.pangoContextPointer,
         desc.pangoFontDescriptionPointer
     )?.run {
-        Font.FontImpl(this)
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
     }
 
     /**
@@ -151,7 +155,7 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
             desc.pangoFontDescriptionPointer,
             language.pangoLanguagePointer
         )?.run {
-            Fontset.FontsetImpl(this)
+            InstanceCache.get(this, true) { Fontset.FontsetImpl(reinterpret()) }!!
         }
 
     /**
@@ -180,7 +184,7 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
         context?.pangoContextPointer,
         variations
     )!!.run {
-        Font.FontImpl(this)
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
     }
 
     /**
@@ -192,7 +196,7 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedClassKGType<FontMap> =
-            GeneratedClassKGType(getTypeOrNull("pango_font_map_get_type")!!) { FontMapImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FontMapImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()
@@ -204,5 +208,16 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
          * @return the GType
          */
         public fun getType(): GType = pango_font_map_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_font_map_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_font_map_get_type")
     }
 }

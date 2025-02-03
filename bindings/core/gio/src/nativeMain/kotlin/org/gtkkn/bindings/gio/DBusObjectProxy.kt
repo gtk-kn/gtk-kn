@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusObject
 import org.gtkkn.native.gio.GDBusObjectProxy
 import org.gtkkn.native.gio.g_dbus_object_proxy_get_connection
@@ -37,6 +37,10 @@ public open class DBusObjectProxy(public val gioDBusObjectProxyPointer: CPointer
     Object(gioDBusObjectProxyPointer.reinterpret()),
     DBusObject,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDBusObjectPointer: CPointer<GDBusObject>
         get() = handle.reinterpret()
 
@@ -52,7 +56,9 @@ public open class DBusObjectProxy(public val gioDBusObjectProxyPointer: CPointer
     public constructor(
         connection: DBusConnection,
         objectPath: String,
-    ) : this(g_dbus_object_proxy_new(connection.gioDBusConnectionPointer, objectPath)!!.reinterpret())
+    ) : this(g_dbus_object_proxy_new(connection.gioDBusConnectionPointer, objectPath)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the connection that @proxy is for.
@@ -64,14 +70,12 @@ public open class DBusObjectProxy(public val gioDBusObjectProxyPointer: CPointer
     @GioVersion2_30
     public open fun getConnection(): DBusConnection =
         g_dbus_object_proxy_get_connection(gioDBusObjectProxyPointer)!!.run {
-            DBusConnection(this)
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
         }
 
     public companion object : TypeCompanion<DBusObjectProxy> {
         override val type: GeneratedClassKGType<DBusObjectProxy> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_object_proxy_get_type")!!) {
-                DBusObjectProxy(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { DBusObjectProxy(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -83,5 +87,16 @@ public open class DBusObjectProxy(public val gioDBusObjectProxyPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = g_dbus_object_proxy_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_object_proxy_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_object_proxy_get_type")
     }
 }

@@ -10,6 +10,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GHashTableIter
 import org.gtkkn.native.glib.g_hash_table_iter_get_hash_table
@@ -18,10 +19,7 @@ import org.gtkkn.native.glib.g_hash_table_iter_remove
 import org.gtkkn.native.glib.g_hash_table_iter_replace
 import org.gtkkn.native.glib.g_hash_table_iter_steal
 import org.gtkkn.native.glib.gpointer
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A GHashTableIter structure represents an iterator that can be used
@@ -36,7 +34,7 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `key`: key: Out parameter is not supported
  */
-public class HashTableIter(public val glibHashTableIterPointer: CPointer<GHashTableIter>, cleaner: Cleaner? = null) :
+public class HashTableIter(public val glibHashTableIterPointer: CPointer<GHashTableIter>) :
     ProxyInstance(glibHashTableIterPointer) {
     /**
      * Allocate a new HashTableIter.
@@ -44,21 +42,9 @@ public class HashTableIter(public val glibHashTableIterPointer: CPointer<GHashTa
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GHashTableIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to HashTableIter and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GHashTableIter>, Cleaner>,
-    ) : this(glibHashTableIterPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GHashTableIter>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new HashTableIter using the provided [AutofreeScope].

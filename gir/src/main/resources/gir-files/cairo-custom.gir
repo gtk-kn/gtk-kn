@@ -18,7 +18,6 @@
   ~ You should have received a copy of the GNU Lesser General Public
   ~ License along with this library; if not, see <http://www.gnu.org/licenses/>.
   -->
-
 <repository version="1.2"
   xmlns="http://www.gtk.org/introspection/core/1.0"
   xmlns:c="http://www.gtk.org/introspection/c/1.0"
@@ -1542,7 +1541,7 @@
       abstract="1"
       glib:type-name="CairoDevice"
       glib:get-type="cairo_gobject_device_get_type"
-      free-function="cairo_device_destroy">
+      glib:unref-func="cairo_device_destroy">
       <method name="status" c:identifier="cairo_device_status" version="1.10">
         <return-value transfer-ownership="none">
           <!-- This maps to the C enum cairo_status_t, which you might expose as "Status" -->
@@ -1722,10 +1721,10 @@
     <class name="Script"
       glib:type-name="CairoScript"
       glib:get-type="cairo_gobject_device_get_type"
-      free-function="cairo_device_destroy"
+      glib:unref-func="cairo_device_destroy"
       parent="Device"
       version="1.12">
-      <function name="create" c:identifier="cairo_script_create">
+      <constructor name="create" c:identifier="cairo_script_create">
         <return-value transfer-ownership="full">
           <type name="Script" c:type="cairo_device_t*"/>
         </return-value>
@@ -1734,8 +1733,8 @@
             <type name="utf8" c:type="const char*"/>
           </parameter>
         </parameters>
-      </function>
-      <!--      <function name="create_for_stream" c:identifier="cairo_script_create_for_stream">-->
+      </constructor>
+      <!--      <constructor name="create_for_stream" c:identifier="cairo_script_create_for_stream">-->
       <!--        <return-value transfer-ownership="full">-->
       <!--          <type name="Script" c:type="cairo_device_t*"/>-->
       <!--        </return-value>-->
@@ -1747,7 +1746,7 @@
       <!--            <type name="none" c:type="void*"/>-->
       <!--          </parameter>-->
       <!--        </parameters>-->
-      <!--      </function>-->
+      <!--      </constructor>-->
       <method name="from_recording_surface" c:identifier="cairo_script_from_recording_surface">
         <return-value transfer-ownership="none">
           <type name="Status" c:type="cairo_status_t"/>
@@ -1838,7 +1837,7 @@
       c:type="cairo_surface_t"
       glib:type-name="CairoSurface"
       glib:get-type="cairo_gobject_surface_get_type"
-      free-function="cairo_surface_destroy">
+      glib:unref-func="cairo_surface_destroy">
       <method name="destroy" c:identifier="cairo_surface_destroy">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -1849,7 +1848,7 @@
           </instance-parameter>
         </parameters>
       </method>
-      <function name="create_similar" c:identifier="cairo_surface_create_similar">
+      <constructor name="create_similar" c:identifier="cairo_surface_create_similar">
         <return-value transfer-ownership="full">
           <type name="Surface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -1867,8 +1866,8 @@
             <type name="gint" c:type="gint"/>
           </parameter>
         </parameters>
-      </function>
-      <function name="create_similar_image" c:identifier="cairo_surface_create_similar_image" version="1.12">
+      </constructor>
+      <constructor name="create_similar_image" c:identifier="cairo_surface_create_similar_image" version="1.12">
         <return-value transfer-ownership="full">
           <type name="ImageSurface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -1886,8 +1885,8 @@
             <type name="gint" c:type="gint"/>
           </parameter>
         </parameters>
-      </function>
-      <function name="create_for_rectangle" c:identifier="cairo_surface_create_for_rectangle" version="1.10">
+      </constructor>
+      <constructor name="create_for_rectangle" c:identifier="cairo_surface_create_for_rectangle" version="1.10">
         <return-value transfer-ownership="full">
           <type name="Surface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -1908,7 +1907,7 @@
             <type name="gdouble" c:type="gdouble"/>
           </parameter>
         </parameters>
-      </function>
+      </constructor>
       <method name="status" c:identifier="cairo_surface_status">
         <return-value transfer-ownership="none">
           <type name="Status" c:type="cairo_status_t"/>
@@ -2261,8 +2260,8 @@
       glib:type-name="CairoImageSurface"
       glib:get-type="cairo_gobject_surface_get_type"
       parent="Surface"
-      free-function="cairo_surface_destroy">
-      <function name="create" c:identifier="cairo_image_surface_create">
+      glib:unref-func="cairo_surface_destroy">
+      <constructor name="create" c:identifier="cairo_image_surface_create">
         <return-value transfer-ownership="full">
           <type name="ImageSurface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -2277,8 +2276,8 @@
             <type name="gint" c:type="gint"/>
           </parameter>
         </parameters>
-      </function>
-      <!--      <function name="create_for_data" c:identifier="cairo_image_surface_create_for_data">-->
+      </constructor>
+      <!--      <constructor name="create_for_data" c:identifier="cairo_image_surface_create_for_data">-->
       <!--        <return-value transfer-ownership="full">-->
       <!--          <type name="ImageSurface" c:type="cairo_surface_t*"/>-->
       <!--        </return-value>-->
@@ -2299,8 +2298,8 @@
       <!--            <type name="gint" c:type="gint"/>-->
       <!--          </parameter>-->
       <!--        </parameters>-->
-      <!--      </function>-->
-      <function name="create_from_png" c:identifier="cairo_image_surface_create_from_png">
+      <!--      </constructor>-->
+      <constructor name="create_from_png" c:identifier="cairo_image_surface_create_from_png">
         <return-value transfer-ownership="full">
           <type name="ImageSurface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -2309,8 +2308,8 @@
             <type name="utf8" c:type="const char*"/>
           </parameter>
         </parameters>
-      </function>
-      <!--      <function name="create_from_png_stream" c:identifier="cairo_image_surface_create_from_png_stream">-->
+      </constructor>
+      <!--      <constructor name="create_from_png_stream" c:identifier="cairo_image_surface_create_from_png_stream">-->
       <!--        <return-value transfer-ownership="full">-->
       <!--          <type name="ImageSurface" c:type="cairo_surface_t*"/>-->
       <!--        </return-value>-->
@@ -2322,7 +2321,7 @@
       <!--            <type name="gpointer" c:type="gpointer"/>-->
       <!--          </parameter>-->
       <!--        </parameters>-->
-      <!--      </function>-->
+      <!--      </constructor>-->
       <function name="format_stride_for_width" c:identifier="cairo_format_stride_for_width" version="1.6">
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
@@ -2391,13 +2390,15 @@
       glib:type-name="CairoPdfSurface"
       glib:get-type="cairo_gobject_surface_get_type"
       parent="Surface"
-      free-function="cairo_surface_destroy"
+      glib:unref-func="cairo_surface_destroy"
       version="1.2">
       <constant name="PDF_OUTLINE_ROOT"
-        c:type="gint"
+        c:type="CAIRO_PDF_OUTLINE_ROOT"
         value="0"
-        version="1.16"/>
-      <function name="create"
+        version="1.16">
+        <type name="gint" c:type="gint"/>
+      </constant>
+      <constructor name="create"
         c:identifier="cairo_pdf_surface_create">
         <return-value transfer-ownership="full">
           <type name="PDFSurface" c:type="cairo_surface_t*"/>
@@ -2413,8 +2414,8 @@
             <type name="gdouble" c:type="gdouble"/>
           </parameter>
         </parameters>
-      </function>
-      <!--      <function name="create_for_stream"-->
+      </constructor>
+      <!--      <constructor name="create_for_stream"-->
       <!--        c:identifier="cairo_pdf_surface_create_for_stream">-->
       <!--        <return-value transfer-ownership="full">-->
       <!--          <type name="PDFSurface" c:type="cairo_surface_t*"/>-->
@@ -2435,7 +2436,7 @@
       <!--            <type name="gdouble" c:type="gdouble"/>-->
       <!--          </parameter>-->
       <!--        </parameters>-->
-      <!--      </function>-->
+      <!--      </constructor>-->
       <method name="restrict_to_version"
         c:identifier="cairo_pdf_surface_restrict_to_version"
         version="1.10">
@@ -2567,9 +2568,9 @@
       glib:type-name="CairoPsSurface"
       glib:get-type="cairo_gobject_surface_get_type"
       parent="Surface"
-      free-function="cairo_surface_destroy"
+      glib:unref-func="cairo_surface_destroy"
       version="1.2">
-      <function name="create"
+      <constructor name="create"
         c:identifier="cairo_ps_surface_create">
         <return-value transfer-ownership="full">
           <type name="PSSurface" c:type="cairo_surface_t*"/>
@@ -2585,8 +2586,8 @@
             <type name="gdouble" c:type="gdouble"/>
           </parameter>
         </parameters>
-      </function>
-      <!--      <function name="create_for_stream"-->
+      </constructor>
+      <!--      <constructor name="create_for_stream"-->
       <!--        c:identifier="cairo_ps_surface_create_for_stream">-->
       <!--        <return-value transfer-ownership="full">-->
       <!--          <type name="PSSurface" c:type="cairo_surface_t*"/>-->
@@ -2606,7 +2607,7 @@
       <!--            <type name="gdouble" c:type="gdouble"/>-->
       <!--          </parameter>-->
       <!--        </parameters>-->
-      <!--      </function>-->
+      <!--      </constructor>-->
       <method name="restrict_to_level"
         c:identifier="cairo_ps_surface_restrict_to_level"
         version="1.6">
@@ -2707,8 +2708,8 @@
       glib:type-name="CairoRecordingSurface"
       glib:get-type="cairo_gobject_surface_get_type"
       parent="Surface"
-      free-function="cairo_surface_destroy">
-      <function name="create" c:identifier="cairo_recording_surface_create" version="1.10">
+      glib:unref-func="cairo_surface_destroy">
+      <constructor name="create" c:identifier="cairo_recording_surface_create" version="1.10">
         <return-value transfer-ownership="full">
           <type name="RecordingSurface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -2720,7 +2721,7 @@
             <type name="Rectangle" c:type="cairo_rectangle_t*"/>
           </parameter>
         </parameters>
-      </function>
+      </constructor>
       <method name="ink_extents" c:identifier="cairo_recording_surface_ink_extents">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -2762,8 +2763,8 @@
       glib:get-type="cairo_gobject_surface_get_type"
       parent="Surface"
       version="1.2"
-      free-function="cairo_surface_destroy">
-      <function name="create" c:identifier="cairo_svg_surface_create">
+      glib:unref-func="cairo_surface_destroy">
+      <constructor name="create" c:identifier="cairo_svg_surface_create">
         <return-value transfer-ownership="full">
           <type name="SVGSurface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -2778,8 +2779,8 @@
             <type name="gdouble" c:type="gdouble"/>
           </parameter>
         </parameters>
-      </function>
-      <!--      <function name="create_for_stream" c:identifier="cairo_svg_surface_create_for_stream">-->
+      </constructor>
+      <!--      <constructor name="create_for_stream" c:identifier="cairo_svg_surface_create_for_stream">-->
       <!--        <return-value transfer-ownership="full">-->
       <!--          <type name="SVGSurface" c:type="cairo_surface_t*"/>-->
       <!--        </return-value>-->
@@ -2798,7 +2799,7 @@
       <!--            <type name="gdouble" c:type="gdouble"/>-->
       <!--          </parameter>-->
       <!--        </parameters>-->
-      <!--      </function>-->
+      <!--      </constructor>-->
       <method name="get_document_unit" c:identifier="cairo_svg_surface_get_document_unit" version="1.16">
         <return-value transfer-ownership="none">
           <type name="guint" c:type="cairo_svg_unit_t"/>
@@ -2841,9 +2842,9 @@
       parent="Surface"
       glib:type-name="CairoTeeSurface"
       glib:get-type="cairo_gobject_surface_get_type"
-      free-function="cairo_surface_destroy"
+      glib:unref-func="cairo_surface_destroy"
       version="1.10">
-      <function name="create" c:identifier="cairo_tee_surface_create">
+      <constructor name="create" c:identifier="cairo_tee_surface_create">
         <return-value transfer-ownership="full">
           <type name="TeeSurface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -2852,7 +2853,7 @@
             <type name="Surface" c:type="cairo_surface_t*"/>
           </parameter>
         </parameters>
-      </function>
+      </constructor>
       <method name="add" c:identifier="cairo_tee_surface_add">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -2945,7 +2946,7 @@
       glib:get-type="cairo_gobject_surface_get_type"
       parent="Pattern"
       version="1.12"
-      free-function="cairo_pattern_destroy">
+      glib:unref-func="cairo_pattern_destroy">
       <constructor name="create" c:identifier="cairo_pattern_create_mesh">
         <return-value transfer-ownership="full">
           <type name="Mesh" c:type="cairo_pattern_t*"/>
@@ -3548,7 +3549,7 @@
       abstract="1"
       glib:type-name="CairoPattern"
       glib:get-type="cairo_gobject_pattern_get_type"
-      free-function="cairo_pattern_destroy">
+      glib:unref-func="cairo_pattern_destroy">
       <method name="status" c:identifier="cairo_pattern_status">
         <return-value>
           <type name="Status" c:type="cairo_status_t"/>
@@ -4379,7 +4380,7 @@
     <class name="FontFace" c:type="cairo_font_face_t"
       glib:type-name="CairoFontFace"
       glib:get-type="cairo_gobject_font_face_get_type"
-      free-function="cairo_font_face_destroy">
+      glib:unref-func="cairo_font_face_destroy">
       <method name="destroy" c:identifier="cairo_font_face_destroy">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -4461,7 +4462,7 @@
       c:type="cairo_font_face_t"
       glib:type-name="ToyFontFace"
       glib:get-type="cairo_gobject_font_face_get_type"
-      free-function="cairo_font_face_destroy"
+      glib:unref-func="cairo_font_face_destroy"
       parent="FontFace">
       <!-- “create” constructor -->
       <constructor name="create" c:identifier="cairo_toy_font_face_create">
@@ -4521,7 +4522,7 @@
       c:type="cairo_font_face_t"
       glib:type-name="UserFontFace"
       glib:get-type="cairo_gobject_font_face_get_type"
-      free-function="cairo_font_face_destroy"
+      glib:unref-func="cairo_font_face_destroy"
       parent="FontFace">
       <constructor name="create" c:identifier="cairo_user_font_face_create">
         <return-value transfer-ownership="full">
@@ -4600,7 +4601,8 @@
       disguised="1"
       opaque="1"
       glib:type-name="CairoScaledFont"
-      glib:get-type="cairo_gobject_scaled_font_get_type"/>
+      glib:get-type="cairo_gobject_scaled_font_get_type"
+      free-function="cairo_scaled_font_destroy"/>
     <record name="Path"
       c:type="cairo_path_t"
       free-function="cairo_path_destroy">

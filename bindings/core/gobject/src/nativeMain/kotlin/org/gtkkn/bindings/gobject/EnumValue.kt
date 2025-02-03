@@ -11,21 +11,19 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GEnumValue
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure which contains a single enum value, its name, and its
  * nickname.
  */
-public class EnumValue(public val gobjectEnumValuePointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) :
+public class EnumValue(public val gobjectEnumValuePointer: CPointer<GEnumValue>) :
     ProxyInstance(gobjectEnumValuePointer) {
     /**
      * the enum value
@@ -68,21 +66,9 @@ public class EnumValue(public val gobjectEnumValuePointer: CPointer<GEnumValue>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GEnumValue>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to EnumValue and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GEnumValue>, Cleaner>,
-    ) : this(gobjectEnumValuePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GEnumValue>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new EnumValue using the provided [AutofreeScope].

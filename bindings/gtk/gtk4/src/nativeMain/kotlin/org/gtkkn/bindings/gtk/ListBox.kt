@@ -14,13 +14,13 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -132,6 +132,10 @@ import kotlin.Unit
 public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
     Widget(gtkListBoxPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -206,7 +210,9 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
      *
      * @return a new `GtkListBox`
      */
-    public constructor() : this(gtk_list_box_new()!!.reinterpret())
+    public constructor() : this(gtk_list_box_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Append a widget to the list.
@@ -281,7 +287,7 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
      * @return the adjustment
      */
     public open fun getAdjustment(): Adjustment? = gtk_list_box_get_adjustment(gtkListBoxPointer)?.run {
-        Adjustment(this)
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
     }
 
     /**
@@ -295,7 +301,7 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
      */
     public open fun getRowAtIndex(index: gint): ListBoxRow? =
         gtk_list_box_get_row_at_index(gtkListBoxPointer, index)?.run {
-            ListBoxRow(this)
+            InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!
         }
 
     /**
@@ -305,7 +311,7 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
      * @return the row
      */
     public open fun getRowAtY(y: gint): ListBoxRow? = gtk_list_box_get_row_at_y(gtkListBoxPointer, y)?.run {
-        ListBoxRow(this)
+        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!
     }
 
     /**
@@ -318,7 +324,7 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
      * @return the selected row
      */
     public open fun getSelectedRow(): ListBoxRow? = gtk_list_box_get_selected_row(gtkListBoxPointer)?.run {
-        ListBoxRow(this)
+        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!
     }
 
     /**
@@ -791,7 +797,7 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
 
     public companion object : TypeCompanion<ListBox> {
         override val type: GeneratedClassKGType<ListBox> =
-            GeneratedClassKGType(getTypeOrNull("gtk_list_box_get_type")!!) { ListBox(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ListBox(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -803,6 +809,16 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_list_box_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_list_box_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_list_box_get_type")
     }
 }
 
@@ -857,7 +873,7 @@ private val onRowActivatedFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>) -> 
         ->
         userData.asStableRef<(row: ListBoxRow) -> Unit>().get().invoke(
             row!!.run {
-                ListBoxRow(this)
+                InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
             }
         )
     }
@@ -871,7 +887,7 @@ private val onRowSelectedFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>?) -> 
         ->
         userData.asStableRef<(row: ListBoxRow?) -> Unit>().get().invoke(
             row?.run {
-                ListBoxRow(this)
+                InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
             }
         )
     }

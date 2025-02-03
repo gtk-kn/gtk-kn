@@ -3,14 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
@@ -50,10 +47,7 @@ import org.gtkkn.native.graphene.graphene_vec4_y_axis
 import org.gtkkn.native.graphene.graphene_vec4_z_axis
 import org.gtkkn.native.graphene.graphene_vec4_zero
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure capable of holding a vector with four dimensions: x, y, z, and w.
@@ -66,38 +60,22 @@ import kotlin.native.ref.createCleaner
  * - parameter `src`: Array parameter of type gfloat is not supported
  * - parameter `dest`: dest: Out parameter is not supported
  */
-public class Vec4(public val grapheneVec4Pointer: CPointer<graphene_vec4_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(grapheneVec4Pointer) {
+public class Vec4(public val grapheneVec4Pointer: CPointer<graphene_vec4_t>) : ProxyInstance(grapheneVec4Pointer) {
     /**
-     * Allocate a new Vec4.
+     * Allocates a new #graphene_vec4_t structure.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the returned structure are undefined.
+     *
+     * Use graphene_vec4_init() to initialize the vector.
+     *
+     * @return the newly allocated #graphene_vec4_t
+     *   structure. Use graphene_vec4_free() to free the resources allocated
+     *   by this function.
+     * @since 1.0
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_vec4_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Vec4 and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_vec4_t>, Cleaner>,
-    ) : this(grapheneVec4Pointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Vec4 using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_vec4_t>().ptr)
+    public constructor() : this(graphene_vec4_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Adds each component of the two given vectors.
@@ -384,20 +362,6 @@ public class Vec4(public val grapheneVec4Pointer: CPointer<graphene_vec4_t>, cle
         graphene_vec4_subtract(grapheneVec4Pointer, b.grapheneVec4Pointer, res.grapheneVec4Pointer)
 
     public companion object {
-        /**
-         * Allocates a new #graphene_vec4_t structure.
-         *
-         * The contents of the returned structure are undefined.
-         *
-         * Use graphene_vec4_init() to initialize the vector.
-         *
-         * @return the newly allocated #graphene_vec4_t
-         *   structure. Use graphene_vec4_free() to free the resources allocated
-         *   by this function.
-         * @since 1.0
-         */
-        public fun alloc(): Vec4 = Vec4(graphene_vec4_alloc()!!)
-
         /**
          * Retrieves a pointer to a #graphene_vec4_t with all its
          * components set to 1.

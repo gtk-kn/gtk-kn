@@ -8,6 +8,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_42
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -65,6 +66,16 @@ import kotlin.Unit
  */
 public class FontDescription(public val pangoFontDescriptionPointer: CPointer<PangoFontDescription>) :
     ProxyInstance(pangoFontDescriptionPointer) {
+    /**
+     * Creates a new font description structure with all fields unset.
+     *
+     * @return the newly allocated `PangoFontDescription`,
+     *   which should be freed using [method@Pango.FontDescription.free].
+     */
+    public constructor() : this(pango_font_description_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Determines if the style attributes of @new_match are a closer match
      * for @desc than those of @old_match are, or if @old_match is null,
@@ -532,14 +543,6 @@ public class FontDescription(public val pangoFontDescriptionPointer: CPointer<Pa
         pango_font_description_unset_fields(pangoFontDescriptionPointer, toUnset.mask)
 
     public companion object {
-        /**
-         * Creates a new font description structure with all fields unset.
-         *
-         * @return the newly allocated `PangoFontDescription`,
-         *   which should be freed using [method@Pango.FontDescription.free].
-         */
-        public fun new(): FontDescription = FontDescription(pango_font_description_new()!!)
-
         /**
          * Creates a new font description from a string representation.
          *

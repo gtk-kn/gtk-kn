@@ -10,13 +10,11 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GFlagsClass
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The class of a flags type holds information about its
@@ -26,7 +24,7 @@ import kotlin.native.ref.createCleaner
  *
  * - field `g_type_class`: Field with not-pointer record/union GTypeClass is not supported
  */
-public class FlagsClass(public val gobjectFlagsClassPointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null) :
+public class FlagsClass(public val gobjectFlagsClassPointer: CPointer<GFlagsClass>) :
     ProxyInstance(gobjectFlagsClassPointer) {
     /**
      * a mask covering all possible values.
@@ -70,21 +68,9 @@ public class FlagsClass(public val gobjectFlagsClassPointer: CPointer<GFlagsClas
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GFlagsClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to FlagsClass and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GFlagsClass>, Cleaner>,
-    ) : this(gobjectFlagsClassPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GFlagsClass>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new FlagsClass using the provided [AutofreeScope].

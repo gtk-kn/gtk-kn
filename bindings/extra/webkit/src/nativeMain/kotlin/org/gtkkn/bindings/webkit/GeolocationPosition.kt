@@ -4,8 +4,8 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_26
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.guint64
@@ -32,6 +32,23 @@ import kotlin.Unit
 @WebKitVersion2_26
 public class GeolocationPosition(public val webkitGeolocationPositionPointer: CPointer<WebKitGeolocationPosition>) :
     ProxyInstance(webkitGeolocationPositionPointer) {
+    /**
+     * Create a new #WebKitGeolocationPosition.
+     *
+     * @param latitude a valid latitude in degrees
+     * @param longitude a valid longitude in degrees
+     * @param accuracy accuracy of location in meters
+     * @return a newly created #WebKitGeolocationPosition
+     * @since 2.26
+     */
+    public constructor(
+        latitude: gdouble,
+        longitude: gdouble,
+        accuracy: gdouble,
+    ) : this(webkit_geolocation_position_new(latitude, longitude, accuracy)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Make a copy of the #WebKitGeolocationPosition.
      *
@@ -107,18 +124,6 @@ public class GeolocationPosition(public val webkitGeolocationPositionPointer: CP
         webkit_geolocation_position_set_timestamp(webkitGeolocationPositionPointer, timestamp)
 
     public companion object {
-        /**
-         * Create a new #WebKitGeolocationPosition.
-         *
-         * @param latitude a valid latitude in degrees
-         * @param longitude a valid longitude in degrees
-         * @param accuracy accuracy of location in meters
-         * @return a newly created #WebKitGeolocationPosition
-         * @since 2.26
-         */
-        public fun new(latitude: gdouble, longitude: gdouble, accuracy: gdouble): GeolocationPosition =
-            GeolocationPosition(webkit_geolocation_position_new(latitude, longitude, accuracy)!!.reinterpret())
-
         /**
          * Get the GType of GeolocationPosition
          *

@@ -18,6 +18,8 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gdk.GdkPixbuf
 import org.gtkkn.native.gdk.GdkPixbufAnimation
 import org.gtkkn.native.gdk.GdkPixbufFormat
@@ -47,6 +49,10 @@ import kotlin.collections.List
  * - record `PixbufSimpleAnimClass`: glib type struct are ignored
  */
 public object GdkPixbuf {
+    init {
+        registerTypes()
+    }
+
     /**
      * Major version of gdk-pixbuf library, that is the "0" in
      * "0.8.2" for example.
@@ -82,6 +88,28 @@ public object GdkPixbuf {
             else -> null
         }
         return ex ?: GLibException(error)
+    }
+
+    private fun registerTypes() {
+        Pixbuf.getTypeOrNull()?.let { gtype -> TypeCache.register(Pixbuf::class, gtype) { Pixbuf(it.reinterpret()) } }
+        PixbufAnimation.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PixbufAnimation::class, gtype) { PixbufAnimation(it.reinterpret()) }
+        }
+        PixbufAnimationIter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PixbufAnimationIter::class, gtype) { PixbufAnimationIter(it.reinterpret()) }
+        }
+        PixbufLoader.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PixbufLoader::class, gtype) { PixbufLoader(it.reinterpret()) }
+        }
+        PixbufNonAnim.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PixbufNonAnim::class, gtype) { PixbufNonAnim(it.reinterpret()) }
+        }
+        PixbufSimpleAnim.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PixbufSimpleAnim::class, gtype) { PixbufSimpleAnim(it.reinterpret()) }
+        }
+        PixbufSimpleAnimIter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PixbufSimpleAnimIter::class, gtype) { PixbufSimpleAnimIter(it.reinterpret()) }
+        }
     }
 }
 
@@ -139,10 +167,10 @@ public val PixbufModulePreparedFuncFunc:
         ->
         userData!!.asStableRef<(pixbuf: Pixbuf, anim: PixbufAnimation) -> Unit>().get().invoke(
             pixbuf!!.run {
-                Pixbuf(this)
+                InstanceCache.get(this, false) { Pixbuf(reinterpret()) }!!
             },
             anim!!.run {
-                PixbufAnimation(this)
+                InstanceCache.get(this, false) { PixbufAnimation(reinterpret()) }!!
             }
         )
     }
@@ -192,7 +220,7 @@ public val PixbufModuleUpdatedFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         pixbuf!!.run {
-            Pixbuf(this)
+            InstanceCache.get(this, false) { Pixbuf(reinterpret()) }!!
         },
         x,
         y,

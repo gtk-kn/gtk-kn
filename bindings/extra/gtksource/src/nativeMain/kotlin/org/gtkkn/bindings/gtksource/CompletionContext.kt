@@ -16,12 +16,12 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -69,6 +69,10 @@ public open class CompletionContext(
 ) : Object(gtksourceCompletionContextPointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 
@@ -96,7 +100,7 @@ public open class CompletionContext(
          * @return an #GtkSourceCompletion or null
          */
         get() = gtk_source_completion_context_get_completion(gtksourceCompletionContextPointer)?.run {
-            Completion(this)
+            InstanceCache.get(this, true) { Completion(reinterpret()) }!!
         }
 
     /**
@@ -154,7 +158,7 @@ public open class CompletionContext(
      */
     public open fun getBuffer(): Buffer? =
         gtk_source_completion_context_get_buffer(gtksourceCompletionContextPointer)?.run {
-            Buffer(this)
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
         }
 
     /**
@@ -164,7 +168,7 @@ public open class CompletionContext(
      */
     public open fun getLanguage(): Language? =
         gtk_source_completion_context_get_language(gtksourceCompletionContextPointer)?.run {
-            Language(this)
+            InstanceCache.get(this, true) { Language(reinterpret()) }!!
         }
 
     /**
@@ -192,7 +196,7 @@ public open class CompletionContext(
      * @return a #GtkSourceView or null
      */
     public open fun getView(): View? = gtk_source_completion_context_get_view(gtksourceCompletionContextPointer)?.run {
-        View(this)
+        InstanceCache.get(this, true) { View(reinterpret()) }!!
     }
 
     /**
@@ -277,12 +281,10 @@ public open class CompletionContext(
 
     public companion object : TypeCompanion<CompletionContext> {
         override val type: GeneratedClassKGType<CompletionContext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_completion_context_get_type")!!) {
-                CompletionContext(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { CompletionContext(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -291,6 +293,17 @@ public open class CompletionContext(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_completion_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_completion_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_completion_context_get_type")
     }
 }
 

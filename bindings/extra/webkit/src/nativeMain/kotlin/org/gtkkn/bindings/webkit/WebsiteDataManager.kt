@@ -24,12 +24,12 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_10
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWebsiteDataManager
@@ -81,6 +81,10 @@ import kotlin.Unit
 public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPointer<WebKitWebsiteDataManager>) :
     Object(webkitWebsiteDataManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The base directory for caches. If null, a default location will be used.
      *
@@ -228,7 +232,7 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
     @WebKitVersion2_40
     public fun getFaviconDatabase(): FaviconDatabase? =
         webkit_website_data_manager_get_favicon_database(webkitWebsiteDataManagerPointer)?.run {
-            FaviconDatabase(this)
+            InstanceCache.get(this, true) { FaviconDatabase(reinterpret()) }!!
         }
 
     /**
@@ -374,12 +378,10 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
 
     public companion object : TypeCompanion<WebsiteDataManager> {
         override val type: GeneratedClassKGType<WebsiteDataManager> =
-            GeneratedClassKGType(getTypeOrNull("webkit_website_data_manager_get_type")!!) {
-                WebsiteDataManager(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { WebsiteDataManager(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -388,5 +390,16 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = webkit_website_data_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_website_data_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_website_data_manager_get_type")
     }
 }

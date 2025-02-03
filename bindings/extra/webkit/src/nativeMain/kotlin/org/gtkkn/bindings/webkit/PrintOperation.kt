@@ -16,11 +16,11 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.PageSetup
 import org.gtkkn.bindings.gtk.PrintSettings
 import org.gtkkn.bindings.gtk.Window
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -52,6 +52,10 @@ import kotlin.Unit
 public class PrintOperation(public val webkitPrintOperationPointer: CPointer<WebKitPrintOperation>) :
     Object(webkitPrintOperationPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The initial #GtkPageSetup for the print operation.
      */
@@ -66,7 +70,7 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
          * @return the current #GtkPageSetup of @print_operation.
          */
         get() = webkit_print_operation_get_page_setup(webkitPrintOperationPointer)!!.run {
-            PageSetup(this)
+            InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
         }
 
         /**
@@ -95,7 +99,7 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
          * @return the current #GtkPrintSettings of @print_operation.
          */
         get() = webkit_print_operation_get_print_settings(webkitPrintOperationPointer)!!.run {
-            PrintSettings(this)
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
         }
 
         /**
@@ -119,9 +123,9 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
      * @param webView a #WebKitWebView
      * @return a new #WebKitPrintOperation.
      */
-    public constructor(
-        webView: WebView,
-    ) : this(webkit_print_operation_new(webView.webkitWebViewPointer)!!.reinterpret())
+    public constructor(webView: WebView) : this(webkit_print_operation_new(webView.webkitWebViewPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Start a print operation using current print settings and page setup.
@@ -219,12 +223,10 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
 
     public companion object : TypeCompanion<PrintOperation> {
         override val type: GeneratedClassKGType<PrintOperation> =
-            GeneratedClassKGType(getTypeOrNull("webkit_print_operation_get_type")!!) {
-                PrintOperation(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PrintOperation(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -233,6 +235,17 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
          * @return the GType
          */
         public fun getType(): GType = webkit_print_operation_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_print_operation_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_print_operation_get_type")
     }
 }
 

@@ -8,11 +8,10 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GProxyResolver
 import org.gtkkn.native.gio.GSimpleProxyResolver
 import org.gtkkn.native.gio.g_simple_proxy_resolver_get_type
@@ -47,6 +46,10 @@ public open class SimpleProxyResolver(public val gioSimpleProxyResolverPointer: 
     Object(gioSimpleProxyResolverPointer.reinterpret()),
     ProxyResolver,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioProxyResolverPointer: CPointer<GProxyResolver>
         get() = handle.reinterpret()
 
@@ -101,9 +104,7 @@ public open class SimpleProxyResolver(public val gioSimpleProxyResolverPointer: 
 
     public companion object : TypeCompanion<SimpleProxyResolver> {
         override val type: GeneratedClassKGType<SimpleProxyResolver> =
-            GeneratedClassKGType(getTypeOrNull("g_simple_proxy_resolver_get_type")!!) {
-                SimpleProxyResolver(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { SimpleProxyResolver(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -135,5 +136,16 @@ public open class SimpleProxyResolver(public val gioSimpleProxyResolverPointer: 
          * @return the GType
          */
         public fun getType(): GType = g_simple_proxy_resolver_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_simple_proxy_resolver_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_simple_proxy_resolver_get_type")
     }
 }

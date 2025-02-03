@@ -8,10 +8,10 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontset
@@ -32,6 +32,10 @@ import kotlin.Unit
 public abstract class Fontset(public val pangoFontsetPointer: CPointer<PangoFontset>) :
     Object(pangoFontsetPointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Iterates through all the fonts in a fontset, calling @func for
      * each one.
@@ -56,7 +60,7 @@ public abstract class Fontset(public val pangoFontsetPointer: CPointer<PangoFont
      * @return a `PangoFont`
      */
     public open fun getFont(wc: guint): Font = pango_fontset_get_font(pangoFontsetPointer, wc)!!.run {
-        Font.FontImpl(this)
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
     }
 
     /**
@@ -77,7 +81,7 @@ public abstract class Fontset(public val pangoFontsetPointer: CPointer<PangoFont
 
     public companion object : TypeCompanion<Fontset> {
         override val type: GeneratedClassKGType<Fontset> =
-            GeneratedClassKGType(getTypeOrNull("pango_fontset_get_type")!!) { FontsetImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FontsetImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()
@@ -89,5 +93,16 @@ public abstract class Fontset(public val pangoFontsetPointer: CPointer<PangoFont
          * @return the GType
          */
         public fun getType(): GType = pango_fontset_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_fontset_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_fontset_get_type")
     }
 }

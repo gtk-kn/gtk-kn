@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkCursor
 import org.gtkkn.native.gdk.gdk_cursor_get_fallback
 import org.gtkkn.native.gdk.gdk_cursor_get_hotspot_x
@@ -63,6 +63,10 @@ import kotlin.String
 public open class Cursor(public val gdkCursorPointer: CPointer<GdkCursor>) :
     Object(gdkCursorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Cursor to fall back to if this cursor cannot be displayed.
      */
@@ -80,7 +84,7 @@ public open class Cursor(public val gdkCursorPointer: CPointer<GdkCursor>) :
          *   to use the default cursor as fallback
          */
         get() = gdk_cursor_get_fallback(gdkCursorPointer)?.run {
-            Cursor(this)
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!
         }
 
     /**
@@ -148,7 +152,7 @@ public open class Cursor(public val gdkCursorPointer: CPointer<GdkCursor>) :
          *   if it is a named cursor
          */
         get() = gdk_cursor_get_texture(gdkCursorPointer)?.run {
-            Texture.TextureImpl(this)
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
         }
 
     /**
@@ -179,7 +183,9 @@ public open class Cursor(public val gdkCursorPointer: CPointer<GdkCursor>) :
     public constructor(
         name: String,
         fallback: Cursor? = null,
-    ) : this(gdk_cursor_new_from_name(name, fallback?.gdkCursorPointer)!!.reinterpret())
+    ) : this(gdk_cursor_new_from_name(name, fallback?.gdkCursorPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new cursor from a `GdkTexture`.
@@ -196,18 +202,13 @@ public open class Cursor(public val gdkCursorPointer: CPointer<GdkCursor>) :
         hotspotX: gint,
         hotspotY: gint,
         fallback: Cursor? = null,
-    ) : this(
-        gdk_cursor_new_from_texture(
-            texture.gdkTexturePointer,
-            hotspotX,
-            hotspotY,
-            fallback?.gdkCursorPointer
-        )!!.reinterpret()
-    )
+    ) : this(gdk_cursor_new_from_texture(texture.gdkTexturePointer, hotspotX, hotspotY, fallback?.gdkCursorPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<Cursor> {
         override val type: GeneratedClassKGType<Cursor> =
-            GeneratedClassKGType(getTypeOrNull("gdk_cursor_get_type")!!) { Cursor(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Cursor(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -219,5 +220,15 @@ public open class Cursor(public val gdkCursorPointer: CPointer<GdkCursor>) :
          * @return the GType
          */
         public fun getType(): GType = gdk_cursor_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_cursor_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_cursor_get_type")
     }
 }

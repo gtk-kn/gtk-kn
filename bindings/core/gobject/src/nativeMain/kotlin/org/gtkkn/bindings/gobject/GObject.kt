@@ -29,6 +29,8 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
@@ -212,6 +214,10 @@ import kotlin.Unit
  * - union `_Value__data__union`: Missing cType on union
  */
 public object GObject {
+    init {
+        registerTypes()
+    }
+
     /**
      * Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
      */
@@ -1856,6 +1862,13 @@ public object GObject {
     public fun typeGetTypeRegistrationSerial(): guint = g_type_get_type_registration_serial()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.36.
+     *
+     * the type system is now initialised automatically
+     * ---
+     *
      * This function used to initialise the type system.  Since GLib 2.36,
      * the type system is initialised automatically and this function does
      * nothing.
@@ -1863,6 +1876,13 @@ public object GObject {
     public fun typeInit(): Unit = g_type_init()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.36.
+     *
+     * the type system is now initialised automatically
+     * ---
+     *
      * This function used to initialise the type system with debugging
      * flags.  Since GLib 2.36, the type system is initialised automatically
      * and this function does nothing.
@@ -2030,6 +2050,28 @@ public object GObject {
     public fun typeTestFlags(type: GType, flags: guint): Boolean = g_type_test_flags(type, flags).asBoolean()
 
     public fun variantGetGtype(): GType = g_variant_get_gtype()
+
+    private fun registerTypes() {
+        Binding.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Binding::class, gtype) { Binding(it.reinterpret()) }
+        }
+        BindingGroup.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BindingGroup::class, gtype) { BindingGroup(it.reinterpret()) }
+        }
+        InitiallyUnowned.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(InitiallyUnowned::class, gtype) { InitiallyUnowned(it.reinterpret()) }
+        }
+        Object.getTypeOrNull()?.let { gtype -> TypeCache.register(Object::class, gtype) { Object(it.reinterpret()) } }
+        SignalGroup.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SignalGroup::class, gtype) { SignalGroup(it.reinterpret()) }
+        }
+        TypeModule.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TypeModule::class, gtype) { TypeModule.TypeModuleImpl(it.reinterpret()) }
+        }
+        TypePlugin.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TypePlugin::class, gtype) { TypePlugin.TypePluginImpl(it.reinterpret()) }
+        }
+    }
 }
 
 public val BaseFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
@@ -2079,7 +2121,7 @@ public val BindingTransformFuncFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         binding!!.run {
-            Binding(this)
+            InstanceCache.get(this, false) { Binding(reinterpret()) }!!
         },
         fromValue!!.run {
             Value(this)
@@ -2252,7 +2294,7 @@ public val ObjectFinalizeFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Uni
         ->
         userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
             `object`!!.run {
-                Object(this)
+                InstanceCache.get(this, false) { Object(reinterpret()) }!!
             }
         )
     }
@@ -2283,7 +2325,7 @@ public val ObjectGetPropertyFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         `object`!!.run {
-            Object(this)
+            InstanceCache.get(this, false) { Object(reinterpret()) }!!
         },
         propertyId,
         `value`!!.run {
@@ -2321,7 +2363,7 @@ public val ObjectSetPropertyFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         `object`!!.run {
-            Object(this)
+            InstanceCache.get(this, false) { Object(reinterpret()) }!!
         },
         propertyId,
         `value`!!.run {
@@ -2425,7 +2467,7 @@ public val ToggleNotifyFunc: CPointer<
         >().get().invoke(
         `data`,
         `object`!!.run {
-            Object(this)
+            InstanceCache.get(this, false) { Object(reinterpret()) }!!
         },
         isLastRef.asBoolean()
     )
@@ -2709,7 +2751,7 @@ public val WeakNotifyFunc: CPointer<CFunction<(gpointer?, CPointer<GObject>) -> 
             >().get().invoke(
             `data`,
             whereTheObjectWas!!.run {
-                Object(this)
+                InstanceCache.get(this, false) { Object(reinterpret()) }!!
             }
         )
     }

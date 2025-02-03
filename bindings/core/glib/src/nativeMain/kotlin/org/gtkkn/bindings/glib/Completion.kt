@@ -11,6 +11,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GCompletion
 import org.gtkkn.native.glib.g_completion_add_items
@@ -19,13 +20,17 @@ import org.gtkkn.native.glib.g_completion_free
 import org.gtkkn.native.glib.g_completion_remove_items
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.26.
+ *
+ * Rarely used API
+ * ---
+ *
  * `GCompletion` provides support for automatic completion of a string
  * using any group of target strings. It is typically used for file
  * name completion as is common in many UNIX shells.
@@ -57,7 +62,7 @@ import kotlin.native.ref.createCleaner
  * - field `func`: CompletionFunc
  * - field `strncmp_func`: CompletionStrncmpFunc
  */
-public class Completion(public val glibCompletionPointer: CPointer<GCompletion>, cleaner: Cleaner? = null) :
+public class Completion(public val glibCompletionPointer: CPointer<GCompletion>) :
     ProxyInstance(glibCompletionPointer) {
     /**
      * list of target items (strings or data structures).
@@ -104,21 +109,9 @@ public class Completion(public val glibCompletionPointer: CPointer<GCompletion>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GCompletion>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Completion and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GCompletion>, Cleaner>,
-    ) : this(glibCompletionPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GCompletion>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Completion using the provided [AutofreeScope].
@@ -173,6 +166,13 @@ public class Completion(public val glibCompletionPointer: CPointer<GCompletion>,
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Adds items to the #GCompletion.
      *
      * @param items the list of items to add.
@@ -180,6 +180,13 @@ public class Completion(public val glibCompletionPointer: CPointer<GCompletion>,
     public fun addItems(items: List): Unit = g_completion_add_items(glibCompletionPointer, items.glibListPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Removes all items from the #GCompletion. The items are not freed, so if the
      * memory was dynamically allocated, it should be freed after calling this
      * function.
@@ -187,6 +194,13 @@ public class Completion(public val glibCompletionPointer: CPointer<GCompletion>,
     public fun clearItems(): Unit = g_completion_clear_items(glibCompletionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Frees all memory used by the #GCompletion. The items are not freed, so if
      * the memory was dynamically allocated, it should be freed after calling this
      * function.
@@ -194,6 +208,13 @@ public class Completion(public val glibCompletionPointer: CPointer<GCompletion>,
     public fun free(): Unit = g_completion_free(glibCompletionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Removes items from a #GCompletion. The items are not freed, so if the memory
      * was dynamically allocated, free @items with g_list_free_full() after calling
      * this function.

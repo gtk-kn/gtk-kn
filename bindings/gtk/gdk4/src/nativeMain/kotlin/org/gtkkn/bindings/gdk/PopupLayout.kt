@@ -4,8 +4,8 @@
 package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_2
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gdk.GdkPopupLayout
@@ -72,6 +72,35 @@ import kotlin.Unit
  */
 public class PopupLayout(public val gdkPopupLayoutPointer: CPointer<GdkPopupLayout>) :
     ProxyInstance(gdkPopupLayoutPointer) {
+    /**
+     * Create a popup layout description.
+     *
+     * Used together with [method@Gdk.Popup.present] to describe how a popup
+     * surface should be placed and behave on-screen.
+     *
+     * @anchor_rect is relative to the top-left corner of the surface's parent.
+     * @rect_anchor and @surface_anchor determine anchor points on @anchor_rect
+     * and surface to pin together.
+     *
+     * The position of @anchor_rect's anchor point can optionally be offset using
+     * [method@Gdk.PopupLayout.set_offset], which is equivalent to offsetting the
+     * position of surface.
+     *
+     * @param anchorRect the anchor `GdkRectangle` to align @surface with
+     * @param rectAnchor the point on @anchor_rect to align with @surface's anchor point
+     * @param surfaceAnchor the point on @surface to align with @rect's anchor point
+     * @return newly created instance of `GdkPopupLayout`
+     */
+    public constructor(
+        anchorRect: Rectangle,
+        rectAnchor: Gravity,
+        surfaceAnchor: Gravity,
+    ) : this(
+        gdk_popup_layout_new(anchorRect.gdkRectanglePointer, rectAnchor.nativeValue, surfaceAnchor.nativeValue)!!
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Makes a copy of @layout.
      *
@@ -205,33 +234,6 @@ public class PopupLayout(public val gdkPopupLayoutPointer: CPointer<GdkPopupLayo
     public fun unref(): Unit = gdk_popup_layout_unref(gdkPopupLayoutPointer)
 
     public companion object {
-        /**
-         * Create a popup layout description.
-         *
-         * Used together with [method@Gdk.Popup.present] to describe how a popup
-         * surface should be placed and behave on-screen.
-         *
-         * @anchor_rect is relative to the top-left corner of the surface's parent.
-         * @rect_anchor and @surface_anchor determine anchor points on @anchor_rect
-         * and surface to pin together.
-         *
-         * The position of @anchor_rect's anchor point can optionally be offset using
-         * [method@Gdk.PopupLayout.set_offset], which is equivalent to offsetting the
-         * position of surface.
-         *
-         * @param anchorRect the anchor `GdkRectangle` to align @surface with
-         * @param rectAnchor the point on @anchor_rect to align with @surface's anchor point
-         * @param surfaceAnchor the point on @surface to align with @rect's anchor point
-         * @return newly created instance of `GdkPopupLayout`
-         */
-        public fun new(anchorRect: Rectangle, rectAnchor: Gravity, surfaceAnchor: Gravity): PopupLayout = PopupLayout(
-            gdk_popup_layout_new(
-                anchorRect.gdkRectanglePointer,
-                rectAnchor.nativeValue,
-                surfaceAnchor.nativeValue
-            )!!.reinterpret()
-        )
-
         /**
          * Get the GType of PopupLayout
          *

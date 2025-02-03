@@ -12,6 +12,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.guint16
@@ -23,12 +24,9 @@ import org.gtkkn.native.pango.pango_color_get_type
 import org.gtkkn.native.pango.pango_color_parse
 import org.gtkkn.native.pango.pango_color_to_string
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoColor` structure is used to
@@ -38,8 +36,7 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `alpha`: alpha: Out parameter is not supported
  */
-public class Color(public val pangoColorPointer: CPointer<PangoColor>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoColorPointer) {
+public class Color(public val pangoColorPointer: CPointer<PangoColor>) : ProxyInstance(pangoColorPointer) {
     /**
      * value of red component
      */
@@ -79,21 +76,9 @@ public class Color(public val pangoColorPointer: CPointer<PangoColor>, cleaner: 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoColor>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Color and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoColor>, Cleaner>,
-    ) : this(pangoColorPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoColor>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Color using the provided [AutofreeScope].

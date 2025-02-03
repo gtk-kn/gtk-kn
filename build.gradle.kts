@@ -46,11 +46,6 @@ tasks {
     withType<SpotlessTask> {
         mustRunAfter("gir:run")
     }
-    register("generateBindings") {
-        dependsOn(":gir:run")
-        dependsOn("spotlessApply")
-        group = BasePlugin.BUILD_GROUP
-    }
     register("compile") {
         description = "Compiles all K/N compilations in subprojects"
         subprojects

@@ -3,10 +3,13 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
 import kotlinx.cinterop.cstr
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
@@ -14,6 +17,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -119,6 +123,115 @@ public class String(public val glibStringPointer: CPointer<GString>) : ProxyInst
         set(`value`) {
             glibStringPointer.pointed.allocated_len = value
         }
+
+    /**
+     * Creates a new #GString, initialized with the given string.
+     *
+     * @param init the initial text to copy into the string, or null to
+     *   start with an empty string
+     * @return the new #GString
+     */
+    public constructor(`init`: kotlin.String? = null) : this(g_string_new(`init`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new #GString with @len bytes of the @init buffer.
+     * Because a length is provided, @init need not be nul-terminated,
+     * and can contain embedded nul bytes.
+     *
+     * Since this function does not stop at nul bytes, it is the caller's
+     * responsibility to ensure that @init has at least @len addressable
+     * bytes.
+     *
+     * @param init initial contents of the string
+     * @param len length of @init to use
+     * @return a new #GString
+     */
+    public constructor(`init`: kotlin.String, len: Long) : this(g_string_new_len(`init`, len)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new #GString, with enough space for @dfl_size
+     * bytes. This is useful if you are going to add a lot of
+     * text to the string and don't want it to be reallocated
+     * too often.
+     *
+     * @param dflSize the default size of the space allocated to hold the string
+     * @return the new #GString
+     */
+    public constructor(dflSize: gsize) : this(g_string_sized_new(dflSize)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Allocate a new String.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GString>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
+
+    /**
+     * Allocate a new String using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GString>().ptr)
+
+    /**
+     * Allocate a new String.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param str points to the character data. It may move as text is added.
+     *   The @str field is null-terminated and so
+     *   can be used as an ordinary C string.
+     * @param len contains the length of the string, not including the
+     *   terminating nul byte.
+     * @param allocatedLen the number of bytes that can be stored in the
+     *   string before it needs to be reallocated. May be larger than @len.
+     */
+    public constructor(
+        str: kotlin.String?,
+        len: gsize,
+        allocatedLen: gsize,
+    ) : this() {
+        this.str = str
+        this.len = len
+        this.allocatedLen = allocatedLen
+    }
+
+    /**
+     * Allocate a new String using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param str points to the character data. It may move as text is added.
+     *   The @str field is null-terminated and so
+     *   can be used as an ordinary C string.
+     * @param len contains the length of the string, not including the
+     *   terminating nul byte.
+     * @param allocatedLen the number of bytes that can be stored in the
+     *   string before it needs to be reallocated. May be larger than @len.
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        str: kotlin.String?,
+        len: gsize,
+        allocatedLen: gsize,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.str = str
+        this.len = len
+        this.allocatedLen = allocatedLen
+    }
 
     /**
      * Adds a string onto the end of a #GString, expanding
@@ -230,6 +343,15 @@ public class String(public val glibStringPointer: CPointer<GString>) : ProxyInst
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * This function uses the locale-specific
+     *     tolower() function, which is almost never the right thing.
+     *     Use g_string_ascii_down() or g_utf8_strdown() instead.
+     * ---
+     *
      * Converts a #GString to lowercase.
      *
      * @return the #GString
@@ -505,6 +627,15 @@ public class String(public val glibStringPointer: CPointer<GString>) : ProxyInst
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * This function uses the locale-specific
+     *     toupper() function, which is almost never the right thing.
+     *     Use g_string_ascii_up() or g_utf8_strup() instead.
+     * ---
+     *
      * Converts a #GString to uppercase.
      *
      * @return @string
@@ -519,31 +650,6 @@ public class String(public val glibStringPointer: CPointer<GString>) : ProxyInst
         /**
          * Creates a new #GString, initialized with the given string.
          *
-         * @param init the initial text to copy into the string, or null to
-         *   start with an empty string
-         * @return the new #GString
-         */
-        public fun new(`init`: kotlin.String? = null): String = String(g_string_new(`init`)!!.reinterpret())
-
-        /**
-         * Creates a new #GString with @len bytes of the @init buffer.
-         * Because a length is provided, @init need not be nul-terminated,
-         * and can contain embedded nul bytes.
-         *
-         * Since this function does not stop at nul bytes, it is the caller's
-         * responsibility to ensure that @init has at least @len addressable
-         * bytes.
-         *
-         * @param init initial contents of the string
-         * @param len length of @init to use
-         * @return a new #GString
-         */
-        public fun newLen(`init`: kotlin.String, len: Long): String =
-            String(g_string_new_len(`init`, len)!!.reinterpret())
-
-        /**
-         * Creates a new #GString, initialized with the given string.
-         *
          * After this call, @init belongs to the #GString and may no longer be
          * modified by the caller. The memory of @data has to be dynamically
          * allocated and will eventually be freed with g_free().
@@ -554,19 +660,9 @@ public class String(public val glibStringPointer: CPointer<GString>) : ProxyInst
          * @return the new #GString
          * @since 2.78
          */
-        public fun newTake(`init`: kotlin.String? = null): String =
-            String(g_string_new_take(`init`?.cstr)!!.reinterpret())
-
-        /**
-         * Creates a new #GString, with enough space for @dfl_size
-         * bytes. This is useful if you are going to add a lot of
-         * text to the string and don't want it to be reallocated
-         * too often.
-         *
-         * @param dflSize the default size of the space allocated to hold the string
-         * @return the new #GString
-         */
-        public fun sizedNew(dflSize: gsize): String = String(g_string_sized_new(dflSize)!!.reinterpret())
+        public fun take(`init`: kotlin.String? = null): String = String(g_string_new_take(`init`?.cstr)!!).apply {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        }
 
         /**
          * Get the GType of String

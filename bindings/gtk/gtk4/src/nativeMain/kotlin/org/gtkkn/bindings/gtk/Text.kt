@@ -19,13 +19,13 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.bindings.pango.TabArray
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gsize
@@ -159,6 +159,10 @@ public open class Text(public val gtkTextPointer: CPointer<GtkText>) :
     AccessibleText,
     Editable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = handle.reinterpret()
 
@@ -238,7 +242,7 @@ public open class Text(public val gtkTextPointer: CPointer<GtkText>) :
          * @return A `GtkEntryBuffer` object.
          */
         get() = gtk_text_get_buffer(gtkTextPointer)!!.run {
-            EntryBuffer(this)
+            InstanceCache.get(this, true) { EntryBuffer(reinterpret()) }!!
         }
 
         /**
@@ -287,7 +291,7 @@ public open class Text(public val gtkTextPointer: CPointer<GtkText>) :
          * @return the menu model
          */
         get() = gtk_text_get_extra_menu(gtkTextPointer)?.run {
-            MenuModel.MenuModelImpl(this)
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
 
         /**
@@ -553,7 +557,9 @@ public open class Text(public val gtkTextPointer: CPointer<GtkText>) :
      *
      * @return a new `GtkText`.
      */
-    public constructor() : this(gtk_text_new()!!.reinterpret())
+    public constructor() : this(gtk_text_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkText` with the specified text buffer.
@@ -563,7 +569,9 @@ public open class Text(public val gtkTextPointer: CPointer<GtkText>) :
      */
     public constructor(
         buffer: EntryBuffer,
-    ) : this(gtk_text_new_with_buffer(buffer.gtkEntryBufferPointer)!!.reinterpret())
+    ) : this(gtk_text_new_with_buffer(buffer.gtkEntryBufferPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Determine the positions of the strong and weak cursors if the
@@ -975,7 +983,7 @@ public open class Text(public val gtkTextPointer: CPointer<GtkText>) :
 
     public companion object : TypeCompanion<Text> {
         override val type: GeneratedClassKGType<Text> =
-            GeneratedClassKGType(getTypeOrNull("gtk_text_get_type")!!) { Text(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Text(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -987,6 +995,16 @@ public open class Text(public val gtkTextPointer: CPointer<GtkText>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_text_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_text_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_text_get_type")
     }
 }
 

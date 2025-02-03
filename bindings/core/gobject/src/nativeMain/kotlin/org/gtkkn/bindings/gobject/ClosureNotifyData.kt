@@ -10,23 +10,19 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GClosureNotifyData
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * ## Skipped during bindings generation
  *
  * - field `notify`: ClosureNotify
  */
-public class ClosureNotifyData(
-    public val gobjectClosureNotifyDataPointer: CPointer<GClosureNotifyData>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gobjectClosureNotifyDataPointer) {
+public class ClosureNotifyData(public val gobjectClosureNotifyDataPointer: CPointer<GClosureNotifyData>) :
+    ProxyInstance(gobjectClosureNotifyDataPointer) {
     public var `data`: gpointer
         get() = gobjectClosureNotifyDataPointer.pointed.data!!
 
@@ -41,21 +37,9 @@ public class ClosureNotifyData(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GClosureNotifyData>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to ClosureNotifyData and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GClosureNotifyData>, Cleaner>,
-    ) : this(gobjectClosureNotifyDataPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GClosureNotifyData>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new ClosureNotifyData using the provided [AutofreeScope].

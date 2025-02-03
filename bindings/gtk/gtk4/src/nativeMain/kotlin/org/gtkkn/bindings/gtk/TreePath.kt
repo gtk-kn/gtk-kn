@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gint
@@ -33,6 +34,11 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ * ---
+ *
  * An opaque structure representing a path to a row in a model.
  *
  * ## Skipped during bindings generation
@@ -42,6 +48,47 @@ import kotlin.Unit
  */
 public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : ProxyInstance(gtkTreePathPointer) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
+     * Creates a new `GtkTreePath`
+     * This refers to a row.
+     *
+     * @return A newly created `GtkTreePath`.
+     */
+    public constructor() : this(gtk_tree_path_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
+     * Creates a new `GtkTreePath` initialized to @path.
+     *
+     * @path is expected to be a colon separated list of numbers.
+     * For example, the string “10:4:0” would create a path of depth
+     * 3 pointing to the 11th child of the root node, the 5th
+     * child of that 11th child, and the 1st child of that 5th child.
+     * If an invalid path string is passed in, null is returned.
+     *
+     * @param path The string representation of a path
+     * @return A newly-created `GtkTreePath`
+     */
+    public constructor(path: String) : this(gtk_tree_path_new_from_string(path)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Appends a new index to a path.
      *
      * As a result, the depth of the path is increased.
@@ -51,6 +98,11 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
     public fun appendIndex(index: gint): Unit = gtk_tree_path_append_index(gtkTreePathPointer, index)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Compares two paths.
      *
      * If @a appears before @b in a tree, then -1 is returned.
@@ -63,6 +115,11 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
     public fun compare(b: TreePath): gint = gtk_tree_path_compare(gtkTreePathPointer, b.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkTreePath` as a copy of @path.
      *
      * @return a new `GtkTreePath`
@@ -72,16 +129,31 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Moves @path to point to the first child of the current path.
      */
     public fun down(): Unit = gtk_tree_path_down(gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Frees @path. If @path is null, it simply returns.
      */
     public fun free(): Unit = gtk_tree_path_free(gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the current depth of @path.
      *
      * @return The depth of @path
@@ -89,6 +161,11 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
     public fun getDepth(): gint = gtk_tree_path_get_depth(gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns true if @descendant is a descendant of @path.
      *
      * @param descendant another `GtkTreePath`
@@ -98,6 +175,11 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
         gtk_tree_path_is_ancestor(gtkTreePathPointer, descendant.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns true if @path is a descendant of @ancestor.
      *
      * @param ancestor another `GtkTreePath`
@@ -107,11 +189,21 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
         gtk_tree_path_is_descendant(gtkTreePathPointer, ancestor.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Moves the @path to point to the next node at the current depth.
      */
     public fun next(): Unit = gtk_tree_path_next(gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Prepends a new index to a path.
      *
      * As a result, the depth of the path is increased.
@@ -121,6 +213,11 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
     public fun prependIndex(index: gint): Unit = gtk_tree_path_prepend_index(gtkTreePathPointer, index)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Moves the @path to point to the previous node at the
      * current depth, if it exists.
      *
@@ -130,6 +227,11 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
     public fun prev(): Boolean = gtk_tree_path_prev(gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Generates a string representation of the path.
      *
      * This string is a “:” separated list of numbers.
@@ -142,6 +244,11 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
     public fun toStringTreePath(): String? = gtk_tree_path_to_string(gtkTreePathPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Moves the @path to point to its parent node, if it has a parent.
      *
      * @return true if @path has a parent, and the move was made
@@ -150,36 +257,20 @@ public class TreePath(public val gtkTreePathPointer: CPointer<GtkTreePath>) : Pr
 
     public companion object {
         /**
-         * Creates a new `GtkTreePath`
-         * This refers to a row.
+         * # ⚠️ Deprecated ⚠️
          *
-         * @return A newly created `GtkTreePath`.
-         */
-        public fun new(): TreePath = TreePath(gtk_tree_path_new()!!)
-
-        /**
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Creates a new `GtkTreePath`.
          *
          * The string representation of this path is “0”.
          *
          * @return A new `GtkTreePath`
          */
-        public fun newFirst(): TreePath = TreePath(gtk_tree_path_new_first()!!)
-
-        /**
-         * Creates a new `GtkTreePath` initialized to @path.
-         *
-         * @path is expected to be a colon separated list of numbers.
-         * For example, the string “10:4:0” would create a path of depth
-         * 3 pointing to the 11th child of the root node, the 5th
-         * child of that 11th child, and the 1st child of that 5th child.
-         * If an invalid path string is passed in, null is returned.
-         *
-         * @param path The string representation of a path
-         * @return A newly-created `GtkTreePath`
-         */
-        public fun newFromString(path: String): TreePath? =
-            TreePath(gtk_tree_path_new_from_string(path)!!.reinterpret())
+        public fun first(): TreePath = TreePath(gtk_tree_path_new_first()!!).apply {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        }
 
         /**
          * Get the GType of TreePath

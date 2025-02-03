@@ -9,12 +9,12 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Accessible
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwViewStackPage
 import org.gtkkn.native.adw.adw_view_stack_page_get_badge_number
 import org.gtkkn.native.adw.adw_view_stack_page_get_child
@@ -45,6 +45,10 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
     Object(adwViewStackPagePointer.reinterpret()),
     Accessible,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -86,7 +90,7 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return the child to which @self belongs
          */
         get() = adw_view_stack_page_get_child(adwViewStackPagePointer)!!.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -214,9 +218,7 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
 
     public companion object : TypeCompanion<ViewStackPage> {
         override val type: GeneratedClassKGType<ViewStackPage> =
-            GeneratedClassKGType(getTypeOrNull("adw_view_stack_page_get_type")!!) {
-                ViewStackPage(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ViewStackPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -228,5 +230,16 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return the GType
          */
         public fun getType(): GType = adw_view_stack_page_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_view_stack_page_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_view_stack_page_get_type")
     }
 }

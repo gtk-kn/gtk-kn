@@ -8,11 +8,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GThreadFunctions
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * This function table is no longer used by g_thread_init()
@@ -42,31 +40,17 @@ import kotlin.native.ref.createCleaner
  * - field `thread_self`: Fields with callbacks are not supported
  * - field `thread_equal`: Fields with callbacks are not supported
  */
-public class ThreadFunctions(
-    public val glibThreadFunctionsPointer: CPointer<GThreadFunctions>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(glibThreadFunctionsPointer) {
+public class ThreadFunctions(public val glibThreadFunctionsPointer: CPointer<GThreadFunctions>) :
+    ProxyInstance(glibThreadFunctionsPointer) {
     /**
      * Allocate a new ThreadFunctions.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GThreadFunctions>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to ThreadFunctions and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GThreadFunctions>, Cleaner>,
-    ) : this(glibThreadFunctionsPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GThreadFunctions>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new ThreadFunctions using the provided [AutofreeScope].

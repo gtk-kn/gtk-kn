@@ -39,7 +39,7 @@ data class RegisteredType(
     lateinit var allAncestors: List<RegisteredType>
 
     val isGObject: Boolean
-        get() = allAncestors.any { it.fullName == "GObject.Object" }
+        get() = fullName == "GObject.Object" || allAncestors.any { it.fullName == "GObject.Object" }
 
     /**
      * Returns the first `RegisteredType` in the ancestry chain with a non-null `cType`.

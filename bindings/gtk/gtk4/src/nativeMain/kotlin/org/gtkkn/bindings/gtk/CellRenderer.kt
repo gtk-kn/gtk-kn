@@ -17,13 +17,12 @@ import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.InitiallyUnowned
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -58,6 +57,14 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets for displaying their
+ *   contents
+ * ---
+ *
  * An object for rendering a single cell
  *
  * The `GtkCellRenderer` is a base class of a set of objects used for
@@ -120,8 +127,17 @@ import kotlin.Unit
 public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<GtkCellRenderer>) :
     InitiallyUnowned(gtkCellRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public open var isExpanded: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Checks whether the given `GtkCellRenderer` is expanded.
          *
          * @return true if the cell renderer is expanded
@@ -129,6 +145,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         get() = gtk_cell_renderer_get_is_expanded(gtkCellRendererPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets whether the given `GtkCellRenderer` is expanded.
          *
          * @param isExpanded whether @cell should be expanded
@@ -137,6 +158,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
 
     public open var isExpander: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Checks whether the given `GtkCellRenderer` is an expander.
          *
          * @return true if @cell is an expander, and false otherwise
@@ -144,6 +170,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         get() = gtk_cell_renderer_get_is_expander(gtkCellRendererPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets whether the given `GtkCellRenderer` is an expander.
          *
          * @param isExpander whether @cell is an expander
@@ -152,6 +183,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
 
     public open var sensitive: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns the cell renderer’s sensitivity.
          *
          * @return true if the cell renderer is sensitive
@@ -159,6 +195,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         get() = gtk_cell_renderer_get_sensitive(gtkCellRendererPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets the cell renderer’s sensitivity.
          *
          * @param sensitive the sensitivity of the cell
@@ -167,6 +208,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
 
     public open var visible: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns the cell renderer’s visibility.
          *
          * @return true if the cell renderer is visible
@@ -174,6 +220,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         get() = gtk_cell_renderer_get_visible(gtkCellRendererPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets the cell renderer’s visibility.
          *
          * @param visible the visibility of the cell
@@ -181,6 +232,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         set(visible) = gtk_cell_renderer_set_visible(gtkCellRendererPointer, visible.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Passes an activate event to the cell renderer for possible processing.
      * Some cell renderers may use events; for example, `GtkCellRendererToggle`
      * toggles when it gets a mouse click.
@@ -212,6 +268,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
     ).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Gets the aligned area used by @cell inside @cell_area. Used for finding
      * the appropriate edit and focus rectangle.
      *
@@ -235,6 +296,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Retrieves the minimum and natural size of a cell taking
      * into account the widget’s preference for height-for-width management.
      *
@@ -251,6 +317,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Gets whether the cell renderer prefers a height-for-width layout
      * or a width-for-height layout.
      *
@@ -261,6 +332,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Translates the cell renderer state to `GtkStateFlags`,
      * based on the cell renderer and widget sensitivity, and
      * the given `GtkCellRenderer`State.
@@ -275,6 +351,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Checks whether the cell renderer can do something when activated.
      *
      * @return true if the cell renderer can do anything when activated
@@ -282,6 +363,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
     public open fun isActivatable(): Boolean = gtk_cell_renderer_is_activatable(gtkCellRendererPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the renderer’s alignment within its available space.
      *
      * @param xalign the x alignment of the cell renderer
@@ -291,6 +377,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         gtk_cell_renderer_set_alignment(gtkCellRendererPointer, xalign, yalign)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the renderer size to be explicit, independent of the properties set.
      *
      * @param width the width of the cell renderer, or -1
@@ -300,6 +391,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         gtk_cell_renderer_set_fixed_size(gtkCellRendererPointer, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the renderer’s padding.
      *
      * @param xpad the x padding of the cell renderer
@@ -309,6 +405,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
         gtk_cell_renderer_set_padding(gtkCellRendererPointer, xpad, ypad)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Invokes the virtual render function of the `GtkCellRenderer`. The three
      * passed-in rectangles are areas in @cr. Most renderers will draw within
      * @cell_area; the xalign, yalign, xpad, and ypad fields of the `GtkCellRenderer`
@@ -340,6 +441,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Starts editing the contents of this @cell, through a new `GtkCellEditable`
      * widget created by the `GtkCellRenderer`Class.start_editing virtual function.
      *
@@ -373,6 +479,11 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Informs the cell renderer that the editing is stopped.
      * If @canceled is true, the cell renderer will emit the
      * `GtkCellRenderer`::editing-canceled signal.
@@ -483,9 +594,7 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
 
     public companion object : TypeCompanion<CellRenderer> {
         override val type: GeneratedClassKGType<CellRenderer> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_get_type")!!) {
-                CellRendererImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { CellRendererImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -497,6 +606,17 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_renderer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_renderer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_renderer_get_type")
     }
 }
 

@@ -5,11 +5,11 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSimplePermission
 import org.gtkkn.native.gio.g_simple_permission_get_type
 import org.gtkkn.native.gio.g_simple_permission_new
@@ -27,6 +27,10 @@ import kotlin.Boolean
 public open class SimplePermission(public val gioSimplePermissionPointer: CPointer<GSimplePermission>) :
     Permission(gioSimplePermissionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GPermission instance that represents an action that is
      * either always or never allowed.
@@ -35,13 +39,13 @@ public open class SimplePermission(public val gioSimplePermissionPointer: CPoint
      * @return the #GSimplePermission, as a #GPermission
      * @since 2.26
      */
-    public constructor(allowed: Boolean) : this(g_simple_permission_new(allowed.asGBoolean())!!.reinterpret())
+    public constructor(allowed: Boolean) : this(g_simple_permission_new(allowed.asGBoolean())!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<SimplePermission> {
         override val type: GeneratedClassKGType<SimplePermission> =
-            GeneratedClassKGType(getTypeOrNull("g_simple_permission_get_type")!!) {
-                SimplePermission(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { SimplePermission(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -53,5 +57,16 @@ public open class SimplePermission(public val gioSimplePermissionPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = g_simple_permission_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_simple_permission_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_simple_permission_get_type")
     }
 }

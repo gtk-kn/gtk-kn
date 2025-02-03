@@ -9,12 +9,12 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_1
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gtk.ListBoxRow
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwPreferencesRow
 import org.gtkkn.native.adw.adw_preferences_row_get_title
 import org.gtkkn.native.adw.adw_preferences_row_get_title_selectable
@@ -48,6 +48,10 @@ import kotlin.String
 public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<AdwPreferencesRow>) :
     ListBoxRow(adwPreferencesRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -170,13 +174,13 @@ public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<A
      *
      * @return the newly created `AdwPreferencesRow`
      */
-    public constructor() : this(adw_preferences_row_new()!!.reinterpret())
+    public constructor() : this(adw_preferences_row_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<PreferencesRow> {
         override val type: GeneratedClassKGType<PreferencesRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_preferences_row_get_type")!!) {
-                PreferencesRow(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PreferencesRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -188,5 +192,16 @@ public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<A
          * @return the GType
          */
         public fun getType(): GType = adw_preferences_row_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_preferences_row_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_preferences_row_get_type")
     }
 }

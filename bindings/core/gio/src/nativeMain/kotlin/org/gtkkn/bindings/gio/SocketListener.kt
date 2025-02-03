@@ -21,12 +21,12 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSocket
 import org.gtkkn.native.gio.GSocketListener
 import org.gtkkn.native.gio.GSocketListenerEvent
@@ -82,6 +82,10 @@ import kotlin.Unit
 public open class SocketListener(public val gioSocketListenerPointer: CPointer<GSocketListener>) :
     Object(gioSocketListenerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GSocketListener with no sockets to listen for.
      * New listeners can be added with e.g. g_socket_listener_add_address()
@@ -90,7 +94,9 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
      * @return a new #GSocketListener.
      * @since 2.22
      */
-    public constructor() : this(g_socket_listener_new()!!.reinterpret())
+    public constructor() : this(g_socket_listener_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * This is the asynchronous version of g_socket_listener_accept().
@@ -303,7 +309,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
 
     public companion object : TypeCompanion<SocketListener> {
         override val type: GeneratedClassKGType<SocketListener> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_listener_get_type")!!) { SocketListener(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { SocketListener(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -315,6 +321,17 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = g_socket_listener_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_socket_listener_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_socket_listener_get_type")
     }
 }
 
@@ -330,7 +347,7 @@ private val onEventFunc: CPointer<CFunction<(GSocketListenerEvent, CPointer<GSoc
                 SocketListenerEvent.fromNativeValue(this)
             },
             socket!!.run {
-                Socket(this)
+                InstanceCache.get(this, false) { Socket(reinterpret()) }!!
             }
         )
     }

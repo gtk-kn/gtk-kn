@@ -5,10 +5,9 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkMotionEvent
 import org.gtkkn.native.gdk.gdk_motion_event_get_type
 import org.gtkkn.native.gobject.GType
@@ -19,9 +18,13 @@ import org.gtkkn.native.gobject.GType
 public open class MotionEvent(public val gdkMotionEventPointer: CPointer<GdkMotionEvent>) :
     Event(gdkMotionEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     public companion object : TypeCompanion<MotionEvent> {
         override val type: GeneratedClassKGType<MotionEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_motion_event_get_type")!!) { MotionEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { MotionEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -33,5 +36,16 @@ public open class MotionEvent(public val gdkMotionEventPointer: CPointer<GdkMoti
          * @return the GType
          */
         public fun getType(): GType = gdk_motion_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_motion_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_motion_event_get_type")
     }
 }

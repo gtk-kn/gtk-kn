@@ -9,12 +9,15 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -29,11 +32,8 @@ import org.gtkkn.native.pango.pango_layout_line_is_paragraph_start
 import org.gtkkn.native.pango.pango_layout_line_ref
 import org.gtkkn.native.pango.pango_layout_line_unref
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoLayoutLine` represents one of the lines resulting from laying
@@ -50,14 +50,14 @@ import kotlin.native.ref.createCleaner
  * - parameter `x_pos`: x_pos: Out parameter is not supported
  * - parameter `index`: index: Out parameter is not supported
  */
-public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = null) :
+public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutLine>) :
     ProxyInstance(pangoLayoutLinePointer) {
     /**
      * the layout this line belongs to, might be null
      */
     public var layout: Layout?
         get() = pangoLayoutLinePointer.pointed.layout?.run {
-            Layout(this)
+            InstanceCache.get(this, true) { Layout(reinterpret()) }!!
         }
 
         @UnsafeFieldSetter
@@ -129,21 +129,9 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoLayoutLine>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to LayoutLine and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoLayoutLine>, Cleaner>,
-    ) : this(pangoLayoutLinePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoLayoutLine>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new LayoutLine using the provided [AutofreeScope].

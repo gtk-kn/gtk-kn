@@ -31,7 +31,7 @@ interface FieldGenerator : ConversionBlockGenerator, KDocGenerator {
      */
     fun buildFieldProperty(objectPointerName: String, field: FieldBlueprint): PropertySpec {
         val propertyBuilder = PropertySpec.builder(field.kotlinName, field.typeInfo.kotlinTypeName)
-            .addKdoc(buildPropertyKDoc(field.kdoc, field.optInVersionBlueprint))
+            .addKdoc(buildPropertyKDoc(field.kdoc, field.optInVersionBlueprint, field.deprecatedBlueprint))
 
         val fieldNativeName =
             if (field.accessPath.isNullOrBlank()) field.nativeName else "${field.accessPath}.${field.nativeName}"

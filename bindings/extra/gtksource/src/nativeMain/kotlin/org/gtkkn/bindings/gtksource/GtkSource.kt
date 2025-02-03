@@ -18,6 +18,8 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gio.GMountOperation
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
@@ -91,6 +93,10 @@ import kotlin.Unit
  * - record `VimIMContextClass`: glib type struct are ignored
  */
 public object GtkSource {
+    init {
+        registerTypes()
+    }
+
     /**
      * Like gtk_source_get_major_version(), but from the headers used at
      * application compile time, rather than from the library linked
@@ -279,6 +285,130 @@ public object GtkSource {
         }
         return ex ?: GLibException(error)
     }
+
+    private fun registerTypes() {
+        Buffer.getTypeOrNull()?.let { gtype -> TypeCache.register(Buffer::class, gtype) { Buffer(it.reinterpret()) } }
+        Completion.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Completion::class, gtype) { Completion(it.reinterpret()) }
+        }
+        CompletionCell.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CompletionCell::class, gtype) { CompletionCell(it.reinterpret()) }
+        }
+        CompletionContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CompletionContext::class, gtype) { CompletionContext(it.reinterpret()) }
+        }
+        CompletionSnippets.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CompletionSnippets::class, gtype) { CompletionSnippets(it.reinterpret()) }
+        }
+        CompletionWords.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CompletionWords::class, gtype) { CompletionWords(it.reinterpret()) }
+        }
+        File.getTypeOrNull()?.let { gtype -> TypeCache.register(File::class, gtype) { File(it.reinterpret()) } }
+        FileLoader.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileLoader::class, gtype) { FileLoader(it.reinterpret()) }
+        }
+        FileSaver.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileSaver::class, gtype) { FileSaver(it.reinterpret()) }
+        }
+        Gutter.getTypeOrNull()?.let { gtype -> TypeCache.register(Gutter::class, gtype) { Gutter(it.reinterpret()) } }
+        GutterLines.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GutterLines::class, gtype) { GutterLines(it.reinterpret()) }
+        }
+        GutterRenderer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GutterRenderer::class, gtype) { GutterRenderer.GutterRendererImpl(it.reinterpret()) }
+        }
+        GutterRendererPixbuf.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GutterRendererPixbuf::class, gtype) { GutterRendererPixbuf(it.reinterpret()) }
+        }
+        GutterRendererText.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GutterRendererText::class, gtype) { GutterRendererText(it.reinterpret()) }
+        }
+        Hover.getTypeOrNull()?.let { gtype -> TypeCache.register(Hover::class, gtype) { Hover(it.reinterpret()) } }
+        HoverContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(HoverContext::class, gtype) { HoverContext(it.reinterpret()) }
+        }
+        HoverDisplay.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(HoverDisplay::class, gtype) { HoverDisplay(it.reinterpret()) }
+        }
+        Language.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Language::class, gtype) { Language(it.reinterpret()) }
+        }
+        LanguageManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(LanguageManager::class, gtype) { LanguageManager(it.reinterpret()) }
+        }
+        Map.getTypeOrNull()?.let { gtype -> TypeCache.register(Map::class, gtype) { Map(it.reinterpret()) } }
+        Mark.getTypeOrNull()?.let { gtype -> TypeCache.register(Mark::class, gtype) { Mark(it.reinterpret()) } }
+        MarkAttributes.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MarkAttributes::class, gtype) { MarkAttributes(it.reinterpret()) }
+        }
+        PrintCompositor.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PrintCompositor::class, gtype) { PrintCompositor(it.reinterpret()) }
+        }
+        Region.getTypeOrNull()?.let { gtype -> TypeCache.register(Region::class, gtype) { Region(it.reinterpret()) } }
+        SearchContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SearchContext::class, gtype) { SearchContext(it.reinterpret()) }
+        }
+        SearchSettings.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SearchSettings::class, gtype) { SearchSettings(it.reinterpret()) }
+        }
+        Snippet.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Snippet::class, gtype) { Snippet(it.reinterpret()) }
+        }
+        SnippetChunk.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SnippetChunk::class, gtype) { SnippetChunk(it.reinterpret()) }
+        }
+        SnippetContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SnippetContext::class, gtype) { SnippetContext(it.reinterpret()) }
+        }
+        SnippetManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SnippetManager::class, gtype) { SnippetManager(it.reinterpret()) }
+        }
+        SpaceDrawer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SpaceDrawer::class, gtype) { SpaceDrawer(it.reinterpret()) }
+        }
+        Style.getTypeOrNull()?.let { gtype -> TypeCache.register(Style::class, gtype) { Style(it.reinterpret()) } }
+        StyleScheme.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StyleScheme::class, gtype) { StyleScheme(it.reinterpret()) }
+        }
+        StyleSchemeChooserButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StyleSchemeChooserButton::class, gtype) { StyleSchemeChooserButton(it.reinterpret()) }
+        }
+        StyleSchemeChooserWidget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StyleSchemeChooserWidget::class, gtype) { StyleSchemeChooserWidget(it.reinterpret()) }
+        }
+        StyleSchemeManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StyleSchemeManager::class, gtype) { StyleSchemeManager(it.reinterpret()) }
+        }
+        StyleSchemePreview.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StyleSchemePreview::class, gtype) { StyleSchemePreview(it.reinterpret()) }
+        }
+        Tag.getTypeOrNull()?.let { gtype -> TypeCache.register(Tag::class, gtype) { Tag(it.reinterpret()) } }
+        View.getTypeOrNull()?.let { gtype -> TypeCache.register(View::class, gtype) { View(it.reinterpret()) } }
+        VimImContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(VimImContext::class, gtype) { VimImContext(it.reinterpret()) }
+        }
+        CompletionProposal.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CompletionProposal::class, gtype) {
+                CompletionProposal.CompletionProposalImpl(it.reinterpret())
+            }
+        }
+        CompletionProvider.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CompletionProvider::class, gtype) {
+                CompletionProvider.CompletionProviderImpl(it.reinterpret())
+            }
+        }
+        HoverProvider.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(HoverProvider::class, gtype) { HoverProvider.HoverProviderImpl(it.reinterpret()) }
+        }
+        Indenter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Indenter::class, gtype) { Indenter.IndenterImpl(it.reinterpret()) }
+        }
+        StyleSchemeChooser.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StyleSchemeChooser::class, gtype) {
+                StyleSchemeChooser.StyleSchemeChooserImpl(it.reinterpret())
+            }
+        }
+    }
 }
 
 public val MountOperationFactoryFunc:
@@ -290,7 +420,7 @@ public val MountOperationFactoryFunc:
         ->
         userData.asStableRef<(`file`: File, userdata: gpointer?) -> MountOperation>().get().invoke(
             `file`!!.run {
-                File(this)
+                InstanceCache.get(this, false) { File(reinterpret()) }!!
             },
             userdata
         ).gioMountOperationPointer

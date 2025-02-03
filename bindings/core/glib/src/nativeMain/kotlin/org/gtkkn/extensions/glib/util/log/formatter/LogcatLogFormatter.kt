@@ -20,8 +20,12 @@
 
 package org.gtkkn.extensions.glib.util.log.formatter
 
-import org.gtkkn.bindings.glib.DateTime
+import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.util.log.LogLevel
+import org.gtkkn.native.glib.g_date_time_format
+import org.gtkkn.native.glib.g_date_time_new_now_local
+import org.gtkkn.native.gobject.g_boxed_free
+import org.gtkkn.native.gobject.g_date_time_get_type
 import platform.posix.getpid
 
 /**
@@ -59,7 +63,7 @@ public open class LogcatLogFormatter(
         return buildString {
             if (time) {
                 // Format: `<date> <time> <pid> <level> <tag>: <message>`
-                append(formatTime(checkNotNull(DateTime.newNowLocal()))).append(' ')
+                append(formatTime()).append(' ')
                 append(pid).append(' ')
                 append(formatLevel(level)).append(' ')
                 append(formatTag(tag)).append(": ")
@@ -80,6 +84,20 @@ public open class LogcatLogFormatter(
 
     override fun formatMessage(message: String): String = message
 
-    protected open fun formatTime(dateTime: DateTime): String =
-        checkNotNull(dateTime.format("%m-%d %H:%M:%S.%f")).let { it.substring(0, it.length - 2) }
+    protected open fun formatTime(): String {
+        // The native GDateTime API is used directly here instead of the Kotlin/Native wrapper [DateTime]
+        // to avoid an infinite recursion issue. The wrapper internally utilizes MemoryCache,
+        // which in turn relies on the logger. Since this method is part of the logging logic,
+        // using the wrapper would result in a recursive call chain causing a crash.
+        val dateTimePointer = g_date_time_new_now_local() ?: error("Failed to create GDateTime instance")
+        return try {
+            val formattedTime = g_date_time_format(dateTimePointer, "%m-%d %H:%M:%S.%f")
+                ?.toKString()
+                ?.dropLast(2)
+                ?: error("Failed to format GDateTime")
+            formattedTime
+        } finally {
+            g_boxed_free(g_date_time_get_type(), dateTimePointer)
+        }
+    }
 }

@@ -11,6 +11,7 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
@@ -50,10 +51,7 @@ import org.gtkkn.native.graphene.graphene_rect_t
 import org.gtkkn.native.graphene.graphene_rect_union
 import org.gtkkn.native.graphene.graphene_rect_zero
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The location and size of a rectangle region.
@@ -78,29 +76,16 @@ import kotlin.native.ref.createCleaner
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Rect(public val grapheneRectPointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(grapheneRectPointer) {
+public class Rect(public val grapheneRectPointer: CPointer<graphene_rect_t>) : ProxyInstance(grapheneRectPointer) {
     /**
      * Allocate a new Rect.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_rect_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Rect and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_rect_t>, Cleaner>,
-    ) : this(grapheneRectPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<graphene_rect_t>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Rect using the provided [AutofreeScope].
@@ -436,6 +421,13 @@ public class Rect(public val grapheneRectPointer: CPointer<graphene_rect_t>, cle
         graphene_rect_offset_r(grapheneRectPointer, dX, dY, res.grapheneRectPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.10.
+     *
+     * Use graphene_rect_round_extents() instead
+     * ---
+     *
      * Rounds the origin and size of the given rectangle to
      * their nearest integer values; the rounding is guaranteed
      * to be large enough to have an area bigger or equal to the
@@ -484,6 +476,13 @@ public class Rect(public val grapheneRectPointer: CPointer<graphene_rect_t>, cle
     public fun roundExtents(res: Rect): Unit = graphene_rect_round_extents(grapheneRectPointer, res.grapheneRectPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use graphene_rect_round() instead
+     * ---
+     *
      * Rounds the origin and the size of the given rectangle to
      * their nearest integer values; the rounding is guaranteed
      * to be large enough to contain the original rectangle.

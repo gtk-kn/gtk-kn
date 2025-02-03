@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFixedLayout
 import org.gtkkn.native.gtk.gtk_fixed_layout_get_type
@@ -50,16 +50,22 @@ import org.gtkkn.native.gtk.gtk_fixed_layout_new
 public open class FixedLayout(public val gtkFixedLayoutPointer: CPointer<GtkFixedLayout>) :
     LayoutManager(gtkFixedLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkFixedLayout`.
      *
      * @return the newly created `GtkFixedLayout`
      */
-    public constructor() : this(gtk_fixed_layout_new()!!.reinterpret())
+    public constructor() : this(gtk_fixed_layout_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<FixedLayout> {
         override val type: GeneratedClassKGType<FixedLayout> =
-            GeneratedClassKGType(getTypeOrNull("gtk_fixed_layout_get_type")!!) { FixedLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FixedLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -71,5 +77,16 @@ public open class FixedLayout(public val gtkFixedLayoutPointer: CPointer<GtkFixe
          * @return the GType
          */
         public fun getType(): GType = gtk_fixed_layout_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_fixed_layout_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_fixed_layout_get_type")
     }
 }

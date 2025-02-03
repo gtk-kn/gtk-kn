@@ -18,11 +18,10 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceHoverProvider
@@ -85,18 +84,23 @@ public interface HoverProvider :
      *
      * @constructor Creates a new instance of HoverProvider for the provided [CPointer].
      */
-    public data class HoverProviderImpl(override val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>) :
+    public class HoverProviderImpl(gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>) :
         Object(gtksourceHoverProviderPointer.reinterpret()),
-        HoverProvider
+        HoverProvider {
+        init {
+            GtkSource
+        }
+
+        override val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider> =
+            gtksourceHoverProviderPointer
+    }
 
     public companion object : TypeCompanion<HoverProvider> {
         override val type: GeneratedInterfaceKGType<HoverProvider> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_hover_provider_get_type")!!) {
-                HoverProviderImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { HoverProviderImpl(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -105,5 +109,16 @@ public interface HoverProvider :
          * @return the GType
          */
         public fun getType(): GType = gtk_source_hover_provider_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_hover_provider_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_hover_provider_get_type")
     }
 }

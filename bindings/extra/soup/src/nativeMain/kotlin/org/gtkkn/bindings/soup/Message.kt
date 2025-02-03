@@ -29,13 +29,13 @@ import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.annotations.SoupVersion3_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GIOStream
 import org.gtkkn.native.gio.GSocketClientEvent
 import org.gtkkn.native.gio.GTlsCertificate
@@ -137,6 +137,10 @@ import kotlin.Unit
 public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
     Object(soupMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * The [struct@GLib.Uri] loaded in the application when the message was
      * queued.
@@ -330,7 +334,7 @@ public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
          *     hasn't been established
          */
         get() = soup_message_get_remote_address(soupMessagePointer)?.run {
-            SocketAddress.SocketAddressImpl(this)
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
     /**
@@ -386,7 +390,7 @@ public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
          *   or null if @msg's connection is not SSL.
          */
         get() = soup_message_get_tls_peer_certificate(soupMessagePointer)?.run {
-            TlsCertificate.TlsCertificateImpl(this)
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**
@@ -448,7 +452,9 @@ public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
      * @return the new #SoupMessage (or null if @uri
      *   could not be parsed).
      */
-    public constructor(method: String, uriString: String) : this(soup_message_new(method, uriString)!!.reinterpret())
+    public constructor(method: String, uriString: String) : this(soup_message_new(method, uriString)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #SoupMessage and sets it up to send the given @encoded_form
@@ -470,7 +476,9 @@ public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
         method: String,
         uriString: String,
         encodedForm: String,
-    ) : this(soup_message_new_from_encoded_form(method, uriString, encodedForm.cstr)!!.reinterpret())
+    ) : this(soup_message_new_from_encoded_form(method, uriString, encodedForm.cstr)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #SoupMessage and sets it up to send @multipart to
@@ -484,7 +492,9 @@ public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
     public constructor(
         uriString: String,
         multipart: Multipart,
-    ) : this(soup_message_new_from_multipart(uriString, multipart.soupMultipartPointer)!!.reinterpret())
+    ) : this(soup_message_new_from_multipart(uriString, multipart.soupMultipartPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new empty #SoupMessage, which will connect to @uri.
@@ -493,10 +503,9 @@ public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
      * @param uri the destination endpoint
      * @return the new #SoupMessage
      */
-    public constructor(
-        method: String,
-        uri: Uri,
-    ) : this(soup_message_new_from_uri(method, uri.glibUriPointer)!!.reinterpret())
+    public constructor(method: String, uri: Uri) : this(soup_message_new_from_uri(method, uri.glibUriPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #SoupMessage to send `OPTIONS *` to a server. The path of
@@ -505,7 +514,9 @@ public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
      * @param baseUri the destination endpoint
      * @return the new #SoupMessage
      */
-    public constructor(baseUri: Uri) : this(soup_message_new_options_ping(baseUri.glibUriPointer)!!.reinterpret())
+    public constructor(baseUri: Uri) : this(soup_message_new_options_ping(baseUri.glibUriPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @flags to the set of @msg's flags.
@@ -1245,7 +1256,7 @@ public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
 
     public companion object : TypeCompanion<Message> {
         override val type: GeneratedClassKGType<Message> =
-            GeneratedClassKGType(getTypeOrNull("soup_message_get_type")!!) { Message(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Message(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -1257,6 +1268,16 @@ public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
          * @return the GType
          */
         public fun getType(): GType = soup_message_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_message_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_message_get_type")
     }
 }
 
@@ -1275,7 +1296,7 @@ private val onAcceptCertificateFunc:
             ) -> Boolean
             >().get().invoke(
             tlsPeerCertificate!!.run {
-                TlsCertificate.TlsCertificateImpl(this)
+                InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
             },
             tlsPeerErrors.run {
                 TlsCertificateFlags(this)
@@ -1293,7 +1314,7 @@ private val onAuthenticateFunc: CPointer<CFunction<(CPointer<SoupAuth>, gboolean
         ->
         userData.asStableRef<(auth: Auth, retrying: Boolean) -> Boolean>().get().invoke(
             auth!!.run {
-                Auth.AuthImpl(this)
+                InstanceCache.get(this, false) { Auth.AuthImpl(reinterpret()) }!!
             },
             retrying.asBoolean()
         ).asGBoolean()
@@ -1377,7 +1398,7 @@ private val onNetworkEventFunc:
                 SocketClientEvent.fromNativeValue(this)
             },
             connection!!.run {
-                IoStream.IoStreamImpl(this)
+                InstanceCache.get(this, false) { IoStream.IoStreamImpl(reinterpret()) }!!
             }
         )
     }
@@ -1405,7 +1426,7 @@ private val onRequestCertificatePasswordFunc:
         ->
         userData.asStableRef<(tlsPassword: TlsPassword) -> Boolean>().get().invoke(
             tlsPassword!!.run {
-                TlsPassword(this)
+                InstanceCache.get(this, false) { TlsPassword(reinterpret()) }!!
             }
         ).asGBoolean()
     }

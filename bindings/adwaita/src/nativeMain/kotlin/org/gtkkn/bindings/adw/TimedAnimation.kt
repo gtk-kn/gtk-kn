@@ -6,12 +6,12 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwTimedAnimation
 import org.gtkkn.native.adw.adw_timed_animation_get_alternate
 import org.gtkkn.native.adw.adw_timed_animation_get_duration
@@ -55,6 +55,10 @@ import kotlin.Boolean
 public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTimedAnimation>) :
     Animation(adwTimedAnimationPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * Whether the animation changes direction on every iteration.
      */
@@ -249,13 +253,13 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
             duration,
             target.adwAnimationTargetPointer
         )!!.reinterpret()
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<TimedAnimation> {
         override val type: GeneratedClassKGType<TimedAnimation> =
-            GeneratedClassKGType(getTypeOrNull("adw_timed_animation_get_type")!!) {
-                TimedAnimation(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { TimedAnimation(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -267,5 +271,16 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
          * @return the GType
          */
         public fun getType(): GType = adw_timed_animation_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_timed_animation_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_timed_animation_get_type")
     }
 }

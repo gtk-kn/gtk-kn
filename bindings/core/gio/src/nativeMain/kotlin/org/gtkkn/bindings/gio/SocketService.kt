@@ -13,13 +13,13 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSocketConnection
 import org.gtkkn.native.gio.GSocketService
 import org.gtkkn.native.gio.g_socket_service_get_type
@@ -73,6 +73,10 @@ import kotlin.Unit
 public open class SocketService(public val gioSocketServicePointer: CPointer<GSocketService>) :
     SocketListener(gioSocketServicePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GSocketService with no sockets to listen for.
      * New listeners can be added with e.g. g_socket_listener_add_address()
@@ -85,7 +89,9 @@ public open class SocketService(public val gioSocketServicePointer: CPointer<GSo
      * @return a new #GSocketService.
      * @since 2.22
      */
-    public constructor() : this(g_socket_service_new()!!.reinterpret())
+    public constructor() : this(g_socket_service_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Check whether the service is active or not. An active
@@ -164,7 +170,7 @@ public open class SocketService(public val gioSocketServicePointer: CPointer<GSo
 
     public companion object : TypeCompanion<SocketService> {
         override val type: GeneratedClassKGType<SocketService> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_service_get_type")!!) { SocketService(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { SocketService(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -176,6 +182,17 @@ public open class SocketService(public val gioSocketServicePointer: CPointer<GSo
          * @return the GType
          */
         public fun getType(): GType = g_socket_service_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_socket_service_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_socket_service_get_type")
     }
 }
 
@@ -194,10 +211,10 @@ private val onIncomingFunc:
             ) -> Boolean
             >().get().invoke(
             connection!!.run {
-                SocketConnection(this)
+                InstanceCache.get(this, false) { SocketConnection(reinterpret()) }!!
             },
             sourceObject?.run {
-                Object(this)
+                InstanceCache.get(this, false) { Object(reinterpret()) }!!
             }
         ).asGBoolean()
     }

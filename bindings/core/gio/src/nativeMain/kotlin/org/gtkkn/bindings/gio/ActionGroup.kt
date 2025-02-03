@@ -18,14 +18,13 @@ import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.g_action_group_action_added
 import org.gtkkn.native.gio.g_action_group_action_enabled_changed
@@ -474,15 +473,19 @@ public interface ActionGroup :
      *
      * @constructor Creates a new instance of ActionGroup for the provided [CPointer].
      */
-    public data class ActionGroupImpl(override val gioActionGroupPointer: CPointer<GActionGroup>) :
+    public class ActionGroupImpl(gioActionGroupPointer: CPointer<GActionGroup>) :
         Object(gioActionGroupPointer.reinterpret()),
-        ActionGroup
+        ActionGroup {
+        init {
+            Gio
+        }
+
+        override val gioActionGroupPointer: CPointer<GActionGroup> = gioActionGroupPointer
+    }
 
     public companion object : TypeCompanion<ActionGroup> {
         override val type: GeneratedInterfaceKGType<ActionGroup> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_action_group_get_type")!!) {
-                ActionGroupImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { ActionGroupImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -494,6 +497,17 @@ public interface ActionGroup :
          * @return the GType
          */
         public fun getType(): GType = g_action_group_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_action_group_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_action_group_get_type")
     }
 }
 

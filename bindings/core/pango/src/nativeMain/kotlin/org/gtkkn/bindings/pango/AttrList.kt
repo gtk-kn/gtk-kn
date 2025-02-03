@@ -13,6 +13,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gint
@@ -53,6 +54,18 @@ import kotlin.Unit
  * should not use a single `PangoAttrList` for more than one paragraph of text.
  */
 public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) : ProxyInstance(pangoAttrListPointer) {
+    /**
+     * Create a new empty attribute list with a reference
+     * count of one.
+     *
+     * @return the newly allocated
+     *   `PangoAttrList`, which should be freed with
+     *   [method@Pango.AttrList.unref]
+     */
+    public constructor() : this(pango_attr_list_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Insert the given attribute into the `PangoAttrList`.
      *
@@ -288,16 +301,6 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
         pango_attr_list_update(pangoAttrListPointer, pos, remove, add)
 
     public companion object {
-        /**
-         * Create a new empty attribute list with a reference
-         * count of one.
-         *
-         * @return the newly allocated
-         *   `PangoAttrList`, which should be freed with
-         *   [method@Pango.AttrList.unref]
-         */
-        public fun new(): AttrList = AttrList(pango_attr_list_new()!!)
-
         /**
          * Deserializes a `PangoAttrList` from a string.
          *

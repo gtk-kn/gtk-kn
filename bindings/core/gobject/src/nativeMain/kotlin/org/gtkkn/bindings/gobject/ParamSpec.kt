@@ -55,6 +55,10 @@ import kotlin.Unit
  */
 public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GParamSpec>) :
     TypeInstance(gobjectParamSpecPointer.reinterpret()) {
+    init {
+        GObject
+    }
+
     /**
      * Get the short description of a #GParamSpec.
      *

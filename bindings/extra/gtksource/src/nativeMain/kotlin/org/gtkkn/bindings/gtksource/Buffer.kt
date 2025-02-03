@@ -17,14 +17,14 @@ import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextMark
 import org.gtkkn.bindings.gtk.TextTagTable
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_10
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -140,6 +140,10 @@ import kotlin.collections.List
 public open class Buffer(public val gtksourceBufferPointer: CPointer<GtkSourceBuffer>) :
     TextBuffer(gtksourceBufferPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Whether to highlight matching brackets in the buffer.
      */
@@ -241,7 +245,7 @@ public open class Buffer(public val gtksourceBufferPointer: CPointer<GtkSourceBu
          * with the buffer, or null.
          */
         get() = gtk_source_buffer_get_language(gtksourceBufferPointer)?.run {
-            Language(this)
+            InstanceCache.get(this, true) { Language(reinterpret()) }!!
         }
 
         /**
@@ -286,7 +290,7 @@ public open class Buffer(public val gtksourceBufferPointer: CPointer<GtkSourceBu
          * associated with the buffer, or null.
          */
         get() = gtk_source_buffer_get_style_scheme(gtksourceBufferPointer)?.run {
-            StyleScheme(this)
+            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!
         }
 
         /**
@@ -314,9 +318,9 @@ public open class Buffer(public val gtksourceBufferPointer: CPointer<GtkSourceBu
      * @param table a #GtkTextTagTable, or null to create a new one.
      * @return a new source buffer.
      */
-    public constructor(
-        table: TextTagTable? = null,
-    ) : this(gtk_source_buffer_new(table?.gtkTextTagTablePointer)!!.reinterpret())
+    public constructor(table: TextTagTable? = null) : this(gtk_source_buffer_new(table?.gtkTextTagTablePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new source buffer using the highlighting patterns in `language`.
@@ -330,7 +334,9 @@ public open class Buffer(public val gtksourceBufferPointer: CPointer<GtkSourceBu
      */
     public constructor(
         language: Language,
-    ) : this(gtk_source_buffer_new_with_language(language.gtksourceLanguagePointer)!!.reinterpret())
+    ) : this(gtk_source_buffer_new_with_language(language.gtksourceLanguagePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Changes the case of the text between the specified iterators.
@@ -374,7 +380,7 @@ public open class Buffer(public val gtksourceBufferPointer: CPointer<GtkSourceBu
      */
     public open fun createSourceMark(name: String? = null, category: String, `where`: TextIter): Mark =
         gtk_source_buffer_create_source_mark(gtksourceBufferPointer, name, category, `where`.gtkTextIterPointer)!!.run {
-            Mark(this)
+            InstanceCache.get(this, true) { Mark(reinterpret()) }!!
         }
 
     /**
@@ -621,10 +627,10 @@ public open class Buffer(public val gtksourceBufferPointer: CPointer<GtkSourceBu
 
     public companion object : TypeCompanion<Buffer> {
         override val type: GeneratedClassKGType<Buffer> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_buffer_get_type")!!) { Buffer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Buffer(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -633,6 +639,17 @@ public open class Buffer(public val gtksourceBufferPointer: CPointer<GtkSourceBu
          * @return the GType
          */
         public fun getType(): GType = gtk_source_buffer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_buffer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_buffer_get_type")
     }
 }
 
@@ -690,7 +707,7 @@ private val onSourceMarkUpdatedFunc: CPointer<CFunction<(CPointer<GtkTextMark>) 
         ->
         userData.asStableRef<(mark: TextMark) -> Unit>().get().invoke(
             mark!!.run {
-                TextMark(this)
+                InstanceCache.get(this, false) { TextMark(reinterpret()) }!!
             }
         )
     }

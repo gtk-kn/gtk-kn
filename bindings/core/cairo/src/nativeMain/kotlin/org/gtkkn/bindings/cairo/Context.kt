@@ -11,6 +11,7 @@ import org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_4
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -131,6 +132,10 @@ import kotlin.Unit
  * - parameter `x1`: Unsupported pointer to primitive type
  */
 public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyInstance(cairoContextPointer) {
+    public constructor(surface: Surface) : this(cairo_create(surface.cairoSurfacePointer)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_destroy(it.reinterpret()) }
+    }
+
     public fun save(): Unit = cairo_save(cairoContextPointer)
 
     public fun restore(): Unit = cairo_restore(cairoContextPointer)
@@ -458,9 +463,6 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
         cairo_set_font_matrix(cairoContextPointer, matrix.cairoMatrixPointer)
 
     public companion object {
-        public fun create(surface: Surface): Context =
-            Context(cairo_create(surface.cairoSurfacePointer)!!.reinterpret())
-
         /**
          * Get the GType of Context
          *

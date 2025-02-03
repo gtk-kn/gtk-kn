@@ -9,11 +9,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -45,6 +45,15 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * The relevant API has been moved to [class@Gtk.Widget]
+ *   where applicable; otherwise, there is no replacement for querying the
+ *   style machinery. Stylable UI elements should use widgets.
+ * ---
+ *
  * `GtkStyleContext` stores styling information affecting a widget.
  *
  * In order to construct the final style information, `GtkStyleContext`
@@ -86,17 +95,35 @@ import kotlin.Unit
 public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkStyleContext>) :
     Object(gtkStyleContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public open var display: Display
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [method@Gtk.Widget.get_display] instead
+         * ---
+         *
          * Returns the `GdkDisplay` to which @context is attached.
          *
          * @return a `GdkDisplay`.
          */
         get() = gtk_style_context_get_display(gtkStyleContextPointer)!!.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * You should not use this api
+         * ---
+         *
          * Attaches @context to the given display.
          *
          * The display is used to add style information from “global”
@@ -111,6 +138,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         set(display) = gtk_style_context_set_display(gtkStyleContextPointer, display.gdkDisplayPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.Widget.add_css_class] instead
+     * ---
+     *
      * Adds a style class to @context, so later uses of the
      * style context will make use of this new class for styling.
      *
@@ -132,6 +166,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
     public open fun addClass(className: String): Unit = gtk_style_context_add_class(gtkStyleContextPointer, className)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use style classes instead
+     * ---
+     *
      * Adds a style provider to @context, to be used in style construction.
      *
      * Note that a style provider added by this function only affects
@@ -154,6 +195,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         gtk_style_context_add_provider(gtkStyleContextPointer, provider.gtkStyleProviderPointer, priority)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This api will be removed in GTK 5
+     * ---
+     *
      * Gets the border for a given state as a `GtkBorder`.
      *
      * @param border return value for the border settings
@@ -162,6 +210,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         gtk_style_context_get_border(gtkStyleContextPointer, border.gtkBorderPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.Widget.get_color] instead
+     * ---
+     *
      * Gets the foreground color for a given state.
      *
      * @param color return value for the foreground color
@@ -170,6 +225,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         gtk_style_context_get_color(gtkStyleContextPointer, color.gdkRgbaPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This api will be removed in GTK 5
+     * ---
+     *
      * Gets the margin for a given state as a `GtkBorder`.
      *
      * @param margin return value for the margin settings
@@ -178,6 +240,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         gtk_style_context_get_margin(gtkStyleContextPointer, margin.gtkBorderPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This api will be removed in GTK 5
+     * ---
+     *
      * Gets the padding for a given state as a `GtkBorder`.
      *
      * @param padding return value for the padding settings
@@ -186,6 +255,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         gtk_style_context_get_padding(gtkStyleContextPointer, padding.gtkBorderPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.Widget.get_scale_factor] instead
+     * ---
+     *
      * Returns the scale used for assets.
      *
      * @return the scale
@@ -193,6 +269,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
     public open fun getScale(): gint = gtk_style_context_get_scale(gtkStyleContextPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.Widget.get_state_flags] instead
+     * ---
+     *
      * Returns the state used for style matching.
      *
      * This method should only be used to retrieve the `GtkStateFlags`
@@ -208,6 +291,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.Widget.has_css_class] instead
+     * ---
+     *
      * Returns true if @context currently has defined the
      * given class name.
      *
@@ -218,6 +308,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         gtk_style_context_has_class(gtkStyleContextPointer, className).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This api will be removed in GTK 5
+     * ---
+     *
      * Looks up and resolves a color name in the @context color map.
      *
      * @param colorName color name to lookup
@@ -228,6 +325,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         gtk_style_context_lookup_color(gtkStyleContextPointer, colorName, color.gdkRgbaPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.Widget.remove_css_class] instead
+     * ---
+     *
      * Removes @class_name from @context.
      *
      * @param className class name to remove
@@ -236,6 +340,11 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         gtk_style_context_remove_class(gtkStyleContextPointer, className)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Removes @provider from the style providers list in @context.
      *
      * @param provider a `GtkStyleProvider`
@@ -244,6 +353,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         gtk_style_context_remove_provider(gtkStyleContextPointer, provider.gtkStyleProviderPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This API will be removed in GTK 5
+     * ---
+     *
      * Restores @context state to a previous stage.
      *
      * See [method@Gtk.StyleContext.save].
@@ -251,6 +367,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
     public open fun restore(): Unit = gtk_style_context_restore(gtkStyleContextPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This API will be removed in GTK 5
+     * ---
+     *
      * Saves the @context state.
      *
      * This allows temporary modifications done through
@@ -265,6 +388,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
     public open fun save(): Unit = gtk_style_context_save(gtkStyleContextPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * You should not use this api
+     * ---
+     *
      * Sets the scale to use when getting image assets for the style.
      *
      * @param scale scale
@@ -272,6 +402,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
     public open fun setScale(scale: gint): Unit = gtk_style_context_set_scale(gtkStyleContextPointer, scale)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * You should not use this api
+     * ---
+     *
      * Sets the state to be used for style matching.
      *
      * @param flags state to represent
@@ -279,6 +416,13 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
     public open fun setState(flags: StateFlags): Unit = gtk_style_context_set_state(gtkStyleContextPointer, flags.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This api will be removed in GTK 5
+     * ---
+     *
      * Converts the style context into a string representation.
      *
      * The string representation always includes information about
@@ -299,7 +443,7 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
 
     public companion object : TypeCompanion<StyleContext> {
         override val type: GeneratedClassKGType<StyleContext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_style_context_get_type")!!) { StyleContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { StyleContext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -346,5 +490,16 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
          * @return the GType
          */
         public fun getType(): GType = gtk_style_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_style_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_style_context_get_type")
     }
 }

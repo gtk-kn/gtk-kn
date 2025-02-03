@@ -9,8 +9,10 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.TlsCertificate
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitCredential
 import org.gtkkn.native.webkit.webkit_credential_copy
@@ -35,6 +37,57 @@ import kotlin.Unit
 @WebKitVersion2_2
 public class Credential(public val webkitCredentialPointer: CPointer<WebKitCredential>) :
     ProxyInstance(webkitCredentialPointer) {
+    /**
+     * Create a new credential from the provided username, password and persistence mode.
+     *
+     * @param username The username for the new credential
+     * @param password The password for the new credential
+     * @param persistence The #WebKitCredentialPersistence of the new credential
+     * @return A #WebKitCredential.
+     * @since 2.2
+     */
+    public constructor(
+        username: String,
+        password: String,
+        persistence: CredentialPersistence,
+    ) : this(webkit_credential_new(username, password, persistence.nativeValue)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Create a new credential from the @certificate and persistence mode.
+     *
+     * Note that %WEBKIT_CREDENTIAL_PERSISTENCE_PERMANENT is not supported for certificate credentials.
+     *
+     * @param certificate The #GTlsCertificate, or null
+     * @param persistence The #WebKitCredentialPersistence of the new credential
+     * @return A #WebKitCredential.
+     * @since 2.34
+     */
+    public constructor(
+        certificate: TlsCertificate? = null,
+        persistence: CredentialPersistence,
+    ) : this(webkit_credential_new_for_certificate(certificate?.gioTlsCertificatePointer, persistence.nativeValue)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Create a new credential from the provided PIN and persistence mode.
+     *
+     * Note that %WEBKIT_CREDENTIAL_PERSISTENCE_PERMANENT is not supported for certificate pin credentials.
+     *
+     * @param pin The PIN for the new credential
+     * @param persistence The #WebKitCredentialPersistence of the new credential
+     * @return A #WebKitCredential.
+     * @since 2.34
+     */
+    public constructor(
+        pin: String,
+        persistence: CredentialPersistence,
+    ) : this(webkit_credential_new_for_certificate_pin(pin, persistence.nativeValue)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Make a copy of the #WebKitCredential.
      *
@@ -62,7 +115,7 @@ public class Credential(public val webkitCredentialPointer: CPointer<WebKitCrede
      */
     @WebKitVersion2_34
     public fun getCertificate(): TlsCertificate = webkit_credential_get_certificate(webkitCredentialPointer)!!.run {
-        TlsCertificate.TlsCertificateImpl(this)
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**
@@ -107,51 +160,6 @@ public class Credential(public val webkitCredentialPointer: CPointer<WebKitCrede
     public fun hasPassword(): Boolean = webkit_credential_has_password(webkitCredentialPointer).asBoolean()
 
     public companion object {
-        /**
-         * Create a new credential from the provided username, password and persistence mode.
-         *
-         * @param username The username for the new credential
-         * @param password The password for the new credential
-         * @param persistence The #WebKitCredentialPersistence of the new credential
-         * @return A #WebKitCredential.
-         * @since 2.2
-         */
-        public fun new(username: String, password: String, persistence: CredentialPersistence): Credential =
-            Credential(webkit_credential_new(username, password, persistence.nativeValue)!!.reinterpret())
-
-        /**
-         * Create a new credential from the @certificate and persistence mode.
-         *
-         * Note that %WEBKIT_CREDENTIAL_PERSISTENCE_PERMANENT is not supported for certificate credentials.
-         *
-         * @param certificate The #GTlsCertificate, or null
-         * @param persistence The #WebKitCredentialPersistence of the new credential
-         * @return A #WebKitCredential.
-         * @since 2.34
-         */
-        public fun newForCertificate(
-            certificate: TlsCertificate? = null,
-            persistence: CredentialPersistence,
-        ): Credential = Credential(
-            webkit_credential_new_for_certificate(
-                certificate?.gioTlsCertificatePointer,
-                persistence.nativeValue
-            )!!.reinterpret()
-        )
-
-        /**
-         * Create a new credential from the provided PIN and persistence mode.
-         *
-         * Note that %WEBKIT_CREDENTIAL_PERSISTENCE_PERMANENT is not supported for certificate pin credentials.
-         *
-         * @param pin The PIN for the new credential
-         * @param persistence The #WebKitCredentialPersistence of the new credential
-         * @return A #WebKitCredential.
-         * @since 2.34
-         */
-        public fun newForCertificatePin(pin: String, persistence: CredentialPersistence): Credential =
-            Credential(webkit_credential_new_for_certificate_pin(pin, persistence.nativeValue)!!.reinterpret())
-
         /**
          * Get the GType of Credential
          *

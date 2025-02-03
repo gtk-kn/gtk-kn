@@ -25,6 +25,7 @@ nav:
       - Logging: developer-guide/logging.md
       #      - GObject Concepts: developer-guide/gobject-concepts.md
       #      - Main Event Loop: developer-guide/the-main-event-loop.md
+      - UI Design: developer-guide/ui-design.md
       - Bindings:
           - developer-guide/bindings/index.md
           - GTK4:

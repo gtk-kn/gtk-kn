@@ -14,11 +14,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_64
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.GMemoryMonitor
 import org.gtkkn.native.gio.GMemoryMonitorWarningLevel
@@ -118,15 +117,19 @@ public interface MemoryMonitor :
      *
      * @constructor Creates a new instance of MemoryMonitor for the provided [CPointer].
      */
-    public data class MemoryMonitorImpl(override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor>) :
+    public class MemoryMonitorImpl(gioMemoryMonitorPointer: CPointer<GMemoryMonitor>) :
         Object(gioMemoryMonitorPointer.reinterpret()),
-        MemoryMonitor
+        MemoryMonitor {
+        init {
+            Gio
+        }
+
+        override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor> = gioMemoryMonitorPointer
+    }
 
     public companion object : TypeCompanion<MemoryMonitor> {
         override val type: GeneratedInterfaceKGType<MemoryMonitor> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_memory_monitor_get_type")!!) {
-                MemoryMonitorImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { MemoryMonitorImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -149,6 +152,17 @@ public interface MemoryMonitor :
          * @return the GType
          */
         public fun getType(): GType = g_memory_monitor_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_memory_monitor_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_memory_monitor_get_type")
     }
 }
 

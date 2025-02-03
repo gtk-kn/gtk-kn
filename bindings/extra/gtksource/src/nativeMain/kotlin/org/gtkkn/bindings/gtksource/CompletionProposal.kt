@@ -9,10 +9,9 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceCompletionProposal
 import org.gtkkn.native.gtksource.gtk_source_completion_proposal_get_type
@@ -53,19 +52,23 @@ public interface CompletionProposal :
      *
      * @constructor Creates a new instance of CompletionProposal for the provided [CPointer].
      */
-    public data class CompletionProposalImpl(
-        override val gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal>,
-    ) : Object(gtksourceCompletionProposalPointer.reinterpret()),
-        CompletionProposal
+    public class CompletionProposalImpl(gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal>) :
+        Object(gtksourceCompletionProposalPointer.reinterpret()),
+        CompletionProposal {
+        init {
+            GtkSource
+        }
+
+        override val gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal> =
+            gtksourceCompletionProposalPointer
+    }
 
     public companion object : TypeCompanion<CompletionProposal> {
         override val type: GeneratedInterfaceKGType<CompletionProposal> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_completion_proposal_get_type")!!) {
-                CompletionProposalImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { CompletionProposalImpl(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -74,5 +77,16 @@ public interface CompletionProposal :
          * @return the GType
          */
         public fun getType(): GType = gtk_source_completion_proposal_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_completion_proposal_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_completion_proposal_get_type")
     }
 }

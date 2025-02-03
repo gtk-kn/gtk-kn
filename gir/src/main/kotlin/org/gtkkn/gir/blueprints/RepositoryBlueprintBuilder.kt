@@ -21,6 +21,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirAlias
 import org.gtkkn.gir.model.GirBitfield
 import org.gtkkn.gir.model.GirCallback
@@ -35,7 +36,6 @@ import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.namespaceBindingsPackageName
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 class RepositoryBlueprintBuilder(
     context: ProcessorContext,
@@ -54,6 +54,63 @@ class RepositoryBlueprintBuilder(
     private val constantBlueprints = mutableListOf<ConstantBlueprint>()
     private val recordBlueprints = mutableListOf<RecordBlueprint>()
     private val unionBlueprints = mutableListOf<UnionBlueprint>()
+
+    override fun blueprintObjectType(): String = "repository"
+    override fun blueprintObjectName(): String = checkNotNull(girRepository.namespaces.first().name)
+
+    override fun buildInternal(): RepositoryBlueprint {
+        namespace.aliases.forEach { addAlias(it) }
+        namespace.classes.forEach { addClass(it) }
+        namespace.interfaces.forEach { addInterface(it) }
+        namespace.enumerations.forEach { addEnum(it) }
+        namespace.functions.forEach { addFunction(it) }
+        namespace.callbacks.forEach { addCallback(it) }
+        namespace.bitfields.forEach { addBitfield(it) }
+        namespace.constants.forEach { addConstant(it) }
+        namespace.records.forEach { addRecord(it) }
+        namespace.unions.forEach { addUnion(it) }
+
+        girRepository.includes.forEach { include ->
+            if (context.findRepositoryByNameOrNull(include.name) == null) {
+                skippedObjects.add(SkippedObject("include", include.name, "Missing dependant repository"))
+            }
+        }
+
+        val kotlinModuleName = checkNotNull(girRepository.namespaces.first().name).lowercase()
+        val repositoryObjectName = ClassName(
+            namespaceBindingsPackageName(namespace),
+            checkNotNull(girRepository.namespaces.first().name).toPascalCase(),
+        )
+        val repositoryCallbacksName = ClassName(
+            namespaceBindingsPackageName(namespace),
+            "Callbacks",
+        )
+        val name = checkNotNull(girRepository.namespaces.first().name)
+        val repositoryTypeProviderTypeName = ClassName(
+            namespaceBindingsPackageName(namespace),
+            "${name.toPascalCase()}TypeProvider",
+        )
+
+        return RepositoryBlueprint(
+            name = name,
+            kotlinModuleName = kotlinModuleName,
+            aliasBlueprints = aliasBlueprints,
+            classBlueprints = classBlueprints,
+            interfaceBlueprints = interfaceBlueprints,
+            enumBlueprints = enumBlueprints,
+            functionBlueprints = functionBlueprints,
+            callbackBlueprints = callbackBlueprints,
+            bitfieldBlueprints = bitfieldBlueprints,
+            constantBlueprints = constantBlueprints,
+            recordBlueprints = recordBlueprints,
+            unionBlueprints = unionBlueprints,
+            skippedObjects = skippedObjects,
+            repositoryObjectName = repositoryObjectName,
+            repositoryCallbacksName = repositoryCallbacksName,
+            repositoryTypeProviderTypeName = repositoryTypeProviderTypeName,
+            optInVersionBlueprints = context.getOptInVersionsBlueprints(girRepository.namespaces.first()),
+        )
+    }
 
     private fun addAlias(girAlias: GirAlias) {
         when (val result = AliasBlueprintBuilder(context, namespace, girAlias).build()) {
@@ -123,61 +180,5 @@ class RepositoryBlueprintBuilder(
             is BlueprintResult.Ok -> unionBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
-    }
-
-    override fun blueprintObjectType(): String = "repository"
-    override fun blueprintObjectName(): String = checkNotNull(girRepository.namespaces.first().name)
-
-    override fun buildInternal(): RepositoryBlueprint {
-        namespace.aliases.forEach { addAlias(it) }
-        namespace.classes.forEach { addClass(it) }
-        namespace.interfaces.forEach { addInterface(it) }
-        namespace.enumerations.forEach { addEnum(it) }
-        namespace.functions.forEach { addFunction(it) }
-        namespace.callbacks.forEach { addCallback(it) }
-        namespace.bitfields.forEach { addBitfield(it) }
-        namespace.constants.forEach { addConstant(it) }
-        namespace.records.forEach { addRecord(it) }
-        namespace.unions.forEach { addUnion(it) }
-
-        girRepository.includes.forEach { include ->
-            if (context.findRepositoryByNameOrNull(include.name) == null) {
-                skippedObjects.add(SkippedObject("include", include.name, "Missing dependant repository"))
-            }
-        }
-
-        val kotlinModuleName = checkNotNull(girRepository.namespaces.first().name).lowercase()
-        val repositoryObjectName = ClassName(
-            namespaceBindingsPackageName(namespace),
-            checkNotNull(girRepository.namespaces.first().name).capitalizeAsciiOnly(),
-        )
-        val repositoryCallbacksName = ClassName(
-            namespaceBindingsPackageName(namespace),
-            "Callbacks",
-        )
-        val repositoryTypeProviderTypeName = ClassName(
-            namespaceBindingsPackageName(namespace),
-            "${kotlinModuleName.capitalizeAsciiOnly()}TypeProvider",
-        )
-
-        return RepositoryBlueprint(
-            name = checkNotNull(girRepository.namespaces.first().name),
-            kotlinModuleName = kotlinModuleName,
-            aliasBlueprints = aliasBlueprints,
-            classBlueprints = classBlueprints,
-            interfaceBlueprints = interfaceBlueprints,
-            enumBlueprints = enumBlueprints,
-            functionBlueprints = functionBlueprints,
-            callbackBlueprints = callbackBlueprints,
-            bitfieldBlueprints = bitfieldBlueprints,
-            constantBlueprints = constantBlueprints,
-            recordBlueprints = recordBlueprints,
-            unionBlueprints = unionBlueprints,
-            skippedObjects = skippedObjects,
-            repositoryObjectName = repositoryObjectName,
-            repositoryCallbacksName = repositoryCallbacksName,
-            repositoryTypeProviderTypeName = repositoryTypeProviderTypeName,
-            optInVersionBlueprints = context.getOptInVersionsBlueprints(girRepository.namespaces.first()),
-        )
     }
 }

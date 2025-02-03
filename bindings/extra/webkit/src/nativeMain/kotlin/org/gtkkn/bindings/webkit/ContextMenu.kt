@@ -11,10 +11,10 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -56,6 +56,10 @@ import kotlin.Unit
 public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitContextMenu>) :
     Object(webkitContextMenuPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Creates a new #WebKitContextMenu object.
      *
@@ -69,7 +73,9 @@ public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitCon
      *
      * @return The newly created #WebKitContextMenu object
      */
-    public constructor() : this(webkit_context_menu_new()!!.reinterpret())
+    public constructor() : this(webkit_context_menu_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #WebKitContextMenu object with the given items.
@@ -81,7 +87,9 @@ public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitCon
      * @param items a #GList of #WebKitContextMenuItem
      * @return The newly created #WebKitContextMenu object
      */
-    public constructor(items: List) : this(webkit_context_menu_new_with_items(items.glibListPointer)!!.reinterpret())
+    public constructor(items: List) : this(webkit_context_menu_new_with_items(items.glibListPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @item at the end of the @menu.
@@ -98,7 +106,7 @@ public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitCon
      *    or null if the #WebKitContextMenu is empty.
      */
     public fun first(): ContextMenuItem = webkit_context_menu_first(webkitContextMenuPointer)!!.run {
-        ContextMenuItem(this)
+        InstanceCache.get(this, true) { ContextMenuItem(reinterpret()) }!!
     }
 
     /**
@@ -136,7 +144,7 @@ public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitCon
      */
     public fun getItemAtPosition(position: guint): ContextMenuItem =
         webkit_context_menu_get_item_at_position(webkitContextMenuPointer, position)!!.run {
-            ContextMenuItem(this)
+            InstanceCache.get(this, true) { ContextMenuItem(reinterpret()) }!!
         }
 
     /**
@@ -190,7 +198,7 @@ public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitCon
      *    or null if the #WebKitContextMenu is empty.
      */
     public fun last(): ContextMenuItem = webkit_context_menu_last(webkitContextMenuPointer)!!.run {
-        ContextMenuItem(this)
+        InstanceCache.get(this, true) { ContextMenuItem(reinterpret()) }!!
     }
 
     /**
@@ -246,10 +254,10 @@ public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitCon
 
     public companion object : TypeCompanion<ContextMenu> {
         override val type: GeneratedClassKGType<ContextMenu> =
-            GeneratedClassKGType(getTypeOrNull("webkit_context_menu_get_type")!!) { ContextMenu(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ContextMenu(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -258,5 +266,16 @@ public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitCon
          * @return the GType
          */
         public fun getType(): GType = webkit_context_menu_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_context_menu_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_context_menu_get_type")
     }
 }

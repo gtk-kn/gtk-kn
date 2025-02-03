@@ -6,10 +6,10 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwApplication
 import org.gtkkn.native.adw.adw_application_get_style_manager
 import org.gtkkn.native.adw.adw_application_get_type
@@ -50,6 +50,10 @@ import kotlin.String
 public open class Application(public val adwApplicationPointer: CPointer<AdwApplication>) :
     org.gtkkn.bindings.gtk.Application(adwApplicationPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
 
@@ -72,7 +76,7 @@ public open class Application(public val adwApplicationPointer: CPointer<AdwAppl
          * @return the style manager
          */
         get() = adw_application_get_style_manager(adwApplicationPointer)!!.run {
-            StyleManager(this)
+            InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!
         }
 
     /**
@@ -91,11 +95,13 @@ public open class Application(public val adwApplicationPointer: CPointer<AdwAppl
     public constructor(
         applicationId: String? = null,
         flags: ApplicationFlags,
-    ) : this(adw_application_new(applicationId, flags.mask)!!.reinterpret())
+    ) : this(adw_application_new(applicationId, flags.mask)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
-            GeneratedClassKGType(getTypeOrNull("adw_application_get_type")!!) { Application(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Application(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -107,5 +113,16 @@ public open class Application(public val adwApplicationPointer: CPointer<AdwAppl
          * @return the GType
          */
         public fun getType(): GType = adw_application_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_application_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_application_get_type")
     }
 }

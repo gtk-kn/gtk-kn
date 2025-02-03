@@ -5,16 +5,24 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCellRendererSpin
 import org.gtkkn.native.gtk.gtk_cell_renderer_spin_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_spin_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+ *   You should use [class@Gtk.SpinButton] instead
+ * ---
+ *
  * Renders a spin button in a cell
  *
  * `GtkCellRendererSpin` renders text in a cell like `GtkCellRendererText` from
@@ -38,18 +46,27 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_spin_new
 public open class CellRendererSpin(public val gtkCellRendererSpinPointer: CPointer<GtkCellRendererSpin>) :
     CellRendererText(gtkCellRendererSpinPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererSpin`.
      *
      * @return a new `GtkCellRendererSpin`
      */
-    public constructor() : this(gtk_cell_renderer_spin_new()!!.reinterpret())
+    public constructor() : this(gtk_cell_renderer_spin_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<CellRendererSpin> {
         override val type: GeneratedClassKGType<CellRendererSpin> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_spin_get_type")!!) {
-                CellRendererSpin(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { CellRendererSpin(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -61,5 +78,16 @@ public open class CellRendererSpin(public val gtkCellRendererSpinPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_renderer_spin_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_renderer_spin_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_renderer_spin_get_type")
     }
 }

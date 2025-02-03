@@ -13,11 +13,11 @@ import org.gtkkn.bindings.cairo.annotations.CairoVersion1_4
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_8
 import org.gtkkn.bindings.gobject.TypeInstance
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.cairo.cairo_gobject_surface_get_type
 import org.gtkkn.native.cairo.cairo_surface_copy_page
 import org.gtkkn.native.cairo.cairo_surface_create_for_rectangle
@@ -63,6 +63,57 @@ import kotlin.Unit
 public open class Surface(public val cairoSurfacePointer: CPointer<cairo_surface_t>) :
     TypeInstance(cairoSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
+    public constructor(
+        other: Surface,
+        content: Content,
+        width: gint,
+        height: gint,
+    ) : this(cairo_surface_create_similar(other.cairoSurfacePointer, content.nativeValue, width, height)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_surface_destroy(it.reinterpret()) }
+    }
+
+    /**
+     *
+     *
+     * @param other
+     * @param format
+     * @param width
+     * @param height
+     * @since 1.12
+     */
+    public constructor(
+        other: Surface,
+        format: Format,
+        width: gint,
+        height: gint,
+    ) : this(cairo_surface_create_similar_image(other.cairoSurfacePointer, format.nativeValue, width, height)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_surface_destroy(it.reinterpret()) }
+    }
+
+    /**
+     *
+     *
+     * @param target
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @since 1.10
+     */
+    public constructor(
+        target: Surface,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ) : this(cairo_surface_create_for_rectangle(target.cairoSurfacePointer, x, y, width, height)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_surface_destroy(it.reinterpret()) }
+    }
+
     public open fun destroy(): Unit = cairo_surface_destroy(cairoSurfacePointer)
 
     public open fun status(): Status = cairo_surface_status(cairoSurfacePointer).run {
@@ -204,51 +255,10 @@ public open class Surface(public val cairoSurfacePointer: CPointer<cairo_surface
 
     public companion object : TypeCompanion<Surface> {
         override val type: GeneratedClassKGType<Surface> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { Surface(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Surface(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()
-        }
-
-        public fun createSimilar(other: Surface, content: Content, width: gint, height: gint): Surface =
-            cairo_surface_create_similar(other.cairoSurfacePointer, content.nativeValue, width, height)!!.run {
-                Surface(this)
-            }
-
-        /**
-         *
-         *
-         * @param other
-         * @param format
-         * @param width
-         * @param height
-         * @since 1.12
-         */
-        @CairoVersion1_12
-        public fun createSimilarImage(other: Surface, format: Format, width: gint, height: gint): ImageSurface =
-            cairo_surface_create_similar_image(other.cairoSurfacePointer, format.nativeValue, width, height)!!.run {
-                ImageSurface(reinterpret())
-            }
-
-        /**
-         *
-         *
-         * @param target
-         * @param x
-         * @param y
-         * @param width
-         * @param height
-         * @since 1.10
-         */
-        @CairoVersion1_10
-        public fun createForRectangle(
-            target: Surface,
-            x: gdouble,
-            y: gdouble,
-            width: gdouble,
-            height: gdouble,
-        ): Surface = cairo_surface_create_for_rectangle(target.cairoSurfacePointer, x, y, width, height)!!.run {
-            Surface(this)
         }
 
         /**
@@ -257,5 +267,16 @@ public open class Surface(public val cairoSurfacePointer: CPointer<cairo_surface
          * @return the GType
          */
         public fun getType(): GType = cairo_gobject_surface_get_type()
+
+        /**
+         * Gets the GType of from the symbol `cairo_gobject_surface_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("cairo_gobject_surface_get_type")
     }
 }

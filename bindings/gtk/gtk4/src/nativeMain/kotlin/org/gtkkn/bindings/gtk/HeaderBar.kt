@@ -6,12 +6,12 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -108,6 +108,10 @@ import kotlin.Unit
 public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBar>) :
     Widget(gtkHeaderBarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -188,7 +192,7 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
          * @return the title widget of the header
          */
         get() = gtk_header_bar_get_title_widget(gtkHeaderBarPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -213,7 +217,9 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
      *
      * @return a new `GtkHeaderBar`
      */
-    public constructor() : this(gtk_header_bar_new()!!.reinterpret())
+    public constructor() : this(gtk_header_bar_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @child to @bar, packed with reference to the
@@ -246,7 +252,7 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
 
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_header_bar_get_type")!!) { HeaderBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { HeaderBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -258,5 +264,16 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
          * @return the GType
          */
         public fun getType(): GType = gtk_header_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_header_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_header_bar_get_type")
     }
 }

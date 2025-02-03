@@ -18,11 +18,11 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDrop
 import org.gtkkn.native.gdk.gdk_drop_finish
 import org.gtkkn.native.gdk.gdk_drop_get_actions
@@ -67,6 +67,10 @@ import kotlin.collections.List
 public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
     Object(gdkDropPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The possible actions for this drop
      */
@@ -103,7 +107,7 @@ public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
          * @return The `GdkDevice` performing the drop.
          */
         get() = gdk_drop_get_device(gdkDropPointer)!!.run {
-            Device.DeviceImpl(this)
+            InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
         }
 
     /**
@@ -116,7 +120,7 @@ public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
          * @return a `GdkDisplay`
          */
         get() = gdk_drop_get_display(gdkDropPointer)!!.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -132,7 +136,7 @@ public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
          * @return the corresponding `GdkDrag`
          */
         get() = gdk_drop_get_drag(gdkDropPointer)?.run {
-            Drag.DragImpl(this)
+            InstanceCache.get(this, true) { Drag.DragImpl(reinterpret()) }!!
         }
 
     /**
@@ -159,7 +163,7 @@ public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
          * @return The `GdkSurface` performing the drop.
          */
         get() = gdk_drop_get_surface(gdkDropPointer)!!.run {
-            Surface.SurfaceImpl(this)
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
         }
 
     /**
@@ -286,7 +290,7 @@ public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
 
     public companion object : TypeCompanion<Drop> {
         override val type: GeneratedClassKGType<Drop> =
-            GeneratedClassKGType(getTypeOrNull("gdk_drop_get_type")!!) { DropImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DropImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -298,5 +302,15 @@ public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
          * @return the GType
          */
         public fun getType(): GType = gdk_drop_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_drop_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_drop_get_type")
     }
 }

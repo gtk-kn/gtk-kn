@@ -21,12 +21,12 @@ import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileLauncher
@@ -65,6 +65,10 @@ import kotlin.Unit
 public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFileLauncher>) :
     Object(gtkFileLauncherPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Whether to ask the user to choose an app for opening the file. If `FALSE`,
      * the file might be opened with a default app or the previous choice.
@@ -148,7 +152,9 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
      * @return the new `GtkFileLauncher`
      * @since 4.10
      */
-    public constructor(`file`: File? = null) : this(gtk_file_launcher_new(`file`?.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File? = null) : this(gtk_file_launcher_new(`file`?.gioFilePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Launch an application to open the file.
@@ -259,7 +265,7 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
 
     public companion object : TypeCompanion<FileLauncher> {
         override val type: GeneratedClassKGType<FileLauncher> =
-            GeneratedClassKGType(getTypeOrNull("gtk_file_launcher_get_type")!!) { FileLauncher(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FileLauncher(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -271,5 +277,16 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
          * @return the GType
          */
         public fun getType(): GType = gtk_file_launcher_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_file_launcher_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_file_launcher_get_type")
     }
 }

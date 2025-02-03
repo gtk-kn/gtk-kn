@@ -10,17 +10,15 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GTestConfig
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
-public class TestConfig(public val glibTestConfigPointer: CPointer<GTestConfig>, cleaner: Cleaner? = null) :
+public class TestConfig(public val glibTestConfigPointer: CPointer<GTestConfig>) :
     ProxyInstance(glibTestConfigPointer) {
     public var testInitialized: Boolean
         get() = glibTestConfigPointer.pointed.test_initialized.asBoolean()
@@ -76,21 +74,9 @@ public class TestConfig(public val glibTestConfigPointer: CPointer<GTestConfig>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTestConfig>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TestConfig and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTestConfig>, Cleaner>,
-    ) : this(glibTestConfigPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTestConfig>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TestConfig using the provided [AutofreeScope].

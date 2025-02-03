@@ -5,11 +5,11 @@ package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_56
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GDate
@@ -183,6 +183,54 @@ public class Date(public val glibDatePointer: CPointer<GDate>) : ProxyInstance(g
         set(`value`) {
             glibDatePointer.pointed.year = value
         }
+
+    /**
+     * Allocates a #GDate and initializes
+     * it to a safe state. The new date will
+     * be cleared (as if you'd called g_date_clear()) but invalid (it won't
+     * represent an existing day). Free the return value with g_date_free().
+     *
+     * @return a newly-allocated #GDate
+     */
+    public constructor() : this(g_date_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Create a new #GDate representing the given day-month-year triplet.
+     *
+     * The triplet you pass in must represent a valid date. Use g_date_valid_dmy()
+     * if needed to validate it. The returned #GDate is guaranteed to be non-null
+     * and valid.
+     *
+     * @param day day of the month
+     * @param month month of the year
+     * @param year year
+     * @return a newly-allocated #GDate
+     *   initialized with @day, @month, and @year
+     */
+    public constructor(
+        day: DateDay,
+        month: DateMonth,
+        year: DateYear,
+    ) : this(g_date_new_dmy(day, month.nativeValue, year)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Create a new #GDate representing the given Julian date.
+     *
+     * The @julian_day you pass in must be valid. Use g_date_valid_julian() if
+     * needed to validate it. The returned #GDate is guaranteed to be non-null and
+     * valid.
+     *
+     * @param julianDay days since January 1, Year 1
+     * @return a newly-allocated #GDate initialized
+     *   with @julian_day
+     */
+    public constructor(julianDay: guint) : this(g_date_new_julian(julianDay)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Increments a date some number of days.
@@ -431,6 +479,13 @@ public class Date(public val glibDatePointer: CPointer<GDate>) : ProxyInstance(g
     public fun setParse(str: String): Unit = g_date_set_parse(glibDatePointer, str)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.10.
+     *
+     * Use g_date_set_time_t() instead.
+     * ---
+     *
      * Sets the value of a date from a #GTime value.
      * The time to date conversion is done using the user's current timezone.
      *
@@ -458,6 +513,14 @@ public class Date(public val glibDatePointer: CPointer<GDate>) : ProxyInstance(g
     public fun setTimeT(timet: Long): Unit = g_date_set_time_t(glibDatePointer, timet)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use g_date_set_time_t()
+     *    instead.
+     * ---
+     *
      * Sets the value of a date from a #GTimeVal value.  Note that the
      * @tv_usec member is ignored, because #GDate can't make use of the
      * additional precision.
@@ -521,45 +584,6 @@ public class Date(public val glibDatePointer: CPointer<GDate>) : ProxyInstance(g
         "Date(julianDays=$julianDays, julian=$julian, dmy=$dmy, day=$day, month=$month, year=$year)"
 
     public companion object {
-        /**
-         * Allocates a #GDate and initializes
-         * it to a safe state. The new date will
-         * be cleared (as if you'd called g_date_clear()) but invalid (it won't
-         * represent an existing day). Free the return value with g_date_free().
-         *
-         * @return a newly-allocated #GDate
-         */
-        public fun new(): Date = Date(g_date_new()!!)
-
-        /**
-         * Create a new #GDate representing the given day-month-year triplet.
-         *
-         * The triplet you pass in must represent a valid date. Use g_date_valid_dmy()
-         * if needed to validate it. The returned #GDate is guaranteed to be non-null
-         * and valid.
-         *
-         * @param day day of the month
-         * @param month month of the year
-         * @param year year
-         * @return a newly-allocated #GDate
-         *   initialized with @day, @month, and @year
-         */
-        public fun newDmy(day: DateDay, month: DateMonth, year: DateYear): Date =
-            Date(g_date_new_dmy(day, month.nativeValue, year)!!.reinterpret())
-
-        /**
-         * Create a new #GDate representing the given Julian date.
-         *
-         * The @julian_day you pass in must be valid. Use g_date_valid_julian() if
-         * needed to validate it. The returned #GDate is guaranteed to be non-null and
-         * valid.
-         *
-         * @param julianDay days since January 1, Year 1
-         * @return a newly-allocated #GDate initialized
-         *   with @julian_day
-         */
-        public fun newJulian(julianDay: guint): Date = Date(g_date_new_julian(julianDay)!!.reinterpret())
-
         /**
          * Returns the number of days in a month, taking leap
          * years into account.

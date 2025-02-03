@@ -227,6 +227,15 @@ public class AsyncQueue(public val glibAsyncQueuePointer: CPointer<GAsyncQueue>)
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.8.
+     *
+     * Reference counting is done atomically.
+     * so g_async_queue_ref() can be used regardless of the @queue's
+     * lock.
+     * ---
+     *
      * Increases the reference count of the asynchronous @queue by 1.
      */
     public fun refUnlocked(): Unit = g_async_queue_ref_unlocked(glibAsyncQueuePointer)
@@ -310,6 +319,13 @@ public class AsyncQueue(public val glibAsyncQueuePointer: CPointer<GAsyncQueue>)
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated.
+     *
+     * use g_async_queue_timeout_pop().
+     * ---
+     *
      * Pops data from the @queue. If the queue is empty, blocks until
      * @end_time or until data becomes available.
      *
@@ -326,6 +342,13 @@ public class AsyncQueue(public val glibAsyncQueuePointer: CPointer<GAsyncQueue>)
         g_async_queue_timed_pop(glibAsyncQueuePointer, endTime.glibTimeValPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated.
+     *
+     * use g_async_queue_timeout_pop_unlocked().
+     * ---
+     *
      * Pops data from the @queue. If the queue is empty, blocks until
      * @end_time or until data becomes available.
      *
@@ -410,6 +433,15 @@ public class AsyncQueue(public val glibAsyncQueuePointer: CPointer<GAsyncQueue>)
     public fun unref(): Unit = g_async_queue_unref(glibAsyncQueuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.8.
+     *
+     * Reference counting is done atomically.
+     * so g_async_queue_unref() can be used regardless of the @queue's
+     * lock.
+     * ---
+     *
      * Decreases the reference count of the asynchronous @queue by 1
      * and releases the lock. This function must be called while holding
      * the @queue's lock. If the reference count went to 0, the @queue

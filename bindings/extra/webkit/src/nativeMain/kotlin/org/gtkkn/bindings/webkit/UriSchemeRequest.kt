@@ -13,10 +13,10 @@ import org.gtkkn.bindings.soup.MessageHeaders
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_36
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitURISchemeRequest
@@ -49,6 +49,10 @@ import kotlin.Unit
 public class UriSchemeRequest(public val webkitUriSchemeRequestPointer: CPointer<WebKitURISchemeRequest>) :
     Object(webkitUriSchemeRequestPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Finish a #WebKitURISchemeRequest by setting the contents of the request and its mime type.
      *
@@ -95,7 +99,7 @@ public class UriSchemeRequest(public val webkitUriSchemeRequestPointer: CPointer
     @WebKitVersion2_40
     public fun getHttpBody(): InputStream =
         webkit_uri_scheme_request_get_http_body(webkitUriSchemeRequestPointer)!!.run {
-            InputStream.InputStreamImpl(this)
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
     /**
@@ -151,17 +155,15 @@ public class UriSchemeRequest(public val webkitUriSchemeRequestPointer: CPointer
      * @return the #WebKitWebView that initiated @request.
      */
     public fun getWebView(): WebView = webkit_uri_scheme_request_get_web_view(webkitUriSchemeRequestPointer)!!.run {
-        WebView(this)
+        InstanceCache.get(this, true) { WebView(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<UriSchemeRequest> {
         override val type: GeneratedClassKGType<UriSchemeRequest> =
-            GeneratedClassKGType(getTypeOrNull("webkit_uri_scheme_request_get_type")!!) {
-                UriSchemeRequest(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { UriSchemeRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -170,5 +172,16 @@ public class UriSchemeRequest(public val webkitUriSchemeRequestPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = webkit_uri_scheme_request_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_uri_scheme_request_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_uri_scheme_request_get_type")
     }
 }

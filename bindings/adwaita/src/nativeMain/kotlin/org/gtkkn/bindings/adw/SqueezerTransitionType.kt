@@ -8,15 +8,36 @@ import org.gtkkn.native.adw.adw_squeezer_transition_type_get_type
 import org.gtkkn.native.gobject.GType
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+ * ---
+ *
  * Describes the possible transitions in a [class@Squeezer] widget.
  */
 public enum class SqueezerTransitionType(public val nativeValue: AdwSqueezerTransitionType) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * No transition
      */
     NONE(AdwSqueezerTransitionType.ADW_SQUEEZER_TRANSITION_TYPE_NONE),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * A cross-fade
      */
     CROSSFADE(AdwSqueezerTransitionType.ADW_SQUEEZER_TRANSITION_TYPE_CROSSFADE),

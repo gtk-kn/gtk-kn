@@ -16,6 +16,8 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
@@ -87,6 +89,10 @@ import kotlin.Unit
  * - record `WindowPropertiesClass`: glib type struct are ignored
  */
 public object WebKit {
+    init {
+        registerTypes()
+    }
+
     /**
      * The copy clipboard command. Copies the current selection inside
      * a #WebKitWebView to the clipboard.
@@ -347,6 +353,179 @@ public object WebKit {
         }
         return ex ?: GLibException(error)
     }
+
+    private fun registerTypes() {
+        AuthenticationRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AuthenticationRequest::class, gtype) { AuthenticationRequest(it.reinterpret()) }
+        }
+        AutomationSession.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AutomationSession::class, gtype) { AutomationSession(it.reinterpret()) }
+        }
+        BackForwardList.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BackForwardList::class, gtype) { BackForwardList(it.reinterpret()) }
+        }
+        BackForwardListItem.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BackForwardListItem::class, gtype) { BackForwardListItem(it.reinterpret()) }
+        }
+        ClipboardPermissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ClipboardPermissionRequest::class, gtype) {
+                ClipboardPermissionRequest(it.reinterpret())
+            }
+        }
+        ColorChooserRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColorChooserRequest::class, gtype) { ColorChooserRequest(it.reinterpret()) }
+        }
+        ContextMenu.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ContextMenu::class, gtype) { ContextMenu(it.reinterpret()) }
+        }
+        ContextMenuItem.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ContextMenuItem::class, gtype) { ContextMenuItem(it.reinterpret()) }
+        }
+        CookieManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CookieManager::class, gtype) { CookieManager(it.reinterpret()) }
+        }
+        DeviceInfoPermissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DeviceInfoPermissionRequest::class, gtype) {
+                DeviceInfoPermissionRequest(it.reinterpret())
+            }
+        }
+        Download.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Download::class, gtype) { Download(it.reinterpret()) }
+        }
+        EditorState.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EditorState::class, gtype) { EditorState(it.reinterpret()) }
+        }
+        FaviconDatabase.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FaviconDatabase::class, gtype) { FaviconDatabase(it.reinterpret()) }
+        }
+        FileChooserRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileChooserRequest::class, gtype) { FileChooserRequest(it.reinterpret()) }
+        }
+        FindController.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FindController::class, gtype) { FindController(it.reinterpret()) }
+        }
+        FormSubmissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FormSubmissionRequest::class, gtype) { FormSubmissionRequest(it.reinterpret()) }
+        }
+        GeolocationManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GeolocationManager::class, gtype) { GeolocationManager(it.reinterpret()) }
+        }
+        GeolocationPermissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GeolocationPermissionRequest::class, gtype) {
+                GeolocationPermissionRequest(it.reinterpret())
+            }
+        }
+        HitTestResult.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(HitTestResult::class, gtype) { HitTestResult(it.reinterpret()) }
+        }
+        InputMethodContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(InputMethodContext::class, gtype) {
+                InputMethodContext.InputMethodContextImpl(it.reinterpret())
+            }
+        }
+        MediaKeySystemPermissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MediaKeySystemPermissionRequest::class, gtype) {
+                MediaKeySystemPermissionRequest(it.reinterpret())
+            }
+        }
+        NavigationPolicyDecision.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NavigationPolicyDecision::class, gtype) { NavigationPolicyDecision(it.reinterpret()) }
+        }
+        NetworkSession.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NetworkSession::class, gtype) { NetworkSession(it.reinterpret()) }
+        }
+        Notification.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Notification::class, gtype) { Notification(it.reinterpret()) }
+        }
+        NotificationPermissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NotificationPermissionRequest::class, gtype) {
+                NotificationPermissionRequest(it.reinterpret())
+            }
+        }
+        OptionMenu.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(OptionMenu::class, gtype) { OptionMenu(it.reinterpret()) }
+        }
+        PointerLockPermissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PointerLockPermissionRequest::class, gtype) {
+                PointerLockPermissionRequest(it.reinterpret())
+            }
+        }
+        PolicyDecision.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PolicyDecision::class, gtype) { PolicyDecision.PolicyDecisionImpl(it.reinterpret()) }
+        }
+        PrintOperation.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PrintOperation::class, gtype) { PrintOperation(it.reinterpret()) }
+        }
+        ResponsePolicyDecision.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ResponsePolicyDecision::class, gtype) { ResponsePolicyDecision(it.reinterpret()) }
+        }
+        SecurityManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SecurityManager::class, gtype) { SecurityManager(it.reinterpret()) }
+        }
+        Settings.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Settings::class, gtype) { Settings(it.reinterpret()) }
+        }
+        UriRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(UriRequest::class, gtype) { UriRequest(it.reinterpret()) }
+        }
+        UriResponse.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(UriResponse::class, gtype) { UriResponse(it.reinterpret()) }
+        }
+        UriSchemeRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(UriSchemeRequest::class, gtype) { UriSchemeRequest(it.reinterpret()) }
+        }
+        UriSchemeResponse.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(UriSchemeResponse::class, gtype) { UriSchemeResponse(it.reinterpret()) }
+        }
+        UserContentFilterStore.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(UserContentFilterStore::class, gtype) { UserContentFilterStore(it.reinterpret()) }
+        }
+        UserContentManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(UserContentManager::class, gtype) { UserContentManager(it.reinterpret()) }
+        }
+        UserMediaPermissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(UserMediaPermissionRequest::class, gtype) {
+                UserMediaPermissionRequest(it.reinterpret())
+            }
+        }
+        UserMessage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(UserMessage::class, gtype) { UserMessage(it.reinterpret()) }
+        }
+        WebContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebContext::class, gtype) { WebContext(it.reinterpret()) }
+        }
+        WebInspector.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebInspector::class, gtype) { WebInspector(it.reinterpret()) }
+        }
+        WebResource.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebResource::class, gtype) { WebResource(it.reinterpret()) }
+        }
+        WebView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebView::class, gtype) { WebView(it.reinterpret()) }
+        }
+        WebViewBase.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebViewBase::class, gtype) { WebViewBase(it.reinterpret()) }
+        }
+        WebsiteDataAccessPermissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebsiteDataAccessPermissionRequest::class, gtype) {
+                WebsiteDataAccessPermissionRequest(it.reinterpret())
+            }
+        }
+        WebsiteDataManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebsiteDataManager::class, gtype) { WebsiteDataManager(it.reinterpret()) }
+        }
+        WebsitePolicies.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WebsitePolicies::class, gtype) { WebsitePolicies(it.reinterpret()) }
+        }
+        WindowProperties.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WindowProperties::class, gtype) { WindowProperties(it.reinterpret()) }
+        }
+        PermissionRequest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PermissionRequest::class, gtype) {
+                PermissionRequest.PermissionRequestImpl(it.reinterpret())
+            }
+        }
+    }
 }
 
 public val UriSchemeRequestCallbackFunc:
@@ -356,7 +535,7 @@ public val UriSchemeRequestCallbackFunc:
         ->
         userData!!.asStableRef<(request: UriSchemeRequest) -> Unit>().get().invoke(
             request!!.run {
-                UriSchemeRequest(this)
+                InstanceCache.get(this, false) { UriSchemeRequest(reinterpret()) }!!
             }
         )
     }

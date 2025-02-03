@@ -14,11 +14,11 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSocketConnection
 import org.gtkkn.native.gio.g_socket_connection_connect
 import org.gtkkn.native.gio.g_socket_connection_connect_async
@@ -60,6 +60,10 @@ import kotlin.Unit
 public open class SocketConnection(public val gioSocketConnectionPointer: CPointer<GSocketConnection>) :
     IoStream(gioSocketConnectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The underlying [class@Gio.Socket].
      *
@@ -76,7 +80,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
          * @since 2.22
          */
         get() = g_socket_connection_get_socket(gioSocketConnectionPointer)!!.run {
-            Socket(this)
+            InstanceCache.get(this, true) { Socket(reinterpret()) }!!
         }
 
     /**
@@ -168,7 +172,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_local_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -196,7 +200,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_remote_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -218,9 +222,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
 
     public companion object : TypeCompanion<SocketConnection> {
         override val type: GeneratedClassKGType<SocketConnection> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_connection_get_type")!!) {
-                SocketConnection(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { SocketConnection(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -264,5 +266,16 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = g_socket_connection_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_socket_connection_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_socket_connection_get_type")
     }
 }

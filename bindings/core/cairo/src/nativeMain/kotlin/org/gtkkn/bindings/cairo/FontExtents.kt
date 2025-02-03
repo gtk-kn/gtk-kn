@@ -10,18 +10,14 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.cairo.cairo_font_extents_t
 import org.gtkkn.native.glib.gdouble
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
-public class FontExtents(
-    public val cairoFontExtentsPointer: CPointer<cairo_font_extents_t>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(cairoFontExtentsPointer) {
+public class FontExtents(public val cairoFontExtentsPointer: CPointer<cairo_font_extents_t>) :
+    ProxyInstance(cairoFontExtentsPointer) {
     public var ascent: gdouble
         get() = cairoFontExtentsPointer.pointed.ascent
 
@@ -68,21 +64,9 @@ public class FontExtents(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<cairo_font_extents_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to FontExtents and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<cairo_font_extents_t>, Cleaner>,
-    ) : this(cairoFontExtentsPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<cairo_font_extents_t>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new FontExtents using the provided [AutofreeScope].

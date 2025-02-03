@@ -14,13 +14,13 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwNavigationPage
 import org.gtkkn.native.adw.adw_navigation_page_get_can_pop
 import org.gtkkn.native.adw.adw_navigation_page_get_child
@@ -77,6 +77,10 @@ import kotlin.Unit
 public open class NavigationPage(public val adwNavigationPagePointer: CPointer<AdwNavigationPage>) :
     Widget(adwNavigationPagePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -142,7 +146,7 @@ public open class NavigationPage(public val adwNavigationPagePointer: CPointer<A
          * @since 1.4
          */
         get() = adw_navigation_page_get_child(adwNavigationPagePointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -235,10 +239,9 @@ public open class NavigationPage(public val adwNavigationPagePointer: CPointer<A
      * @return the new created `AdwNavigationPage`
      * @since 1.4
      */
-    public constructor(
-        child: Widget,
-        title: String,
-    ) : this(adw_navigation_page_new(child.gtkWidgetPointer, title)!!.reinterpret())
+    public constructor(child: Widget, title: String) : this(adw_navigation_page_new(child.gtkWidgetPointer, title)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `AdwNavigationPage` with provided tag.
@@ -253,7 +256,9 @@ public open class NavigationPage(public val adwNavigationPagePointer: CPointer<A
         child: Widget,
         title: String,
         tag: String,
-    ) : this(adw_navigation_page_new_with_tag(child.gtkWidgetPointer, title, tag)!!.reinterpret())
+    ) : this(adw_navigation_page_new_with_tag(child.gtkWidgetPointer, title, tag)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted when the navigation view transition has been completed and the page
@@ -385,9 +390,7 @@ public open class NavigationPage(public val adwNavigationPagePointer: CPointer<A
 
     public companion object : TypeCompanion<NavigationPage> {
         override val type: GeneratedClassKGType<NavigationPage> =
-            GeneratedClassKGType(getTypeOrNull("adw_navigation_page_get_type")!!) {
-                NavigationPage(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { NavigationPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -399,6 +402,17 @@ public open class NavigationPage(public val adwNavigationPagePointer: CPointer<A
          * @return the GType
          */
         public fun getType(): GType = adw_navigation_page_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_navigation_page_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_navigation_page_get_type")
     }
 }
 

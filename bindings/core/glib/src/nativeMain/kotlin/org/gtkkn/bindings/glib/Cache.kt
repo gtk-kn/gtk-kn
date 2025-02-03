@@ -17,6 +17,13 @@ import org.gtkkn.native.glib.gpointer
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.32.
+ *
+ * Use a #GHashTable instead
+ * ---
+ *
  * A `GCache` allows sharing of complex data structures, in order to
  * save system resources.
  *
@@ -32,6 +39,13 @@ import kotlin.Unit
  */
 public class Cache(public val glibCachePointer: CPointer<GCache>) : ProxyInstance(glibCachePointer) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use a #GHashTable instead
+     * ---
+     *
      * Frees the memory allocated for the #GCache.
      *
      * Note that it does not destroy the keys and values which were
@@ -40,6 +54,13 @@ public class Cache(public val glibCachePointer: CPointer<GCache>) : ProxyInstanc
     public fun destroy(): Unit = g_cache_destroy(glibCachePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use a #GHashTable instead
+     * ---
+     *
      * Gets the value corresponding to the given key, creating it if
      * necessary. It first checks if the value already exists in the
      * #GCache, by using the @key_equal_func function passed to
@@ -55,6 +76,13 @@ public class Cache(public val glibCachePointer: CPointer<GCache>) : ProxyInstanc
     public fun insert(key: gpointer? = null): gpointer? = g_cache_insert(glibCachePointer, key)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use a #GHashTable instead
+     * ---
+     *
      * Calls the given function for each of the keys in the #GCache.
      *
      * NOTE @func is passed three parameters, the value and key of a cache
@@ -68,6 +96,13 @@ public class Cache(public val glibCachePointer: CPointer<GCache>) : ProxyInstanc
         g_cache_key_foreach(glibCachePointer, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use a #GHashTable instead
+     * ---
+     *
      * Decreases the reference count of the given value. If it drops to 0
      * then the value and its corresponding key are destroyed, using the
      * @value_destroy_func and @key_destroy_func passed to g_cache_new().
@@ -77,6 +112,14 @@ public class Cache(public val glibCachePointer: CPointer<GCache>) : ProxyInstanc
     public fun remove(`value`: gpointer? = null): Unit = g_cache_remove(glibCachePointer, `value`)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.10.
+     *
+     * The reason is that it passes pointers to internal
+     *    data structures to @func; use g_cache_key_foreach() instead
+     * ---
+     *
      * Calls the given function for each of the values in the #GCache.
      *
      * @param func the function to call with each #GCache value

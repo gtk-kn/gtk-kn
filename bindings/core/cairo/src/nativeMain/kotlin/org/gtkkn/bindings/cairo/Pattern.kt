@@ -9,10 +9,9 @@ import org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_4
 import org.gtkkn.bindings.gobject.TypeInstance
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.cairo.cairo_gobject_pattern_get_type
 import org.gtkkn.native.cairo.cairo_pattern_get_dither
 import org.gtkkn.native.cairo.cairo_pattern_get_extend
@@ -38,6 +37,10 @@ import kotlin.Unit
 public abstract class Pattern(public val cairoPatternPointer: CPointer<cairo_pattern_t>) :
     TypeInstance(cairoPatternPointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public open fun status(): Status = cairo_pattern_status(cairoPatternPointer).run {
         Status.fromNativeValue(this)
     }
@@ -108,9 +111,7 @@ public abstract class Pattern(public val cairoPatternPointer: CPointer<cairo_pat
 
     public companion object : TypeCompanion<Pattern> {
         override val type: GeneratedClassKGType<Pattern> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_pattern_get_type")!!) {
-                PatternImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PatternImpl(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()
@@ -122,5 +123,16 @@ public abstract class Pattern(public val cairoPatternPointer: CPointer<cairo_pat
          * @return the GType
          */
         public fun getType(): GType = cairo_gobject_pattern_get_type()
+
+        /**
+         * Gets the GType of from the symbol `cairo_gobject_pattern_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("cairo_gobject_pattern_get_type")
     }
 }

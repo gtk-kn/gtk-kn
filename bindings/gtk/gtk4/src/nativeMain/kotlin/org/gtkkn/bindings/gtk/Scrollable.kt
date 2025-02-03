@@ -7,11 +7,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkScrollable
 import org.gtkkn.native.gtk.gtk_scrollable_get_border
@@ -74,7 +74,7 @@ public interface Scrollable :
          * @return horizontal `GtkAdjustment`.
          */
         get() = gtk_scrollable_get_hadjustment(gtkScrollablePointer)?.run {
-            Adjustment(this)
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
         }
 
         /**
@@ -119,7 +119,7 @@ public interface Scrollable :
          * @return vertical `GtkAdjustment`.
          */
         get() = gtk_scrollable_get_vadjustment(gtkScrollablePointer)?.run {
-            Adjustment(this)
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
         }
 
         /**
@@ -172,7 +172,7 @@ public interface Scrollable :
      * @return horizontal `GtkAdjustment`.
      */
     public fun getHadjustment(): Adjustment? = gtk_scrollable_get_hadjustment(gtkScrollablePointer)?.run {
-        Adjustment(this)
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
     }
 
     /**
@@ -190,7 +190,7 @@ public interface Scrollable :
      * @return vertical `GtkAdjustment`.
      */
     public fun getVadjustment(): Adjustment? = gtk_scrollable_get_vadjustment(gtkScrollablePointer)?.run {
-        Adjustment(this)
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
     }
 
     /**
@@ -245,15 +245,19 @@ public interface Scrollable :
      *
      * @constructor Creates a new instance of Scrollable for the provided [CPointer].
      */
-    public data class ScrollableImpl(override val gtkScrollablePointer: CPointer<GtkScrollable>) :
+    public class ScrollableImpl(gtkScrollablePointer: CPointer<GtkScrollable>) :
         Object(gtkScrollablePointer.reinterpret()),
-        Scrollable
+        Scrollable {
+        init {
+            Gtk
+        }
+
+        override val gtkScrollablePointer: CPointer<GtkScrollable> = gtkScrollablePointer
+    }
 
     public companion object : TypeCompanion<Scrollable> {
         override val type: GeneratedInterfaceKGType<Scrollable> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_scrollable_get_type")!!) {
-                ScrollableImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { ScrollableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -265,5 +269,16 @@ public interface Scrollable :
          * @return the GType
          */
         public fun getType(): GType = gtk_scrollable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_scrollable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_scrollable_get_type")
     }
 }

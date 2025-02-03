@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_14
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -50,6 +51,16 @@ public class GlyphString(public val pangoGlyphStringPointer: CPointer<PangoGlyph
         set(`value`) {
             pangoGlyphStringPointer.pointed.num_glyphs = value
         }
+
+    /**
+     * Create a new `PangoGlyphString`.
+     *
+     * @return the newly allocated `PangoGlyphString`, which
+     *   should be freed with [method@Pango.GlyphString.free].
+     */
+    public constructor() : this(pango_glyph_string_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Copy a glyph string and associated storage.
@@ -136,14 +147,6 @@ public class GlyphString(public val pangoGlyphStringPointer: CPointer<PangoGlyph
     override fun toString(): String = "GlyphString(numGlyphs=$numGlyphs)"
 
     public companion object {
-        /**
-         * Create a new `PangoGlyphString`.
-         *
-         * @return the newly allocated `PangoGlyphString`, which
-         *   should be freed with [method@Pango.GlyphString.free].
-         */
-        public fun new(): GlyphString = GlyphString(pango_glyph_string_new()!!)
-
         /**
          * Get the GType of GlyphString
          *

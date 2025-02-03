@@ -7,11 +7,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gobject.TypeModule
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GIOModule
 import org.gtkkn.native.gio.g_io_module_get_type
 import org.gtkkn.native.gio.g_io_module_new
@@ -29,6 +29,10 @@ import kotlin.collections.List
 public open class IoModule(public val gioIoModulePointer: CPointer<GIOModule>) :
     TypeModule(gioIoModulePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gobjectTypePluginPointer: CPointer<GTypePlugin>
         get() = handle.reinterpret()
 
@@ -40,11 +44,13 @@ public open class IoModule(public val gioIoModulePointer: CPointer<GIOModule>) :
      * @return a #GIOModule from given @filename,
      * or null on error.
      */
-    public constructor(filename: String) : this(g_io_module_new(filename)!!.reinterpret())
+    public constructor(filename: String) : this(g_io_module_new(filename)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<IoModule> {
         override val type: GeneratedClassKGType<IoModule> =
-            GeneratedClassKGType(getTypeOrNull("g_io_module_get_type")!!) { IoModule(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { IoModule(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -98,5 +104,15 @@ public open class IoModule(public val gioIoModulePointer: CPointer<GIOModule>) :
          * @return the GType
          */
         public fun getType(): GType = g_io_module_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_io_module_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_io_module_get_type")
     }
 }

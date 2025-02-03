@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GInetSocketAddress
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_inet_socket_address_get_address
@@ -35,6 +35,10 @@ import kotlin.String
 public open class InetSocketAddress(public val gioInetSocketAddressPointer: CPointer<GInetSocketAddress>) :
     SocketAddress(gioInetSocketAddressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
 
@@ -53,7 +57,7 @@ public open class InetSocketAddress(public val gioInetSocketAddressPointer: CPoi
          * @since 2.22
          */
         get() = g_inet_socket_address_get_address(gioInetSocketAddressPointer)!!.run {
-            InetAddress(this)
+            InstanceCache.get(this, true) { InetAddress(reinterpret()) }!!
         }
 
     /**
@@ -114,7 +118,9 @@ public open class InetSocketAddress(public val gioInetSocketAddressPointer: CPoi
     public constructor(
         address: InetAddress,
         port: guint16,
-    ) : this(g_inet_socket_address_new(address.gioInetAddressPointer, port)!!.reinterpret())
+    ) : this(g_inet_socket_address_new(address.gioInetAddressPointer, port)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GInetSocketAddress for @address and @port.
@@ -131,13 +137,13 @@ public open class InetSocketAddress(public val gioInetSocketAddressPointer: CPoi
     public constructor(
         address: String,
         port: guint,
-    ) : this(g_inet_socket_address_new_from_string(address, port)!!.reinterpret())
+    ) : this(g_inet_socket_address_new_from_string(address, port)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<InetSocketAddress> {
         override val type: GeneratedClassKGType<InetSocketAddress> =
-            GeneratedClassKGType(getTypeOrNull("g_inet_socket_address_get_type")!!) {
-                InetSocketAddress(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { InetSocketAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -149,5 +155,16 @@ public open class InetSocketAddress(public val gioInetSocketAddressPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = g_inet_socket_address_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_inet_socket_address_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_inet_socket_address_get_type")
     }
 }

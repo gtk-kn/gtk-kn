@@ -12,6 +12,7 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.guint
@@ -32,11 +33,8 @@ import org.gtkkn.native.pango.pango_attribute_equal
 import org.gtkkn.native.pango.pango_attribute_get_type
 import org.gtkkn.native.pango.pango_attribute_init
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttribute` structure represents the common portions of all
@@ -48,7 +46,7 @@ import kotlin.native.ref.createCleaner
  * be initialized using [method@Pango.Attribute.init]. By default, an attribute
  * will have an all-inclusive range of [0,%G_MAXUINT].
  */
-public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute>, cleaner: Cleaner? = null) :
+public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute>) :
     ProxyInstance(pangoAttributePointer) {
     /**
      * the class structure holding information about the type of the attribute
@@ -92,21 +90,9 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttribute>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Attribute and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoAttribute>, Cleaner>,
-    ) : this(pangoAttributePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoAttribute>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Attribute using the provided [AutofreeScope].

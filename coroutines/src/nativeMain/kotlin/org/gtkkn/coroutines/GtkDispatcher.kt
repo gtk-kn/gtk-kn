@@ -99,7 +99,7 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
             priority = G_PRIORITY_HIGH_IDLE,
             function = {
                 block.run()
-                false // Remove the source after running
+                GLib.SOURCE_REMOVE
             },
         )
     }
@@ -113,7 +113,7 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
             interval = timeMillis.toUInt(),
             function = {
                 continuation.resumeWith(Result.success(Unit))
-                false
+                GLib.SOURCE_REMOVE
             },
         )
         continuation.invokeOnCancellation {
@@ -131,7 +131,7 @@ public object GtkDispatcher : MainCoroutineDispatcher(), Delay {
             interval = timeMillis.toUInt(),
             function = {
                 block.run()
-                false
+                GLib.SOURCE_REMOVE
             },
         )
         return DisposableHandle {

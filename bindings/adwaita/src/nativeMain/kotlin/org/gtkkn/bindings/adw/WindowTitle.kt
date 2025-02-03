@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwWindowTitle
 import org.gtkkn.native.adw.adw_window_title_get_subtitle
 import org.gtkkn.native.adw.adw_window_title_get_title
@@ -42,6 +42,10 @@ import kotlin.String
 public class WindowTitle(public val adwWindowTitlePointer: CPointer<AdwWindowTitle>) :
     Widget(adwWindowTitlePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -104,11 +108,13 @@ public class WindowTitle(public val adwWindowTitlePointer: CPointer<AdwWindowTit
      * @param subtitle a subtitle
      * @return the newly created `AdwWindowTitle`
      */
-    public constructor(title: String, subtitle: String) : this(adw_window_title_new(title, subtitle)!!.reinterpret())
+    public constructor(title: String, subtitle: String) : this(adw_window_title_new(title, subtitle)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<WindowTitle> {
         override val type: GeneratedClassKGType<WindowTitle> =
-            GeneratedClassKGType(getTypeOrNull("adw_window_title_get_type")!!) { WindowTitle(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { WindowTitle(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -120,5 +126,16 @@ public class WindowTitle(public val adwWindowTitlePointer: CPointer<AdwWindowTit
          * @return the GType
          */
         public fun getType(): GType = adw_window_title_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_window_title_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_window_title_get_type")
     }
 }

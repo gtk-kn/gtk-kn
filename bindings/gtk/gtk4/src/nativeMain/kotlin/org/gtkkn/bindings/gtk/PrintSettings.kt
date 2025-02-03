@@ -11,18 +11,19 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.KeyFile
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
@@ -130,12 +131,18 @@ import kotlin.Throws
 public open class PrintSettings(public val gtkPrintSettingsPointer: CPointer<GtkPrintSettings>) :
     Object(gtkPrintSettingsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkPrintSettings` object.
      *
      * @return a new `GtkPrintSettings` object
      */
-    public constructor() : this(gtk_print_settings_new()!!.reinterpret())
+    public constructor() : this(gtk_print_settings_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Reads the print settings from @file_name.
@@ -153,13 +160,16 @@ public open class PrintSettings(public val gtkPrintSettingsPointer: CPointer<Gtk
     public constructor(fileName: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = gtk_print_settings_new_from_file(fileName, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Deserialize print settings from an a{sv} variant.
@@ -170,9 +180,9 @@ public open class PrintSettings(public val gtkPrintSettingsPointer: CPointer<Gtk
      * @param variant an a{sv} `GVariant`
      * @return a new `GtkPrintSettings` object
      */
-    public constructor(
-        variant: Variant,
-    ) : this(gtk_print_settings_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
+    public constructor(variant: Variant) : this(gtk_print_settings_new_from_gvariant(variant.glibVariantPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Reads the print settings from the group @group_name in @key_file.
@@ -190,13 +200,16 @@ public open class PrintSettings(public val gtkPrintSettingsPointer: CPointer<Gtk
     public constructor(keyFile: KeyFile, groupName: String? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = gtk_print_settings_new_from_key_file(keyFile.glibKeyFilePointer, groupName, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Copies a `GtkPrintSettings` object.
@@ -204,7 +217,7 @@ public open class PrintSettings(public val gtkPrintSettingsPointer: CPointer<Gtk
      * @return a newly allocated copy of @other
      */
     public open fun copy(): PrintSettings = gtk_print_settings_copy(gtkPrintSettingsPointer)!!.run {
-        PrintSettings(this)
+        InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
     }
 
     /**
@@ -849,7 +862,7 @@ public open class PrintSettings(public val gtkPrintSettingsPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<PrintSettings> {
         override val type: GeneratedClassKGType<PrintSettings> =
-            GeneratedClassKGType(getTypeOrNull("gtk_print_settings_get_type")!!) { PrintSettings(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { PrintSettings(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -861,5 +874,16 @@ public open class PrintSettings(public val gtkPrintSettingsPointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_print_settings_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_print_settings_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_print_settings_get_type")
     }
 }

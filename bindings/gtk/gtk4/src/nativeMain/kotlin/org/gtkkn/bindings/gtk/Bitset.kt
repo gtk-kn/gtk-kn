@@ -4,7 +4,7 @@
 package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.guint
@@ -62,6 +62,26 @@ import kotlin.Unit
  * [iface@Gtk.SelectionModel].
  */
 public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyInstance(gtkBitsetPointer) {
+    /**
+     * Creates a new empty bitset.
+     *
+     * @return A new empty bitset
+     */
+    public constructor() : this(gtk_bitset_new_empty()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a bitset with the given range set.
+     *
+     * @param start first value to add
+     * @param nItems number of consecutive values to add
+     * @return A new bitset
+     */
+    public constructor(start: guint, nItems: guint) : this(gtk_bitset_new_range(start, nItems)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Adds @value to @self if it wasn't part of it before.
      *
@@ -342,23 +362,6 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
     public fun unref(): Unit = gtk_bitset_unref(gtkBitsetPointer)
 
     public companion object {
-        /**
-         * Creates a new empty bitset.
-         *
-         * @return A new empty bitset
-         */
-        public fun newEmpty(): Bitset = Bitset(gtk_bitset_new_empty()!!)
-
-        /**
-         * Creates a bitset with the given range set.
-         *
-         * @param start first value to add
-         * @param nItems number of consecutive values to add
-         * @return A new bitset
-         */
-        public fun newRange(start: guint, nItems: guint): Bitset =
-            Bitset(gtk_bitset_new_range(start, nItems)!!.reinterpret())
-
         /**
          * Get the GType of Bitset
          *

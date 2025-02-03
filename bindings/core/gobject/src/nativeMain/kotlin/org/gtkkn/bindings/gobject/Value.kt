@@ -18,9 +18,11 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_42
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
@@ -106,11 +108,8 @@ import org.gtkkn.native.gobject.g_value_type_transformable
 import org.gtkkn.native.gobject.g_value_unset
 import kotlin.Boolean
 import kotlin.Char
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used to hold different types of values.
@@ -129,29 +128,16 @@ import kotlin.native.ref.createCleaner
  * - parameter `transform_func`: ValueTransform
  * - field `data`: missing cType for GirUnion _Value__data__union
  */
-public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectValuePointer) {
+public class Value(public val gobjectValuePointer: CPointer<GValue>) : ProxyInstance(gobjectValuePointer) {
     /**
      * Allocate a new Value.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GValue>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Value and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GValue>, Cleaner>,
-    ) : this(gobjectValuePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GValue>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Value using the provided [AutofreeScope].
@@ -188,7 +174,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      *          should be unreferenced when no longer needed.
      */
     public fun dupObject(): Object? = g_value_dup_object(gobjectValuePointer)?.run {
-        Object(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -245,6 +231,13 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
     public fun getBoxed(): gpointer? = g_value_get_boxed(gobjectValuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * This function's return type is broken, see g_value_get_schar()
+     * ---
+     *
      * Do not use this function; it is broken on platforms where the %char
      * type is unsigned, such as ARM and PowerPC.  See g_value_get_schar().
      *
@@ -318,7 +311,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @return object contents of @value
      */
     public fun getObject(): Object? = g_value_get_object(gobjectValuePointer)?.run {
-        Object(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -452,6 +445,13 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
     public fun setBoxed(vBoxed: gpointer? = null): Unit = g_value_set_boxed(gobjectValuePointer, vBoxed)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.4.
+     *
+     * Use g_value_take_boxed() instead.
+     * ---
+     *
      * This is an internal function introduced mainly for C marshallers.
      *
      * @param vBoxed duplicated unowned boxed value to be set
@@ -460,6 +460,13 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
         g_value_set_boxed_take_ownership(gobjectValuePointer, vBoxed)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * This function's input type is broken, see g_value_set_schar()
+     * ---
+     *
      * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
      *
      * @param vChar character value to be set
@@ -563,6 +570,13 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
         g_value_set_object(gobjectValuePointer, vObject?.gobjectObjectPointer?.reinterpret())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.4.
+     *
+     * Use g_value_take_object() instead.
+     * ---
+     *
      * This is an internal function introduced mainly for C marshallers.
      *
      * @param vObject object value to be set
@@ -579,6 +593,13 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
         g_value_set_param(gobjectValuePointer, `param`?.gobjectParamSpecPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.4.
+     *
+     * Use g_value_take_param() instead.
+     * ---
+     *
      * This is an internal function introduced mainly for C marshallers.
      *
      * @param param the #GParamSpec to be set

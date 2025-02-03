@@ -6,10 +6,10 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwBin
 import org.gtkkn.native.adw.adw_bin_get_child
 import org.gtkkn.native.adw.adw_bin_get_type
@@ -37,6 +37,10 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 public open class Bin(public val adwBinPointer: CPointer<AdwBin>) :
     Widget(adwBinPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -56,7 +60,7 @@ public open class Bin(public val adwBinPointer: CPointer<AdwBin>) :
          * @return the child widget of @self
          */
         get() = adw_bin_get_child(adwBinPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -71,11 +75,13 @@ public open class Bin(public val adwBinPointer: CPointer<AdwBin>) :
      *
      * @return the new created `AdwBin`
      */
-    public constructor() : this(adw_bin_new()!!.reinterpret())
+    public constructor() : this(adw_bin_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<Bin> {
         override val type: GeneratedClassKGType<Bin> =
-            GeneratedClassKGType(getTypeOrNull("adw_bin_get_type")!!) { Bin(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Bin(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -87,5 +93,15 @@ public open class Bin(public val adwBinPointer: CPointer<AdwBin>) :
          * @return the GType
          */
         public fun getType(): GType = adw_bin_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_bin_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_bin_get_type")
     }
 }

@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_22
 import org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_36
 import org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_6
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -38,12 +39,9 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkPixbufFormat` contains information about the image format accepted
@@ -54,7 +52,7 @@ import kotlin.native.ref.createCleaner
  * @since 2.2
  */
 @GdkPixbufVersion2_2
-public class PixbufFormat(public val gdkPixbufFormatPointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? = null) :
+public class PixbufFormat(public val gdkPixbufFormatPointer: CPointer<GdkPixbufFormat>) :
     ProxyInstance(gdkPixbufFormatPointer) {
     /**
      * the name of the image format
@@ -163,21 +161,9 @@ public class PixbufFormat(public val gdkPixbufFormatPointer: CPointer<GdkPixbufF
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkPixbufFormat>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PixbufFormat and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GdkPixbufFormat>, Cleaner>,
-    ) : this(gdkPixbufFormatPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GdkPixbufFormat>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PixbufFormat using the provided [AutofreeScope].

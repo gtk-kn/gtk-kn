@@ -28,13 +28,13 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAsyncInitable
 import org.gtkkn.native.gio.GDBusInterface
 import org.gtkkn.native.gio.GDBusProxy
@@ -147,6 +147,10 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
     DBusInterface,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioAsyncInitablePointer: CPointer<GAsyncInitable>
         get() = handle.reinterpret()
 
@@ -168,13 +172,16 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
     public constructor(res: AsyncResult) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_dbus_proxy_new_finish(res.gioAsyncResultPointer, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Like g_dbus_proxy_new_sync() but takes a #GBusType instead of a #GDBusConnection.
@@ -205,6 +212,7 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult =
                 g_dbus_proxy_new_for_bus_sync(
                     busType.nativeValue,
@@ -219,9 +227,11 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a proxy for accessing @interface_name on the remote object
@@ -270,6 +280,7 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult =
                 g_dbus_proxy_new_sync(
                     connection.gioDBusConnectionPointer,
@@ -284,9 +295,11 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Asynchronously invokes the @method_name method on @proxy.
@@ -534,7 +547,7 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
      */
     @GioVersion2_26
     public open fun getConnection(): DBusConnection = g_dbus_proxy_get_connection(gioDBusProxyPointer)!!.run {
-        DBusConnection(this)
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
     }
 
     /**
@@ -800,48 +813,10 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
 
     public companion object : TypeCompanion<DBusProxy> {
         override val type: GeneratedClassKGType<DBusProxy> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_proxy_get_type")!!) { DBusProxy(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DBusProxy(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
-        }
-
-        /**
-         * Finishes creating a #GDBusProxy.
-         *
-         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to g_dbus_proxy_new().
-         * @return A #GDBusProxy or null if @error is set.
-         *    Free with g_object_unref().
-         * @since 2.26
-         */
-        public fun newFinish(res: AsyncResult): Result<DBusProxy> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = g_dbus_proxy_new_finish(res.gioAsyncResultPointer, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(DBusProxy(checkNotNull(gResult).reinterpret()))
-            }
-        }
-
-        /**
-         * Finishes creating a #GDBusProxy.
-         *
-         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to g_dbus_proxy_new_for_bus().
-         * @return A #GDBusProxy or null if @error is set.
-         *    Free with g_object_unref().
-         * @since 2.26
-         */
-        public fun newForBusFinish(res: AsyncResult): Result<DBusProxy> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = g_dbus_proxy_new_for_bus_finish(res.gioAsyncResultPointer, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(DBusProxy(checkNotNull(gResult).reinterpret()))
-            }
         }
 
         /**
@@ -940,6 +915,39 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
          * @return the GType
          */
         public fun getType(): GType = g_dbus_proxy_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_proxy_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_proxy_get_type")
+
+        /**
+         * Finishes creating a #GDBusProxy.
+         *
+         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to g_dbus_proxy_new_for_bus().
+         * @return A #GDBusProxy or null if @error is set.
+         *    Free with g_object_unref().
+         * @since 2.26
+         */
+        public fun forBusFinish(res: AsyncResult): Result<DBusProxy> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = g_dbus_proxy_new_for_bus_finish(res.gioAsyncResultPointer, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = DBusProxy(checkNotNull(gResult))
+                    InstanceCache.put(instance)
+                    Result.success(instance)
+                }
+            }
+        }
     }
 }
 

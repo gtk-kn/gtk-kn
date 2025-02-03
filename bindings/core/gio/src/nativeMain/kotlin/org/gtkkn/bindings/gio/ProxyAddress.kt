@@ -8,10 +8,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GProxyAddress
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_proxy_address_get_destination_hostname
@@ -35,6 +35,10 @@ import kotlin.String
 public open class ProxyAddress(public val gioProxyAddressPointer: CPointer<GProxyAddress>) :
     InetSocketAddress(gioProxyAddressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
 
@@ -190,11 +194,13 @@ public open class ProxyAddress(public val gioProxyAddressPointer: CPointer<GProx
             username,
             password
         )!!.reinterpret()
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ProxyAddress> {
         override val type: GeneratedClassKGType<ProxyAddress> =
-            GeneratedClassKGType(getTypeOrNull("g_proxy_address_get_type")!!) { ProxyAddress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ProxyAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -206,5 +212,16 @@ public open class ProxyAddress(public val gioProxyAddressPointer: CPointer<GProx
          * @return the GType
          */
         public fun getType(): GType = g_proxy_address_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_proxy_address_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_proxy_address_get_type")
     }
 }

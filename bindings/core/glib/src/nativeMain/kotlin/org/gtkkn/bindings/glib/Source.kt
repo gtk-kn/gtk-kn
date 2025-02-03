@@ -3,8 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
@@ -12,6 +16,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -70,6 +75,47 @@ import kotlin.Unit
  * - parameter `dispose`: SourceDisposeFunc
  */
 public class Source(public val glibSourcePointer: CPointer<GSource>) : ProxyInstance(glibSourcePointer) {
+    /**
+     * Creates a new #GSource structure. The size is specified to
+     * allow creating structures derived from #GSource that contain
+     * additional data. The size passed in must be at least
+     * `sizeof (GSource)`.
+     *
+     * The source will not initially be associated with any #GMainContext
+     * and must be added to one with g_source_attach() before it will be
+     * executed.
+     *
+     * @param sourceFuncs structure containing functions that implement
+     *                the sources behavior.
+     * @param structSize size of the #GSource structure to create.
+     * @return the newly-created #GSource.
+     */
+    public constructor(
+        sourceFuncs: SourceFuncs,
+        structSize: guint,
+    ) : this(g_source_new(sourceFuncs.glibSourceFuncsPointer, structSize)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Allocate a new Source.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GSource>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
+
+    /**
+     * Allocate a new Source using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GSource>().ptr)
+
     /**
      * Adds @child_source to @source as a "polled" source; when @source is
      * added to a #GMainContext, @child_source will be automatically added
@@ -199,6 +245,13 @@ public class Source(public val glibSourcePointer: CPointer<GSource>) : ProxyInst
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.28.
+     *
+     * use g_source_get_time() instead
+     * ---
+     *
      * This function ignores @source and is otherwise the same as
      * g_get_current_time().
      *
@@ -606,24 +659,6 @@ public class Source(public val glibSourcePointer: CPointer<GSource>) : ProxyInst
     public fun unref(): Unit = g_source_unref(glibSourcePointer)
 
     public companion object {
-        /**
-         * Creates a new #GSource structure. The size is specified to
-         * allow creating structures derived from #GSource that contain
-         * additional data. The size passed in must be at least
-         * `sizeof (GSource)`.
-         *
-         * The source will not initially be associated with any #GMainContext
-         * and must be added to one with g_source_attach() before it will be
-         * executed.
-         *
-         * @param sourceFuncs structure containing functions that implement
-         *                the sources behavior.
-         * @param structSize size of the #GSource structure to create.
-         * @return the newly-created #GSource.
-         */
-        public fun new(sourceFuncs: SourceFuncs, structSize: guint): Source =
-            Source(g_source_new(sourceFuncs.glibSourceFuncsPointer, structSize)!!.reinterpret())
-
         /**
          * Removes the source with the given ID from the default main context. You must
          * use g_source_destroy() for sources added to a non-default main context.

@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.HashTable
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gint
@@ -57,6 +58,20 @@ import kotlin.Unit
  */
 public class MessageHeaders(public val soupMessageHeadersPointer: CPointer<SoupMessageHeaders>) :
     ProxyInstance(soupMessageHeadersPointer) {
+    /**
+     * Creates a #SoupMessageHeaders.
+     *
+     * ([class@Message] does this automatically for its own headers. You would only
+     * need to use this method if you are manually parsing or generating message
+     * headers.)
+     *
+     * @param type the type of headers
+     * @return a new #SoupMessageHeaders
+     */
+    public constructor(type: MessageHeadersType) : this(soup_message_headers_new(type.nativeValue)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Appends a new header with name @name and value @value to @hdrs.
      *
@@ -382,19 +397,6 @@ public class MessageHeaders(public val soupMessageHeadersPointer: CPointer<SoupM
     public fun unref(): Unit = soup_message_headers_unref(soupMessageHeadersPointer)
 
     public companion object {
-        /**
-         * Creates a #SoupMessageHeaders.
-         *
-         * ([class@Message] does this automatically for its own headers. You would only
-         * need to use this method if you are manually parsing or generating message
-         * headers.)
-         *
-         * @param type the type of headers
-         * @return a new #SoupMessageHeaders
-         */
-        public fun new(type: MessageHeadersType): MessageHeaders =
-            MessageHeaders(soup_message_headers_new(type.nativeValue)!!.reinterpret())
-
         /**
          * Get the GType of MessageHeaders
          *

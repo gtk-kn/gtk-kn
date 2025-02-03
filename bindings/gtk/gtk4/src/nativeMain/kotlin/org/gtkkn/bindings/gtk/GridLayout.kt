@@ -5,12 +5,12 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -51,6 +51,10 @@ import kotlin.Unit
 public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLayout>) :
     LayoutManager(gtkGridLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The row to align to the baseline, when `GtkWidget:valign` is set
      * to %GTK_ALIGN_BASELINE.
@@ -151,7 +155,9 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
      *
      * @return the newly created `GtkGridLayout`
      */
-    public constructor() : this(gtk_grid_layout_new()!!.reinterpret())
+    public constructor() : this(gtk_grid_layout_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the baseline position of @row.
@@ -181,7 +187,7 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
 
     public companion object : TypeCompanion<GridLayout> {
         override val type: GeneratedClassKGType<GridLayout> =
-            GeneratedClassKGType(getTypeOrNull("gtk_grid_layout_get_type")!!) { GridLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { GridLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -193,5 +199,16 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
          * @return the GType
          */
         public fun getType(): GType = gtk_grid_layout_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_grid_layout_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_grid_layout_get_type")
     }
 }

@@ -11,22 +11,20 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GScannerConfig
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Specifies the #GScanner parser configuration. Most settings can
  * be changed during the parsing phase and will affect the lexical
  * parsing of the next unpeeked token.
  */
-public class ScannerConfig(public val glibScannerConfigPointer: CPointer<GScannerConfig>, cleaner: Cleaner? = null) :
+public class ScannerConfig(public val glibScannerConfigPointer: CPointer<GScannerConfig>) :
     ProxyInstance(glibScannerConfigPointer) {
     /**
      * specifies which characters should be skipped
@@ -354,21 +352,9 @@ public class ScannerConfig(public val glibScannerConfigPointer: CPointer<GScanne
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GScannerConfig>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to ScannerConfig and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GScannerConfig>, Cleaner>,
-    ) : this(glibScannerConfigPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GScannerConfig>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new ScannerConfig using the provided [AutofreeScope].

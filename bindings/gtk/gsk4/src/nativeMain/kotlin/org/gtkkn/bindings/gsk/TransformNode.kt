@@ -5,12 +5,13 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTransformNode
+import org.gtkkn.native.gsk.gsk_render_node_unref
 import org.gtkkn.native.gsk.gsk_transform_node_get_child
 import org.gtkkn.native.gsk.gsk_transform_node_get_transform
 import org.gtkkn.native.gsk.gsk_transform_node_get_type
@@ -22,6 +23,10 @@ import org.gtkkn.native.gsk.gsk_transform_node_new
 public open class TransformNode(public val gskTransformNodePointer: CPointer<GskTransformNode>) :
     RenderNode(gskTransformNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will transform the given @child
      * with the given @transform.
@@ -33,7 +38,9 @@ public open class TransformNode(public val gskTransformNodePointer: CPointer<Gsk
     public constructor(
         child: RenderNode,
         transform: Transform,
-    ) : this(gsk_transform_node_new(child.gskRenderNodePointer, transform.gskTransformPointer)!!.reinterpret())
+    ) : this(gsk_transform_node_new(child.gskRenderNodePointer, transform.gskTransformPointer)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Gets the child node that is getting transformed by the given @node.
@@ -56,7 +63,7 @@ public open class TransformNode(public val gskTransformNodePointer: CPointer<Gsk
 
     public companion object : TypeCompanion<TransformNode> {
         override val type: GeneratedClassKGType<TransformNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_transform_node_get_type")!!) { TransformNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TransformNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -68,5 +75,16 @@ public open class TransformNode(public val gskTransformNodePointer: CPointer<Gsk
          * @return the GType
          */
         public fun getType(): GType = gsk_transform_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_transform_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_transform_node_get_type")
     }
 }

@@ -31,10 +31,10 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.bindings.pango.Direction
 import org.gtkkn.bindings.pango.Layout
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkSnapshot
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
@@ -116,12 +116,18 @@ import kotlin.Unit
 public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>) :
     org.gtkkn.bindings.gdk.Snapshot(gtkSnapshotPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkSnapshot`.
      *
      * @return a newly-allocated `GtkSnapshot`
      */
-    public constructor() : this(gtk_snapshot_new()!!.reinterpret())
+    public constructor() : this(gtk_snapshot_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new [class@Gsk.CairoNode] and appends it to the current
@@ -560,6 +566,11 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
         gtk_snapshot_push_stroke(gtkSnapshotPointer.reinterpret(), path.gskPathPointer, stroke.gskStrokePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a render node for the CSS background according to @context,
      * and appends it to the current node of @snapshot, without changing
      * the current node.
@@ -586,6 +597,11 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a render node for the focus outline according to @context,
      * and appends it to the current node of @snapshot, without changing
      * the current node.
@@ -600,6 +616,11 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
         gtk_snapshot_render_focus(gtkSnapshotPointer.reinterpret(), context.gtkStyleContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a render node for the CSS border according to @context,
      * and appends it to the current node of @snapshot, without changing
      * the current node.
@@ -614,6 +635,11 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
         gtk_snapshot_render_frame(gtkSnapshotPointer.reinterpret(), context.gtkStyleContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Draws a text caret using @snapshot at the specified index of @layout.
      *
      * @param context a `GtkStyleContext`
@@ -641,6 +667,11 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a render node for rendering @layout according to the style
      * information in @context, and appends it to the current node of @snapshot,
      * without changing the current node.
@@ -796,7 +827,7 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
 
     public companion object : TypeCompanion<Snapshot> {
         override val type: GeneratedClassKGType<Snapshot> =
-            GeneratedClassKGType(getTypeOrNull("gtk_snapshot_get_type")!!) { Snapshot(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Snapshot(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -808,5 +839,15 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
          * @return the GType
          */
         public fun getType(): GType = gtk_snapshot_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_snapshot_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_snapshot_get_type")
     }
 }

@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.adw.adw_get_enable_animations
 import org.gtkkn.native.adw.adw_get_major_version
 import org.gtkkn.native.adw.adw_get_micro_version
@@ -105,6 +106,10 @@ import kotlin.Unit
  * - record `WindowTitleClass`: glib type struct are ignored
  */
 public object Adw {
+    init {
+        registerTypes()
+    }
+
     /**
      * Indicates an [class@Animation] with an infinite duration.
      *
@@ -219,6 +224,201 @@ public object Adw {
      * @return the computed value
      */
     public fun lerp(a: gdouble, b: gdouble, t: gdouble): gdouble = adw_lerp(a, b, t)
+
+    private fun registerTypes() {
+        AboutDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AboutDialog::class, gtype) { AboutDialog(it.reinterpret()) }
+        }
+        AboutWindow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AboutWindow::class, gtype) { AboutWindow(it.reinterpret()) }
+        }
+        ActionRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ActionRow::class, gtype) { ActionRow(it.reinterpret()) }
+        }
+        AlertDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AlertDialog::class, gtype) { AlertDialog(it.reinterpret()) }
+        }
+        Animation.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Animation::class, gtype) { Animation.AnimationImpl(it.reinterpret()) }
+        }
+        AnimationTarget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AnimationTarget::class, gtype) { AnimationTarget.AnimationTargetImpl(it.reinterpret()) }
+        }
+        Application.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Application::class, gtype) { Application(it.reinterpret()) }
+        }
+        ApplicationWindow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ApplicationWindow::class, gtype) { ApplicationWindow(it.reinterpret()) }
+        }
+        Avatar.getTypeOrNull()?.let { gtype -> TypeCache.register(Avatar::class, gtype) { Avatar(it.reinterpret()) } }
+        Banner.getTypeOrNull()?.let { gtype -> TypeCache.register(Banner::class, gtype) { Banner(it.reinterpret()) } }
+        Bin.getTypeOrNull()?.let { gtype -> TypeCache.register(Bin::class, gtype) { Bin(it.reinterpret()) } }
+        Breakpoint.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Breakpoint::class, gtype) { Breakpoint(it.reinterpret()) }
+        }
+        BreakpointBin.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BreakpointBin::class, gtype) { BreakpointBin(it.reinterpret()) }
+        }
+        ButtonContent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ButtonContent::class, gtype) { ButtonContent(it.reinterpret()) }
+        }
+        CallbackAnimationTarget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CallbackAnimationTarget::class, gtype) { CallbackAnimationTarget(it.reinterpret()) }
+        }
+        Carousel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Carousel::class, gtype) { Carousel(it.reinterpret()) }
+        }
+        CarouselIndicatorDots.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CarouselIndicatorDots::class, gtype) { CarouselIndicatorDots(it.reinterpret()) }
+        }
+        CarouselIndicatorLines.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CarouselIndicatorLines::class, gtype) { CarouselIndicatorLines(it.reinterpret()) }
+        }
+        Clamp.getTypeOrNull()?.let { gtype -> TypeCache.register(Clamp::class, gtype) { Clamp(it.reinterpret()) } }
+        ClampLayout.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ClampLayout::class, gtype) { ClampLayout(it.reinterpret()) }
+        }
+        ClampScrollable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ClampScrollable::class, gtype) { ClampScrollable(it.reinterpret()) }
+        }
+        ComboRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ComboRow::class, gtype) { ComboRow(it.reinterpret()) }
+        }
+        Dialog.getTypeOrNull()?.let { gtype -> TypeCache.register(Dialog::class, gtype) { Dialog(it.reinterpret()) } }
+        EntryRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EntryRow::class, gtype) { EntryRow(it.reinterpret()) }
+        }
+        EnumListItem.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EnumListItem::class, gtype) { EnumListItem(it.reinterpret()) }
+        }
+        EnumListModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EnumListModel::class, gtype) { EnumListModel(it.reinterpret()) }
+        }
+        ExpanderRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ExpanderRow::class, gtype) { ExpanderRow(it.reinterpret()) }
+        }
+        Flap.getTypeOrNull()?.let { gtype -> TypeCache.register(Flap::class, gtype) { Flap(it.reinterpret()) } }
+        HeaderBar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(HeaderBar::class, gtype) { HeaderBar(it.reinterpret()) }
+        }
+        Leaflet.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Leaflet::class, gtype) { Leaflet(it.reinterpret()) }
+        }
+        LeafletPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(LeafletPage::class, gtype) { LeafletPage(it.reinterpret()) }
+        }
+        MessageDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MessageDialog::class, gtype) { MessageDialog(it.reinterpret()) }
+        }
+        NavigationPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NavigationPage::class, gtype) { NavigationPage(it.reinterpret()) }
+        }
+        NavigationSplitView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NavigationSplitView::class, gtype) { NavigationSplitView(it.reinterpret()) }
+        }
+        NavigationView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NavigationView::class, gtype) { NavigationView(it.reinterpret()) }
+        }
+        OverlaySplitView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(OverlaySplitView::class, gtype) { OverlaySplitView(it.reinterpret()) }
+        }
+        PasswordEntryRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PasswordEntryRow::class, gtype) { PasswordEntryRow(it.reinterpret()) }
+        }
+        PreferencesDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PreferencesDialog::class, gtype) { PreferencesDialog(it.reinterpret()) }
+        }
+        PreferencesGroup.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PreferencesGroup::class, gtype) { PreferencesGroup(it.reinterpret()) }
+        }
+        PreferencesPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PreferencesPage::class, gtype) { PreferencesPage(it.reinterpret()) }
+        }
+        PreferencesRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PreferencesRow::class, gtype) { PreferencesRow(it.reinterpret()) }
+        }
+        PreferencesWindow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PreferencesWindow::class, gtype) { PreferencesWindow(it.reinterpret()) }
+        }
+        PropertyAnimationTarget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PropertyAnimationTarget::class, gtype) { PropertyAnimationTarget(it.reinterpret()) }
+        }
+        SpinRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SpinRow::class, gtype) { SpinRow(it.reinterpret()) }
+        }
+        SplitButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SplitButton::class, gtype) { SplitButton(it.reinterpret()) }
+        }
+        SpringAnimation.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SpringAnimation::class, gtype) { SpringAnimation(it.reinterpret()) }
+        }
+        Squeezer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Squeezer::class, gtype) { Squeezer(it.reinterpret()) }
+        }
+        SqueezerPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SqueezerPage::class, gtype) { SqueezerPage(it.reinterpret()) }
+        }
+        StatusPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StatusPage::class, gtype) { StatusPage(it.reinterpret()) }
+        }
+        StyleManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StyleManager::class, gtype) { StyleManager(it.reinterpret()) }
+        }
+        SwipeTracker.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SwipeTracker::class, gtype) { SwipeTracker(it.reinterpret()) }
+        }
+        SwitchRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SwitchRow::class, gtype) { SwitchRow(it.reinterpret()) }
+        }
+        TabBar.getTypeOrNull()?.let { gtype -> TypeCache.register(TabBar::class, gtype) { TabBar(it.reinterpret()) } }
+        TabButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TabButton::class, gtype) { TabButton(it.reinterpret()) }
+        }
+        TabOverview.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TabOverview::class, gtype) { TabOverview(it.reinterpret()) }
+        }
+        TabPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TabPage::class, gtype) { TabPage(it.reinterpret()) }
+        }
+        TabView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TabView::class, gtype) { TabView(it.reinterpret()) }
+        }
+        TimedAnimation.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TimedAnimation::class, gtype) { TimedAnimation(it.reinterpret()) }
+        }
+        Toast.getTypeOrNull()?.let { gtype -> TypeCache.register(Toast::class, gtype) { Toast(it.reinterpret()) } }
+        ToastOverlay.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ToastOverlay::class, gtype) { ToastOverlay(it.reinterpret()) }
+        }
+        ToolbarView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ToolbarView::class, gtype) { ToolbarView(it.reinterpret()) }
+        }
+        ViewStack.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ViewStack::class, gtype) { ViewStack(it.reinterpret()) }
+        }
+        ViewStackPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ViewStackPage::class, gtype) { ViewStackPage(it.reinterpret()) }
+        }
+        ViewStackPages.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ViewStackPages::class, gtype) { ViewStackPages(it.reinterpret()) }
+        }
+        ViewSwitcher.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ViewSwitcher::class, gtype) { ViewSwitcher(it.reinterpret()) }
+        }
+        ViewSwitcherBar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ViewSwitcherBar::class, gtype) { ViewSwitcherBar(it.reinterpret()) }
+        }
+        ViewSwitcherTitle.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ViewSwitcherTitle::class, gtype) { ViewSwitcherTitle(it.reinterpret()) }
+        }
+        Window.getTypeOrNull()?.let { gtype -> TypeCache.register(Window::class, gtype) { Window(it.reinterpret()) } }
+        WindowTitle.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WindowTitle::class, gtype) { WindowTitle(it.reinterpret()) }
+        }
+        Swipeable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Swipeable::class, gtype) { Swipeable.SwipeableImpl(it.reinterpret()) }
+        }
+    }
 }
 
 public val AnimationTargetFuncFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {

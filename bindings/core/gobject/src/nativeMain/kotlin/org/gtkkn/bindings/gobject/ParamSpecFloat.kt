@@ -11,4 +11,8 @@ import org.gtkkn.native.gobject.GParamSpecFloat
  * A #GParamSpec derived structure that contains the meta data for float properties.
  */
 public open class ParamSpecFloat(public val gobjectParamSpecFloatPointer: CPointer<GParamSpecFloat>) :
-    ParamSpec(gobjectParamSpecFloatPointer.reinterpret())
+    ParamSpec(gobjectParamSpecFloatPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

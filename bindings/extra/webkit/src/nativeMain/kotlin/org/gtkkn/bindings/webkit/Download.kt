@@ -17,13 +17,13 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
@@ -61,6 +61,10 @@ import kotlin.Unit
 public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>) :
     Object(webkitDownloadPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Whether or not the download is allowed to overwrite an existing file on
      * disk. If this property is false and the destination already exists,
@@ -145,7 +149,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
          *     the response hasn't been received yet.
          */
         get() = webkit_download_get_response(webkitDownloadPointer)!!.run {
-            UriResponse(this)
+            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!
         }
 
     /**
@@ -185,7 +189,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      * @return the #WebKitURIRequest of @download
      */
     public fun getRequest(): UriRequest = webkit_download_get_request(webkitDownloadPointer)!!.run {
-        UriRequest(this)
+        InstanceCache.get(this, true) { UriRequest(reinterpret()) }!!
     }
 
     /**
@@ -195,7 +199,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      *    or null if @download was not initiated by a #WebKitWebView.
      */
     public fun getWebView(): WebView = webkit_download_get_web_view(webkitDownloadPointer)!!.run {
-        WebView(this)
+        InstanceCache.get(this, true) { WebView(reinterpret()) }!!
     }
 
     /**
@@ -363,10 +367,10 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
 
     public companion object : TypeCompanion<Download> {
         override val type: GeneratedClassKGType<Download> =
-            GeneratedClassKGType(getTypeOrNull("webkit_download_get_type")!!) { Download(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Download(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -375,6 +379,17 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
          * @return the GType
          */
         public fun getType(): GType = webkit_download_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_download_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_download_get_type")
     }
 }
 

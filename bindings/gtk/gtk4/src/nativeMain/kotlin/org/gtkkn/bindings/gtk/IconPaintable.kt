@@ -9,11 +9,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -41,6 +41,10 @@ public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<Gtk
     Paintable,
     SymbolicPaintable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 
@@ -97,7 +101,9 @@ public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<Gtk
         `file`: File,
         size: gint,
         scale: gint,
-    ) : this(gtk_icon_paintable_new_for_file(`file`.gioFilePointer, size, scale)!!.reinterpret())
+    ) : this(gtk_icon_paintable_new_for_file(`file`.gioFilePointer, size, scale)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Checks if the icon is symbolic or not.
@@ -114,7 +120,7 @@ public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<Gtk
 
     public companion object : TypeCompanion<IconPaintable> {
         override val type: GeneratedClassKGType<IconPaintable> =
-            GeneratedClassKGType(getTypeOrNull("gtk_icon_paintable_get_type")!!) { IconPaintable(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { IconPaintable(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -126,5 +132,16 @@ public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_icon_paintable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_icon_paintable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_icon_paintable_get_type")
     }
 }

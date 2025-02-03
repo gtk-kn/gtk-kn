@@ -4,8 +4,8 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GRand
 import org.gtkkn.native.glib.g_rand_copy
@@ -34,6 +34,29 @@ import kotlin.Unit
  * - parameter `seed`: Unsupported pointer to primitive type
  */
 public class Rand(public val glibRandPointer: CPointer<GRand>) : ProxyInstance(glibRandPointer) {
+    /**
+     * Creates a new random number generator initialized with a seed taken
+     * either from `/dev/urandom` (if existing) or from the current time
+     * (as a fallback).
+     *
+     * On Windows, the seed is taken from rand_s().
+     *
+     * @return the new #GRand
+     */
+    public constructor() : this(g_rand_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new random number generator initialized with @seed.
+     *
+     * @param seed a value to initialize the random number generator
+     * @return the new #GRand
+     */
+    public constructor(seed: guint) : this(g_rand_new_with_seed(seed)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies a #GRand into a new one with the same exact state as before.
      * This way you can take a snapshot of the random number generator for
@@ -96,25 +119,6 @@ public class Rand(public val glibRandPointer: CPointer<GRand>) : ProxyInstance(g
     public fun setSeed(seed: guint): Unit = g_rand_set_seed(glibRandPointer, seed)
 
     public companion object {
-        /**
-         * Creates a new random number generator initialized with a seed taken
-         * either from `/dev/urandom` (if existing) or from the current time
-         * (as a fallback).
-         *
-         * On Windows, the seed is taken from rand_s().
-         *
-         * @return the new #GRand
-         */
-        public fun new(): Rand = Rand(g_rand_new()!!)
-
-        /**
-         * Creates a new random number generator initialized with @seed.
-         *
-         * @param seed a value to initialize the random number generator
-         * @return the new #GRand
-         */
-        public fun newWithSeed(seed: guint): Rand = Rand(g_rand_new_with_seed(seed)!!.reinterpret())
-
         /**
          * Get the GType of Rand
          *

@@ -13,11 +13,10 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkCellEditable
@@ -29,6 +28,14 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets for displaying their
+ *   contents. See [iface@Gtk.Editable] for editable text widgets
+ * ---
+ *
  * Interface for widgets that can be used for editing cells
  *
  * The `GtkCellEditable` interface must be implemented for widgets to be usable
@@ -45,11 +52,21 @@ public interface CellEditable :
     public val gtkCellEditablePointer: CPointer<GtkCellEditable>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the `GtkCellEditable::editing-done` signal.
      */
     public fun editingDone(): Unit = gtk_cell_editable_editing_done(gtkCellEditablePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the `GtkCellEditable::remove-widget` signal.
      */
     public fun removeWidget(): Unit = gtk_cell_editable_remove_widget(gtkCellEditablePointer)
@@ -130,15 +147,19 @@ public interface CellEditable :
      *
      * @constructor Creates a new instance of CellEditable for the provided [CPointer].
      */
-    public data class CellEditableImpl(override val gtkCellEditablePointer: CPointer<GtkCellEditable>) :
+    public class CellEditableImpl(gtkCellEditablePointer: CPointer<GtkCellEditable>) :
         Widget(gtkCellEditablePointer.reinterpret()),
-        CellEditable
+        CellEditable {
+        init {
+            Gtk
+        }
+
+        override val gtkCellEditablePointer: CPointer<GtkCellEditable> = gtkCellEditablePointer
+    }
 
     public companion object : TypeCompanion<CellEditable> {
         override val type: GeneratedInterfaceKGType<CellEditable> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_cell_editable_get_type")!!) {
-                CellEditableImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { CellEditableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -150,6 +171,17 @@ public interface CellEditable :
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_editable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_editable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_editable_get_type")
     }
 }
 

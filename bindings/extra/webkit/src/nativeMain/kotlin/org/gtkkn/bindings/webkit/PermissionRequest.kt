@@ -7,10 +7,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.webkit_permission_request_allow
@@ -48,19 +47,23 @@ public interface PermissionRequest :
      *
      * @constructor Creates a new instance of PermissionRequest for the provided [CPointer].
      */
-    public data class PermissionRequestImpl(
-        override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>,
-    ) : Object(webkitPermissionRequestPointer.reinterpret()),
-        PermissionRequest
+    public class PermissionRequestImpl(webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>) :
+        Object(webkitPermissionRequestPointer.reinterpret()),
+        PermissionRequest {
+        init {
+            WebKit
+        }
+
+        override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest> =
+            webkitPermissionRequestPointer
+    }
 
     public companion object : TypeCompanion<PermissionRequest> {
         override val type: GeneratedInterfaceKGType<PermissionRequest> =
-            GeneratedInterfaceKGType(getTypeOrNull("webkit_permission_request_get_type")!!) {
-                PermissionRequestImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { PermissionRequestImpl(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -69,5 +72,16 @@ public interface PermissionRequest :
          * @return the GType
          */
         public fun getType(): GType = webkit_permission_request_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_permission_request_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_permission_request_get_type")
     }
 }

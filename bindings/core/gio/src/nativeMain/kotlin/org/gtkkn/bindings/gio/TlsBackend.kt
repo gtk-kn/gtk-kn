@@ -11,11 +11,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTlsBackend
 import org.gtkkn.native.gio.g_tls_backend_get_certificate_type
 import org.gtkkn.native.gio.g_tls_backend_get_client_connection_type
@@ -74,7 +74,7 @@ public interface TlsBackend :
      */
     @GioVersion2_30
     public fun getDefaultDatabase(): TlsDatabase = g_tls_backend_get_default_database(gioTlsBackendPointer)!!.run {
-        TlsDatabase.TlsDatabaseImpl(this)
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
     }
 
     /**
@@ -160,13 +160,19 @@ public interface TlsBackend :
      *
      * @constructor Creates a new instance of TlsBackend for the provided [CPointer].
      */
-    public data class TlsBackendImpl(override val gioTlsBackendPointer: CPointer<GTlsBackend>) :
+    public class TlsBackendImpl(gioTlsBackendPointer: CPointer<GTlsBackend>) :
         Object(gioTlsBackendPointer.reinterpret()),
-        TlsBackend
+        TlsBackend {
+        init {
+            Gio
+        }
+
+        override val gioTlsBackendPointer: CPointer<GTlsBackend> = gioTlsBackendPointer
+    }
 
     public companion object : TypeCompanion<TlsBackend> {
         override val type: GeneratedInterfaceKGType<TlsBackend> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_tls_backend_get_type")!!) { TlsBackendImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { TlsBackendImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -190,5 +196,16 @@ public interface TlsBackend :
          * @return the GType
          */
         public fun getType(): GType = g_tls_backend_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_tls_backend_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_tls_backend_get_type")
     }
 }

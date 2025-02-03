@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPasswordEntryBuffer
 import org.gtkkn.native.gtk.gtk_password_entry_buffer_get_type
@@ -26,18 +26,22 @@ import org.gtkkn.native.gtk.gtk_password_entry_buffer_new
 public open class PasswordEntryBuffer(public val gtkPasswordEntryBufferPointer: CPointer<GtkPasswordEntryBuffer>) :
     EntryBuffer(gtkPasswordEntryBufferPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkEntryBuffer` using secure memory allocations.
      *
      * @return the newly created instance
      */
-    public constructor() : this(gtk_password_entry_buffer_new()!!.reinterpret())
+    public constructor() : this(gtk_password_entry_buffer_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<PasswordEntryBuffer> {
         override val type: GeneratedClassKGType<PasswordEntryBuffer> =
-            GeneratedClassKGType(getTypeOrNull("gtk_password_entry_buffer_get_type")!!) {
-                PasswordEntryBuffer(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PasswordEntryBuffer(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -49,5 +53,16 @@ public open class PasswordEntryBuffer(public val gtkPasswordEntryBufferPointer: 
          * @return the GType
          */
         public fun getType(): GType = gtk_password_entry_buffer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_password_entry_buffer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_password_entry_buffer_get_type")
     }
 }

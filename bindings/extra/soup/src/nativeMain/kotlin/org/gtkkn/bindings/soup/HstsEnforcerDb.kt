@@ -5,10 +5,10 @@ package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupHSTSEnforcerDB
 import org.gtkkn.native.soup.SoupSessionFeature
@@ -29,6 +29,10 @@ import kotlin.String
 public class HstsEnforcerDb(public val soupHstsEnforcerDbPointer: CPointer<SoupHSTSEnforcerDB>) :
     HstsEnforcer(soupHstsEnforcerDbPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 
@@ -45,13 +49,13 @@ public class HstsEnforcerDb(public val soupHstsEnforcerDbPointer: CPointer<SoupH
      * @param filename the filename of the database to read/write from.
      * @return the new #SoupHSTSEnforcer
      */
-    public constructor(filename: String) : this(soup_hsts_enforcer_db_new(filename)!!.reinterpret())
+    public constructor(filename: String) : this(soup_hsts_enforcer_db_new(filename)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<HstsEnforcerDb> {
         override val type: GeneratedClassKGType<HstsEnforcerDb> =
-            GeneratedClassKGType(getTypeOrNull("soup_hsts_enforcer_db_get_type")!!) {
-                HstsEnforcerDb(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { HstsEnforcerDb(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -63,5 +67,16 @@ public class HstsEnforcerDb(public val soupHstsEnforcerDbPointer: CPointer<SoupH
          * @return the GType
          */
         public fun getType(): GType = soup_hsts_enforcer_db_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_hsts_enforcer_db_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_hsts_enforcer_db_get_type")
     }
 }

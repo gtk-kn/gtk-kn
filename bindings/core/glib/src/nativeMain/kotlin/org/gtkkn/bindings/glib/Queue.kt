@@ -15,6 +15,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GQueue
@@ -62,11 +63,8 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Contains the public fields of a
@@ -78,8 +76,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `func`: CompareFunc
  * - parameter `free_func`: DestroyNotify
  */
-public class Queue(public val glibQueuePointer: CPointer<GQueue>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibQueuePointer) {
+public class Queue(public val glibQueuePointer: CPointer<GQueue>) : ProxyInstance(glibQueuePointer) {
     /**
      * a pointer to the first element of the queue
      */
@@ -123,21 +120,9 @@ public class Queue(public val glibQueuePointer: CPointer<GQueue>, cleaner: Clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GQueue>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Queue and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GQueue>, Cleaner>,
-    ) : this(glibQueuePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GQueue>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Queue using the provided [AutofreeScope].

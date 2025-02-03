@@ -13,13 +13,13 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
@@ -186,6 +186,10 @@ import kotlin.Unit
 public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>) :
     Widget(gtkNotebookPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -319,7 +323,9 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
      *
      * @return the newly created `GtkNotebook`
      */
-    public constructor() : this(gtk_notebook_new()!!.reinterpret())
+    public constructor() : this(gtk_notebook_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends a page to @notebook.
@@ -381,7 +387,7 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
      */
     public open fun getActionWidget(packType: PackType): Widget? =
         gtk_notebook_get_action_widget(gtkNotebookPointer, packType.nativeValue)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -403,7 +409,7 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
      */
     public open fun getMenuLabel(child: Widget): Widget? =
         gtk_notebook_get_menu_label(gtkNotebookPointer, child.gtkWidgetPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -435,7 +441,7 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
      * is out of bounds
      */
     public open fun getNthPage(pageNum: gint): Widget? = gtk_notebook_get_nth_page(gtkNotebookPointer, pageNum)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -446,7 +452,7 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
      */
     public open fun getPage(child: Widget): NotebookPage =
         gtk_notebook_get_page(gtkNotebookPointer, child.gtkWidgetPointer)!!.run {
-            NotebookPage(this)
+            InstanceCache.get(this, true) { NotebookPage(reinterpret()) }!!
         }
 
     /**
@@ -469,7 +475,7 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
      */
     public open fun getTabLabel(child: Widget): Widget? =
         gtk_notebook_get_tab_label(gtkNotebookPointer, child.gtkWidgetPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -1007,7 +1013,7 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
 
     public companion object : TypeCompanion<Notebook> {
         override val type: GeneratedClassKGType<Notebook> =
-            GeneratedClassKGType(getTypeOrNull("gtk_notebook_get_type")!!) { Notebook(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Notebook(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -1019,6 +1025,16 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
          * @return the GType
          */
         public fun getType(): GType = gtk_notebook_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_notebook_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_notebook_get_type")
     }
 }
 
@@ -1039,7 +1055,7 @@ private val onCreateWindowFunc: CPointer<CFunction<(CPointer<GtkWidget>) -> CPoi
         ->
         userData.asStableRef<(page: Widget) -> Notebook?>().get().invoke(
             page!!.run {
-                Widget.WidgetImpl(this)
+                InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
             }
         )?.gtkNotebookPointer
     }
@@ -1080,7 +1096,7 @@ private val onPageAddedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> 
         ->
         userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(
             child!!.run {
-                Widget.WidgetImpl(this)
+                InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
             },
             pageNum
         )
@@ -1096,7 +1112,7 @@ private val onPageRemovedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -
         ->
         userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(
             child!!.run {
-                Widget.WidgetImpl(this)
+                InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
             },
             pageNum
         )
@@ -1112,7 +1128,7 @@ private val onPageReorderedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint)
         ->
         userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(
             child!!.run {
-                Widget.WidgetImpl(this)
+                InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
             },
             pageNum
         )
@@ -1153,7 +1169,7 @@ private val onSwitchPageFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) ->
         ->
         userData.asStableRef<(page: Widget, pageNum: guint) -> Unit>().get().invoke(
             page!!.run {
-                Widget.WidgetImpl(this)
+                InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
             },
             pageNum
         )

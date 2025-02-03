@@ -16,13 +16,13 @@ import org.gtkkn.bindings.gdk.DragAction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwTabBar
 import org.gtkkn.native.adw.AdwTabPage
 import org.gtkkn.native.adw.adw_tab_bar_get_autohide
@@ -84,6 +84,10 @@ import kotlin.ULong
 public class TabBar(public val adwTabBarPointer: CPointer<AdwTabBar>) :
     Widget(adwTabBarPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -131,7 +135,7 @@ public class TabBar(public val adwTabBarPointer: CPointer<AdwTabBar>) :
          * @return the widget shown after the tabs
          */
         get() = adw_tab_bar_get_end_action_widget(adwTabBarPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -264,7 +268,7 @@ public class TabBar(public val adwTabBarPointer: CPointer<AdwTabBar>) :
          * @return the widget shown before the tabs
          */
         get() = adw_tab_bar_get_start_action_widget(adwTabBarPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -299,7 +303,7 @@ public class TabBar(public val adwTabBarPointer: CPointer<AdwTabBar>) :
          * @return the view @self controls
          */
         get() = adw_tab_bar_get_view(adwTabBarPointer)?.run {
-            TabView(this)
+            InstanceCache.get(this, true) { TabView(reinterpret()) }!!
         }
 
         /**
@@ -314,7 +318,9 @@ public class TabBar(public val adwTabBarPointer: CPointer<AdwTabBar>) :
      *
      * @return the newly created `AdwTabBar`
      */
-    public constructor() : this(adw_tab_bar_new()!!.reinterpret())
+    public constructor() : this(adw_tab_bar_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * This signal is emitted when content is dropped onto a tab.
@@ -369,7 +375,7 @@ public class TabBar(public val adwTabBarPointer: CPointer<AdwTabBar>) :
 
     public companion object : TypeCompanion<TabBar> {
         override val type: GeneratedClassKGType<TabBar> =
-            GeneratedClassKGType(getTypeOrNull("adw_tab_bar_get_type")!!) { TabBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TabBar(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -381,6 +387,16 @@ public class TabBar(public val adwTabBarPointer: CPointer<AdwTabBar>) :
          * @return the GType
          */
         public fun getType(): GType = adw_tab_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_tab_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_tab_bar_get_type")
     }
 }
 
@@ -394,7 +410,7 @@ private val onExtraDragDropFunc:
         ->
         userData.asStableRef<(page: TabPage, `value`: Value) -> Boolean>().get().invoke(
             page!!.run {
-                TabPage(this)
+                InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
             },
             `value`!!.run {
                 Value(this)
@@ -413,7 +429,7 @@ private val onExtraDragValueFunc:
         ->
         userData.asStableRef<(page: TabPage, `value`: Value) -> DragAction>().get().invoke(
             page!!.run {
-                TabPage(this)
+                InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
             },
             `value`!!.run {
                 Value(this)

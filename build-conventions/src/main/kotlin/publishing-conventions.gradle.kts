@@ -114,7 +114,8 @@ publishing {
 tasks {
     val cleanMavenLocal by registering {
         notCompatibleWithConfigurationCache("invocation of 'Task.project' at execution time is unsupported")
-        group = BasePlugin.BUILD_GROUP
+        group = "gtkkn"
+        description = "Cleans local Maven repository"
         doLast {
             val groupRepo =
                 file("${System.getProperty("user.home")}/.m2/repository/${project.group.toString().replace(".", "/")}")

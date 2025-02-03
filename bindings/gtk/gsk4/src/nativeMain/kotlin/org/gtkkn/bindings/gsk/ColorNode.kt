@@ -7,15 +7,16 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.graphene.Rect
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskColorNode
 import org.gtkkn.native.gsk.gsk_color_node_get_color
 import org.gtkkn.native.gsk.gsk_color_node_get_type
 import org.gtkkn.native.gsk.gsk_color_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node for a solid color.
@@ -23,6 +24,10 @@ import org.gtkkn.native.gsk.gsk_color_node_new
 public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNode>) :
     RenderNode(gskColorNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will render the color specified by @rgba into
      * the area given by @bounds.
@@ -34,7 +39,9 @@ public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNod
     public constructor(
         rgba: Rgba,
         bounds: Rect,
-    ) : this(gsk_color_node_new(rgba.gdkRgbaPointer, bounds.grapheneRectPointer)!!.reinterpret())
+    ) : this(gsk_color_node_new(rgba.gdkRgbaPointer, bounds.grapheneRectPointer)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the color of the given @node.
@@ -47,7 +54,7 @@ public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNod
 
     public companion object : TypeCompanion<ColorNode> {
         override val type: GeneratedClassKGType<ColorNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_color_node_get_type")!!) { ColorNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ColorNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -59,5 +66,16 @@ public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNod
          * @return the GType
          */
         public fun getType(): GType = gsk_color_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_color_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_color_node_get_type")
     }
 }

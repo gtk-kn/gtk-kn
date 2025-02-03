@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.File
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAppChooser
@@ -30,6 +30,15 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * The application selection widgets should be
+ *   implemented according to the design of each platform and/or
+ *   application requiring them.
+ * ---
+ *
  * `GtkAppChooserDialog` shows a `GtkAppChooserWidget` inside a `GtkDialog`.
  *
  * ![An example GtkAppChooserDialog](appchooserdialog.png)
@@ -57,6 +66,10 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
     Dialog(gtkAppChooserDialogPointer.reinterpret()),
     AppChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAppChooserPointer: CPointer<GtkAppChooser>
         get() = handle.reinterpret()
 
@@ -79,6 +92,13 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new `GtkAppChooserDialog` for the provided `GFile`.
      *
      * The dialog will show applications that can open the file.
@@ -92,9 +112,18 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
         parent: Window? = null,
         flags: DialogFlags,
         `file`: File,
-    ) : this(gtk_app_chooser_dialog_new(parent?.gtkWindowPointer, flags.mask, `file`.gioFilePointer)!!.reinterpret())
+    ) : this(gtk_app_chooser_dialog_new(parent?.gtkWindowPointer, flags.mask, `file`.gioFilePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new `GtkAppChooserDialog` for the provided content type.
      *
      * The dialog will show applications that can open the content type.
@@ -110,9 +139,18 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
         contentType: String,
     ) : this(
         gtk_app_chooser_dialog_new_for_content_type(parent?.gtkWindowPointer, flags.mask, contentType)!!.reinterpret()
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the text to display at the top of the dialog.
      *
      * @return the text to display at the top of the dialog,
@@ -121,15 +159,29 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
     public open fun getHeading(): String? = gtk_app_chooser_dialog_get_heading(gtkAppChooserDialogPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the `GtkAppChooserWidget` of this dialog.
      *
      * @return the `GtkAppChooserWidget` of @self
      */
     public open fun getWidget(): Widget = gtk_app_chooser_dialog_get_widget(gtkAppChooserDialogPointer)!!.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Sets the text to display at the top of the dialog.
      *
      * If the heading is not set, the dialog displays a default text.
@@ -141,9 +193,7 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
 
     public companion object : TypeCompanion<AppChooserDialog> {
         override val type: GeneratedClassKGType<AppChooserDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_app_chooser_dialog_get_type")!!) {
-                AppChooserDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { AppChooserDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -155,5 +205,16 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gtk_app_chooser_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_app_chooser_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_app_chooser_dialog_get_type")
     }
 }

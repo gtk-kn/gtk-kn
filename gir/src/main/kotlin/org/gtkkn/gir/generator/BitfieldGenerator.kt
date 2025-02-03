@@ -40,7 +40,7 @@ interface BitfieldGenerator : ConstructorGenerator, FunctionGenerator {
             bitfield.members.forEach { member ->
                 companionSpecBuilder.addProperty(
                     PropertySpec.builder(member.kotlinName, bitfield.kotlinTypeName)
-                        .addKdoc(buildTypeKDoc(member.kdoc, member.optInVersionBlueprint))
+                        .addKdoc(buildTypeKDoc(member.kdoc, member.optInVersionBlueprint, member.deprecatedBlueprint))
                         .initializer("%T(%M)", bitfield.kotlinTypeName, member.nativeMemberName)
                         .build(),
                 )
@@ -57,7 +57,7 @@ interface BitfieldGenerator : ConstructorGenerator, FunctionGenerator {
                 .parameterizedBy(bitfield.kotlinTypeName)
 
             addSuperinterface(genericMarkerType)
-            addKdoc(buildTypeKDoc(bitfield.kdoc, bitfield.optInVersionBlueprint))
+            addKdoc(buildTypeKDoc(bitfield.kdoc, bitfield.optInVersionBlueprint, bitfield.deprecatedBlueprint))
             primaryConstructor(buildSimplePrimaryConstructor("mask", bitfield.nativeValueTypeName))
             addProperty(
                 PropertySpec.builder("mask", bitfield.nativeValueTypeName)

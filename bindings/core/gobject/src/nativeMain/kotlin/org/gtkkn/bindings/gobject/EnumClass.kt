@@ -10,14 +10,12 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GEnumClass
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The class of an enumeration type holds information about its
@@ -27,7 +25,7 @@ import kotlin.native.ref.createCleaner
  *
  * - field `g_type_class`: Field with not-pointer record/union GTypeClass is not supported
  */
-public class EnumClass(public val gobjectEnumClassPointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) :
+public class EnumClass(public val gobjectEnumClassPointer: CPointer<GEnumClass>) :
     ProxyInstance(gobjectEnumClassPointer) {
     /**
      * the smallest possible value.
@@ -82,21 +80,9 @@ public class EnumClass(public val gobjectEnumClassPointer: CPointer<GEnumClass>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GEnumClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to EnumClass and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GEnumClass>, Cleaner>,
-    ) : this(gobjectEnumClassPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GEnumClass>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new EnumClass using the provided [AutofreeScope].

@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.jsc.JSCException
@@ -40,6 +40,10 @@ import kotlin.String
 public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
     Object(jscExceptionPointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * Create a new #JSCException in @context with @message.
      *
@@ -50,7 +54,9 @@ public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
     public constructor(
         context: Context,
         message: String,
-    ) : this(jsc_exception_new(context.jscContextPointer, message)!!.reinterpret())
+    ) : this(jsc_exception_new(context.jscContextPointer, message)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCException in @context with @name and @message.
@@ -64,7 +70,9 @@ public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
         context: Context,
         name: String,
         message: String,
-    ) : this(jsc_exception_new_with_name(context.jscContextPointer, name, message)!!.reinterpret())
+    ) : this(jsc_exception_new_with_name(context.jscContextPointer, name, message)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Get a string with the exception backtrace.
@@ -129,10 +137,10 @@ public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
 
     public companion object : TypeCompanion<Exception> {
         override val type: GeneratedClassKGType<Exception> =
-            GeneratedClassKGType(getTypeOrNull("jsc_exception_get_type")!!) { Exception(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Exception(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
+            JavaScriptCoreTypeProvider.register()
         }
 
         /**
@@ -141,5 +149,16 @@ public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
          * @return the GType
          */
         public fun getType(): GType = jsc_exception_get_type()
+
+        /**
+         * Gets the GType of from the symbol `jsc_exception_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("jsc_exception_get_type")
     }
 }

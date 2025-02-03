@@ -3,15 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
@@ -36,18 +33,15 @@ import org.gtkkn.native.graphene.graphene_point3d_t
 import org.gtkkn.native.graphene.graphene_point3d_to_vec3
 import org.gtkkn.native.graphene.graphene_point3d_zero
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A point with three components: X, Y, and Z.
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Point3d(public val graphenePoint3dPointer: CPointer<graphene_point3d_t>, cleaner: Cleaner? = null) :
+public class Point3d(public val graphenePoint3dPointer: CPointer<graphene_point3d_t>) :
     ProxyInstance(graphenePoint3dPointer) {
     /**
      * the X coordinate
@@ -83,75 +77,15 @@ public class Point3d(public val graphenePoint3dPointer: CPointer<graphene_point3
         }
 
     /**
-     * Allocate a new Point3d.
+     * Allocates a #graphene_point3d_t structure.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * @return the newly allocated structure.
+     *   Use graphene_point3d_free() to free the resources
+     *   allocated by this function.
+     * @since 1.0
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_point3d_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Point3d and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_point3d_t>, Cleaner>,
-    ) : this(graphenePoint3dPointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Point3d using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_point3d_t>().ptr)
-
-    /**
-     * Allocate a new Point3d.
-     *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
-     *
-     * @param x the X coordinate
-     * @param y the Y coordinate
-     * @param z the Z coordinate
-     */
-    public constructor(
-        x: gfloat,
-        y: gfloat,
-        z: gfloat,
-    ) : this() {
-        this.x = x
-        this.y = y
-        this.z = z
-    }
-
-    /**
-     * Allocate a new Point3d using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param x the X coordinate
-     * @param y the Y coordinate
-     * @param z the Z coordinate
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(
-        x: gfloat,
-        y: gfloat,
-        z: gfloat,
-        scope: AutofreeScope,
-    ) : this(scope) {
-        this.x = x
-        this.y = y
-        this.z = z
+    public constructor() : this(graphene_point3d_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
     }
 
     /**
@@ -354,16 +288,6 @@ public class Point3d(public val graphenePoint3dPointer: CPointer<graphene_point3
     override fun toString(): String = "Point3d(x=$x, y=$y, z=$z)"
 
     public companion object {
-        /**
-         * Allocates a #graphene_point3d_t structure.
-         *
-         * @return the newly allocated structure.
-         *   Use graphene_point3d_free() to free the resources
-         *   allocated by this function.
-         * @since 1.0
-         */
-        public fun alloc(): Point3d = Point3d(graphene_point3d_alloc()!!)
-
         /**
          * Retrieves a constant point with all three coordinates set to 0.
          *

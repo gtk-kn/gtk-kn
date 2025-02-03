@@ -22,7 +22,7 @@ package org.gtkkn.extensions.gtk
 
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.gobject.asType
+import org.gtkkn.extensions.gobject.legacy.asType
 import org.gtkkn.native.gobject.GType
 import kotlin.properties.PropertyDelegateProvider
 import kotlin.properties.ReadOnlyProperty

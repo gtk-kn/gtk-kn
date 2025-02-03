@@ -22,11 +22,10 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
@@ -253,19 +252,23 @@ public interface CompletionProvider :
      *
      * @constructor Creates a new instance of CompletionProvider for the provided [CPointer].
      */
-    public data class CompletionProviderImpl(
-        override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>,
-    ) : Object(gtksourceCompletionProviderPointer.reinterpret()),
-        CompletionProvider
+    public class CompletionProviderImpl(gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>) :
+        Object(gtksourceCompletionProviderPointer.reinterpret()),
+        CompletionProvider {
+        init {
+            GtkSource
+        }
+
+        override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider> =
+            gtksourceCompletionProviderPointer
+    }
 
     public companion object : TypeCompanion<CompletionProvider> {
         override val type: GeneratedInterfaceKGType<CompletionProvider> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_completion_provider_get_type")!!) {
-                CompletionProviderImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { CompletionProviderImpl(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -274,5 +277,16 @@ public interface CompletionProvider :
          * @return the GType
          */
         public fun getType(): GType = gtk_source_completion_provider_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_completion_provider_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_completion_provider_get_type")
     }
 }

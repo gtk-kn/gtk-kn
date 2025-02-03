@@ -10,12 +10,12 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Expression
 import org.gtkkn.bindings.gtk.ListItemFactory
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwComboRow
 import org.gtkkn.native.adw.adw_combo_row_get_enable_search
 import org.gtkkn.native.adw.adw_combo_row_get_expression
@@ -94,6 +94,10 @@ import kotlin.Boolean
 public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>) :
     ActionRow(adwComboRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -190,7 +194,7 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return the factory in use
          */
         get() = adw_combo_row_get_factory(adwComboRowPointer)?.run {
-            ListItemFactory(this)
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
 
         /**
@@ -215,7 +219,7 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return the factory in use
          */
         get() = adw_combo_row_get_list_factory(adwComboRowPointer)?.run {
-            ListItemFactory(this)
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
 
         /**
@@ -280,7 +284,7 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return the selected item
          */
         get() = adw_combo_row_get_selected_item(adwComboRowPointer)?.run {
-            Object(reinterpret())
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
         }
 
     /**
@@ -322,11 +326,13 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
      *
      * @return the newly created `AdwComboRow`
      */
-    public constructor() : this(adw_combo_row_new()!!.reinterpret())
+    public constructor() : this(adw_combo_row_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ComboRow> {
         override val type: GeneratedClassKGType<ComboRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_combo_row_get_type")!!) { ComboRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ComboRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -338,5 +344,16 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return the GType
          */
         public fun getType(): GType = adw_combo_row_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_combo_row_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_combo_row_get_type")
     }
 }

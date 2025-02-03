@@ -19,11 +19,11 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkUriLauncher
@@ -57,6 +57,10 @@ import kotlin.Unit
 public open class UriLauncher(public val gtkUriLauncherPointer: CPointer<GtkUriLauncher>) :
     Object(gtkUriLauncherPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The uri to launch.
      *
@@ -88,7 +92,9 @@ public open class UriLauncher(public val gtkUriLauncherPointer: CPointer<GtkUriL
      * @return the new `GtkUriLauncher`
      * @since 4.10
      */
-    public constructor(uri: String? = null) : this(gtk_uri_launcher_new(uri)!!.reinterpret())
+    public constructor(uri: String? = null) : this(gtk_uri_launcher_new(uri)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Launch an application to open the uri.
@@ -145,7 +151,7 @@ public open class UriLauncher(public val gtkUriLauncherPointer: CPointer<GtkUriL
 
     public companion object : TypeCompanion<UriLauncher> {
         override val type: GeneratedClassKGType<UriLauncher> =
-            GeneratedClassKGType(getTypeOrNull("gtk_uri_launcher_get_type")!!) { UriLauncher(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { UriLauncher(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -157,5 +163,16 @@ public open class UriLauncher(public val gtkUriLauncherPointer: CPointer<GtkUriL
          * @return the GType
          */
         public fun getType(): GType = gtk_uri_launcher_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_uri_launcher_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_uri_launcher_get_type")
     }
 }

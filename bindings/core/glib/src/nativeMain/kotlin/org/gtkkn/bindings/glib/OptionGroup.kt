@@ -40,6 +40,13 @@ import kotlin.Unit
 public class OptionGroup(public val glibOptionGroupPointer: CPointer<GOptionGroup>) :
     ProxyInstance(glibOptionGroupPointer) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.44.
+     *
+     * Use g_option_group_unref() instead.
+     * ---
+     *
      * Frees a #GOptionGroup. Note that you must not free groups
      * which have been added to a #GOptionContext.
      *

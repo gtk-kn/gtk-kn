@@ -8,11 +8,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GMemVTable
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A set of functions used to perform memory allocation. The same #GMemVTable must
@@ -30,29 +28,16 @@ import kotlin.native.ref.createCleaner
  * - field `try_malloc`: Fields with callbacks are not supported
  * - field `try_realloc`: Fields with callbacks are not supported
  */
-public class MemVTable(public val glibMemVTablePointer: CPointer<GMemVTable>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibMemVTablePointer) {
+public class MemVTable(public val glibMemVTablePointer: CPointer<GMemVTable>) : ProxyInstance(glibMemVTablePointer) {
     /**
      * Allocate a new MemVTable.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GMemVTable>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to MemVTable and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GMemVTable>, Cleaner>,
-    ) : this(glibMemVTablePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GMemVTable>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new MemVTable using the provided [AutofreeScope].

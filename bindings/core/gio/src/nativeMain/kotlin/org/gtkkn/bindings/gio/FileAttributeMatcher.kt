@@ -4,9 +4,9 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gio.GFileAttributeMatcher
@@ -31,6 +31,34 @@ import kotlin.Unit
  */
 public class FileAttributeMatcher(public val gioFileAttributeMatcherPointer: CPointer<GFileAttributeMatcher>) :
     ProxyInstance(gioFileAttributeMatcherPointer) {
+    /**
+     * Creates a new file attribute matcher, which matches attributes
+     * against a given string. #GFileAttributeMatchers are reference
+     * counted structures, and are created with a reference count of 1. If
+     * the number of references falls to 0, the #GFileAttributeMatcher is
+     * automatically destroyed.
+     *
+     * The @attributes string should be formatted with specific keys separated
+     * from namespaces with a double colon. Several "namespace::key" strings may be
+     * concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
+     * The wildcard "*" may be used to match all keys and namespaces, or
+     * "namespace::*" will match all keys in a given namespace.
+     *
+     * ## Examples of file attribute matcher strings and results
+     *
+     * - `"*"`: matches all attributes.
+     * - `"standard::is-hidden"`: matches only the key is-hidden in the
+     *   standard namespace.
+     * - `"standard::type,unix::*"`: matches the type key in the standard
+     *   namespace and all keys in the unix namespace.
+     *
+     * @param attributes an attribute string to match.
+     * @return a #GFileAttributeMatcher
+     */
+    public constructor(attributes: String) : this(g_file_attribute_matcher_new(attributes)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Checks if the matcher will match all of the keys in a given namespace.
      * This will always return true if a wildcard character is in use (e.g. if
@@ -129,33 +157,6 @@ public class FileAttributeMatcher(public val gioFileAttributeMatcherPointer: CPo
     public fun unref(): Unit = g_file_attribute_matcher_unref(gioFileAttributeMatcherPointer)
 
     public companion object {
-        /**
-         * Creates a new file attribute matcher, which matches attributes
-         * against a given string. #GFileAttributeMatchers are reference
-         * counted structures, and are created with a reference count of 1. If
-         * the number of references falls to 0, the #GFileAttributeMatcher is
-         * automatically destroyed.
-         *
-         * The @attributes string should be formatted with specific keys separated
-         * from namespaces with a double colon. Several "namespace::key" strings may be
-         * concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
-         * The wildcard "*" may be used to match all keys and namespaces, or
-         * "namespace::*" will match all keys in a given namespace.
-         *
-         * ## Examples of file attribute matcher strings and results
-         *
-         * - `"*"`: matches all attributes.
-         * - `"standard::is-hidden"`: matches only the key is-hidden in the
-         *   standard namespace.
-         * - `"standard::type,unix::*"`: matches the type key in the standard
-         *   namespace and all keys in the unix namespace.
-         *
-         * @param attributes an attribute string to match.
-         * @return a #GFileAttributeMatcher
-         */
-        public fun new(attributes: String): FileAttributeMatcher =
-            FileAttributeMatcher(g_file_attribute_matcher_new(attributes)!!.reinterpret())
-
         /**
          * Get the GType of FileAttributeMatcher
          *

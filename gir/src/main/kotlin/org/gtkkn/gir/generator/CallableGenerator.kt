@@ -115,8 +115,7 @@ interface CallableGenerator : ConversionBlockGenerator {
             BindingsGenerator.POINTED_FUNC,
             BindingsGenerator.PTR_FUNC,
         )
-        builder.endControlFlow()
-        builder.beginControlFlow("else")
+        builder.nextControlFlow("else")
         if (!callable.returnTypeInfo.kotlinTypeName.isNullable && callable.returnTypeInfo.isCinteropNullable) {
             builder.addStatement("%T.success(checkNotNull(gResult))", BindingsGenerator.RESULT_TYPE)
         } else {

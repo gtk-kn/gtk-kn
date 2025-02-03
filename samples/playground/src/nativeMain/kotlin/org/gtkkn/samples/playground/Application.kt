@@ -28,6 +28,7 @@ import org.gtkkn.bindings.adw.Application
 import org.gtkkn.bindings.adw.ApplicationWindow
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.extensions.GtkKn
 import org.gtkkn.extensions.gio.runApplication
 import org.gtkkn.extensions.glib.util.log.Log
 import org.gtkkn.extensions.glib.util.log.log
@@ -35,7 +36,8 @@ import org.gtkkn.extensions.glib.util.log.writer.installConsoleLogWriter
 
 @Suppress("FunctionName")
 fun Application(builder: ApplicationWindow.() -> Unit) {
-    Log.installConsoleLogWriter();
+    Log.installConsoleLogWriter()
+    GtkKn.debugLogs = true;
     {
         val r = Rectangle(
             x = 10,
@@ -46,7 +48,6 @@ fun Application(builder: ApplicationWindow.() -> Unit) {
         log { "rectangle2: $r" }
     }()
 
-    log { "Playground" }
     val app = Application("org.gtkkn.samples.playground", ApplicationFlags.FLAGS_NONE)
     app.onActivate {
         val window = ApplicationWindow(app)

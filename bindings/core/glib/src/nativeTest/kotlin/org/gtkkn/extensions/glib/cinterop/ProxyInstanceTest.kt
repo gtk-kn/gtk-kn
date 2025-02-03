@@ -27,7 +27,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
-import kotlin.test.assertTrue
 
 /**
  * This class provides unit tests for the [ProxyInstance] class.
@@ -146,7 +145,7 @@ class ProxyInstanceTest {
         val proxy = ProxyInstance(testPointer)
 
         // Act & Assert
-        assertTrue(proxy.equals(proxy), "A proxy instance should be equal to itself")
+        assertEquals(proxy, proxy, "A proxy instance should be equal to itself")
 
         // Clean up
         g_free(testPointer)

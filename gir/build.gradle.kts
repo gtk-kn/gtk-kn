@@ -64,6 +64,12 @@ tasks {
         )
     }
 
+    register("generateBindings") {
+        group = "gtkkn"
+        description = "Generate binding's source code from introspective files"
+        dependsOn(named<JavaExec>("run"))
+    }
+
     compileJava {
         options.compilerArgs.add("-Xlint:deprecation")
         options.compilerArgs.add("-Xlint:unchecked")

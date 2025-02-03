@@ -6,10 +6,10 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwToastOverlay
 import org.gtkkn.native.adw.adw_toast_overlay_add_toast
 import org.gtkkn.native.adw.adw_toast_overlay_get_child
@@ -66,6 +66,10 @@ import kotlin.Unit
 public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOverlay>) :
     Widget(adwToastOverlayPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -85,7 +89,7 @@ public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOv
          * @return the child widget of @self
          */
         get() = adw_toast_overlay_get_child(adwToastOverlayPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -100,7 +104,9 @@ public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOv
      *
      * @return the new created `AdwToastOverlay`
      */
-    public constructor() : this(adw_toast_overlay_new()!!.reinterpret())
+    public constructor() : this(adw_toast_overlay_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Displays @toast.
@@ -120,7 +126,7 @@ public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOv
 
     public companion object : TypeCompanion<ToastOverlay> {
         override val type: GeneratedClassKGType<ToastOverlay> =
-            GeneratedClassKGType(getTypeOrNull("adw_toast_overlay_get_type")!!) { ToastOverlay(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ToastOverlay(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -132,5 +138,16 @@ public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOv
          * @return the GType
          */
         public fun getType(): GType = adw_toast_overlay_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_toast_overlay_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_toast_overlay_get_type")
     }
 }

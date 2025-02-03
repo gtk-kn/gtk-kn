@@ -6,10 +6,10 @@ package org.gtkkn.bindings.soup
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupContentSniffer
 import org.gtkkn.native.soup.SoupSessionFeature
@@ -34,6 +34,10 @@ public class ContentSniffer(public val soupContentSnifferPointer: CPointer<SoupC
     Object(soupContentSnifferPointer.reinterpret()),
     SessionFeature,
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 
@@ -42,13 +46,13 @@ public class ContentSniffer(public val soupContentSnifferPointer: CPointer<SoupC
      *
      * @return a new #SoupContentSniffer
      */
-    public constructor() : this(soup_content_sniffer_new()!!.reinterpret())
+    public constructor() : this(soup_content_sniffer_new()!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ContentSniffer> {
         override val type: GeneratedClassKGType<ContentSniffer> =
-            GeneratedClassKGType(getTypeOrNull("soup_content_sniffer_get_type")!!) {
-                ContentSniffer(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ContentSniffer(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -60,5 +64,16 @@ public class ContentSniffer(public val soupContentSnifferPointer: CPointer<SoupC
          * @return the GType
          */
         public fun getType(): GType = soup_content_sniffer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_content_sniffer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_content_sniffer_get_type")
     }
 }

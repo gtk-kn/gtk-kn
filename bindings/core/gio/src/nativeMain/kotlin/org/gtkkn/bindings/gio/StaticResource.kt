@@ -9,21 +9,19 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GStaticResource
 import org.gtkkn.native.gio.g_static_resource_fini
 import org.gtkkn.native.gio.g_static_resource_get_resource
 import org.gtkkn.native.gio.g_static_resource_init
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * #GStaticResource is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public class StaticResource(public val gioStaticResourcePointer: CPointer<GStaticResource>, cleaner: Cleaner? = null) :
+public class StaticResource(public val gioStaticResourcePointer: CPointer<GStaticResource>) :
     ProxyInstance(gioStaticResourcePointer) {
     /**
      * Allocate a new StaticResource.
@@ -31,21 +29,9 @@ public class StaticResource(public val gioStaticResourcePointer: CPointer<GStati
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GStaticResource>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to StaticResource and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GStaticResource>, Cleaner>,
-    ) : this(gioStaticResourcePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GStaticResource>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new StaticResource using the provided [AutofreeScope].

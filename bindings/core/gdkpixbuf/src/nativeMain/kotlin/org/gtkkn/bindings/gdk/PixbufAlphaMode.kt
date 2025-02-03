@@ -8,6 +8,15 @@ import org.gtkkn.native.gdk.gdk_pixbuf_alpha_mode_get_type
 import org.gtkkn.native.gobject.GType
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.42.
+ *
+ * There is no user of GdkPixbufAlphaMode in GdkPixbuf,
+ *   and the Xlib utility functions have been split out to their own
+ *   library, gdk-pixbuf-xlib
+ * ---
+ *
  * Control the alpha channel for drawables.
  *
  * These values can be passed to gdk_pixbuf_xlib_render_to_drawable_alpha()
@@ -23,6 +32,15 @@ import org.gtkkn.native.gobject.GType
  */
 public enum class PixbufAlphaMode(public val nativeValue: GdkPixbufAlphaMode) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.42.
+     *
+     * There is no user of GdkPixbufAlphaMode in GdkPixbuf,
+     *   and the Xlib utility functions have been split out to their own
+     *   library, gdk-pixbuf-xlib
+     * ---
+     *
      * A bilevel clipping mask (black and white)
      *  will be created and used to draw the image.  Pixels below 0.5 opacity
      *  will be considered fully transparent, and all others will be
@@ -31,6 +49,15 @@ public enum class PixbufAlphaMode(public val nativeValue: GdkPixbufAlphaMode) {
     BILEVEL(GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_BILEVEL),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.42.
+     *
+     * There is no user of GdkPixbufAlphaMode in GdkPixbuf,
+     *   and the Xlib utility functions have been split out to their own
+     *   library, gdk-pixbuf-xlib
+     * ---
+     *
      * For now falls back to #GDK_PIXBUF_ALPHA_BILEVEL.
      *  In the future it will do full alpha compositing.
      */

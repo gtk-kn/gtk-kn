@@ -10,23 +10,20 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPollFD
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gushort
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_pollfd_get_type
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Represents a file descriptor, which events to poll for, and which events
  * occurred.
  */
-public class PollFd(public val glibPollFdPointer: CPointer<GPollFD>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibPollFdPointer) {
+public class PollFd(public val glibPollFdPointer: CPointer<GPollFD>) : ProxyInstance(glibPollFdPointer) {
     /**
      * the file descriptor to poll (or a HANDLE on Win32)
      */
@@ -70,21 +67,9 @@ public class PollFd(public val glibPollFdPointer: CPointer<GPollFD>, cleaner: Cl
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GPollFD>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PollFd and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GPollFD>, Cleaner>,
-    ) : this(glibPollFdPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GPollFD>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PollFd using the provided [AutofreeScope].

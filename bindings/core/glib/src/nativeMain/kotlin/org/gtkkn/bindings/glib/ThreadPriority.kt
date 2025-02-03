@@ -6,25 +6,60 @@ package org.gtkkn.bindings.glib
 import org.gtkkn.native.glib.GThreadPriority
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.32.
+ *
+ * Thread priorities no longer have any effect.
+ * ---
+ *
  * Thread priorities.
  */
 public enum class ThreadPriority(public val nativeValue: GThreadPriority) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Thread priorities no longer have any effect.
+     * ---
+     *
      * a priority lower than normal
      */
     LOW(GThreadPriority.G_THREAD_PRIORITY_LOW),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Thread priorities no longer have any effect.
+     * ---
+     *
      * the default priority
      */
     NORMAL(GThreadPriority.G_THREAD_PRIORITY_NORMAL),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Thread priorities no longer have any effect.
+     * ---
+     *
      * a priority higher than normal
      */
     HIGH(GThreadPriority.G_THREAD_PRIORITY_HIGH),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Thread priorities no longer have any effect.
+     * ---
+     *
      * the highest priority
      */
     URGENT(GThreadPriority.G_THREAD_PRIORITY_URGENT),

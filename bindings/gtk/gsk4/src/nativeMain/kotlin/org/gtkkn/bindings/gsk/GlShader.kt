@@ -17,11 +17,11 @@ import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.graphene.Vec3
 import org.gtkkn.bindings.graphene.Vec4
 import org.gtkkn.bindings.gsk.Gsk.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
@@ -177,6 +177,10 @@ import kotlin.Unit
 public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>) :
     Object(gskGlShaderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Resource containing the source code for the shader.
      *
@@ -208,9 +212,9 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
      * @param sourcecode GLSL sourcecode for the shader, as a `GBytes`
      * @return A new `GskGLShader`
      */
-    public constructor(
-        sourcecode: Bytes,
-    ) : this(gsk_gl_shader_new_from_bytes(sourcecode.glibBytesPointer)!!.reinterpret())
+    public constructor(sourcecode: Bytes) : this(gsk_gl_shader_new_from_bytes(sourcecode.glibBytesPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a `GskGLShader` that will render pixels using the specified code.
@@ -219,7 +223,9 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
      *     the shader
      * @return A new `GskGLShader`
      */
-    public constructor(resourcePath: String) : this(gsk_gl_shader_new_from_resource(resourcePath)!!.reinterpret())
+    public constructor(resourcePath: String) : this(gsk_gl_shader_new_from_resource(resourcePath)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Tries to compile the @shader for the given @renderer.
@@ -396,7 +402,7 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
 
     public companion object : TypeCompanion<GlShader> {
         override val type: GeneratedClassKGType<GlShader> =
-            GeneratedClassKGType(getTypeOrNull("gsk_gl_shader_get_type")!!) { GlShader(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { GlShader(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -408,5 +414,16 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
          * @return the GType
          */
         public fun getType(): GType = gsk_gl_shader_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_gl_shader_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_gl_shader_get_type")
     }
 }

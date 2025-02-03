@@ -13,13 +13,13 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -131,6 +131,10 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
     Widget(gtkColumnViewPointer.reinterpret()),
     Scrollable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkScrollablePointer: CPointer<GtkScrollable>
         get() = handle.reinterpret()
 
@@ -194,7 +198,7 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
          * @since 4.12
          */
         get() = gtk_column_view_get_header_factory(gtkColumnViewPointer)?.run {
-            ListItemFactory(this)
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
 
         /**
@@ -264,7 +268,7 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
          * @since 4.12
          */
         get() = gtk_column_view_get_row_factory(gtkColumnViewPointer)?.run {
-            ListItemFactory(this)
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
 
         /**
@@ -376,7 +380,7 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
          * @return the `GtkSorter` of @self
          */
         get() = gtk_column_view_get_sorter(gtkColumnViewPointer)?.run {
-            Sorter(this)
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!
         }
 
     /**
@@ -416,7 +420,9 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
      */
     public constructor(
         model: SelectionModel? = null,
-    ) : this(gtk_column_view_new(model?.gtkSelectionModelPointer)!!.reinterpret())
+    ) : this(gtk_column_view_new(model?.gtkSelectionModelPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends the @column to the end of the columns in @self.
@@ -527,7 +533,7 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
 
     public companion object : TypeCompanion<ColumnView> {
         override val type: GeneratedClassKGType<ColumnView> =
-            GeneratedClassKGType(getTypeOrNull("gtk_column_view_get_type")!!) { ColumnView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ColumnView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -539,6 +545,17 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
          * @return the GType
          */
         public fun getType(): GType = gtk_column_view_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_column_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_column_view_get_type")
     }
 }
 

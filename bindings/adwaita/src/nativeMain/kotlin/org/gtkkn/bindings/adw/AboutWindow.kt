@@ -16,14 +16,14 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.License
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwAboutWindow
 import org.gtkkn.native.adw.adw_about_window_add_acknowledgement_section
 import org.gtkkn.native.adw.adw_about_window_add_credit_section
@@ -259,6 +259,10 @@ import kotlin.collections.List
 public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWindow>) :
     Window(adwAboutWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -1165,7 +1169,9 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
      * @return the newly created `AdwAboutWindow`
      * @since 1.2
      */
-    public constructor() : this(adw_about_window_new()!!.reinterpret())
+    public constructor() : this(adw_about_window_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `AdwAboutWindow` using AppStream metadata.
@@ -1197,7 +1203,9 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     public constructor(
         resourcePath: String,
         releaseNotesVersion: String? = null,
-    ) : this(adw_about_window_new_from_appdata(resourcePath, releaseNotesVersion)!!.reinterpret())
+    ) : this(adw_about_window_new_from_appdata(resourcePath, releaseNotesVersion)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a section to the Acknowledgements page.
@@ -1349,7 +1357,7 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
 
     public companion object : TypeCompanion<AboutWindow> {
         override val type: GeneratedClassKGType<AboutWindow> =
-            GeneratedClassKGType(getTypeOrNull("adw_about_window_get_type")!!) { AboutWindow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { AboutWindow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -1361,6 +1369,17 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
          * @return the GType
          */
         public fun getType(): GType = adw_about_window_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_about_window_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_about_window_get_type")
     }
 }
 

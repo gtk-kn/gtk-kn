@@ -19,13 +19,13 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
@@ -159,6 +159,10 @@ public open class PrintOperation(public val gtkPrintOperationPointer: CPointer<G
     Object(gtkPrintOperationPointer.reinterpret()),
     PrintOperationPreview,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview>
         get() = handle.reinterpret()
 
@@ -255,7 +259,7 @@ public open class PrintOperation(public val gtkPrintOperationPointer: CPointer<G
          * @return the current print settings of @op.
          */
         get() = gtk_print_operation_get_print_settings(gtkPrintOperationPointer)?.run {
-            PrintSettings(this)
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
         }
 
         /**
@@ -338,7 +342,9 @@ public open class PrintOperation(public val gtkPrintOperationPointer: CPointer<G
      *
      * @return a new `GtkPrintOperation`
      */
-    public constructor() : this(gtk_print_operation_new()!!.reinterpret())
+    public constructor() : this(gtk_print_operation_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Cancels a running print operation.
@@ -366,7 +372,7 @@ public open class PrintOperation(public val gtkPrintOperationPointer: CPointer<G
      */
     public open fun getDefaultPageSetup(): PageSetup =
         gtk_print_operation_get_default_page_setup(gtkPrintOperationPointer)!!.run {
-            PageSetup(this)
+            InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
         }
 
     /**
@@ -1069,9 +1075,7 @@ public open class PrintOperation(public val gtkPrintOperationPointer: CPointer<G
 
     public companion object : TypeCompanion<PrintOperation> {
         override val type: GeneratedClassKGType<PrintOperation> =
-            GeneratedClassKGType(getTypeOrNull("gtk_print_operation_get_type")!!) {
-                PrintOperation(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PrintOperation(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -1083,6 +1087,17 @@ public open class PrintOperation(public val gtkPrintOperationPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_print_operation_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_print_operation_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_print_operation_get_type")
     }
 }
 
@@ -1094,7 +1109,7 @@ private val onBeginPrintFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> 
         ->
         userData.asStableRef<(context: PrintContext) -> kotlin.Unit>().get().invoke(
             context!!.run {
-                PrintContext(this)
+                InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
             }
         )
     }
@@ -1117,7 +1132,7 @@ private val onCustomWidgetApplyFunc: CPointer<CFunction<(CPointer<GtkWidget>) ->
         ->
         userData.asStableRef<(widget: Widget) -> kotlin.Unit>().get().invoke(
             widget!!.run {
-                Widget.WidgetImpl(this)
+                InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
             }
         )
     }
@@ -1146,7 +1161,7 @@ private val onDrawPageFunc: CPointer<CFunction<(CPointer<GtkPrintContext>, gint)
         ->
         userData.asStableRef<(context: PrintContext, pageNr: gint) -> kotlin.Unit>().get().invoke(
             context!!.run {
-                PrintContext(this)
+                InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
             },
             pageNr
         )
@@ -1161,7 +1176,7 @@ private val onEndPrintFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> ko
         ->
         userData.asStableRef<(context: PrintContext) -> kotlin.Unit>().get().invoke(
             context!!.run {
-                PrintContext(this)
+                InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
             }
         )
     }
@@ -1175,7 +1190,7 @@ private val onPaginateFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> gb
         ->
         userData.asStableRef<(context: PrintContext) -> Boolean>().get().invoke(
             context!!.run {
-                PrintContext(this)
+                InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
             }
         ).asGBoolean()
     }
@@ -1207,10 +1222,10 @@ private val onPreviewFunc: CPointer<
             PrintOperationPreview.PrintOperationPreviewImpl(reinterpret())
         },
         context!!.run {
-            PrintContext(this)
+            InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
         },
         parent?.run {
-            Window(this)
+            InstanceCache.get(this, false) { Window(reinterpret()) }!!
         }
     ).asGBoolean()
 }
@@ -1239,11 +1254,11 @@ private val onRequestPageSetupFunc: CPointer<
         ) -> kotlin.Unit
         >().get().invoke(
         context!!.run {
-            PrintContext(this)
+            InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
         },
         pageNr,
         setup!!.run {
-            PageSetup(this)
+            InstanceCache.get(this, false) { PageSetup(reinterpret()) }!!
         }
     )
 }
@@ -1280,13 +1295,13 @@ private val onUpdateCustomWidgetFunc: CPointer<
         ) -> kotlin.Unit
         >().get().invoke(
         widget!!.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
         },
         setup!!.run {
-            PageSetup(this)
+            InstanceCache.get(this, false) { PageSetup(reinterpret()) }!!
         },
         settings!!.run {
-            PrintSettings(this)
+            InstanceCache.get(this, false) { PrintSettings(reinterpret()) }!!
         }
     )
 }

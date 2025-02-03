@@ -6,12 +6,12 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Texture
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -38,6 +38,14 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+ *   You can use [class@Gtk.Box] instead
+ * ---
+ *
  * A widget displaying a single row of a GtkTreeModel
  *
  * A `GtkCellView` displays a single row of a `GtkTreeModel` using a `GtkCellArea`
@@ -68,6 +76,10 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
     CellLayout,
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
         get() = handle.reinterpret()
 
@@ -92,6 +104,11 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
      */
     public open var drawSensitive: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Gets whether @cell_view is configured to draw all of its
          * cells in a sensitive state.
          *
@@ -101,6 +118,11 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
         get() = gtk_cell_view_get_draw_sensitive(gtkCellViewPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets whether @cell_view should draw all of its
          * cells in a sensitive state, this is used by `GtkComboBox` menus
          * to ensure that rows with insensitive cells that contain
@@ -120,6 +142,11 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
      */
     public open var fitModel: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Gets whether @cell_view is configured to request space
          * to fit the entire `GtkTreeModel`.
          *
@@ -129,6 +156,11 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
         get() = gtk_cell_view_get_fit_model(gtkCellViewPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets whether @cell_view should request space to fit the entire `GtkTreeModel`.
          *
          * This is used by `GtkComboBox` to ensure that the cell view displayed on
@@ -146,6 +178,11 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
      */
     public open var model: TreeModel?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns the model for @cell_view. If no model is used null is
          * returned.
          *
@@ -156,6 +193,11 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets the model for @cell_view.  If @cell_view already has a model
          * set, it will remove it before setting the new model.  If @model is
          * null, then it will unset the old model.
@@ -165,13 +207,25 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
         set(model) = gtk_cell_view_set_model(gtkCellViewPointer, model?.gtkTreeModelPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellView` widget.
      *
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor() : this(gtk_cell_view_new()!!.reinterpret())
+    public constructor() : this(gtk_cell_view_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellView` widget with a specific `GtkCellArea`
      * to layout cells and a specific `GtkCellAreaContext`.
      *
@@ -187,18 +241,34 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
     public constructor(
         area: CellArea,
         context: CellAreaContext,
-    ) : this(gtk_cell_view_new_with_context(area.gtkCellAreaPointer, context.gtkCellAreaContextPointer)!!.reinterpret())
+    ) : this(
+        gtk_cell_view_new_with_context(area.gtkCellAreaPointer, context.gtkCellAreaContextPointer)!!.reinterpret()
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
      * to it, and makes it show @text.
      *
      * @param text the text to display in the cell view
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor(text: String) : this(gtk_cell_view_new_with_text(text)!!.reinterpret())
+    public constructor(text: String) : this(gtk_cell_view_new_with_text(text)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellView` widget, adds a `GtkCellRendererPixbuf`
      * to it, and makes it show @texture.
      *
@@ -207,9 +277,16 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
      */
     public constructor(
         texture: Texture,
-    ) : this(gtk_cell_view_new_with_texture(texture.gdkTexturePointer)!!.reinterpret())
+    ) : this(gtk_cell_view_new_with_texture(texture.gdkTexturePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns a `GtkTreePath` referring to the currently
      * displayed row. If no row is currently displayed,
      * null is returned.
@@ -221,6 +298,11 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the row of the model that is currently displayed
      * by the `GtkCellView`. If the path is unset, then the
      * contents of the cellview “stick” at their last value;
@@ -235,31 +317,11 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
 
     public companion object : TypeCompanion<CellView> {
         override val type: GeneratedClassKGType<CellView> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_view_get_type")!!) { CellView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { CellView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        /**
-         * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
-         * to it, and makes it show @text.
-         *
-         * @param text the text to display in the cell view
-         * @return A newly created `GtkCellView` widget.
-         */
-        public fun newWithText(text: String): CellView = CellView(gtk_cell_view_new_with_text(text)!!.reinterpret())
-
-        /**
-         * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
-         * to it, and makes it show @markup. The text can be marked up with
-         * the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).
-         *
-         * @param markup the text to display in the cell view
-         * @return A newly created `GtkCellView` widget.
-         */
-        public fun newWithMarkup(markup: String): CellView =
-            CellView(gtk_cell_view_new_with_markup(markup)!!.reinterpret())
 
         /**
          * Get the GType of CellView
@@ -267,5 +329,34 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_view_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_view_get_type")
+
+        /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
+         * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
+         * to it, and makes it show @markup. The text can be marked up with
+         * the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).
+         *
+         * @param markup the text to display in the cell view
+         * @return A newly created `GtkCellView` widget.
+         */
+        public fun withMarkup(markup: String): CellView =
+            CellView(gtk_cell_view_new_with_markup(markup)!!.reinterpret()).apply {
+                InstanceCache.put(this)
+            }
     }
 }

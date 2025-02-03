@@ -3,13 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
@@ -31,10 +28,7 @@ import org.gtkkn.native.graphene.graphene_triangle_init_from_point3d
 import org.gtkkn.native.graphene.graphene_triangle_init_from_vec3
 import org.gtkkn.native.graphene.graphene_triangle_t
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A triangle.
@@ -46,38 +40,21 @@ import kotlin.native.ref.createCleaner
  * @since 1.2
  */
 @GrapheneVersion1_2
-public class Triangle(public val grapheneTrianglePointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? = null) :
+public class Triangle(public val grapheneTrianglePointer: CPointer<graphene_triangle_t>) :
     ProxyInstance(grapheneTrianglePointer) {
     /**
-     * Allocate a new Triangle.
+     * Allocates a new #graphene_triangle_t.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the returned structure are undefined.
+     *
+     * @return the newly allocated #graphene_triangle_t
+     *   structure. Use graphene_triangle_free() to free the resources
+     *   allocated by this function
+     * @since 1.2
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_triangle_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Triangle and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_triangle_t>, Cleaner>,
-    ) : this(grapheneTrianglePointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Triangle using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_triangle_t>().ptr)
+    public constructor() : this(graphene_triangle_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Checks whether the given triangle @t contains the point @p.
@@ -300,18 +277,6 @@ public class Triangle(public val grapheneTrianglePointer: CPointer<graphene_tria
         }
 
     public companion object {
-        /**
-         * Allocates a new #graphene_triangle_t.
-         *
-         * The contents of the returned structure are undefined.
-         *
-         * @return the newly allocated #graphene_triangle_t
-         *   structure. Use graphene_triangle_free() to free the resources
-         *   allocated by this function
-         * @since 1.2
-         */
-        public fun alloc(): Triangle = Triangle(graphene_triangle_alloc()!!)
-
         /**
          * Get the GType of Triangle
          *

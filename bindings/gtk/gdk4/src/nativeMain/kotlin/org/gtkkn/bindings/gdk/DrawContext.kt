@@ -7,11 +7,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDrawContext
 import org.gtkkn.native.gdk.gdk_draw_context_begin_frame
 import org.gtkkn.native.gdk.gdk_draw_context_end_frame
@@ -38,6 +38,10 @@ import kotlin.Unit
 public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<GdkDrawContext>) :
     Object(gdkDrawContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The `GdkDisplay` used to create the `GdkDrawContext`.
      */
@@ -48,7 +52,7 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
          * @return the `GdkDisplay`
          */
         get() = gdk_draw_context_get_display(gdkDrawContextPointer)?.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -61,7 +65,7 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
          * @return a `GdkSurface`
          */
         get() = gdk_draw_context_get_surface(gdkDrawContextPointer)?.run {
-            Surface.SurfaceImpl(this)
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
         }
 
     /**
@@ -144,7 +148,7 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
 
     public companion object : TypeCompanion<DrawContext> {
         override val type: GeneratedClassKGType<DrawContext> =
-            GeneratedClassKGType(getTypeOrNull("gdk_draw_context_get_type")!!) { DrawContextImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DrawContextImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -156,5 +160,16 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
          * @return the GType
          */
         public fun getType(): GType = gdk_draw_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_draw_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_draw_context_get_type")
     }
 }

@@ -8,6 +8,13 @@ import org.gtkkn.native.adw.adw_flap_transition_type_get_type
 import org.gtkkn.native.gobject.GType
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+ * ---
+ *
  * Describes transitions types of a [class@Flap] widget.
  *
  * It determines the type of animation when transitioning between children in a
@@ -16,18 +23,39 @@ import org.gtkkn.native.gobject.GType
  */
 public enum class FlapTransitionType(public val nativeValue: AdwFlapTransitionType) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The flap slides over the content, which is
      *   dimmed. When folded, only the flap can be swiped.
      */
     OVER(AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_OVER),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The content slides over the flap. Only the
      *   content can be swiped.
      */
     UNDER(AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_UNDER),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The flap slides offscreen when hidden,
      *   neither the flap nor content overlap each other. Both widgets can be
      *   swiped.

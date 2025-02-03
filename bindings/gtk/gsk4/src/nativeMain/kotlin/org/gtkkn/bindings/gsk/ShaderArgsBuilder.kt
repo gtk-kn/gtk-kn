@@ -4,11 +4,11 @@
 package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.graphene.Vec3
 import org.gtkkn.bindings.graphene.Vec4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.gfloat
@@ -37,6 +37,22 @@ import kotlin.Unit
  */
 public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<GskShaderArgsBuilder>) :
     ProxyInstance(gskShaderArgsBuilderPointer) {
+    /**
+     * Allocates a builder that can be used to construct a new uniform data
+     * chunk.
+     *
+     * @param shader a `GskGLShader`
+     * @param initialValues optional `GBytes` with initial values
+     * @return The newly allocated builder, free with
+     *     [method@Gsk.ShaderArgsBuilder.unref]
+     */
+    public constructor(
+        shader: GlShader,
+        initialValues: Bytes? = null,
+    ) : this(gsk_shader_args_builder_new(shader.gskGlShaderPointer, initialValues?.glibBytesPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Creates a new `GBytes` args from the current state of the
      * given @builder, and frees the @builder instance.
@@ -165,19 +181,6 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
     public fun unref(): Unit = gsk_shader_args_builder_unref(gskShaderArgsBuilderPointer)
 
     public companion object {
-        /**
-         * Allocates a builder that can be used to construct a new uniform data
-         * chunk.
-         *
-         * @param shader a `GskGLShader`
-         * @param initialValues optional `GBytes` with initial values
-         * @return The newly allocated builder, free with
-         *     [method@Gsk.ShaderArgsBuilder.unref]
-         */
-        public fun new(shader: GlShader, initialValues: Bytes? = null): ShaderArgsBuilder = ShaderArgsBuilder(
-            gsk_shader_args_builder_new(shader.gskGlShaderPointer, initialValues?.glibBytesPointer)!!.reinterpret()
-        )
-
         /**
          * Get the GType of ShaderArgsBuilder
          *

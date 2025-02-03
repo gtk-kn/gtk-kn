@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkMemoryTexture
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.gdk.gdk_memory_texture_get_type
@@ -26,6 +26,10 @@ import org.gtkkn.native.gobject.GType
 public open class MemoryTexture(public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>) :
     Texture(gdkMemoryTexturePointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 
@@ -54,11 +58,15 @@ public open class MemoryTexture(public val gdkMemoryTexturePointer: CPointer<Gdk
         format: MemoryFormat,
         bytes: Bytes,
         stride: gsize,
-    ) : this(gdk_memory_texture_new(width, height, format.nativeValue, bytes.glibBytesPointer, stride)!!.reinterpret())
+    ) : this(
+        gdk_memory_texture_new(width, height, format.nativeValue, bytes.glibBytesPointer, stride)!!.reinterpret()
+    ) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<MemoryTexture> {
         override val type: GeneratedClassKGType<MemoryTexture> =
-            GeneratedClassKGType(getTypeOrNull("gdk_memory_texture_get_type")!!) { MemoryTexture(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { MemoryTexture(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -70,5 +78,16 @@ public open class MemoryTexture(public val gdkMemoryTexturePointer: CPointer<Gdk
          * @return the GType
          */
         public fun getType(): GType = gdk_memory_texture_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_memory_texture_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_memory_texture_get_type")
     }
 }

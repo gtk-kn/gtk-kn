@@ -19,16 +19,15 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_70
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
-import org.gtkkn.extensions.gobject.associateCustomObject
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.associateCustomObject
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.gsize
-import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GParamSpec
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_object_add_toggle_ref
@@ -116,9 +115,12 @@ import kotlin.Unit
  * - parameter `parameters`: Array parameter of type Parameter is not supported
  * - parameter `n_properties_p`: n_properties_p: Out parameter is not supported
  */
-public open class Object(public val gobjectObjectPointer: CPointer<GObject>) :
+public open class Object(public val gobjectObjectPointer: CPointer<org.gtkkn.native.gobject.GObject>) :
     TypeInstance(gobjectObjectPointer.reinterpret()),
     KGTyped {
+    init {
+        GObject
+    }
     init {
         associateCustomObject()
     }
@@ -227,7 +229,7 @@ public open class Object(public val gobjectObjectPointer: CPointer<GObject>) :
         targetProperty,
         flags.mask
     )!!.run {
-        Binding(this)
+        InstanceCache.get(this, true) { Binding(reinterpret()) }!!
     }
 
     /**
@@ -269,7 +271,7 @@ public open class Object(public val gobjectObjectPointer: CPointer<GObject>) :
         transformTo.gobjectClosurePointer,
         transformFrom.gobjectClosurePointer
     )!!.run {
-        Binding(this)
+        InstanceCache.get(this, true) { Binding(reinterpret()) }!!
     }
 
     /**
@@ -488,7 +490,7 @@ public open class Object(public val gobjectObjectPointer: CPointer<GObject>) :
      * @return the same @object
      */
     public open fun ref(): Object = g_object_ref(gobjectObjectPointer)!!.run {
-        Object(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -509,7 +511,7 @@ public open class Object(public val gobjectObjectPointer: CPointer<GObject>) :
      */
     @GObjectVersion2_10
     public open fun refSink(): Object = g_object_ref_sink(gobjectObjectPointer)!!.run {
-        Object(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -678,7 +680,7 @@ public open class Object(public val gobjectObjectPointer: CPointer<GObject>) :
      */
     @GObjectVersion2_70
     public open fun takeRef(): Object = g_object_take_ref(gobjectObjectPointer)!!.run {
-        Object(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -814,10 +816,10 @@ public open class Object(public val gobjectObjectPointer: CPointer<GObject>) :
 
     public companion object : TypeCompanion<Object> {
         override val type: GeneratedClassKGType<Object> =
-            GeneratedClassKGType(getTypeOrNull("g_object_get_type")!!) { Object(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Object(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
+            GObjectTypeProvider.register()
         }
 
         public fun compatControl(what: gsize, `data`: gpointer? = null): gsize = g_object_compat_control(what, `data`)
@@ -877,6 +879,16 @@ public open class Object(public val gobjectObjectPointer: CPointer<GObject>) :
          * @return the GType
          */
         public fun getType(): GType = g_object_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_object_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_object_get_type")
     }
 }
 

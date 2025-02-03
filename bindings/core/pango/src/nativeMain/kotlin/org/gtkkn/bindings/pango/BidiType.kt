@@ -11,6 +11,13 @@ import org.gtkkn.native.pango.pango_bidi_type_for_unichar
 import org.gtkkn.native.pango.pango_bidi_type_get_type
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.44.
+ *
+ * Use fribidi for this information
+ * ---
+ *
  * `PangoBidiType` represents the bidirectional character
  * type of a Unicode character.
  *
@@ -21,116 +28,277 @@ import org.gtkkn.native.pango.pango_bidi_type_get_type
 @PangoVersion1_22
 public enum class BidiType(public val nativeValue: PangoBidiType) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Left-to-Right
      */
     L(PangoBidiType.PANGO_BIDI_TYPE_L),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Left-to-Right Embedding
      */
     LRE(PangoBidiType.PANGO_BIDI_TYPE_LRE),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Left-to-Right Override
      */
     LRO(PangoBidiType.PANGO_BIDI_TYPE_LRO),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Right-to-Left
      */
     R(PangoBidiType.PANGO_BIDI_TYPE_R),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Right-to-Left Arabic
      */
     AL(PangoBidiType.PANGO_BIDI_TYPE_AL),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Right-to-Left Embedding
      */
     RLE(PangoBidiType.PANGO_BIDI_TYPE_RLE),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Right-to-Left Override
      */
     RLO(PangoBidiType.PANGO_BIDI_TYPE_RLO),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Pop Directional Format
      */
     PDF(PangoBidiType.PANGO_BIDI_TYPE_PDF),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * European Number
      */
     EN(PangoBidiType.PANGO_BIDI_TYPE_EN),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * European Number Separator
      */
     ES(PangoBidiType.PANGO_BIDI_TYPE_ES),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * European Number Terminator
      */
     ET(PangoBidiType.PANGO_BIDI_TYPE_ET),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Arabic Number
      */
     AN(PangoBidiType.PANGO_BIDI_TYPE_AN),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Common Number Separator
      */
     CS(PangoBidiType.PANGO_BIDI_TYPE_CS),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Nonspacing Mark
      */
     NSM(PangoBidiType.PANGO_BIDI_TYPE_NSM),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Boundary Neutral
      */
     BN(PangoBidiType.PANGO_BIDI_TYPE_BN),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Paragraph Separator
      */
     B(PangoBidiType.PANGO_BIDI_TYPE_B),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Segment Separator
      */
     S(PangoBidiType.PANGO_BIDI_TYPE_S),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Whitespace
      */
     WS(PangoBidiType.PANGO_BIDI_TYPE_WS),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Other Neutrals
      */
     ON(PangoBidiType.PANGO_BIDI_TYPE_ON),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Left-to-Right isolate. Since 1.48.6
      */
     LRI(PangoBidiType.PANGO_BIDI_TYPE_LRI),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Right-to-Left isolate. Since 1.48.6
      */
     RLI(PangoBidiType.PANGO_BIDI_TYPE_RLI),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * First strong isolate. Since 1.48.6
      */
     FSI(PangoBidiType.PANGO_BIDI_TYPE_FSI),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * Use fribidi for this information
+     * ---
+     *
      * Pop directional isolate. Since 1.48.6
      */
     PDI(PangoBidiType.PANGO_BIDI_TYPE_PDI),

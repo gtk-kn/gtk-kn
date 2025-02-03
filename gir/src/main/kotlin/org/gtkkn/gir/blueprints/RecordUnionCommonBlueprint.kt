@@ -23,19 +23,19 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 
-interface RecordUnionCommonBlueprint {
+interface RecordUnionCommonBlueprint : HasConstructorsBlueprint {
     val kotlinName: String
     val kotlinTypeName: ClassName
     val nativeTypeName: TypeName
-    val objectPointerTypeName: TypeName
-    val objectPointerName: String
-    val constructors: List<ConstructorBlueprint>
+    override val objectPointerTypeName: TypeName
+    override val objectPointerName: String
+    override val constructors: List<ConstructorBlueprint>
     val functions: List<FunctionBlueprint>
     val methods: List<MethodBlueprint>
     val fields: List<FieldBlueprint>
     val cStructTypeName: ClassName
     val optInVersionBlueprint: OptInVersionBlueprint?
+    val deprecatedBlueprint: DeprecatedBlueprint?
     val kdoc: String?
     val skippedObjects: List<SkippedObject>
-    val hasNewConstructor: Boolean
 }

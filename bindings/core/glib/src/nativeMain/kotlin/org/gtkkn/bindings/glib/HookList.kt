@@ -12,6 +12,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GHookList
@@ -25,11 +26,8 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.gulong
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GHookList struct represents a list of hook functions.
@@ -39,8 +37,7 @@ import kotlin.native.ref.createCleaner
  * - field `finalize_hook`: HookFinalizeFunc
  * - field `dummy`: Array parameter of type gpointer is not supported
  */
-public class HookList(public val glibHookListPointer: CPointer<GHookList>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibHookListPointer) {
+public class HookList(public val glibHookListPointer: CPointer<GHookList>) : ProxyInstance(glibHookListPointer) {
     /**
      * the next free #GHook id
      */
@@ -104,21 +101,9 @@ public class HookList(public val glibHookListPointer: CPointer<GHookList>, clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GHookList>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to HookList and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GHookList>, Cleaner>,
-    ) : this(glibHookListPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GHookList>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new HookList using the provided [AutofreeScope].

@@ -3,13 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_6
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.graphene.graphene_frustum_alloc
@@ -24,10 +21,7 @@ import org.gtkkn.native.graphene.graphene_frustum_intersects_box
 import org.gtkkn.native.graphene.graphene_frustum_intersects_sphere
 import org.gtkkn.native.graphene.graphene_frustum_t
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A 3D volume delimited by 2D clip planes.
@@ -42,38 +36,21 @@ import kotlin.native.ref.createCleaner
  * @since 1.2
  */
 @GrapheneVersion1_2
-public class Frustum(public val grapheneFrustumPointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = null) :
+public class Frustum(public val grapheneFrustumPointer: CPointer<graphene_frustum_t>) :
     ProxyInstance(grapheneFrustumPointer) {
     /**
-     * Allocate a new Frustum.
+     * Allocates a new #graphene_frustum_t structure.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the returned structure are undefined.
+     *
+     * @return the newly allocated #graphene_frustum_t
+     *   structure. Use graphene_frustum_free() to free the resources
+     *   allocated by this function.
+     * @since 1.2
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_frustum_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Frustum and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_frustum_t>, Cleaner>,
-    ) : this(grapheneFrustumPointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Frustum using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_frustum_t>().ptr)
+    public constructor() : this(graphene_frustum_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Checks whether a point is inside the volume defined by the given
@@ -184,18 +161,6 @@ public class Frustum(public val grapheneFrustumPointer: CPointer<graphene_frustu
         graphene_frustum_intersects_sphere(grapheneFrustumPointer, sphere.grapheneSpherePointer)
 
     public companion object {
-        /**
-         * Allocates a new #graphene_frustum_t structure.
-         *
-         * The contents of the returned structure are undefined.
-         *
-         * @return the newly allocated #graphene_frustum_t
-         *   structure. Use graphene_frustum_free() to free the resources
-         *   allocated by this function.
-         * @since 1.2
-         */
-        public fun alloc(): Frustum = Frustum(graphene_frustum_alloc()!!)
-
         /**
          * Get the GType of Frustum
          *

@@ -6,7 +6,9 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gdk.GdkTextureDownloader
 import org.gtkkn.native.gdk.gdk_texture_downloader_copy
 import org.gtkkn.native.gdk.gdk_texture_downloader_free
@@ -41,6 +43,17 @@ import kotlin.Unit
 @GdkVersion4_10
 public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<GdkTextureDownloader>) :
     ProxyInstance(gdkTextureDownloaderPointer) {
+    /**
+     * Creates a new texture downloader for @texture.
+     *
+     * @param texture texture to download
+     * @return A new texture downloader
+     * @since 4.10
+     */
+    public constructor(texture: Texture) : this(gdk_texture_downloader_new(texture.gdkTexturePointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Creates a copy of the downloader.
      *
@@ -81,7 +94,7 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
      */
     @GdkVersion4_10
     public fun getTexture(): Texture = gdk_texture_downloader_get_texture(gdkTextureDownloaderPointer)!!.run {
-        Texture.TextureImpl(this)
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
     }
 
     /**
@@ -107,16 +120,6 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
         gdk_texture_downloader_set_texture(gdkTextureDownloaderPointer, texture.gdkTexturePointer)
 
     public companion object {
-        /**
-         * Creates a new texture downloader for @texture.
-         *
-         * @param texture texture to download
-         * @return A new texture downloader
-         * @since 4.10
-         */
-        public fun new(texture: Texture): TextureDownloader =
-            TextureDownloader(gdk_texture_downloader_new(texture.gdkTexturePointer)!!.reinterpret())
-
         /**
          * Get the GType of TextureDownloader
          *

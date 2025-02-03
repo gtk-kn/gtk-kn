@@ -11,13 +11,13 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -148,6 +148,10 @@ import kotlin.Unit
 public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<GtkScrolledWindow>) :
     Widget(gtkScrolledWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -175,7 +179,7 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
          * @return the child widget of @scrolled_window
          */
         get() = gtk_scrolled_window_get_child(gtkScrolledWindowPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -412,7 +416,9 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
      *
      * @return a new scrolled window
      */
-    public constructor() : this(gtk_scrolled_window_new()!!.reinterpret())
+    public constructor() : this(gtk_scrolled_window_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the horizontal scrollbar’s adjustment.
@@ -423,7 +429,7 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
      * @return the horizontal `GtkAdjustment`
      */
     public open fun getHadjustment(): Adjustment = gtk_scrolled_window_get_hadjustment(gtkScrolledWindowPointer)!!.run {
-        Adjustment(this)
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
     }
 
     /**
@@ -432,7 +438,7 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
      * @return the horizontal scrollbar of the scrolled window.
      */
     public open fun getHscrollbar(): Widget = gtk_scrolled_window_get_hscrollbar(gtkScrolledWindowPointer)!!.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -453,7 +459,7 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
      * @return the vertical `GtkAdjustment`
      */
     public open fun getVadjustment(): Adjustment = gtk_scrolled_window_get_vadjustment(gtkScrolledWindowPointer)!!.run {
-        Adjustment(this)
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
     }
 
     /**
@@ -462,7 +468,7 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
      * @return the vertical scrollbar of the scrolled window.
      */
     public open fun getVscrollbar(): Widget = gtk_scrolled_window_get_vscrollbar(gtkScrolledWindowPointer)!!.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -658,9 +664,7 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
 
     public companion object : TypeCompanion<ScrolledWindow> {
         override val type: GeneratedClassKGType<ScrolledWindow> =
-            GeneratedClassKGType(getTypeOrNull("gtk_scrolled_window_get_type")!!) {
-                ScrolledWindow(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ScrolledWindow(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -672,6 +676,17 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_scrolled_window_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_scrolled_window_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_scrolled_window_get_type")
     }
 }
 

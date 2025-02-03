@@ -10,21 +10,17 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GTypeFundamentalInfo
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure that provides information to the type system which is
  * used specifically for managing fundamental types.
  */
-public class TypeFundamentalInfo(
-    public val gobjectTypeFundamentalInfoPointer: CPointer<GTypeFundamentalInfo>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gobjectTypeFundamentalInfoPointer) {
+public class TypeFundamentalInfo(public val gobjectTypeFundamentalInfoPointer: CPointer<GTypeFundamentalInfo>) :
+    ProxyInstance(gobjectTypeFundamentalInfoPointer) {
     /**
      * #GTypeFundamentalFlags describing the characteristics of the fundamental type
      */
@@ -44,21 +40,9 @@ public class TypeFundamentalInfo(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeFundamentalInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TypeFundamentalInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTypeFundamentalInfo>, Cleaner>,
-    ) : this(gobjectTypeFundamentalInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTypeFundamentalInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TypeFundamentalInfo using the provided [AutofreeScope].

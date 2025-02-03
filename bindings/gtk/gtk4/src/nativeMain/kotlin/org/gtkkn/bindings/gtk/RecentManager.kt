@@ -19,12 +19,12 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -114,6 +114,10 @@ import kotlin.Unit
 public open class RecentManager(public val gtkRecentManagerPointer: CPointer<GtkRecentManager>) :
     Object(gtkRecentManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new recent manager object.
      *
@@ -128,7 +132,9 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
      *
      * @return A newly created `GtkRecentManager` object
      */
-    public constructor() : this(gtk_recent_manager_new()!!.reinterpret())
+    public constructor() : this(gtk_recent_manager_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a new resource, pointed by @uri, into the recently used
@@ -307,7 +313,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<RecentManager> {
         override val type: GeneratedClassKGType<RecentManager> =
-            GeneratedClassKGType(getTypeOrNull("gtk_recent_manager_get_type")!!) { RecentManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { RecentManager(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -321,7 +327,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
          *   unref it.
          */
         public fun getDefault(): RecentManager = gtk_recent_manager_get_default()!!.run {
-            RecentManager(this)
+            InstanceCache.get(this, true) { RecentManager(reinterpret()) }!!
         }
 
         /**
@@ -330,6 +336,17 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_recent_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_recent_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_recent_manager_get_type")
     }
 }
 

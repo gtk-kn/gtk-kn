@@ -5,11 +5,11 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
@@ -26,6 +26,14 @@ import kotlin.Boolean
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets for displaying their
+ *   contents
+ * ---
+ *
  * A cell area that renders GtkCellRenderers into a row or a column
  *
  * The `GtkCellAreaBox` renders cell renderers into a row or a column
@@ -50,6 +58,10 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
     CellArea(gtkCellAreaBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 
@@ -64,6 +76,11 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
      */
     public open var spacing: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Gets the spacing added between cell renderers.
          *
          * @return the space added between cell renderers in @box.
@@ -71,6 +88,11 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
         get() = gtk_cell_area_box_get_spacing(gtkCellAreaBoxPointer)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets the spacing to add between cell renderers in @box.
          *
          * @param spacing the space to add between `GtkCellRenderer`s
@@ -78,13 +100,25 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
         set(spacing) = gtk_cell_area_box_set_spacing(gtkCellAreaBoxPointer, spacing)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellAreaBox`.
      *
      * @return a newly created `GtkCellAreaBox`
      */
-    public constructor() : this(gtk_cell_area_box_new()!!.reinterpret())
+    public constructor() : this(gtk_cell_area_box_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds @renderer to @box, packed with reference to the end of @box.
      *
      * The @renderer is packed after (away from end of) any other
@@ -106,6 +140,11 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds @renderer to @box, packed with reference to the start of @box.
      *
      * The @renderer is packed after any other `GtkCellRenderer` packed
@@ -128,7 +167,7 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
 
     public companion object : TypeCompanion<CellAreaBox> {
         override val type: GeneratedClassKGType<CellAreaBox> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_area_box_get_type")!!) { CellAreaBox(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { CellAreaBox(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -140,5 +179,16 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_area_box_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_area_box_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_area_box_get_type")
     }
 }

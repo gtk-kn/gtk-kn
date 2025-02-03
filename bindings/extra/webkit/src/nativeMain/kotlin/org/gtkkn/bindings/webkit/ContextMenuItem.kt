@@ -9,11 +9,11 @@ import org.gtkkn.bindings.gio.Action
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitContextMenuItem
 import org.gtkkn.native.webkit.webkit_context_menu_item_get_gaction
@@ -43,12 +43,18 @@ import kotlin.Unit
 public class ContextMenuItem(public val webkitContextMenuItemPointer: CPointer<WebKitContextMenuItem>) :
     InitiallyUnowned(webkitContextMenuItemPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Creates a new #WebKitContextMenuItem representing a separator.
      *
      * @return the newly created #WebKitContextMenuItem object.
      */
-    public constructor() : this(webkit_context_menu_item_new_separator()!!.reinterpret())
+    public constructor() : this(webkit_context_menu_item_new_separator()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #WebKitContextMenuItem for the given @action and @label.
@@ -66,13 +72,9 @@ public class ContextMenuItem(public val webkitContextMenuItemPointer: CPointer<W
         action: Action,
         label: String,
         target: Variant? = null,
-    ) : this(
-        webkit_context_menu_item_new_from_gaction(
-            action.gioActionPointer,
-            label,
-            target?.glibVariantPointer
-        )!!.reinterpret()
-    )
+    ) : this(webkit_context_menu_item_new_from_gaction(action.gioActionPointer, label, target?.glibVariantPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #WebKitContextMenuItem for the given stock action.
@@ -91,7 +93,9 @@ public class ContextMenuItem(public val webkitContextMenuItemPointer: CPointer<W
      */
     public constructor(
         action: ContextMenuAction,
-    ) : this(webkit_context_menu_item_new_from_stock_action(action.nativeValue)!!.reinterpret())
+    ) : this(webkit_context_menu_item_new_from_stock_action(action.nativeValue)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #WebKitContextMenuItem for the given stock action using the given @label.
@@ -106,7 +110,9 @@ public class ContextMenuItem(public val webkitContextMenuItemPointer: CPointer<W
     public constructor(
         action: ContextMenuAction,
         label: String,
-    ) : this(webkit_context_menu_item_new_from_stock_action_with_label(action.nativeValue, label)!!.reinterpret())
+    ) : this(webkit_context_menu_item_new_from_stock_action_with_label(action.nativeValue, label)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #WebKitContextMenuItem using the given @label with a submenu.
@@ -118,7 +124,9 @@ public class ContextMenuItem(public val webkitContextMenuItemPointer: CPointer<W
     public constructor(
         label: String,
         submenu: ContextMenu,
-    ) : this(webkit_context_menu_item_new_with_submenu(label, submenu.webkitContextMenuPointer)!!.reinterpret())
+    ) : this(webkit_context_menu_item_new_with_submenu(label, submenu.webkitContextMenuPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the action associated to @item as a #GAction.
@@ -154,7 +162,7 @@ public class ContextMenuItem(public val webkitContextMenuItemPointer: CPointer<W
      *    @item or null if @item doesn't have a submenu.
      */
     public fun getSubmenu(): ContextMenu = webkit_context_menu_item_get_submenu(webkitContextMenuItemPointer)!!.run {
-        ContextMenu(this)
+        InstanceCache.get(this, true) { ContextMenu(reinterpret()) }!!
     }
 
     /**
@@ -177,12 +185,10 @@ public class ContextMenuItem(public val webkitContextMenuItemPointer: CPointer<W
 
     public companion object : TypeCompanion<ContextMenuItem> {
         override val type: GeneratedClassKGType<ContextMenuItem> =
-            GeneratedClassKGType(getTypeOrNull("webkit_context_menu_item_get_type")!!) {
-                ContextMenuItem(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ContextMenuItem(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -191,5 +197,16 @@ public class ContextMenuItem(public val webkitContextMenuItemPointer: CPointer<W
          * @return the GType
          */
         public fun getType(): GType = webkit_context_menu_item_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_context_menu_item_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_context_menu_item_get_type")
     }
 }

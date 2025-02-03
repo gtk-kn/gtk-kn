@@ -11,16 +11,14 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GSignalQuery
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure holding in-depth information for a specific signal.
@@ -31,7 +29,7 @@ import kotlin.native.ref.createCleaner
  *
  * - field `param_types`: Array parameter of type GType is not supported
  */
-public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQuery>, cleaner: Cleaner? = null) :
+public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQuery>) :
     ProxyInstance(gobjectSignalQueryPointer) {
     /**
      * The signal id of the signal being queried, or 0 if the
@@ -109,21 +107,9 @@ public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQ
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GSignalQuery>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to SignalQuery and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GSignalQuery>, Cleaner>,
-    ) : this(gobjectSignalQueryPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GSignalQuery>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new SignalQuery using the provided [AutofreeScope].

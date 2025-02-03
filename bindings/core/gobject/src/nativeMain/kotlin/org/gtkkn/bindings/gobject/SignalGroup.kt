@@ -12,13 +12,12 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
-import org.gtkkn.native.gobject.GObject
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GSignalGroup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -72,6 +71,10 @@ import kotlin.Unit
 public open class SignalGroup(public val gobjectSignalGroupPointer: CPointer<GSignalGroup>) :
     Object(gobjectSignalGroupPointer.reinterpret()),
     KGTyped {
+    init {
+        GObject
+    }
+
     /**
      * Creates a new #GSignalGroup for target instances of @target_type.
      *
@@ -79,7 +82,9 @@ public open class SignalGroup(public val gobjectSignalGroupPointer: CPointer<GSi
      * @return a new #GSignalGroup
      * @since 2.72
      */
-    public constructor(targetType: GType) : this(g_signal_group_new(targetType)!!.reinterpret())
+    public constructor(targetType: GType) : this(g_signal_group_new(targetType)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Blocks all signal handlers managed by @self so they will not
@@ -202,7 +207,7 @@ public open class SignalGroup(public val gobjectSignalGroupPointer: CPointer<GSi
      */
     @GObjectVersion2_72
     public open fun dupTarget(): Object? = g_signal_group_dup_target(gobjectSignalGroupPointer)?.run {
-        Object(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -298,10 +303,10 @@ public open class SignalGroup(public val gobjectSignalGroupPointer: CPointer<GSi
 
     public companion object : TypeCompanion<SignalGroup> {
         override val type: GeneratedClassKGType<SignalGroup> =
-            GeneratedClassKGType(getTypeOrNull("g_signal_group_get_type")!!) { SignalGroup(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { SignalGroup(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
+            GObjectTypeProvider.register()
         }
 
         /**
@@ -310,21 +315,33 @@ public open class SignalGroup(public val gobjectSignalGroupPointer: CPointer<GSi
          * @return the GType
          */
         public fun getType(): GType = g_signal_group_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_signal_group_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_signal_group_get_type")
     }
 }
 
-private val onBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        instance: CPointer<GObject>?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<(instance: Object) -> Unit>().get().invoke(
-        instance!!.run {
-            Object(this)
-        }
-    )
-}
-    .reinterpret()
+private val onBindFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.gobject.GObject>) -> Unit>> =
+    staticCFunction {
+            _: COpaquePointer,
+            instance: CPointer<org.gtkkn.native.gobject.GObject>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(instance: Object) -> Unit>().get().invoke(
+            instance!!.run {
+                InstanceCache.get(this, false) { Object(reinterpret()) }!!
+            }
+        )
+    }
+        .reinterpret()
 
 private val onUnbindFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,

@@ -26,12 +26,11 @@ import org.gtkkn.bindings.soup.Cookie
 import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -70,6 +69,10 @@ import kotlin.Unit
 public class CookieManager(public val webkitCookieManagerPointer: CPointer<WebKitCookieManager>) :
     Object(webkitCookieManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Asynchronously add a #SoupCookie to the underlying storage.
      *
@@ -411,12 +414,10 @@ public class CookieManager(public val webkitCookieManagerPointer: CPointer<WebKi
 
     public companion object : TypeCompanion<CookieManager> {
         override val type: GeneratedClassKGType<CookieManager> =
-            GeneratedClassKGType(getTypeOrNull("webkit_cookie_manager_get_type")!!) {
-                CookieManager(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { CookieManager(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -425,6 +426,17 @@ public class CookieManager(public val webkitCookieManagerPointer: CPointer<WebKi
          * @return the GType
          */
         public fun getType(): GType = webkit_cookie_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_cookie_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_cookie_manager_get_type")
     }
 }
 

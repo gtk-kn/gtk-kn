@@ -7,11 +7,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.jsc.JSCContext
@@ -56,6 +56,10 @@ import kotlin.Unit
 public class Context(public val jscContextPointer: CPointer<JSCContext>) :
     Object(jscContextPointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * The #JSCVirtualMachine in which the context was created.
      */
@@ -66,7 +70,7 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
          * @return the #JSCVirtualMachine where the #JSCContext was created.
          */
         get() = jsc_context_get_virtual_machine(jscContextPointer)!!.run {
-            VirtualMachine(this)
+            InstanceCache.get(this, true) { VirtualMachine(reinterpret()) }!!
         }
 
     /**
@@ -76,7 +80,9 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
      *
      * @return the newly created #JSCContext.
      */
-    public constructor() : this(jsc_context_new()!!.reinterpret())
+    public constructor() : this(jsc_context_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCContext in @virtual_machine.
@@ -84,9 +90,9 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
      * @param vm a #JSCVirtualMachine
      * @return the newly created #JSCContext.
      */
-    public constructor(
-        vm: VirtualMachine,
-    ) : this(jsc_context_new_with_virtual_machine(vm.jscVirtualMachinePointer)!!.reinterpret())
+    public constructor(vm: VirtualMachine) : this(jsc_context_new_with_virtual_machine(vm.jscVirtualMachinePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Clear the uncaught exception in @context if any.
@@ -102,7 +108,7 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
      */
     public fun evaluate(code: String, length: Long): Value =
         jsc_context_evaluate(jscContextPointer, code, length)!!.run {
-            Value(this)
+            InstanceCache.get(this, true) { Value(reinterpret()) }!!
         }
 
     /**
@@ -118,7 +124,7 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
      */
     public fun evaluateWithSourceUri(code: String, length: Long, uri: String, lineNumber: guint): Value =
         jsc_context_evaluate_with_source_uri(jscContextPointer, code, length, uri, lineNumber)!!.run {
-            Value(this)
+            InstanceCache.get(this, true) { Value(reinterpret()) }!!
         }
 
     /**
@@ -128,7 +134,7 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
      *    unhandled exception in the #JSCContext.
      */
     public fun getException(): Exception? = jsc_context_get_exception(jscContextPointer)?.run {
-        Exception(this)
+        InstanceCache.get(this, true) { Exception(reinterpret()) }!!
     }
 
     /**
@@ -137,7 +143,7 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
      * @return a #JSCValue
      */
     public fun getGlobalObject(): Value = jsc_context_get_global_object(jscContextPointer)!!.run {
-        Value(this)
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!
     }
 
     /**
@@ -147,7 +153,7 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
      * @return a #JSCValue
      */
     public fun getValue(name: String): Value = jsc_context_get_value(jscContextPointer, name)!!.run {
-        Value(this)
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!
     }
 
     /**
@@ -212,10 +218,10 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
 
     public companion object : TypeCompanion<Context> {
         override val type: GeneratedClassKGType<Context> =
-            GeneratedClassKGType(getTypeOrNull("jsc_context_get_type")!!) { Context(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Context(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
+            JavaScriptCoreTypeProvider.register()
         }
 
         /**
@@ -225,7 +231,7 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
          * @return the #JSCContext that is currently executing.
          */
         public fun getCurrent(): Context? = jsc_context_get_current()?.run {
-            Context(this)
+            InstanceCache.get(this, true) { Context(reinterpret()) }!!
         }
 
         /**
@@ -234,5 +240,15 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
          * @return the GType
          */
         public fun getType(): GType = jsc_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `jsc_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("jsc_context_get_type")
     }
 }

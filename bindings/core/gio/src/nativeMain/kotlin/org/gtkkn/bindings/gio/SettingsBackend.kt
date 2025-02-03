@@ -10,11 +10,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Tree
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSettingsBackend
 import org.gtkkn.native.gio.g_settings_backend_changed
 import org.gtkkn.native.gio.g_settings_backend_changed_tree
@@ -62,6 +62,10 @@ import kotlin.collections.List
 public abstract class SettingsBackend(public val gioSettingsBackendPointer: CPointer<GSettingsBackend>) :
     Object(gioSettingsBackendPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Signals that a single key has possibly changed.  Backend
      * implementations should call this if a key has possibly changed its
@@ -207,9 +211,7 @@ public abstract class SettingsBackend(public val gioSettingsBackendPointer: CPoi
 
     public companion object : TypeCompanion<SettingsBackend> {
         override val type: GeneratedClassKGType<SettingsBackend> =
-            GeneratedClassKGType(getTypeOrNull("g_settings_backend_get_type")!!) {
-                SettingsBackendImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { SettingsBackendImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -229,7 +231,7 @@ public abstract class SettingsBackend(public val gioSettingsBackendPointer: CPoi
          */
         @GioVersion2_28
         public fun getDefault(): SettingsBackend = g_settings_backend_get_default()!!.run {
-            SettingsBackendImpl(this)
+            InstanceCache.get(this, true) { SettingsBackendImpl(reinterpret()) }!!
         }
 
         /**
@@ -238,5 +240,16 @@ public abstract class SettingsBackend(public val gioSettingsBackendPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = g_settings_backend_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_settings_backend_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_settings_backend_get_type")
     }
 }

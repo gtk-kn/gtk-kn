@@ -12,6 +12,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GTimeVal
@@ -20,13 +21,17 @@ import org.gtkkn.native.glib.g_time_val_from_iso8601
 import org.gtkkn.native.glib.g_time_val_to_iso8601
 import org.gtkkn.native.glib.glong
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.62.
+ *
+ * Use #GDateTime or #guint64 instead.
+ * ---
+ *
  * Represents a precise time, with seconds and microseconds.
  *
  * Similar to the struct timeval returned by the `gettimeofday()`
@@ -38,8 +43,7 @@ import kotlin.native.ref.createCleaner
  * `tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038
  * problem.
  */
-public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibTimeValPointer) {
+public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>) : ProxyInstance(glibTimeValPointer) {
     /**
      * seconds
      */
@@ -68,21 +72,9 @@ public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner:
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTimeVal>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TimeVal and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTimeVal>, Cleaner>,
-    ) : this(glibTimeValPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTimeVal>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TimeVal using the provided [AutofreeScope].
@@ -126,6 +118,14 @@ public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner:
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use `guint64` for
+     *    representing microseconds since the epoch, or use #GDateTime.
+     * ---
+     *
      * Adds the given number of microseconds to @time_. @microseconds can
      * also be negative to decrease the value of @time_.
      *
@@ -134,6 +134,14 @@ public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner:
     public fun add(microseconds: glong): Unit = g_time_val_add(glibTimeValPointer, microseconds)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use
+     *    g_date_time_format_iso8601(dt) instead.
+     * ---
+     *
      * Converts @time_ into an RFC 3339 encoded string, relative to the
      * Coordinated Universal Time (UTC). This is one of the many formats
      * allowed by ISO 8601.
@@ -180,6 +188,14 @@ public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner:
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.62.
+         *
+         * #GTimeVal is not year-2038-safe. Use
+         *    g_date_time_new_from_iso8601() instead.
+         * ---
+         *
          * Converts a string containing an ISO 8601 encoded date and time
          * to a #GTimeVal and puts it into @time_.
          *

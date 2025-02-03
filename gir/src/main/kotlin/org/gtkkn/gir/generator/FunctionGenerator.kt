@@ -21,6 +21,8 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.FunctionBlueprint
 
 /**
@@ -56,15 +58,57 @@ interface FunctionGenerator : MethodGenerator {
         return builder.build()
     }
 
+    fun buildVariantGetTypeFunction(): FunSpec = FunSpec.builder("getType")
+        .returns(G_TYPE)
+        .addKdoc(
+            """
+                Get the GType of Variant
+
+                @return the GType
+            """.trimIndent(),
+        )
+        .addStatement("return %T.VARIANT", BindingsGenerator.GOBJECT_TYPES)
+        .build()
+
+    fun TypeSpec.Builder.buildInternalGetTypeOrNullFunction(functions: List<FunctionBlueprint>) {
+        functions.firstOrNull { functionBlueprint ->
+            functionBlueprint.kotlinName == "getType" &&
+                functionBlueprint.returnTypeInfo.kotlinTypeName == G_TYPE &&
+                functionBlueprint.parameters.isEmpty()
+        }?.let { blueprint ->
+            val funSpec = FunSpec.builder("getTypeOrNull")
+                .addModifiers(KModifier.INTERNAL)
+                .returns(G_TYPE.copy(nullable = true))
+                .addKdoc(
+                    """
+                        Gets the GType of from the symbol `${blueprint.nativeMemberName.simpleName}` if it exists.
+
+                        This function dynamically resolves the specified symbol as a C function pointer and invokes it
+                        to retrieve the `GType`.
+
+                        @return the GType, or `null` if the symbol cannot be resolved.
+                    """.trimIndent(),
+                )
+                .addStatement(
+                    "return %M(%S)",
+                    BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
+                    blueprint.nativeMemberName.simpleName,
+                )
+                .build()
+            addFunction(funSpec)
+        }
+    }
+
     /**
      * Adds KDoc and any required annotations (such as opt-in annotations) to the function builder.
      */
     private fun addKDocAndAnnotations(builder: FunSpec.Builder, func: FunctionBlueprint) {
         buildMethodKDoc(
-            func.kdoc,
-            func.parameters,
-            func.optInVersionBlueprint,
-            func.returnTypeKDoc,
+            kdoc = func.kdoc,
+            parameters = func.parameters,
+            optInVersionBlueprint = func.optInVersionBlueprint,
+            deprecatedBlueprint = func.deprecatedBlueprint,
+            returnTypeKDoc = func.returnTypeKDoc,
         )?.let { builder.addKdoc(it) }
 
         func.optInVersionBlueprint?.typeName?.let { annotationClassName ->

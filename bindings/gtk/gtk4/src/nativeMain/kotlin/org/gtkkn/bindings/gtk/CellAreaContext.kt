@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCellAreaContext
@@ -22,6 +22,13 @@ import org.gtkkn.native.gtk.gtk_cell_area_context_reset
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This object will be removed in GTK 5
+ * ---
+ *
  * Stores geometrical information for a series of rows in a GtkCellArea
  *
  * The `GtkCellAreaContext` object is created by a given `GtkCellArea`
@@ -50,11 +57,29 @@ import kotlin.Unit
 public open class CellAreaContext(public val gtkCellAreaContextPointer: CPointer<GtkCellAreaContext>) :
     Object(gtkCellAreaContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * The `GtkCellArea` this context was created by
      */
     public open val area: CellArea
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This object will be removed in GTK 5
+         * ---
+         *
          * Fetches the `GtkCellArea` this @context was created by.
          *
          * This is generally unneeded by layouting widgets; however,
@@ -69,10 +94,17 @@ public open class CellAreaContext(public val gtkCellAreaContextPointer: CPointer
          * @return the `GtkCellArea` this context was created by.
          */
         get() = gtk_cell_area_context_get_area(gtkCellAreaContextPointer)!!.run {
-            CellArea.CellAreaImpl(this)
+            InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * Allocates a width and/or a height for all rows which are to be
      * rendered with @context.
      *
@@ -93,6 +125,13 @@ public open class CellAreaContext(public val gtkCellAreaContextPointer: CPointer
         gtk_cell_area_context_allocate(gtkCellAreaContextPointer, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * Causes the minimum and/or natural height to grow if the new
      * proposed sizes exceed the current minimum and natural height.
      *
@@ -108,6 +147,13 @@ public open class CellAreaContext(public val gtkCellAreaContextPointer: CPointer
         gtk_cell_area_context_push_preferred_height(gtkCellAreaContextPointer, minimumHeight, naturalHeight)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * Causes the minimum and/or natural width to grow if the new
      * proposed sizes exceed the current minimum and natural width.
      *
@@ -123,6 +169,13 @@ public open class CellAreaContext(public val gtkCellAreaContextPointer: CPointer
         gtk_cell_area_context_push_preferred_width(gtkCellAreaContextPointer, minimumWidth, naturalWidth)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * Resets any previously cached request and allocation
      * data.
      *
@@ -150,9 +203,7 @@ public open class CellAreaContext(public val gtkCellAreaContextPointer: CPointer
 
     public companion object : TypeCompanion<CellAreaContext> {
         override val type: GeneratedClassKGType<CellAreaContext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_area_context_get_type")!!) {
-                CellAreaContext(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { CellAreaContext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -164,5 +215,16 @@ public open class CellAreaContext(public val gtkCellAreaContextPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_area_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_area_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_area_context_get_type")
     }
 }

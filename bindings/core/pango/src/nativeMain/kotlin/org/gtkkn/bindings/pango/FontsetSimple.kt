@@ -5,10 +5,10 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontsetSimple
@@ -28,15 +28,19 @@ import kotlin.Unit
 public open class FontsetSimple(public val pangoFontsetSimplePointer: CPointer<PangoFontsetSimple>) :
     Fontset(pangoFontsetSimplePointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Creates a new `PangoFontsetSimple` for the given language.
      *
      * @param language a `PangoLanguage` tag
      * @return the newly allocated `PangoFontsetSimple`
      */
-    public constructor(
-        language: Language,
-    ) : this(pango_fontset_simple_new(language.pangoLanguagePointer)!!.reinterpret())
+    public constructor(language: Language) : this(pango_fontset_simple_new(language.pangoLanguagePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a font to the fontset.
@@ -57,9 +61,7 @@ public open class FontsetSimple(public val pangoFontsetSimplePointer: CPointer<P
 
     public companion object : TypeCompanion<FontsetSimple> {
         override val type: GeneratedClassKGType<FontsetSimple> =
-            GeneratedClassKGType(getTypeOrNull("pango_fontset_simple_get_type")!!) {
-                FontsetSimple(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { FontsetSimple(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()
@@ -71,5 +73,16 @@ public open class FontsetSimple(public val pangoFontsetSimplePointer: CPointer<P
          * @return the GType
          */
         public fun getType(): GType = pango_fontset_simple_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_fontset_simple_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_fontset_simple_get_type")
     }
 }

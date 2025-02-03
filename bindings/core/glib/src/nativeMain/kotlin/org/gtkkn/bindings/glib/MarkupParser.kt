@@ -8,11 +8,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GMarkupParser
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Any of the fields in #GMarkupParser can be null, in which case they
@@ -31,7 +29,7 @@ import kotlin.native.ref.createCleaner
  * - field `passthrough`: Fields with callbacks are not supported
  * - field `error`: Fields with callbacks are not supported
  */
-public class MarkupParser(public val glibMarkupParserPointer: CPointer<GMarkupParser>, cleaner: Cleaner? = null) :
+public class MarkupParser(public val glibMarkupParserPointer: CPointer<GMarkupParser>) :
     ProxyInstance(glibMarkupParserPointer) {
     /**
      * Allocate a new MarkupParser.
@@ -39,21 +37,9 @@ public class MarkupParser(public val glibMarkupParserPointer: CPointer<GMarkupPa
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GMarkupParser>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to MarkupParser and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GMarkupParser>, Cleaner>,
-    ) : this(glibMarkupParserPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GMarkupParser>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new MarkupParser using the provided [AutofreeScope].

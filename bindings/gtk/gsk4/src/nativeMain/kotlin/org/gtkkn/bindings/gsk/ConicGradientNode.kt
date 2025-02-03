@@ -7,10 +7,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
@@ -32,6 +31,10 @@ import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_type
 public open class ConicGradientNode(public val gskConicGradientNodePointer: CPointer<GskConicGradientNode>) :
     RenderNode(gskConicGradientNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Retrieves the angle for the gradient in radians, normalized in [0, 2 * PI].
      *
@@ -74,9 +77,7 @@ public open class ConicGradientNode(public val gskConicGradientNodePointer: CPoi
 
     public companion object : TypeCompanion<ConicGradientNode> {
         override val type: GeneratedClassKGType<ConicGradientNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_conic_gradient_node_get_type")!!) {
-                ConicGradientNode(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ConicGradientNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -88,5 +89,16 @@ public open class ConicGradientNode(public val gskConicGradientNodePointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = gsk_conic_gradient_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_conic_gradient_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_conic_gradient_node_get_type")
     }
 }

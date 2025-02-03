@@ -11,11 +11,11 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -37,13 +37,19 @@ import kotlin.Unit
 public open class GestureZoom(public val gtkGestureZoomPointer: CPointer<GtkGestureZoom>) :
     Gesture(gtkGestureZoomPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Returns a newly created `GtkGesture` that recognizes
      * pinch/zoom gestures.
      *
      * @return a newly created `GtkGestureZoom`
      */
-    public constructor() : this(gtk_gesture_zoom_new()!!.reinterpret())
+    public constructor() : this(gtk_gesture_zoom_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the scale delta.
@@ -84,7 +90,7 @@ public open class GestureZoom(public val gtkGestureZoomPointer: CPointer<GtkGest
 
     public companion object : TypeCompanion<GestureZoom> {
         override val type: GeneratedClassKGType<GestureZoom> =
-            GeneratedClassKGType(getTypeOrNull("gtk_gesture_zoom_get_type")!!) { GestureZoom(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { GestureZoom(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -96,6 +102,17 @@ public open class GestureZoom(public val gtkGestureZoomPointer: CPointer<GtkGest
          * @return the GType
          */
         public fun getType(): GType = gtk_gesture_zoom_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_gesture_zoom_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_gesture_zoom_get_type")
     }
 }
 

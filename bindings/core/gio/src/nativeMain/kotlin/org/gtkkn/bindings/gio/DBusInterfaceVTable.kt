@@ -9,11 +9,9 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusInterfaceVTable
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Virtual table for handling properties and method calls for a D-Bus
@@ -67,31 +65,17 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusInterfaceVTable(
-    public val gioDBusInterfaceVTablePointer: CPointer<GDBusInterfaceVTable>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gioDBusInterfaceVTablePointer) {
+public class DBusInterfaceVTable(public val gioDBusInterfaceVTablePointer: CPointer<GDBusInterfaceVTable>) :
+    ProxyInstance(gioDBusInterfaceVTablePointer) {
     /**
      * Allocate a new DBusInterfaceVTable.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusInterfaceVTable>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DBusInterfaceVTable and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDBusInterfaceVTable>, Cleaner>,
-    ) : this(gioDBusInterfaceVTablePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDBusInterfaceVTable>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DBusInterfaceVTable using the provided [AutofreeScope].

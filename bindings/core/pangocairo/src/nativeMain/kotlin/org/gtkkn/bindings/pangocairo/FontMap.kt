@@ -11,10 +11,10 @@ import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pangocairo.PangoCairoFontMap
@@ -44,6 +44,13 @@ public interface FontMap :
     public val pangocairoFontMapPointer: CPointer<PangoCairoFontMap>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.22.
+     *
+     * Use pango_font_map_create_context() instead.
+     * ---
+     *
      * Create a `PangoContext` for the given fontmap.
      *
      * @return the newly created context; free with g_object_unref().
@@ -52,7 +59,7 @@ public interface FontMap :
     @PangoCairoVersion1_10
     public fun createPangoCairoContext(): Context =
         pango_cairo_font_map_create_context(pangocairoFontMapPointer)!!.run {
-            Context(this)
+            InstanceCache.get(this, true) { Context(reinterpret()) }!!
         }
 
     /**
@@ -119,18 +126,23 @@ public interface FontMap :
      *
      * @constructor Creates a new instance of FontMap for the provided [CPointer].
      */
-    public data class FontMapImpl(override val pangocairoFontMapPointer: CPointer<PangoCairoFontMap>) :
+    public class FontMapImpl(pangocairoFontMapPointer: CPointer<PangoCairoFontMap>) :
         org.gtkkn.bindings.pango.FontMap(pangocairoFontMapPointer.reinterpret()),
-        FontMap
+        FontMap {
+        init {
+            PangoCairo
+        }
+
+        override val pangocairoFontMapPointer: CPointer<PangoCairoFontMap> =
+            pangocairoFontMapPointer
+    }
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedInterfaceKGType<FontMap> =
-            GeneratedInterfaceKGType(getTypeOrNull("pango_cairo_font_map_get_type")!!) {
-                FontMapImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { FontMapImpl(it.reinterpret()) }
 
         init {
-            PangocairoTypeProvider.register()
+            PangoCairoTypeProvider.register()
         }
 
         /**
@@ -157,7 +169,7 @@ public interface FontMap :
          */
         @PangoCairoVersion1_10
         public fun getDefault(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_get_default()!!.run {
-            org.gtkkn.bindings.pango.FontMap.FontMapImpl(this)
+            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!
         }
 
         /**
@@ -186,7 +198,7 @@ public interface FontMap :
          */
         @PangoCairoVersion1_10
         public fun new(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_new()!!.run {
-            org.gtkkn.bindings.pango.FontMap.FontMapImpl(this)
+            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!
         }
 
         /**
@@ -206,7 +218,7 @@ public interface FontMap :
         @PangoCairoVersion1_18
         public fun newForFontType(fonttype: FontType): org.gtkkn.bindings.pango.FontMap? =
             pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
-                org.gtkkn.bindings.pango.FontMap.FontMapImpl(this)
+                InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!
             }
 
         /**
@@ -215,5 +227,16 @@ public interface FontMap :
          * @return the GType
          */
         public fun getType(): GType = pango_cairo_font_map_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_cairo_font_map_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_cairo_font_map_get_type")
     }
 }

@@ -12,10 +12,10 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GBufferedInputStream
 import org.gtkkn.native.gio.GSeekable
 import org.gtkkn.native.gio.g_buffered_input_stream_fill
@@ -60,6 +60,10 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
     FilterInputStream(gioBufferedInputStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSeekablePointer: CPointer<GSeekable>
         get() = handle.reinterpret()
 
@@ -92,7 +96,9 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
      */
     public constructor(
         baseStream: InputStream,
-    ) : this(g_buffered_input_stream_new(baseStream.gioInputStreamPointer)!!.reinterpret())
+    ) : this(g_buffered_input_stream_new(baseStream.gioInputStreamPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GBufferedInputStream from the given @base_stream,
@@ -105,7 +111,9 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
     public constructor(
         baseStream: InputStream,
         size: gsize,
-    ) : this(g_buffered_input_stream_new_sized(baseStream.gioInputStreamPointer, size)!!.reinterpret())
+    ) : this(g_buffered_input_stream_new_sized(baseStream.gioInputStreamPointer, size)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Tries to read @count bytes from the stream into the buffer.
@@ -242,9 +250,7 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
 
     public companion object : TypeCompanion<BufferedInputStream> {
         override val type: GeneratedClassKGType<BufferedInputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_buffered_input_stream_get_type")!!) {
-                BufferedInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { BufferedInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -256,5 +262,16 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
          * @return the GType
          */
         public fun getType(): GType = g_buffered_input_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_buffered_input_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_buffered_input_stream_get_type")
     }
 }

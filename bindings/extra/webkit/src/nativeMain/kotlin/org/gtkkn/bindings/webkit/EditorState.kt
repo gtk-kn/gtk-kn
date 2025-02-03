@@ -15,12 +15,11 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_10
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_44
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -49,6 +48,10 @@ import kotlin.Unit
 public class EditorState(public val webkitEditorStatePointer: CPointer<WebKitEditorState>) :
     Object(webkitEditorStatePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Bitmask of #WebKitEditorTypingAttributes flags.
      * See webkit_editor_state_get_typing_attributes() for more information.
@@ -146,10 +149,10 @@ public class EditorState(public val webkitEditorStatePointer: CPointer<WebKitEdi
 
     public companion object : TypeCompanion<EditorState> {
         override val type: GeneratedClassKGType<EditorState> =
-            GeneratedClassKGType(getTypeOrNull("webkit_editor_state_get_type")!!) { EditorState(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { EditorState(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -158,6 +161,17 @@ public class EditorState(public val webkitEditorStatePointer: CPointer<WebKitEdi
          * @return the GType
          */
         public fun getType(): GType = webkit_editor_state_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_editor_state_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_editor_state_get_type")
     }
 }
 

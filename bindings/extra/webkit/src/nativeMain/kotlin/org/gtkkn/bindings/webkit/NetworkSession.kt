@@ -25,13 +25,13 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -79,13 +79,19 @@ import kotlin.Unit
 public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<WebKitNetworkSession>) :
     Object(webkitNetworkSessionPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Creates a new #WebKitNetworkSession with an ephemeral #WebKitWebsiteDataManager.
      *
      * @return a new ephemeral #WebKitNetworkSession.
      * @since 2.40
      */
-    public constructor() : this(webkit_network_session_new_ephemeral()!!.reinterpret())
+    public constructor() : this(webkit_network_session_new_ephemeral()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #WebKitNetworkSession with a persistent #WebKitWebsiteDataManager.
@@ -106,7 +112,9 @@ public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<Web
     public constructor(
         dataDirectory: String? = null,
         cacheDirectory: String? = null,
-    ) : this(webkit_network_session_new(dataDirectory, cacheDirectory)!!.reinterpret())
+    ) : this(webkit_network_session_new(dataDirectory, cacheDirectory)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Ignore further TLS errors on the @host for the certificate present in @info.
@@ -141,7 +149,7 @@ public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<Web
     @WebKitVersion2_40
     public fun downloadUri(uri: String): Download =
         webkit_network_session_download_uri(webkitNetworkSessionPointer, uri)!!.run {
-            Download(this)
+            InstanceCache.get(this, true) { Download(reinterpret()) }!!
         }
 
     /**
@@ -153,7 +161,7 @@ public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<Web
     @WebKitVersion2_40
     public fun getCookieManager(): CookieManager =
         webkit_network_session_get_cookie_manager(webkitNetworkSessionPointer)!!.run {
-            CookieManager(this)
+            InstanceCache.get(this, true) { CookieManager(reinterpret()) }!!
         }
 
     /**
@@ -250,7 +258,7 @@ public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<Web
     @WebKitVersion2_40
     public fun getWebsiteDataManager(): WebsiteDataManager =
         webkit_network_session_get_website_data_manager(webkitNetworkSessionPointer)!!.run {
-            WebsiteDataManager(this)
+            InstanceCache.get(this, true) { WebsiteDataManager(reinterpret()) }!!
         }
 
     /**
@@ -377,12 +385,10 @@ public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<Web
 
     public companion object : TypeCompanion<NetworkSession> {
         override val type: GeneratedClassKGType<NetworkSession> =
-            GeneratedClassKGType(getTypeOrNull("webkit_network_session_get_type")!!) {
-                NetworkSession(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { NetworkSession(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -395,7 +401,7 @@ public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<Web
          */
         @WebKitVersion2_40
         public fun getDefault(): NetworkSession = webkit_network_session_get_default()!!.run {
-            NetworkSession(this)
+            InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!
         }
 
         /**
@@ -425,6 +431,17 @@ public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<Web
          * @return the GType
          */
         public fun getType(): GType = webkit_network_session_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_network_session_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_network_session_get_type")
     }
 }
 
@@ -436,7 +453,7 @@ private val onDownloadStartedFunc: CPointer<CFunction<(CPointer<WebKitDownload>)
         ->
         userData.asStableRef<(download: Download) -> Unit>().get().invoke(
             download!!.run {
-                Download(this)
+                InstanceCache.get(this, false) { Download(reinterpret()) }!!
             }
         )
     }

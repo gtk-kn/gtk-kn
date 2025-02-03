@@ -12,6 +12,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.g_free
@@ -27,11 +28,8 @@ import org.gtkkn.native.pango.pango_glyph_item_iter_init_start
 import org.gtkkn.native.pango.pango_glyph_item_iter_next_cluster
 import org.gtkkn.native.pango.pango_glyph_item_iter_prev_cluster
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoGlyphItemIter` is an iterator over the clusters in a
@@ -77,10 +75,8 @@ import kotlin.native.ref.createCleaner
  * @since 1.22
  */
 @PangoVersion1_22
-public class GlyphItemIter(
-    public val pangoGlyphItemIterPointer: CPointer<PangoGlyphItemIter>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(pangoGlyphItemIterPointer) {
+public class GlyphItemIter(public val pangoGlyphItemIterPointer: CPointer<PangoGlyphItemIter>) :
+    ProxyInstance(pangoGlyphItemIterPointer) {
     public var glyphItem: GlyphItem?
         get() = pangoGlyphItemIterPointer.pointed.glyph_item?.run {
             GlyphItem(this)
@@ -154,21 +150,9 @@ public class GlyphItemIter(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoGlyphItemIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to GlyphItemIter and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoGlyphItemIter>, Cleaner>,
-    ) : this(pangoGlyphItemIterPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoGlyphItemIter>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new GlyphItemIter using the provided [AutofreeScope].

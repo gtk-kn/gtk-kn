@@ -13,13 +13,13 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -67,6 +67,10 @@ public open class HstsEnforcer(public val soupHstsEnforcerPointer: CPointer<Soup
     Object(soupHstsEnforcerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 
@@ -78,7 +82,9 @@ public open class HstsEnforcer(public val soupHstsEnforcerPointer: CPointer<Soup
      *
      * @return a new #SoupHSTSEnforcer
      */
-    public constructor() : this(soup_hsts_enforcer_new()!!.reinterpret())
+    public constructor() : this(soup_hsts_enforcer_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets a list of domains for which there are policies in @enforcer.
@@ -196,7 +202,7 @@ public open class HstsEnforcer(public val soupHstsEnforcerPointer: CPointer<Soup
 
     public companion object : TypeCompanion<HstsEnforcer> {
         override val type: GeneratedClassKGType<HstsEnforcer> =
-            GeneratedClassKGType(getTypeOrNull("soup_hsts_enforcer_get_type")!!) { HstsEnforcer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { HstsEnforcer(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -208,6 +214,17 @@ public open class HstsEnforcer(public val soupHstsEnforcerPointer: CPointer<Soup
          * @return the GType
          */
         public fun getType(): GType = soup_hsts_enforcer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_hsts_enforcer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_hsts_enforcer_get_type")
     }
 }
 

@@ -14,11 +14,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -67,6 +67,10 @@ import kotlin.Unit
 public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEmojiChooser>) :
     Popover(gtkEmojiChooserPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -87,7 +91,9 @@ public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEm
      *
      * @return a new `GtkEmojiChooser`
      */
-    public constructor() : this(gtk_emoji_chooser_new()!!.reinterpret())
+    public constructor() : this(gtk_emoji_chooser_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted when the user selects an Emoji.
@@ -116,7 +122,7 @@ public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEm
 
     public companion object : TypeCompanion<EmojiChooser> {
         override val type: GeneratedClassKGType<EmojiChooser> =
-            GeneratedClassKGType(getTypeOrNull("gtk_emoji_chooser_get_type")!!) { EmojiChooser(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { EmojiChooser(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -128,6 +134,17 @@ public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEm
          * @return the GType
          */
         public fun getType(): GType = gtk_emoji_chooser_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_emoji_chooser_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_emoji_chooser_get_type")
     }
 }
 

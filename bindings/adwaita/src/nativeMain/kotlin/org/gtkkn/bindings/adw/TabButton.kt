@@ -14,11 +14,11 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwTabButton
 import org.gtkkn.native.adw.adw_tab_button_get_type
 import org.gtkkn.native.adw.adw_tab_button_get_view
@@ -70,6 +70,10 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
     Widget(adwTabButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkActionablePointer: CPointer<GtkActionable>
         get() = handle.reinterpret()
 
@@ -96,7 +100,7 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
          * @since 1.3
          */
         get() = adw_tab_button_get_view(adwTabButtonPointer)?.run {
-            TabView(this)
+            InstanceCache.get(this, true) { TabView(reinterpret()) }!!
         }
 
         /**
@@ -114,7 +118,9 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
      * @return the newly created `AdwTabButton`
      * @since 1.3
      */
-    public constructor() : this(adw_tab_button_new()!!.reinterpret())
+    public constructor() : this(adw_tab_button_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted to animate press then release.
@@ -177,7 +183,7 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
 
     public companion object : TypeCompanion<TabButton> {
         override val type: GeneratedClassKGType<TabButton> =
-            GeneratedClassKGType(getTypeOrNull("adw_tab_button_get_type")!!) { TabButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TabButton(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -189,6 +195,17 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
          * @return the GType
          */
         public fun getType(): GType = adw_tab_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_tab_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_tab_button_get_type")
     }
 }
 

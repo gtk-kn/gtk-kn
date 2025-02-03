@@ -11,6 +11,7 @@ import org.gtkkn.bindings.graphene.Point3d
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.graphene.Vec3
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gfloat
@@ -63,6 +64,10 @@ import org.gtkkn.bindings.glib.String as GlibString
  * - parameter `out_transform`: out_transform: Out parameter is not supported
  */
 public class Transform(public val gskTransformPointer: CPointer<GskTransform>) : ProxyInstance(gskTransformPointer) {
+    public constructor() : this(gsk_transform_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Checks two transforms for equality.
      *
@@ -296,8 +301,6 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
     public fun unref(): Unit = gsk_transform_unref(gskTransformPointer)
 
     public companion object {
-        public fun new(): Transform = Transform(gsk_transform_new()!!)
-
         /**
          * Get the GType of Transform
          *

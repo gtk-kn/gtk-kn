@@ -6,11 +6,10 @@ package org.gtkkn.bindings.soup
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuthDomainBasic
 import org.gtkkn.native.soup.soup_auth_domain_basic_get_type
@@ -32,6 +31,10 @@ import kotlin.Unit
 public class AuthDomainBasic(public val soupAuthDomainBasicPointer: CPointer<SoupAuthDomainBasic>) :
     AuthDomain(soupAuthDomainBasicPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * Sets the callback that @domain will use to authenticate incoming
      * requests.
@@ -56,9 +59,7 @@ public class AuthDomainBasic(public val soupAuthDomainBasicPointer: CPointer<Sou
 
     public companion object : TypeCompanion<AuthDomainBasic> {
         override val type: GeneratedClassKGType<AuthDomainBasic> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_domain_basic_get_type")!!) {
-                AuthDomainBasic(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { AuthDomainBasic(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -70,5 +71,16 @@ public class AuthDomainBasic(public val soupAuthDomainBasicPointer: CPointer<Sou
          * @return the GType
          */
         public fun getType(): GType = soup_auth_domain_basic_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_auth_domain_basic_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_auth_domain_basic_get_type")
     }
 }

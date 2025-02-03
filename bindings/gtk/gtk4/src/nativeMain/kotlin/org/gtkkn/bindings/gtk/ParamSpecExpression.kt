@@ -6,10 +6,9 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.ParamSpec
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkParamSpecExpression
 import org.gtkkn.native.gtk.gtk_param_expression_get_type
@@ -20,11 +19,13 @@ import org.gtkkn.native.gtk.gtk_param_expression_get_type
 public open class ParamSpecExpression(public val gtkParamSpecExpressionPointer: CPointer<GtkParamSpecExpression>) :
     ParamSpec(gtkParamSpecExpressionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public companion object : TypeCompanion<ParamSpecExpression> {
         override val type: GeneratedClassKGType<ParamSpecExpression> =
-            GeneratedClassKGType(getTypeOrNull("gtk_param_expression_get_type")!!) {
-                ParamSpecExpression(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ParamSpecExpression(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -36,5 +37,16 @@ public open class ParamSpecExpression(public val gtkParamSpecExpressionPointer: 
          * @return the GType
          */
         public fun getType(): GType = gtk_param_expression_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_param_expression_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_param_expression_get_type")
     }
 }

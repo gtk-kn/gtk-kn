@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -24,6 +24,13 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.AlertDialog] instead
+ * ---
+ *
  * `GtkMessageDialog` presents a dialog with some message text.
  *
  * ![An example GtkMessageDialog](messagedialog.png)
@@ -97,6 +104,10 @@ import kotlin.Unit
 public open class MessageDialog(public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>) :
     Dialog(gtkMessageDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -123,6 +134,13 @@ public open class MessageDialog(public val gtkMessageDialogPointer: CPointer<Gtk
      */
     public open val messageArea: Widget
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.AlertDialog] instead
+         * ---
+         *
          * Returns the message area of the dialog.
          *
          * This is the box where the dialog’s primary and secondary labels
@@ -134,10 +152,17 @@ public open class MessageDialog(public val gtkMessageDialogPointer: CPointer<Gtk
          *   “message area” in the @message_dialog
          */
         get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer)!!.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.AlertDialog] instead
+     * ---
+     *
      * Sets the text of the message dialog.
      *
      * @param str string with Pango markup
@@ -146,7 +171,7 @@ public open class MessageDialog(public val gtkMessageDialogPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<MessageDialog> {
         override val type: GeneratedClassKGType<MessageDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_message_dialog_get_type")!!) { MessageDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { MessageDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -158,5 +183,16 @@ public open class MessageDialog(public val gtkMessageDialogPointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_message_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_message_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_message_dialog_get_type")
     }
 }

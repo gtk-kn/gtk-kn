@@ -185,6 +185,7 @@ sealed class TypeInfo {
         override val kotlinTypeName: TypeName,
         val kotlinTypeNameImpl: TypeName?,
         val objectPointerName: String,
+        val isGObject: Boolean,
         private val needsReinterpret: Boolean = false,
     ) : TypeInfo() {
         override val isCinteropNullable = true

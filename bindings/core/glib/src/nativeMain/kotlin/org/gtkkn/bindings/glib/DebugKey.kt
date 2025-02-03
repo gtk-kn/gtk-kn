@@ -11,22 +11,19 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDebugKey
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Associates a string with a bit flag.
  * Used in g_parse_debug_string().
  */
-public class DebugKey(public val glibDebugKeyPointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibDebugKeyPointer) {
+public class DebugKey(public val glibDebugKeyPointer: CPointer<GDebugKey>) : ProxyInstance(glibDebugKeyPointer) {
     /**
      * the string
      */
@@ -56,21 +53,9 @@ public class DebugKey(public val glibDebugKeyPointer: CPointer<GDebugKey>, clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDebugKey>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DebugKey and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDebugKey>, Cleaner>,
-    ) : this(glibDebugKeyPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDebugKey>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DebugKey using the provided [AutofreeScope].

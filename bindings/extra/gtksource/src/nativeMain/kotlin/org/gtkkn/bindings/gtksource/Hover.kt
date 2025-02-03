@@ -6,10 +6,9 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceHover
 import org.gtkkn.native.gtksource.gtk_source_hover_add_provider
@@ -39,6 +38,10 @@ import kotlin.Unit
 public open class Hover(public val gtksourceHoverPointer: CPointer<GtkSourceHover>) :
     Object(gtksourceHoverPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open fun addProvider(provider: HoverProvider): Unit =
         gtk_source_hover_add_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)
 
@@ -47,10 +50,10 @@ public open class Hover(public val gtksourceHoverPointer: CPointer<GtkSourceHove
 
     public companion object : TypeCompanion<Hover> {
         override val type: GeneratedClassKGType<Hover> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_hover_get_type")!!) { Hover(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Hover(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -59,5 +62,16 @@ public open class Hover(public val gtksourceHoverPointer: CPointer<GtkSourceHove
          * @return the GType
          */
         public fun getType(): GType = gtk_source_hover_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_hover_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_hover_get_type")
     }
 }

@@ -10,13 +10,11 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.pango.PangoAttrFloat
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrFloat` structure is used to represent attributes with
@@ -26,7 +24,7 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
-public class AttrFloat(public val pangoAttrFloatPointer: CPointer<PangoAttrFloat>, cleaner: Cleaner? = null) :
+public class AttrFloat(public val pangoAttrFloatPointer: CPointer<PangoAttrFloat>) :
     ProxyInstance(pangoAttrFloatPointer) {
     /**
      * the value of the attribute
@@ -45,21 +43,9 @@ public class AttrFloat(public val pangoAttrFloatPointer: CPointer<PangoAttrFloat
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrFloat>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to AttrFloat and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoAttrFloat>, Cleaner>,
-    ) : this(pangoAttrFloatPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoAttrFloat>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new AttrFloat using the provided [AutofreeScope].

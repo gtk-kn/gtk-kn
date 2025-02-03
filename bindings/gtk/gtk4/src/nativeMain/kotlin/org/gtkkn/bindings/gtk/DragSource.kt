@@ -16,13 +16,13 @@ import org.gtkkn.bindings.gdk.DragAction
 import org.gtkkn.bindings.gdk.DragCancelReason
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkContentProvider
 import org.gtkkn.native.gdk.GdkDrag
 import org.gtkkn.native.gdk.GdkDragCancelReason
@@ -127,6 +127,10 @@ import kotlin.Unit
 public open class DragSource(public val gtkDragSourcePointer: CPointer<GtkDragSource>) :
     GestureSingle(gtkDragSourcePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The actions that are supported by drag operations from the source.
      *
@@ -168,7 +172,7 @@ public open class DragSource(public val gtkDragSourcePointer: CPointer<GtkDragSo
          * @return the `GdkContentProvider` of @source
          */
         get() = gtk_drag_source_get_content(gtkDragSourcePointer)?.run {
-            ContentProvider(this)
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
         }
 
         /**
@@ -192,7 +196,9 @@ public open class DragSource(public val gtkDragSourcePointer: CPointer<GtkDragSo
      *
      * @return the new `GtkDragSource`
      */
-    public constructor() : this(gtk_drag_source_new()!!.reinterpret())
+    public constructor() : this(gtk_drag_source_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Cancels a currently ongoing drag operation.
@@ -206,7 +212,7 @@ public open class DragSource(public val gtkDragSourcePointer: CPointer<GtkDragSo
      *   drag operation
      */
     public open fun getDrag(): Drag? = gtk_drag_source_get_drag(gtkDragSourcePointer)?.run {
-        Drag.DragImpl(this)
+        InstanceCache.get(this, true) { Drag.DragImpl(reinterpret()) }!!
     }
 
     /**
@@ -342,7 +348,7 @@ public open class DragSource(public val gtkDragSourcePointer: CPointer<GtkDragSo
 
     public companion object : TypeCompanion<DragSource> {
         override val type: GeneratedClassKGType<DragSource> =
-            GeneratedClassKGType(getTypeOrNull("gtk_drag_source_get_type")!!) { DragSource(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DragSource(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -354,6 +360,17 @@ public open class DragSource(public val gtkDragSourcePointer: CPointer<GtkDragSo
          * @return the GType
          */
         public fun getType(): GType = gtk_drag_source_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_drag_source_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_drag_source_get_type")
     }
 }
 
@@ -364,7 +381,7 @@ private val onDragBeginFunc: CPointer<CFunction<(CPointer<GdkDrag>) -> Unit>> = 
     ->
     userData.asStableRef<(drag: Drag) -> Unit>().get().invoke(
         drag!!.run {
-            Drag.DragImpl(this)
+            InstanceCache.get(this, false) { Drag.DragImpl(reinterpret()) }!!
         }
     )
 }
@@ -380,7 +397,7 @@ private val onDragCancelFunc:
         ->
         userData.asStableRef<(drag: Drag, reason: DragCancelReason) -> Boolean>().get().invoke(
             drag!!.run {
-                Drag.DragImpl(this)
+                InstanceCache.get(this, false) { Drag.DragImpl(reinterpret()) }!!
             },
             reason.run {
                 DragCancelReason.fromNativeValue(this)
@@ -398,7 +415,7 @@ private val onDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, gboolean) -> U
         ->
         userData.asStableRef<(drag: Drag, deleteData: Boolean) -> Unit>().get().invoke(
             drag!!.run {
-                Drag.DragImpl(this)
+                InstanceCache.get(this, false) { Drag.DragImpl(reinterpret()) }!!
             },
             deleteData.asBoolean()
         )

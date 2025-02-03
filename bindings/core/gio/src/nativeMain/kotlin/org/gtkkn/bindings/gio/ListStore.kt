@@ -11,10 +11,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.CompareDataFunc
 import org.gtkkn.bindings.glib.CompareDataFuncFunc
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gio.GListStore
 import org.gtkkn.native.gio.g_list_store_append
@@ -49,6 +49,10 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
     Object(gioListStorePointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 
@@ -60,7 +64,9 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
      * @return a new #GListStore
      * @since 2.44
      */
-    public constructor(itemType: GType) : this(g_list_store_new(itemType)!!.reinterpret())
+    public constructor(itemType: GType) : this(g_list_store_new(itemType)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends @item to @store. @item must be of type #GListStore:item-type.
@@ -154,7 +160,7 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
 
     public companion object : TypeCompanion<ListStore> {
         override val type: GeneratedClassKGType<ListStore> =
-            GeneratedClassKGType(getTypeOrNull("g_list_store_get_type")!!) { ListStore(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ListStore(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -166,5 +172,15 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
          * @return the GType
          */
         public fun getType(): GType = g_list_store_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_list_store_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_list_store_get_type")
     }
 }

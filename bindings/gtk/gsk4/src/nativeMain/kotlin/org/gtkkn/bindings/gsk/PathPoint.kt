@@ -13,6 +13,7 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gfloat
@@ -31,11 +32,8 @@ import org.gtkkn.native.gsk.gsk_path_point_get_rotation
 import org.gtkkn.native.gsk.gsk_path_point_get_tangent
 import org.gtkkn.native.gsk.gsk_path_point_get_type
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * `GskPathPoint` is an opaque type representing a point on a path.
@@ -60,8 +58,7 @@ import kotlin.native.ref.createCleaner
  * @since 4.14
  */
 @GskVersion4_14
-public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null) :
-    ProxyInstance(gskPathPointPointer) {
+public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>) : ProxyInstance(gskPathPointPointer) {
     public var contour: gsize
         get() = gskPathPointPointer.pointed.contour
 
@@ -92,21 +89,9 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GskPathPoint>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PathPoint and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GskPathPoint>, Cleaner>,
-    ) : this(gskPathPointPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GskPathPoint>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PathPoint using the provided [AutofreeScope].

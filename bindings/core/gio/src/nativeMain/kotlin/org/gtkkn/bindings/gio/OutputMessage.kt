@@ -9,15 +9,15 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gio.GOutputMessage
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure used for scatter/gather data output when sending multiple
@@ -35,14 +35,14 @@ import kotlin.native.ref.createCleaner
  * @since 2.44
  */
 @GioVersion2_44
-public class OutputMessage(public val gioOutputMessagePointer: CPointer<GOutputMessage>, cleaner: Cleaner? = null) :
+public class OutputMessage(public val gioOutputMessagePointer: CPointer<GOutputMessage>) :
     ProxyInstance(gioOutputMessagePointer) {
     /**
      * a #GSocketAddress, or null
      */
     public var address: SocketAddress?
         get() = gioOutputMessagePointer.pointed.address?.run {
-            SocketAddress.SocketAddressImpl(this)
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         @UnsafeFieldSetter
@@ -103,21 +103,9 @@ public class OutputMessage(public val gioOutputMessagePointer: CPointer<GOutputM
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GOutputMessage>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to OutputMessage and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GOutputMessage>, Cleaner>,
-    ) : this(gioOutputMessagePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GOutputMessage>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new OutputMessage using the provided [AutofreeScope].

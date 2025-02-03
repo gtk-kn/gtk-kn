@@ -13,6 +13,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusInterfaceInfo
 import org.gtkkn.native.gio.g_dbus_interface_info_cache_build
@@ -29,10 +30,7 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -49,10 +47,8 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusInterfaceInfo(
-    public val gioDBusInterfaceInfoPointer: CPointer<GDBusInterfaceInfo>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gioDBusInterfaceInfoPointer) {
+public class DBusInterfaceInfo(public val gioDBusInterfaceInfoPointer: CPointer<GDBusInterfaceInfo>) :
+    ProxyInstance(gioDBusInterfaceInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
      */
@@ -82,21 +78,9 @@ public class DBusInterfaceInfo(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusInterfaceInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DBusInterfaceInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDBusInterfaceInfo>, Cleaner>,
-    ) : this(gioDBusInterfaceInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDBusInterfaceInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DBusInterfaceInfo using the provided [AutofreeScope].

@@ -21,12 +21,12 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserContentFilterStore
@@ -71,6 +71,10 @@ public class UserContentFilterStore(
     public val webkitUserContentFilterStorePointer: CPointer<WebKitUserContentFilterStore>,
 ) : Object(webkitUserContentFilterStorePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The directory used for filter storage. This path is used as the base
      * directory where user content filters are stored on disk.
@@ -97,7 +101,9 @@ public class UserContentFilterStore(
      * @return a newly created #WebKitUserContentFilterStore
      * @since 2.24
      */
-    public constructor(storagePath: String) : this(webkit_user_content_filter_store_new(storagePath)!!.reinterpret())
+    public constructor(storagePath: String) : this(webkit_user_content_filter_store_new(storagePath)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Asynchronously retrieve a list of the identifiers for all the stored filters.
@@ -362,12 +368,10 @@ public class UserContentFilterStore(
 
     public companion object : TypeCompanion<UserContentFilterStore> {
         override val type: GeneratedClassKGType<UserContentFilterStore> =
-            GeneratedClassKGType(getTypeOrNull("webkit_user_content_filter_store_get_type")!!) {
-                UserContentFilterStore(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { UserContentFilterStore(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -376,5 +380,16 @@ public class UserContentFilterStore(
          * @return the GType
          */
         public fun getType(): GType = webkit_user_content_filter_store_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_user_content_filter_store_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_user_content_filter_store_get_type")
     }
 }

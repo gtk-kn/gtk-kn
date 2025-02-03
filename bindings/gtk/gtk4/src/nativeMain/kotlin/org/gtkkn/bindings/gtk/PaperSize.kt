@@ -8,13 +8,15 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.KeyFile
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gtk.Gtk.resolveException
+import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -49,8 +51,8 @@ import org.gtkkn.native.gtk.gtk_paper_size_set_size
 import org.gtkkn.native.gtk.gtk_paper_size_to_gvariant
 import org.gtkkn.native.gtk.gtk_paper_size_to_key_file
 import kotlin.Boolean
-import kotlin.Result
 import kotlin.String
+import kotlin.Throws
 
 /**
  * `GtkPaperSize` handles paper sizes.
@@ -66,6 +68,127 @@ import kotlin.String
  * default print margins.
  */
 public class PaperSize(public val gtkPaperSizePointer: CPointer<GtkPaperSize>) : ProxyInstance(gtkPaperSizePointer) {
+    /**
+     * Creates a new `GtkPaperSize` object by parsing a
+     * [PWG 5101.1-2002](ftp://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn10-20020226-5101.1.pdf)
+     * paper name.
+     *
+     * If @name is null, the default paper size is returned,
+     * see [func@Gtk.PaperSize.get_default].
+     *
+     * @param name a paper size name
+     * @return a new `GtkPaperSize`, use [method@Gtk.PaperSize.free]
+     * to free it
+     */
+    public constructor(name: String? = null) : this(gtk_paper_size_new(name)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new `GtkPaperSize` object with the
+     * given parameters.
+     *
+     * @param name the paper name
+     * @param displayName the human-readable name
+     * @param width the paper width, in units of @unit
+     * @param height the paper height, in units of @unit
+     * @param unit the unit for @width and @height. not %GTK_UNIT_NONE.
+     * @return a new `GtkPaperSize` object, use [method@Gtk.PaperSize.free]
+     * to free it
+     */
+    public constructor(
+        name: String,
+        displayName: String,
+        width: gdouble,
+        height: gdouble,
+        unit: Unit,
+    ) : this(gtk_paper_size_new_custom(name, displayName, width, height, unit.nativeValue)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Deserialize a paper size from a `GVariant`.
+     *
+     * The `GVariant must be in the format produced by
+     * [method@Gtk.PaperSize.to_gvariant].
+     *
+     * @param variant an a{sv} `GVariant`
+     * @return a new `GtkPaperSize` object
+     */
+    public constructor(variant: Variant) : this(gtk_paper_size_new_from_gvariant(variant.glibVariantPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new `GtkPaperSize` object by using
+     * IPP information.
+     *
+     * If @ipp_name is not a recognized paper name,
+     * @width and @height are used to
+     * construct a custom `GtkPaperSize` object.
+     *
+     * @param ippName an IPP paper name
+     * @param width the paper width, in points
+     * @param height the paper height in points
+     * @return a new `GtkPaperSize`, use [method@Gtk.PaperSize.free]
+     * to free it
+     */
+    public constructor(
+        ippName: String,
+        width: gdouble,
+        height: gdouble,
+    ) : this(gtk_paper_size_new_from_ipp(ippName, width, height)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Reads a paper size from the group @group_name in the key file
+     * @key_file.
+     *
+     * @param keyFile the `GKeyFile` to retrieve the papersize from
+     * @param groupName the name of the group in the key file to read,
+     *   or null to read the first group
+     * @return a new `GtkPaperSize` object with the restored paper size
+     */
+    @Throws(GLibException::class)
+    public constructor(keyFile: KeyFile, groupName: String? = null) : this(
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = gtk_paper_size_new_from_key_file(keyFile.glibKeyFilePointer, groupName, gError.ptr)
+            if (gError.pointed != null) {
+                throw resolveException(Error(gError.pointed!!.ptr))
+            }
+            gResult!!
+        }
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new `GtkPaperSize` object by using
+     * PPD information.
+     *
+     * If @ppd_name is not a recognized PPD paper name,
+     * @ppd_display_name, @width and @height are used to
+     * construct a custom `GtkPaperSize` object.
+     *
+     * @param ppdName a PPD paper name
+     * @param ppdDisplayName the corresponding human-readable name
+     * @param width the paper width, in points
+     * @param height the paper height in points
+     * @return a new `GtkPaperSize`, use [method@Gtk.PaperSize.free]
+     * to free it
+     */
+    public constructor(
+        ppdName: String,
+        ppdDisplayName: String,
+        width: gdouble,
+        height: gdouble,
+    ) : this(gtk_paper_size_new_from_ppd(ppdName, ppdDisplayName, width, height)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies an existing `GtkPaperSize`.
      *
@@ -212,109 +335,6 @@ public class PaperSize(public val gtkPaperSizePointer: CPointer<GtkPaperSize>) :
         gtk_paper_size_to_key_file(gtkPaperSizePointer, keyFile.glibKeyFilePointer, groupName)
 
     public companion object {
-        /**
-         * Creates a new `GtkPaperSize` object by parsing a
-         * [PWG 5101.1-2002](ftp://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn10-20020226-5101.1.pdf)
-         * paper name.
-         *
-         * If @name is null, the default paper size is returned,
-         * see [func@Gtk.PaperSize.get_default].
-         *
-         * @param name a paper size name
-         * @return a new `GtkPaperSize`, use [method@Gtk.PaperSize.free]
-         * to free it
-         */
-        public fun new(name: String? = null): PaperSize = PaperSize(gtk_paper_size_new(name)!!.reinterpret())
-
-        /**
-         * Creates a new `GtkPaperSize` object with the
-         * given parameters.
-         *
-         * @param name the paper name
-         * @param displayName the human-readable name
-         * @param width the paper width, in units of @unit
-         * @param height the paper height, in units of @unit
-         * @param unit the unit for @width and @height. not %GTK_UNIT_NONE.
-         * @return a new `GtkPaperSize` object, use [method@Gtk.PaperSize.free]
-         * to free it
-         */
-        public fun newCustom(
-            name: String,
-            displayName: String,
-            width: gdouble,
-            height: gdouble,
-            unit: Unit,
-        ): PaperSize =
-            PaperSize(gtk_paper_size_new_custom(name, displayName, width, height, unit.nativeValue)!!.reinterpret())
-
-        /**
-         * Deserialize a paper size from a `GVariant`.
-         *
-         * The `GVariant must be in the format produced by
-         * [method@Gtk.PaperSize.to_gvariant].
-         *
-         * @param variant an a{sv} `GVariant`
-         * @return a new `GtkPaperSize` object
-         */
-        public fun newFromGvariant(variant: Variant): PaperSize =
-            PaperSize(gtk_paper_size_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
-
-        /**
-         * Creates a new `GtkPaperSize` object by using
-         * IPP information.
-         *
-         * If @ipp_name is not a recognized paper name,
-         * @width and @height are used to
-         * construct a custom `GtkPaperSize` object.
-         *
-         * @param ippName an IPP paper name
-         * @param width the paper width, in points
-         * @param height the paper height in points
-         * @return a new `GtkPaperSize`, use [method@Gtk.PaperSize.free]
-         * to free it
-         */
-        public fun newFromIpp(ippName: String, width: gdouble, height: gdouble): PaperSize =
-            PaperSize(gtk_paper_size_new_from_ipp(ippName, width, height)!!.reinterpret())
-
-        /**
-         * Reads a paper size from the group @group_name in the key file
-         * @key_file.
-         *
-         * @param keyFile the `GKeyFile` to retrieve the papersize from
-         * @param groupName the name of the group in the key file to read,
-         *   or null to read the first group
-         * @return a new `GtkPaperSize` object with the restored paper size
-         */
-        public fun newFromKeyFile(keyFile: KeyFile, groupName: String? = null): Result<PaperSize> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = gtk_paper_size_new_from_key_file(keyFile.glibKeyFilePointer, groupName, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(PaperSize(checkNotNull(gResult)))
-                }
-            }
-        }
-
-        /**
-         * Creates a new `GtkPaperSize` object by using
-         * PPD information.
-         *
-         * If @ppd_name is not a recognized PPD paper name,
-         * @ppd_display_name, @width and @height are used to
-         * construct a custom `GtkPaperSize` object.
-         *
-         * @param ppdName a PPD paper name
-         * @param ppdDisplayName the corresponding human-readable name
-         * @param width the paper width, in points
-         * @param height the paper height in points
-         * @return a new `GtkPaperSize`, use [method@Gtk.PaperSize.free]
-         * to free it
-         */
-        public fun newFromPpd(ppdName: String, ppdDisplayName: String, width: gdouble, height: gdouble): PaperSize =
-            PaperSize(gtk_paper_size_new_from_ppd(ppdName, ppdDisplayName, width, height)!!.reinterpret())
-
         /**
          * Returns the name of the default paper size, which
          * depends on the current locale.

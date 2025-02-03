@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -45,6 +46,17 @@ import kotlin.collections.List
 @GLibVersion2_68
 public class StrvBuilder(public val glibStrvBuilderPointer: CPointer<GStrvBuilder>) :
     ProxyInstance(glibStrvBuilderPointer) {
+    /**
+     * Creates a new #GStrvBuilder with a reference count of 1.
+     * Use g_strv_builder_unref() on the returned value when no longer needed.
+     *
+     * @return the new #GStrvBuilder
+     * @since 2.68
+     */
+    public constructor() : this(g_strv_builder_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Add a string to the end of the array.
      *
@@ -112,15 +124,6 @@ public class StrvBuilder(public val glibStrvBuilderPointer: CPointer<GStrvBuilde
     public fun unref(): Unit = g_strv_builder_unref(glibStrvBuilderPointer)
 
     public companion object {
-        /**
-         * Creates a new #GStrvBuilder with a reference count of 1.
-         * Use g_strv_builder_unref() on the returned value when no longer needed.
-         *
-         * @return the new #GStrvBuilder
-         * @since 2.68
-         */
-        public fun new(): StrvBuilder = StrvBuilder(g_strv_builder_new()!!)
-
         /**
          * Get the GType of StrvBuilder
          *

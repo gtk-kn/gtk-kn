@@ -13,6 +13,7 @@ import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -127,6 +128,20 @@ import kotlin.collections.List
 public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmarkFile>) :
     ProxyInstance(glibBookmarkFilePointer) {
     /**
+     * Creates a new empty #GBookmarkFile object.
+     *
+     * Use g_bookmark_file_load_from_file(), g_bookmark_file_load_from_data()
+     * or g_bookmark_file_load_from_data_dirs() to read an existing bookmark
+     * file.
+     *
+     * @return an empty #GBookmarkFile
+     * @since 2.12
+     */
+    public constructor() : this(g_bookmark_file_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
      * Adds the application with @name and @exec to the list of
      * applications that have registered a bookmark for @uri into
      * @bookmark.
@@ -195,6 +210,14 @@ public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmark
     public fun free(): Unit = g_bookmark_file_free(glibBookmarkFilePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_get_added_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Gets the time the bookmark for @uri was added to @bookmark
      *
      * In the event the URI cannot be found, -1 is returned and
@@ -309,6 +332,14 @@ public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmark
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_get_modified_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Gets the time when the bookmark for @uri was last modified.
      *
      * In the event the URI cannot be found, -1 is returned and
@@ -387,6 +418,14 @@ public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmark
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_get_visited_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Gets the time the bookmark for @uri was last visited.
      *
      * In the event the URI cannot be found, -1 is returned and
@@ -602,6 +641,14 @@ public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmark
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_set_added_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the time the bookmark for @uri was added into @bookmark.
      *
      * If no bookmark for @uri is found then it is created.
@@ -627,6 +674,14 @@ public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmark
         g_bookmark_file_set_added_date_time(glibBookmarkFilePointer, uri, added.glibDateTimePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_set_application_info() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the meta-data of application @name inside the list of
      * applications that have registered a bookmark for @uri inside
      * @bookmark.
@@ -824,6 +879,14 @@ public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmark
         g_bookmark_file_set_mime_type(glibBookmarkFilePointer, uri, mimeType)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_set_modified_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the last time the bookmark for @uri was last modified.
      *
      * If no bookmark for @uri is found then it is created.
@@ -876,6 +939,14 @@ public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmark
         g_bookmark_file_set_title(glibBookmarkFilePointer, uri, title)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_set_visited_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the time the bookmark for @uri was last visited.
      *
      * If no bookmark for @uri is found then it is created.
@@ -933,18 +1004,6 @@ public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmark
     }
 
     public companion object {
-        /**
-         * Creates a new empty #GBookmarkFile object.
-         *
-         * Use g_bookmark_file_load_from_file(), g_bookmark_file_load_from_data()
-         * or g_bookmark_file_load_from_data_dirs() to read an existing bookmark
-         * file.
-         *
-         * @return an empty #GBookmarkFile
-         * @since 2.12
-         */
-        public fun new(): BookmarkFile = BookmarkFile(g_bookmark_file_new()!!)
-
         public fun errorQuark(): Quark = g_bookmark_file_error_quark()
 
         /**

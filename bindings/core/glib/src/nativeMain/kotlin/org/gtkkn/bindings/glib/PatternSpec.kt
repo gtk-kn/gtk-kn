@@ -4,8 +4,8 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GPatternSpec
@@ -42,6 +42,16 @@ import kotlin.Unit
  */
 public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpec>) :
     ProxyInstance(glibPatternSpecPointer) {
+    /**
+     * Compiles a pattern to a #GPatternSpec.
+     *
+     * @param pattern a zero-terminated UTF-8 encoded string
+     * @return a newly-allocated #GPatternSpec
+     */
+    public constructor(pattern: String) : this(g_pattern_spec_new(pattern)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies @pspec in a new #GPatternSpec.
      *
@@ -112,14 +122,6 @@ public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpe
         g_pattern_spec_match_string(glibPatternSpecPointer, string).asBoolean()
 
     public companion object {
-        /**
-         * Compiles a pattern to a #GPatternSpec.
-         *
-         * @param pattern a zero-terminated UTF-8 encoded string
-         * @return a newly-allocated #GPatternSpec
-         */
-        public fun new(pattern: String): PatternSpec = PatternSpec(g_pattern_spec_new(pattern)!!.reinterpret())
-
         /**
          * Get the GType of PatternSpec
          *

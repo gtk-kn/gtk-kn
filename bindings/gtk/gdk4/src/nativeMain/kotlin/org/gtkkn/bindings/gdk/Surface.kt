@@ -21,13 +21,13 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.cairo.cairo_region_t
 import org.gtkkn.native.gdk.GdkEvent
 import org.gtkkn.native.gdk.GdkMonitor
@@ -89,6 +89,10 @@ import kotlin.Unit
 public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>) :
     Object(gdkSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The mouse pointer for the `GdkSurface`.
      */
@@ -105,7 +109,7 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
          * @return a `GdkCursor`
          */
         get() = gdk_surface_get_cursor(gdkSurfacePointer)?.run {
-            Cursor(this)
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!
         }
 
         /**
@@ -132,7 +136,7 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
          * @return the `GdkDisplay` associated with @surface
          */
         get() = gdk_surface_get_display(gdkSurfacePointer)!!.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -148,7 +152,7 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
          * @return the frame clock
          */
         get() = gdk_surface_get_frame_clock(gdkSurfacePointer)!!.run {
-            FrameClock.FrameClockImpl(this)
+            InstanceCache.get(this, true) { FrameClock.FrameClockImpl(reinterpret()) }!!
         }
 
     /**
@@ -255,7 +259,9 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
     public constructor(
         parent: Surface,
         autohide: Boolean,
-    ) : this(gdk_surface_new_popup(parent.gdkSurfacePointer, autohide.asGBoolean())!!.reinterpret())
+    ) : this(gdk_surface_new_popup(parent.gdkSurfacePointer, autohide.asGBoolean())!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new toplevel surface.
@@ -263,7 +269,9 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
      * @param display the display to create the surface on
      * @return the new `GdkSurface`
      */
-    public constructor(display: Display) : this(gdk_surface_new_toplevel(display.gdkDisplayPointer)!!.reinterpret())
+    public constructor(display: Display) : this(gdk_surface_new_toplevel(display.gdkDisplayPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emits a short beep associated to @surface.
@@ -279,7 +287,7 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
      * @return the newly created `GdkCairoContext`
      */
     public open fun createCairoContext(): CairoContext = gdk_surface_create_cairo_context(gdkSurfacePointer)!!.run {
-        CairoContext.CairoContextImpl(this)
+        InstanceCache.get(this, true) { CairoContext.CairoContextImpl(reinterpret()) }!!
     }
 
     /**
@@ -295,7 +303,7 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
     public open fun createGlContext(): Result<GlContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_surface_create_gl_context(gdkSurfacePointer, gError.ptr)?.run {
-            GlContext.GlContextImpl(this)
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -306,6 +314,13 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Create a suitable cairo image surface yourself
+     * ---
+     *
      * Create a new Cairo surface that is as compatible as possible with the
      * given @surface.
      *
@@ -339,6 +354,14 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.14.
+     *
+     * GTK does not expose any Vulkan internals. This
+     *   function is a leftover that was accidentally exposed.
+     * ---
+     *
      * Sets an error and returns null.
      *
      * @return null
@@ -346,7 +369,7 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
     public open fun createVulkanContext(): Result<VulkanContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_surface_create_vulkan_context(gdkSurfacePointer, gError.ptr)?.run {
-            VulkanContext.VulkanContextImpl(this)
+            InstanceCache.get(this, true) { VulkanContext.VulkanContextImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -383,7 +406,7 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
      */
     public open fun getDeviceCursor(device: Device): Cursor? =
         gdk_surface_get_device_cursor(gdkSurfacePointer, device.gdkDevicePointer)?.run {
-            Cursor(this)
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!
         }
 
     /**
@@ -605,7 +628,7 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
 
     public companion object : TypeCompanion<Surface> {
         override val type: GeneratedClassKGType<Surface> =
-            GeneratedClassKGType(getTypeOrNull("gdk_surface_get_type")!!) { SurfaceImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { SurfaceImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -617,6 +640,16 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
          * @return the GType
          */
         public fun getType(): GType = gdk_surface_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_surface_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_surface_get_type")
     }
 }
 
@@ -628,7 +661,7 @@ private val onEnterMonitorFunc: CPointer<CFunction<(CPointer<GdkMonitor>) -> Uni
         ->
         userData.asStableRef<(monitor: Monitor) -> Unit>().get().invoke(
             monitor!!.run {
-                Monitor(this)
+                InstanceCache.get(this, false) { Monitor(reinterpret()) }!!
             }
         )
     }
@@ -665,7 +698,7 @@ private val onLeaveMonitorFunc: CPointer<CFunction<(CPointer<GdkMonitor>) -> Uni
         ->
         userData.asStableRef<(monitor: Monitor) -> Unit>().get().invoke(
             monitor!!.run {
-                Monitor(this)
+                InstanceCache.get(this, false) { Monitor(reinterpret()) }!!
             }
         )
     }

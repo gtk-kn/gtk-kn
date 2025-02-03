@@ -7,12 +7,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwViewSwitcherTitle
 import org.gtkkn.native.adw.adw_view_switcher_title_get_stack
 import org.gtkkn.native.adw.adw_view_switcher_title_get_subtitle
@@ -33,6 +33,13 @@ import kotlin.Boolean
 import kotlin.String
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+ * ---
+ *
  * A view switcher title.
  *
  * <picture>
@@ -96,6 +103,10 @@ import kotlin.String
 public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<AdwViewSwitcherTitle>) :
     Widget(adwViewSwitcherTitlePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -106,19 +117,40 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * The stack the view switcher controls.
      */
     public var stack: ViewStack?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets the stack controlled by @self.
          *
          * @return the stack
          */
         get() = adw_view_switcher_title_get_stack(adwViewSwitcherTitlePointer)?.run {
-            ViewStack(this)
+            InstanceCache.get(this, true) { ViewStack(reinterpret()) }!!
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Sets the stack controlled by @self.
          *
          * @param stack a stack
@@ -126,12 +158,26 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
         set(stack) = adw_view_switcher_title_set_stack(adwViewSwitcherTitlePointer, stack?.adwViewStackPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * The subtitle to display.
      *
      * The subtitle should give the user additional details.
      */
     public var subtitle: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets the subtitle of @self.
          *
          * @return the subtitle
@@ -140,6 +186,13 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Sets the subtitle of @self.
          *
          * The subtitle should give the user additional details.
@@ -149,6 +202,13 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
         set(subtitle) = adw_view_switcher_title_set_subtitle(adwViewSwitcherTitlePointer, subtitle)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * The title to display.
      *
      * The title typically identifies the current view or content item, and
@@ -156,6 +216,13 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
      */
     public var title: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets the title of @self.
          *
          * @return the title
@@ -164,6 +231,13 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Sets the title of @self.
          *
          * The title typically identifies the current view or content item, and
@@ -174,6 +248,13 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
         set(title) = adw_view_switcher_title_set_title(adwViewSwitcherTitlePointer, title)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * Whether the title is currently visible.
      *
      * If the title is visible, it means the view switcher is hidden an it may be
@@ -181,6 +262,13 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
      */
     public val titleVisible: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets whether the title of @self is currently visible.
          *
          * If the title is visible, it means the view switcher is hidden an it may be
@@ -191,6 +279,13 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
         get() = adw_view_switcher_title_get_title_visible(adwViewSwitcherTitlePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * Whether the view switcher is enabled.
      *
      * If it is disabled, the title will be displayed instead. This allows to
@@ -202,6 +297,13 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
      */
     public var viewSwitcherEnabled: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets whether @self's view switcher is enabled.
          *
          * @return whether the view switcher is enabled
@@ -209,6 +311,13 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
         get() = adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Sets whether @self's view switcher is enabled.
          *
          * If it is disabled, the title will be displayed instead. This allows to
@@ -225,17 +334,24 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
         ) = adw_view_switcher_title_set_view_switcher_enabled(adwViewSwitcherTitlePointer, enabled.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * Creates a new `AdwViewSwitcherTitle`.
      *
      * @return the newly created `AdwViewSwitcherTitle`
      */
-    public constructor() : this(adw_view_switcher_title_new()!!.reinterpret())
+    public constructor() : this(adw_view_switcher_title_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ViewSwitcherTitle> {
         override val type: GeneratedClassKGType<ViewSwitcherTitle> =
-            GeneratedClassKGType(getTypeOrNull("adw_view_switcher_title_get_type")!!) {
-                ViewSwitcherTitle(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ViewSwitcherTitle(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -247,5 +363,16 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
          * @return the GType
          */
         public fun getType(): GType = adw_view_switcher_title_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_view_switcher_title_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_view_switcher_title_get_type")
     }
 }

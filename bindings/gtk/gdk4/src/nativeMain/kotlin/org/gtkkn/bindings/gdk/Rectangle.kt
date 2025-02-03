@@ -10,6 +10,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gdk.GdkRectangle
@@ -21,11 +22,8 @@ import org.gtkkn.native.gdk.gdk_rectangle_union
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkRectangle` data type for representing rectangles.
@@ -44,8 +42,7 @@ import kotlin.native.ref.createCleaner
  * The Graphene library has a number of other data types for regions and
  * volumes in 2D and 3D.
  */
-public class Rectangle(public val gdkRectanglePointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null) :
-    ProxyInstance(gdkRectanglePointer) {
+public class Rectangle(public val gdkRectanglePointer: CPointer<GdkRectangle>) : ProxyInstance(gdkRectanglePointer) {
     /**
      * the x coordinate of the top left corner
      */
@@ -96,21 +93,9 @@ public class Rectangle(public val gdkRectanglePointer: CPointer<GdkRectangle>, c
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkRectangle>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Rectangle and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GdkRectangle>, Cleaner>,
-    ) : this(gdkRectanglePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GdkRectangle>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Rectangle using the provided [AutofreeScope].

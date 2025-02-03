@@ -12,12 +12,12 @@ import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Accessible
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwTabPage
 import org.gtkkn.native.adw.adw_tab_page_get_child
 import org.gtkkn.native.adw.adw_tab_page_get_icon
@@ -68,6 +68,10 @@ public class TabPage(public val adwTabPagePointer: CPointer<AdwTabPage>) :
     Object(adwTabPagePointer.reinterpret()),
     Accessible,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -81,7 +85,7 @@ public class TabPage(public val adwTabPagePointer: CPointer<AdwTabPage>) :
          * @return the child of @self
          */
         get() = adw_tab_page_get_child(adwTabPagePointer)!!.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -350,7 +354,7 @@ public class TabPage(public val adwTabPagePointer: CPointer<AdwTabPage>) :
          * @return the parent page
          */
         get() = adw_tab_page_get_parent(adwTabPagePointer)?.run {
-            TabPage(this)
+            InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
         }
 
     /**
@@ -554,7 +558,7 @@ public class TabPage(public val adwTabPagePointer: CPointer<AdwTabPage>) :
 
     public companion object : TypeCompanion<TabPage> {
         override val type: GeneratedClassKGType<TabPage> =
-            GeneratedClassKGType(getTypeOrNull("adw_tab_page_get_type")!!) { TabPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TabPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -566,5 +570,15 @@ public class TabPage(public val adwTabPagePointer: CPointer<AdwTabPage>) :
          * @return the GType
          */
         public fun getType(): GType = adw_tab_page_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_tab_page_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_tab_page_get_type")
     }
 }

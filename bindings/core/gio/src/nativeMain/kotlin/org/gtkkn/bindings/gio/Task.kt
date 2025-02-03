@@ -23,12 +23,12 @@ import org.gtkkn.bindings.glib.MainContext
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAsyncResult
 import org.gtkkn.native.gio.GTask
 import org.gtkkn.native.gio.g_task_get_cancellable
@@ -611,6 +611,10 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
     Object(gioTaskPointer.reinterpret()),
     AsyncResult,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
         get() = handle.reinterpret()
 
@@ -685,8 +689,10 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
                 AsyncReadyCallbackFunc.reinterpret()
             },
             callback?.let { StableRef.create(callback).asCPointer() }
-        )!!.reinterpret()
-    )
+        )!!
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets @task's #GCancellable
@@ -696,7 +702,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
      */
     @GioVersion2_36
     public open fun getCancellable(): Cancellable? = g_task_get_cancellable(gioTaskPointer)?.run {
-        Cancellable(this)
+        InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!
     }
 
     /**
@@ -761,7 +767,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
      */
     @GioVersion2_36
     override fun getSourceObject(): Object? = g_task_get_source_object(gioTaskPointer)?.run {
-        Object(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -1109,7 +1115,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
 
     public companion object : TypeCompanion<Task> {
         override val type: GeneratedClassKGType<Task> =
-            GeneratedClassKGType(getTypeOrNull("g_task_get_type")!!) { Task(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Task(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -1170,5 +1176,15 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
          * @return the GType
          */
         public fun getType(): GType = g_task_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_task_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_task_get_type")
     }
 }

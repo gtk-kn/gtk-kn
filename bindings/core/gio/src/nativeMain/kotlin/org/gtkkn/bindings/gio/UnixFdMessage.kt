@@ -12,11 +12,11 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GUnixFDMessage
 import org.gtkkn.native.gio.g_unix_fd_message_append_fd
 import org.gtkkn.native.gio.g_unix_fd_message_get_fd_list
@@ -51,6 +51,10 @@ import kotlin.Result
 public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUnixFDMessage>) :
     SocketControlMessage(gioUnixFdMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The [class@Gio.UnixFDList] object to send with the message.
      *
@@ -67,7 +71,7 @@ public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUn
          * @since 2.24
          */
         get() = g_unix_fd_message_get_fd_list(gioUnixFdMessagePointer)!!.run {
-            UnixFdList(this)
+            InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!
         }
 
     /**
@@ -77,7 +81,9 @@ public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUn
      * @return a new #GUnixFDMessage
      * @since 2.22
      */
-    public constructor() : this(g_unix_fd_message_new()!!.reinterpret())
+    public constructor() : this(g_unix_fd_message_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GUnixFDMessage containing @list.
@@ -88,7 +94,9 @@ public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUn
      */
     public constructor(
         fdList: UnixFdList,
-    ) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFdListPointer)!!.reinterpret())
+    ) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFdListPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a file descriptor to @message.
@@ -117,7 +125,7 @@ public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUn
 
     public companion object : TypeCompanion<UnixFdMessage> {
         override val type: GeneratedClassKGType<UnixFdMessage> =
-            GeneratedClassKGType(getTypeOrNull("g_unix_fd_message_get_type")!!) { UnixFdMessage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { UnixFdMessage(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -129,5 +137,16 @@ public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUn
          * @return the GType
          */
         public fun getType(): GType = g_unix_fd_message_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_unix_fd_message_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_unix_fd_message_get_type")
     }
 }

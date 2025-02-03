@@ -15,15 +15,15 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -131,6 +131,10 @@ import kotlin.collections.List
 public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAboutDialog>) :
     Window(gtkAboutDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -555,7 +559,9 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
      *
      * @return a newly created `GtkAboutDialog`
      */
-    public constructor() : this(gtk_about_dialog_new()!!.reinterpret())
+    public constructor() : this(gtk_about_dialog_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new section in the "Credits" page.
@@ -603,7 +609,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
 
     public companion object : TypeCompanion<AboutDialog> {
         override val type: GeneratedClassKGType<AboutDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_about_dialog_get_type")!!) { AboutDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { AboutDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -615,6 +621,17 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return the GType
          */
         public fun getType(): GType = gtk_about_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_about_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_about_dialog_get_type")
     }
 }
 

@@ -8,12 +8,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.PackType
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwFlap
 import org.gtkkn.native.adw.AdwSwipeable
 import org.gtkkn.native.adw.adw_flap_get_content
@@ -58,6 +58,13 @@ import org.gtkkn.native.gtk.GtkOrientable
 import kotlin.Boolean
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+ * ---
+ *
  * An adaptive container acting like a box or an overlay.
  *
  * <picture>
@@ -121,6 +128,10 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
     Swipeable,
     Orientable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
         get() = handle.reinterpret()
 
@@ -137,21 +148,42 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The content widget.
      *
      * It's always displayed when unfolded, and partially visible when folded.
      */
     public var content: Widget?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the content widget for @self.
          *
          * @return the content widget for @self
          */
         get() = adw_flap_get_content(adwFlapPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets the content widget for @self.
          *
          * It's always displayed when unfolded, and partially visible when folded.
@@ -161,21 +193,42 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(content) = adw_flap_set_content(adwFlapPointer, content?.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The flap widget.
      *
      * It's only visible when [property@Flap:reveal-progress] is greater than 0.
      */
     public var flap: Widget?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the flap widget for @self.
          *
          * @return the flap widget for @self
          */
         get() = adw_flap_get_flap(adwFlapPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets the flap widget for @self.
          *
          * It's only visible when [property@Flap:reveal-progress] is greater than 0.
@@ -185,6 +238,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(flap) = adw_flap_set_flap(adwFlapPointer, flap?.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The flap position.
      *
      * If it's set to `GTK_PACK_START`, the flap is displayed before the content,
@@ -192,6 +252,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public var flapPosition: PackType
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the flap position for @self.
          *
          * @return the flap position for @self
@@ -201,6 +268,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets the flap position for @self.
          *
          * If it's set to `GTK_PACK_START`, the flap is displayed before the content,
@@ -211,10 +285,24 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(position) = adw_flap_set_flap_position(adwFlapPointer, position.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The fold transition animation duration, in milliseconds.
      */
     public var foldDuration: guint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the fold transition animation duration for @self, in milliseconds.
          *
          * @return the fold transition duration
@@ -222,6 +310,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         get() = adw_flap_get_fold_duration(adwFlapPointer)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets the fold transition animation duration for @self, in milliseconds.
          *
          * @param duration the new duration, in milliseconds
@@ -229,10 +324,24 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(duration) = adw_flap_set_fold_duration(adwFlapPointer, duration)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The fold policy for the flap.
      */
     public var foldPolicy: FlapFoldPolicy
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the fold policy for @self.
          *
          * @return the fold policy for @self
@@ -242,6 +351,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets the fold policy for @self.
          *
          * @param policy the fold policy
@@ -249,6 +365,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(policy) = adw_flap_set_fold_policy(adwFlapPointer, policy.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * Determines when the flap will fold.
      *
      * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when
@@ -260,6 +383,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public var foldThresholdPolicy: FoldThresholdPolicy
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the fold threshold policy for @self.
          */
         get() = adw_flap_get_fold_threshold_policy(adwFlapPointer).run {
@@ -267,6 +397,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets the fold threshold policy for @self.
          *
          * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when the
@@ -281,12 +418,26 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(policy) = adw_flap_set_fold_threshold_policy(adwFlapPointer, policy.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * Whether the flap is currently folded.
      *
      * See [property@Flap:fold-policy].
      */
     public val folded: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets whether @self is currently folded.
          *
          * See [property@Flap:fold-policy].
@@ -296,6 +447,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         get() = adw_flap_get_folded(adwFlapPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * Whether the flap is locked.
      *
      * If `FALSE`, folding when the flap is revealed automatically closes it, and
@@ -304,6 +462,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public var locked: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets whether @self is locked.
          *
          * @return `TRUE` if @self is locked
@@ -311,6 +476,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         get() = adw_flap_get_locked(adwFlapPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets whether @self is locked.
          *
          * If `FALSE`, folding when the flap is revealed automatically closes it, and
@@ -322,6 +494,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(locked) = adw_flap_set_locked(adwFlapPointer, locked.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * Whether the flap is modal.
      *
      * If `TRUE`, clicking the content widget while flap is revealed, as well as
@@ -330,6 +509,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public var modal: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets whether @self is modal.
          *
          * @return `TRUE` if @self is modal
@@ -337,6 +523,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         get() = adw_flap_get_modal(adwFlapPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets whether @self is modal.
          *
          * If `TRUE`, clicking the content widget while flap is revealed, as well as
@@ -348,10 +541,24 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(modal) = adw_flap_set_modal(adwFlapPointer, modal.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * Whether the flap widget is revealed.
      */
     public var revealFlap: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets whether the flap widget is revealed for @self.
          *
          * @return `TRUE` if the flap widget is revealed
@@ -359,6 +566,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         get() = adw_flap_get_reveal_flap(adwFlapPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets whether the flap widget is revealed for @self.
          *
          * @param revealFlap whether to reveal the flap widget
@@ -366,6 +580,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(revealFlap) = adw_flap_set_reveal_flap(adwFlapPointer, revealFlap.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The reveal animation spring parameters.
      *
      * The default value is equivalent to:
@@ -376,6 +597,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public var revealParams: SpringParams
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the reveal animation spring parameters for @self.
          *
          * @return the reveal animation parameters
@@ -385,6 +613,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets the reveal animation spring parameters for @self.
          *
          * The default value is equivalent to:
@@ -398,6 +633,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(params) = adw_flap_set_reveal_params(adwFlapPointer, params.adwSpringParamsPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The current reveal transition progress.
      *
      * 0 means fully hidden, 1 means fully revealed.
@@ -406,6 +648,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public val revealProgress: gdouble
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the current reveal progress for @self.
          *
          * 0 means fully hidden, 1 means fully revealed.
@@ -417,6 +666,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         get() = adw_flap_get_reveal_progress(adwFlapPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * The separator widget.
      *
      * It's displayed between content and flap when there's no shadow to display.
@@ -425,15 +681,29 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public var separator: Widget?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the separator widget for @self.
          *
          * @return the separator widget for @self
          */
         get() = adw_flap_get_separator(adwFlapPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets the separator widget for @self.
          *
          * It's displayed between content and flap when there's no shadow to display.
@@ -445,6 +715,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(separator) = adw_flap_set_separator(adwFlapPointer, separator?.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * Whether the flap can be closed with a swipe gesture.
      *
      * The area that can be swiped depends on the [property@Flap:transition-type]
@@ -452,6 +729,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public var swipeToClose: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets whether @self can be closed with a swipe gesture.
          *
          * @return `TRUE` if @self can be closed with a swipe gesture
@@ -459,6 +743,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         get() = adw_flap_get_swipe_to_close(adwFlapPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets whether @self can be closed with a swipe gesture.
          *
          * The area that can be swiped depends on the [property@Flap:transition-type]
@@ -469,6 +760,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(swipeToClose) = adw_flap_set_swipe_to_close(adwFlapPointer, swipeToClose.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * Whether the flap can be opened with a swipe gesture.
      *
      * The area that can be swiped depends on the [property@Flap:transition-type]
@@ -476,6 +774,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public var swipeToOpen: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets whether @self can be opened with a swipe gesture.
          *
          * @return `TRUE` if @self can be opened with a swipe gesture
@@ -483,6 +788,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         get() = adw_flap_get_swipe_to_open(adwFlapPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets whether @self can be opened with a swipe gesture.
          *
          * The area that can be swiped depends on the [property@Flap:transition-type]
@@ -493,6 +805,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(swipeToOpen) = adw_flap_set_swipe_to_open(adwFlapPointer, swipeToOpen.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * the type of animation used for reveal and fold transitions.
      *
      * [property@Flap:flap] is transparent by default, which means the content
@@ -502,6 +821,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
      */
     public var transitionType: FlapTransitionType
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Gets the type of animation used for reveal and fold transitions in @self.
          *
          * @return the current transition type of @self
@@ -511,6 +837,13 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+         * ---
+         *
          * Sets the type of animation used for reveal and fold transitions in @self.
          *
          * [property@Flap:flap] is transparent by default, which means the content will
@@ -523,15 +856,24 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
         set(transitionType) = adw_flap_set_transition_type(adwFlapPointer, transitionType.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+     * ---
+     *
      * Creates a new `AdwFlap`.
      *
      * @return the newly created `AdwFlap`
      */
-    public constructor() : this(adw_flap_new()!!.reinterpret())
+    public constructor() : this(adw_flap_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<Flap> {
         override val type: GeneratedClassKGType<Flap> =
-            GeneratedClassKGType(getTypeOrNull("adw_flap_get_type")!!) { Flap(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Flap(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -543,5 +885,15 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
          * @return the GType
          */
         public fun getType(): GType = adw_flap_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_flap_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_flap_get_type")
     }
 }

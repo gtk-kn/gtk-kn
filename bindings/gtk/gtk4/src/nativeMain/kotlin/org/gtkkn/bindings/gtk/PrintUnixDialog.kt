@@ -5,12 +5,12 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
@@ -108,6 +108,10 @@ import kotlin.Unit
 public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer<GtkPrintUnixDialog>) :
     Dialog(gtkPrintUnixDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -221,7 +225,7 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return the page setup of @dialog.
          */
         get() = gtk_print_unix_dialog_get_page_setup(gtkPrintUnixDialogPointer)!!.run {
-            PageSetup(this)
+            InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
         }
 
         /**
@@ -241,7 +245,7 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return the currently selected printer
          */
         get() = gtk_print_unix_dialog_get_selected_printer(gtkPrintUnixDialogPointer)?.run {
-            Printer(this)
+            InstanceCache.get(this, true) { Printer(reinterpret()) }!!
         }
 
     /**
@@ -274,7 +278,9 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
     public constructor(
         title: String? = null,
         parent: Window? = null,
-    ) : this(gtk_print_unix_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret())
+    ) : this(gtk_print_unix_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a custom tab to the print dialog.
@@ -307,7 +313,7 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
      */
     public open fun getPrintSettings(): PrintSettings =
         gtk_print_unix_dialog_get_settings(gtkPrintUnixDialogPointer)!!.run {
-            PrintSettings(this)
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
         }
 
     /**
@@ -324,9 +330,7 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
 
     public companion object : TypeCompanion<PrintUnixDialog> {
         override val type: GeneratedClassKGType<PrintUnixDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_print_unix_dialog_get_type")!!) {
-                PrintUnixDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PrintUnixDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -338,5 +342,16 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gtk_print_unix_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_print_unix_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_print_unix_dialog_get_type")
     }
 }

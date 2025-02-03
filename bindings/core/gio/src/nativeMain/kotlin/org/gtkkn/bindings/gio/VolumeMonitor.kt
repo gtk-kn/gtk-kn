@@ -15,11 +15,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDrive
 import org.gtkkn.native.gio.GMount
 import org.gtkkn.native.gio.GVolume
@@ -55,6 +55,10 @@ import kotlin.Unit
 public open class VolumeMonitor(public val gioVolumeMonitorPointer: CPointer<GVolumeMonitor>) :
     Object(gioVolumeMonitorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Gets a list of drives connected to the system.
      *
@@ -440,13 +444,24 @@ public open class VolumeMonitor(public val gioVolumeMonitorPointer: CPointer<GVo
 
     public companion object : TypeCompanion<VolumeMonitor> {
         override val type: GeneratedClassKGType<VolumeMonitor> =
-            GeneratedClassKGType(getTypeOrNull("g_volume_monitor_get_type")!!) { VolumeMonitor(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { VolumeMonitor(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.20.
+         *
+         * Instead of using this function, #GVolumeMonitor
+         * implementations should instead create shadow mounts with the URI of
+         * the mount they intend to adopt. See the proxy volume monitor in
+         * gvfs for an example of this. Also see g_mount_is_shadowed(),
+         * g_mount_shadow() and g_mount_unshadow() functions.
+         * ---
+         *
          * This function should be called by any #GVolumeMonitor
          * implementation when a new #GMount object is created that is not
          * associated with a #GVolume object. It must be called just before
@@ -492,7 +507,7 @@ public open class VolumeMonitor(public val gioVolumeMonitorPointer: CPointer<GVo
          *    g_object_unref() when done with it.
          */
         public fun `get`(): VolumeMonitor = g_volume_monitor_get()!!.run {
-            VolumeMonitor(this)
+            InstanceCache.get(this, true) { VolumeMonitor(reinterpret()) }!!
         }
 
         /**
@@ -501,6 +516,17 @@ public open class VolumeMonitor(public val gioVolumeMonitorPointer: CPointer<GVo
          * @return the GType
          */
         public fun getType(): GType = g_volume_monitor_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_volume_monitor_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_volume_monitor_get_type")
     }
 }
 

@@ -16,11 +16,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusMessage
 import org.gtkkn.native.gio.g_dbus_message_copy
 import org.gtkkn.native.gio.g_dbus_message_get_arg0
@@ -94,6 +94,10 @@ import kotlin.Unit
 public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMessage>) :
     Object(gioDBusMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     public open val locked: Boolean
         /**
          * Checks whether @message is locked. To monitor changes to this
@@ -111,7 +115,9 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @return A #GDBusMessage. Free with g_object_unref().
      * @since 2.26
      */
-    public constructor() : this(g_dbus_message_new()!!.reinterpret())
+    public constructor() : this(g_dbus_message_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GDBusMessage for a method call.
@@ -128,7 +134,9 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
         path: String,
         `interface`: String? = null,
         method: String,
-    ) : this(g_dbus_message_new_method_call(name, path, `interface`, method)!!.reinterpret())
+    ) : this(g_dbus_message_new_method_call(name, path, `interface`, method)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GDBusMessage for a signal emission.
@@ -143,7 +151,9 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
         path: String,
         `interface`: String,
         signal: String,
-    ) : this(g_dbus_message_new_signal(path, `interface`, signal)!!.reinterpret())
+    ) : this(g_dbus_message_new_signal(path, `interface`, signal)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Copies @message. The copy is a deep copy and the returned
@@ -161,7 +171,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
     public open fun copy(): Result<DBusMessage> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dbus_message_copy(gioDBusMessagePointer, gError.ptr)?.run {
-            DBusMessage(this)
+            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -366,7 +376,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      */
     @GioVersion2_26
     public open fun getUnixFdList(): UnixFdList? = g_dbus_message_get_unix_fd_list(gioDBusMessagePointer)?.run {
-        UnixFdList(this)
+        InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!
     }
 
     /**
@@ -388,7 +398,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
     @GioVersion2_26
     public open fun newMethodErrorLiteral(errorName: String, errorMessage: String): DBusMessage =
         g_dbus_message_new_method_error_literal(gioDBusMessagePointer, errorName, errorMessage)!!.run {
-            DBusMessage(this)
+            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
         }
 
     /**
@@ -399,7 +409,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      */
     @GioVersion2_26
     public open fun newMethodReply(): DBusMessage = g_dbus_message_new_method_reply(gioDBusMessagePointer)!!.run {
-        DBusMessage(this)
+        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
     }
 
     /**
@@ -640,7 +650,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
 
     public companion object : TypeCompanion<DBusMessage> {
         override val type: GeneratedClassKGType<DBusMessage> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_message_get_type")!!) { DBusMessage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DBusMessage(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -652,5 +662,16 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
          * @return the GType
          */
         public fun getType(): GType = g_dbus_message_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_message_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_message_get_type")
     }
 }

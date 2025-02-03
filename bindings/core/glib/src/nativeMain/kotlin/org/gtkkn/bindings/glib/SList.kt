@@ -14,6 +14,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GSList
 import org.gtkkn.native.glib.g_slist_alloc
@@ -46,11 +47,8 @@ import org.gtkkn.native.glib.g_slist_sort_with_data
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GSList struct is used for each element in the singly-linked
@@ -63,8 +61,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `func`: CompareFunc
  * - parameter `compare_func`: CompareFunc
  */
-public class SList(public val glibSListPointer: CPointer<GSList>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibSListPointer) {
+public class SList(public val glibSListPointer: CPointer<GSList>) : ProxyInstance(glibSListPointer) {
     /**
      * holds the element's data, which can be a pointer to any kind
      *        of data, or any integer value using the
@@ -97,21 +94,9 @@ public class SList(public val glibSListPointer: CPointer<GSList>, cleaner: Clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GSList>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to SList and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GSList>, Cleaner>,
-    ) : this(glibSListPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GSList>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new SList using the provided [AutofreeScope].

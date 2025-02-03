@@ -12,13 +12,13 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -69,6 +69,10 @@ import kotlin.ULong
 public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkButton>) :
     Button(gtkLinkButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -135,7 +139,9 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
      * @param uri a valid URI
      * @return a new link button widget.
      */
-    public constructor(uri: String) : this(gtk_link_button_new(uri)!!.reinterpret())
+    public constructor(uri: String) : this(gtk_link_button_new(uri)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkLinkButton` containing a label.
@@ -147,7 +153,9 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
     public constructor(
         uri: String,
         label: String? = null,
-    ) : this(gtk_link_button_new_with_label(uri, label)!!.reinterpret())
+    ) : this(gtk_link_button_new_with_label(uri, label)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted each time the `GtkLinkButton` is clicked.
@@ -174,7 +182,7 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
 
     public companion object : TypeCompanion<LinkButton> {
         override val type: GeneratedClassKGType<LinkButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_link_button_get_type")!!) { LinkButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { LinkButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -186,6 +194,17 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
          * @return the GType
          */
         public fun getType(): GType = gtk_link_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_link_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_link_button_get_type")
     }
 }
 

@@ -11,21 +11,19 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GFlagsValue
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure which contains a single flags value, its name, and its
  * nickname.
  */
-public class FlagsValue(public val gobjectFlagsValuePointer: CPointer<GFlagsValue>, cleaner: Cleaner? = null) :
+public class FlagsValue(public val gobjectFlagsValuePointer: CPointer<GFlagsValue>) :
     ProxyInstance(gobjectFlagsValuePointer) {
     /**
      * the flags value
@@ -68,21 +66,9 @@ public class FlagsValue(public val gobjectFlagsValuePointer: CPointer<GFlagsValu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GFlagsValue>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to FlagsValue and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GFlagsValue>, Cleaner>,
-    ) : this(gobjectFlagsValuePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GFlagsValue>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new FlagsValue using the provided [AutofreeScope].

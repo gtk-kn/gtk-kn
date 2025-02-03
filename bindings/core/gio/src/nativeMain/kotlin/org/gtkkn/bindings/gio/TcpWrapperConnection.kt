@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTcpWrapperConnection
 import org.gtkkn.native.gio.g_tcp_wrapper_connection_get_base_io_stream
 import org.gtkkn.native.gio.g_tcp_wrapper_connection_get_type
@@ -29,6 +29,10 @@ import org.gtkkn.native.gobject.GType
 public open class TcpWrapperConnection(public val gioTcpWrapperConnectionPointer: CPointer<GTcpWrapperConnection>) :
     TcpConnection(gioTcpWrapperConnectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The wrapped [class@Gio.IOStream].
      *
@@ -42,7 +46,7 @@ public open class TcpWrapperConnection(public val gioTcpWrapperConnectionPointer
          * @return @conn's base #GIOStream
          */
         get() = g_tcp_wrapper_connection_get_base_io_stream(gioTcpWrapperConnectionPointer)!!.run {
-            IoStream.IoStreamImpl(this)
+            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!
         }
 
     /**
@@ -56,13 +60,13 @@ public open class TcpWrapperConnection(public val gioTcpWrapperConnectionPointer
     public constructor(
         baseIoStream: IoStream,
         socket: Socket,
-    ) : this(g_tcp_wrapper_connection_new(baseIoStream.gioIoStreamPointer, socket.gioSocketPointer)!!.reinterpret())
+    ) : this(g_tcp_wrapper_connection_new(baseIoStream.gioIoStreamPointer, socket.gioSocketPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<TcpWrapperConnection> {
         override val type: GeneratedClassKGType<TcpWrapperConnection> =
-            GeneratedClassKGType(getTypeOrNull("g_tcp_wrapper_connection_get_type")!!) {
-                TcpWrapperConnection(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { TcpWrapperConnection(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -74,5 +78,16 @@ public open class TcpWrapperConnection(public val gioTcpWrapperConnectionPointer
          * @return the GType
          */
         public fun getType(): GType = g_tcp_wrapper_connection_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_tcp_wrapper_connection_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_tcp_wrapper_connection_get_type")
     }
 }

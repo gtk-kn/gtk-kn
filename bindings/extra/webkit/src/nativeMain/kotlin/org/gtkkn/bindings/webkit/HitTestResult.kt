@@ -8,11 +8,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitHitTestResult
@@ -57,6 +56,10 @@ import kotlin.String
 public class HitTestResult(public val webkitHitTestResultPointer: CPointer<WebKitHitTestResult>) :
     Object(webkitHitTestResultPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Bitmask of #WebKitHitTestResultContext flags representing
      * the context of the #WebKitHitTestResult.
@@ -204,12 +207,10 @@ public class HitTestResult(public val webkitHitTestResultPointer: CPointer<WebKi
 
     public companion object : TypeCompanion<HitTestResult> {
         override val type: GeneratedClassKGType<HitTestResult> =
-            GeneratedClassKGType(getTypeOrNull("webkit_hit_test_result_get_type")!!) {
-                HitTestResult(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { HitTestResult(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -218,5 +219,16 @@ public class HitTestResult(public val webkitHitTestResultPointer: CPointer<WebKi
          * @return the GType
          */
         public fun getType(): GType = webkit_hit_test_result_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_hit_test_result_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_hit_test_result_get_type")
     }
 }

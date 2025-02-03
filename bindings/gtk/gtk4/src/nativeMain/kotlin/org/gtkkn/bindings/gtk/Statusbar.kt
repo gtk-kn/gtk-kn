@@ -14,11 +14,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -39,6 +39,13 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This widget will be removed in GTK 5
+ * ---
+ *
  * A `GtkStatusbar` widget is usually placed along the bottom of an application's
  * main [class@Gtk.Window].
  *
@@ -79,6 +86,10 @@ import kotlin.Unit
 public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusbar>) :
     Widget(gtkStatusbarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -89,13 +100,29 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new `GtkStatusbar` ready for messages.
      *
      * @return the new `GtkStatusbar`
      */
-    public constructor() : this(gtk_statusbar_new()!!.reinterpret())
+    public constructor() : this(gtk_statusbar_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns a new context identifier, given a description
      * of the actual context.
      *
@@ -109,6 +136,13 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
         gtk_statusbar_get_context_id(gtkStatusbarPointer, contextDescription)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Removes the first message in the `GtkStatusbar`’s stack
      * with the given context id.
      *
@@ -121,6 +155,13 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
     public open fun pop(contextId: guint): Unit = gtk_statusbar_pop(gtkStatusbarPointer, contextId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Pushes a new message onto a statusbar’s stack.
      *
      * @param contextId the message’s context id, as returned by
@@ -133,6 +174,13 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
         gtk_statusbar_push(gtkStatusbarPointer, contextId, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Forces the removal of a message from a statusbar’s stack.
      * The exact @context_id and @message_id must be specified.
      *
@@ -143,6 +191,13 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
         gtk_statusbar_remove(gtkStatusbarPointer, contextId, messageId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Forces the removal of all messages from a statusbar's
      * stack with the exact @context_id.
      *
@@ -151,6 +206,13 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
     public open fun removeAll(contextId: guint): Unit = gtk_statusbar_remove_all(gtkStatusbarPointer, contextId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emitted whenever a new message is popped off a statusbar's stack.
      *
      * @param connectFlags a combination of [ConnectFlags]
@@ -169,6 +231,13 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emits the "text-popped" signal. See [onTextPopped].
      *
      * @param contextId the context id of the relevant message/statusbar
@@ -179,6 +248,13 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emitted whenever a new message gets pushed onto a statusbar's stack.
      *
      * @param connectFlags a combination of [ConnectFlags]
@@ -197,6 +273,13 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emits the "text-pushed" signal. See [onTextPushed].
      *
      * @param contextId the context id of the relevant message/statusbar
@@ -208,7 +291,7 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
 
     public companion object : TypeCompanion<Statusbar> {
         override val type: GeneratedClassKGType<Statusbar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_statusbar_get_type")!!) { Statusbar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Statusbar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -220,6 +303,17 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
          * @return the GType
          */
         public fun getType(): GType = gtk_statusbar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_statusbar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_statusbar_get_type")
     }
 }
 

@@ -16,11 +16,10 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_12
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -45,6 +44,10 @@ import kotlin.Unit
 public class Notification(public val webkitNotificationPointer: CPointer<WebKitNotification>) :
     Object(webkitNotificationPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The body for the notification.
      *
@@ -187,10 +190,10 @@ public class Notification(public val webkitNotificationPointer: CPointer<WebKitN
 
     public companion object : TypeCompanion<Notification> {
         override val type: GeneratedClassKGType<Notification> =
-            GeneratedClassKGType(getTypeOrNull("webkit_notification_get_type")!!) { Notification(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Notification(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -199,6 +202,17 @@ public class Notification(public val webkitNotificationPointer: CPointer<WebKitN
          * @return the GType
          */
         public fun getType(): GType = webkit_notification_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_notification_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_notification_get_type")
     }
 }
 

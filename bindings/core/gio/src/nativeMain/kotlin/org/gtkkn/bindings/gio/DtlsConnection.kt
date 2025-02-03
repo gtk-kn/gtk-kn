@@ -23,14 +23,14 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDatagramBased
 import org.gtkkn.native.gio.GDtlsConnection
 import org.gtkkn.native.gio.GTlsCertificate
@@ -168,7 +168,7 @@ public interface DtlsConnection :
          * @since 2.48
          */
         get() = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-            TlsDatabase.TlsDatabaseImpl(this)
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
         }
 
         /**
@@ -208,7 +208,7 @@ public interface DtlsConnection :
          * @since 2.48
          */
         get() = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
-            TlsInteraction(this)
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
         }
 
         /**
@@ -270,7 +270,7 @@ public interface DtlsConnection :
          * @since 2.48
          */
         get() = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-            TlsCertificate.TlsCertificateImpl(this)
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**
@@ -326,6 +326,13 @@ public interface DtlsConnection :
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.60.
+     *
+     * The rehandshake mode is ignored.
+     * ---
+     *
      * The rehandshaking mode. See
      * g_dtls_connection_set_rehandshake_mode().
      *
@@ -334,6 +341,15 @@ public interface DtlsConnection :
     @GioVersion2_48
     public var rehandshakeMode: TlsRehandshakeMode
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.64..
+         *
+         * Changing the rehandshake mode is no longer
+         *   required for compatibility. Also, rehandshaking has been removed
+         *   from the TLS protocol in TLS 1.3.
+         * ---
+         *
          * Gets @conn rehandshaking mode. See
          * g_dtls_connection_set_rehandshake_mode() for details.
          *
@@ -345,6 +361,15 @@ public interface DtlsConnection :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.60..
+         *
+         * Changing the rehandshake mode is no longer
+         *   required for compatibility. Also, rehandshaking has been removed
+         *   from the TLS protocol in TLS 1.3.
+         * ---
+         *
          * Since GLib 2.64, changing the rehandshake mode is no longer supported
          * and will have no effect. With TLS 1.3, rehandshaking has been removed from
          * the TLS protocol, replaced by separate post-handshake authentication and
@@ -521,7 +546,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun getCertificate(): TlsCertificate? = g_dtls_connection_get_certificate(gioDtlsConnectionPointer)?.run {
-        TlsCertificate.TlsCertificateImpl(this)
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**
@@ -550,7 +575,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun getDatabase(): TlsDatabase? = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-        TlsDatabase.TlsDatabaseImpl(this)
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
     }
 
     /**
@@ -563,7 +588,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun getInteraction(): TlsInteraction? = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
-        TlsInteraction(this)
+        InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
     }
 
     /**
@@ -593,7 +618,7 @@ public interface DtlsConnection :
     @GioVersion2_48
     public fun getPeerCertificate(): TlsCertificate? =
         g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-            TlsCertificate.TlsCertificateImpl(this)
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**
@@ -626,6 +651,15 @@ public interface DtlsConnection :
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.64..
+     *
+     * Changing the rehandshake mode is no longer
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
+     * ---
+     *
      * Gets @conn rehandshaking mode. See
      * g_dtls_connection_set_rehandshake_mode() for details.
      *
@@ -829,6 +863,15 @@ public interface DtlsConnection :
         g_dtls_connection_set_interaction(gioDtlsConnectionPointer, interaction?.gioTlsInteractionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.60..
+     *
+     * Changing the rehandshake mode is no longer
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
+     * ---
+     *
      * Since GLib 2.64, changing the rehandshake mode is no longer supported
      * and will have no effect. With TLS 1.3, rehandshaking has been removed from
      * the TLS protocol, replaced by separate post-handshake authentication and
@@ -1043,15 +1086,19 @@ public interface DtlsConnection :
      *
      * @constructor Creates a new instance of DtlsConnection for the provided [CPointer].
      */
-    public data class DtlsConnectionImpl(override val gioDtlsConnectionPointer: CPointer<GDtlsConnection>) :
+    public class DtlsConnectionImpl(gioDtlsConnectionPointer: CPointer<GDtlsConnection>) :
         Object(gioDtlsConnectionPointer.reinterpret()),
-        DtlsConnection
+        DtlsConnection {
+        init {
+            Gio
+        }
+
+        override val gioDtlsConnectionPointer: CPointer<GDtlsConnection> = gioDtlsConnectionPointer
+    }
 
     public companion object : TypeCompanion<DtlsConnection> {
         override val type: GeneratedInterfaceKGType<DtlsConnection> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_dtls_connection_get_type")!!) {
-                DtlsConnectionImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { DtlsConnectionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -1063,6 +1110,17 @@ public interface DtlsConnection :
          * @return the GType
          */
         public fun getType(): GType = g_dtls_connection_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dtls_connection_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dtls_connection_get_type")
     }
 }
 
@@ -1081,7 +1139,7 @@ private val onAcceptCertificateFunc:
             ) -> Boolean
             >().get().invoke(
             peerCert!!.run {
-                TlsCertificate.TlsCertificateImpl(this)
+                InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
             },
             errors.run {
                 TlsCertificateFlags(this)
