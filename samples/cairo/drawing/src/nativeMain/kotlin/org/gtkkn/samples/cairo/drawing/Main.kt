@@ -36,7 +36,10 @@ import org.gtkkn.bindings.gtk.Frame
 import org.gtkkn.bindings.gtk.GestureClick
 import org.gtkkn.bindings.gtk.GestureDrag
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.GtkKn
 import org.gtkkn.extensions.gio.runApplication
+import org.gtkkn.extensions.glib.util.log.Log
+import org.gtkkn.extensions.glib.util.log.writer.installConsoleLogWriter
 import org.gtkkn.native.gdk.GDK_BUTTON_PRIMARY
 import org.gtkkn.native.gdk.GDK_BUTTON_SECONDARY
 
@@ -49,6 +52,8 @@ private var startY: Double = 0.0
  * https://docs.gtk.org/gtk4/getting_started.html#custom-drawing
  */
 fun main() {
+    Log.installConsoleLogWriter()
+    GtkKn.debugLogs = true
     val app = Application("org.gtkkn.samples.cairo.drawing", ApplicationFlags.FLAGS_NONE)
     app.onActivate {
         val window = buildWindow(app)
@@ -145,20 +150,18 @@ private fun drawCb(cr: Context) {
  * Clear the global `surface` by painting it white.
  */
 private fun clearSurface() {
-    val cr = Context.create(requireNotNull(surface))
+    val cr = Context(requireNotNull(surface))
     cr.setSourceRgb(1.0, 1.0, 1.0)
     cr.paint()
-    cr.destroy()
 }
 
 /**
  * Draws a small rectangle at (x,y) on the global surface and queues a redraw.
  */
 private fun drawBrush(widget: Widget, x: Double, y: Double) {
-    val cr = Context.create(requireNotNull(surface))
+    val cr = Context(requireNotNull(surface))
     cr.rectangle(x - 3, y - 3, 6.0, 6.0)
     cr.fill()
-    cr.destroy()
 
     widget.queueDraw()
 }

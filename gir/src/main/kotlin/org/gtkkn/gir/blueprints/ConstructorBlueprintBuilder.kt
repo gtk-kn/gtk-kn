@@ -36,6 +36,7 @@ class ConstructorBlueprintBuilder(
     context: ProcessorContext,
     girNamespace: GirNamespace,
     private val girNode: GirConstructor,
+    private val memoryManagement: MemoryManagement,
 ) : CallableBlueprintBuilder<ConstructorBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "constructor"
 
@@ -76,8 +77,16 @@ class ConstructorBlueprintBuilder(
 
         val nativeMemberName = MemberName(namespaceNativePackageName(girNamespace), nativeMethodName)
 
+        val kotlinName = girNode.callable.getName().let { name ->
+            if (name == "new") {
+                name
+            } else {
+                name.removePrefix("new_")
+            }
+        }.toCamelCase()
+
         return ConstructorBlueprint(
-            kotlinName = girNode.callable.getName().toCamelCase(),
+            kotlinName = kotlinName,
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
             returnTypeInfo = returnTypeInfo,
@@ -87,8 +96,12 @@ class ConstructorBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.callable.info)
                 .build()
                 .getOrNull(),
+            deprecatedBlueprint = DeprecatedBlueprintBuilder(context, girNode.callable.info, girNode.doc)
+                .build()
+                .getOrNull(),
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
             returnTypeKDoc = context.processKdoc(girNode.returnValue?.doc?.doc?.text),
+            memoryManagement = memoryManagement,
         )
     }
 }

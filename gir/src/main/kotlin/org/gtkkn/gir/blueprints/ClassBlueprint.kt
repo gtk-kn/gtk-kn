@@ -27,24 +27,27 @@ import com.squareup.kotlinpoet.TypeName
 data class ClassBlueprint(
     val kotlinName: String,
     val nativeName: String,
-    val typeName: ClassName,
+    override val kotlinTypeName: ClassName,
     val parentClassName: ClassName?,
     val implementsInterfaces: List<ImplementsInterfaceBlueprint>,
     val methods: List<MethodBlueprint>,
+    val constants: List<ConstantBlueprint>,
     val properties: List<PropertyBlueprint>,
-    val constructors: List<ConstructorBlueprint>,
+    override val constructors: List<ConstructorBlueprint>,
     val signals: List<SignalBlueprint>,
     val functions: List<FunctionBlueprint>,
     val skippedObjects: List<SkippedObject>,
-    val objectPointerName: String,
-    val objectPointerTypeName: TypeName,
+    override val objectPointerName: String,
+    override val objectPointerTypeName: TypeName,
     val interfacePointerOverrides: List<ImplementsInterfaceBlueprint>,
     val isAbstract: Boolean,
     val isFinal: Boolean,
-    val glibGetTypeFunc: MemberName?,
+    override val glibGetTypeFunc: MemberName?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
-) {
-    val hasParent: Boolean get() = parentClassName != null
-    val instanceTypeName = if (isAbstract) typeName.nestedClass("${typeName.simpleName}Impl") else typeName
+) : HasConstructorsBlueprint, TypeToRegister {
+    override val hasParent: Boolean get() = parentClassName != null
+    override val instanceTypeName: ClassName =
+        if (isAbstract) kotlinTypeName.nestedClass("${kotlinTypeName.simpleName}Impl") else kotlinTypeName
 }

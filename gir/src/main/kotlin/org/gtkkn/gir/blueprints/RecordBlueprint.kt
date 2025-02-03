@@ -37,7 +37,10 @@ data class RecordBlueprint(
     override val skippedObjects: List<SkippedObject>,
     val isOpaque: Boolean,
     val isDisguised: Boolean,
-    override val hasNewConstructor: Boolean,
     override val optInVersionBlueprint: OptInVersionBlueprint?,
+    override val deprecatedBlueprint: DeprecatedBlueprint?,
     override val kdoc: String?,
-) : RecordUnionCommonBlueprint
+) : RecordUnionCommonBlueprint {
+    override val hasParent: Boolean = false
+    override val instanceTypeName: ClassName = kotlinTypeName
+}

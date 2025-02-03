@@ -92,10 +92,11 @@ interface MethodGenerator : CallableGenerator, KDocGenerator {
         builderType: FunSpecBuilderType
     ) {
         buildMethodKDoc(
-            method.kdoc,
-            method.parameters,
-            method.optInVersionBlueprint,
-            method.returnTypeKDoc,
+            kdoc = method.kdoc,
+            parameters = method.parameters,
+            optInVersionBlueprint = method.optInVersionBlueprint,
+            deprecatedBlueprint = method.deprecatedBlueprint,
+            returnTypeKDoc = method.returnTypeKDoc,
         )?.let { builder.addKdoc(it) }
 
         if (builderType != FunSpecBuilderType.GETTER && method.optInVersionBlueprint?.typeName != null) {

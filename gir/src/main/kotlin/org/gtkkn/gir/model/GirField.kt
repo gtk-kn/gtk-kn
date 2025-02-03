@@ -54,5 +54,5 @@ data class GirField(
         type.initialize(this, namespace)
     }
 
-    fun shouldBeGenerated(): Boolean = info.gtkKnIgnore != true && private != false && readable != false
+    fun shouldBeGenerated(): Boolean = info.gtkKnIgnore != true && private != true && readable != false
 }

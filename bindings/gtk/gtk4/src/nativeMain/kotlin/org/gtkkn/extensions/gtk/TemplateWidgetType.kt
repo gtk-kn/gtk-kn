@@ -26,8 +26,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.KGType
-import org.gtkkn.extensions.gobject.ObjectType
+import org.gtkkn.extensions.gobject.legacy.KGType
+import org.gtkkn.extensions.gobject.legacy.ObjectType
 import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gtk.gtk_widget_class_bind_template_child_full
 import org.gtkkn.native.gtk.gtk_widget_class_set_template_from_resource

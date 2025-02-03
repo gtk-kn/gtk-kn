@@ -34,8 +34,11 @@ data class UnionBlueprint(
     override val methods: List<MethodBlueprint>,
     override val fields: List<FieldBlueprint>,
     override val cStructTypeName: ClassName,
-    override val hasNewConstructor: Boolean,
     override val optInVersionBlueprint: OptInVersionBlueprint?,
+    override val deprecatedBlueprint: DeprecatedBlueprint?,
     override val kdoc: String?,
     override val skippedObjects: List<SkippedObject>,
-) : RecordUnionCommonBlueprint
+) : RecordUnionCommonBlueprint {
+    override val hasParent: Boolean = false
+    override val instanceTypeName: ClassName = kotlinTypeName
+}

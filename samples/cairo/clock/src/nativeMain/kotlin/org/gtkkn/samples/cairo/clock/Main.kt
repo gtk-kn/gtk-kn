@@ -32,7 +32,10 @@ import org.gtkkn.bindings.glib.GLib
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
 import org.gtkkn.bindings.gtk.DrawingArea
+import org.gtkkn.extensions.GtkKn
 import org.gtkkn.extensions.gio.runApplication
+import org.gtkkn.extensions.glib.util.log.Log
+import org.gtkkn.extensions.glib.util.log.writer.installConsoleLogWriter
 import org.gtkkn.native.glib.G_PRIORITY_DEFAULT
 import org.gtkkn.native.glib.gint
 import kotlin.math.PI
@@ -45,6 +48,8 @@ import kotlin.time.Duration.Companion.milliseconds
  * from https://gnome.pages.gitlab.gnome.org/gtkmm-documentation/sec-drawing-clock-example.html
  */
 fun main() {
+    Log.installConsoleLogWriter()
+    GtkKn.debugLogs = true
     val app = Application("org.gtkkn.samples.cairo.clock", ApplicationFlags.FLAGS_NONE)
     app.onActivate {
         val window = buildWindow(app)
@@ -125,7 +130,7 @@ private fun drawClockTicks(cr: Context, mRadius: Double) {
 }
 
 private fun drawClockHands(cr: Context, mRadius: Double, mLineWidth: Double) {
-    val localDateTime = checkNotNull(DateTime.newNowLocal())
+    val localDateTime = checkNotNull(DateTime.nowLocal())
     val seconds = localDateTime.getSecond().toDouble() * (PI / 30.0)
     val minutes = localDateTime.getMinute().toDouble() * (PI / 30.0)
     val hours = localDateTime.getHour().toDouble() * (PI / 6.0)

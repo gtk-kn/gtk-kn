@@ -30,7 +30,7 @@ import org.gtkkn.gir.blueprints.EnumBlueprint
 interface EnumGenerator : ConstructorGenerator, FunctionGenerator {
     fun buildEnum(enum: EnumBlueprint): TypeSpec {
         val enumSpec = TypeSpec.enumBuilder(enum.kotlinTypeName).apply {
-            addKdoc(buildTypeKDoc(enum.kdoc, enum.optInVersionBlueprint))
+            addKdoc(buildTypeKDoc(enum.kdoc, enum.optInVersionBlueprint, enum.deprecatedBlueprint))
             // optInVersion
             enum.optInVersionBlueprint?.typeName?.let { annotationClassName ->
                 addAnnotation(annotationClassName)
@@ -61,7 +61,7 @@ interface EnumGenerator : ConstructorGenerator, FunctionGenerator {
             enumSpec.addEnumConstant(
                 member.kotlinName,
                 TypeSpec.anonymousClassBuilder()
-                    .addKdoc(buildTypeKDoc(member.kdoc, member.optInVersionBlueprint))
+                    .addKdoc(buildTypeKDoc(member.kdoc, member.optInVersionBlueprint, member.deprecatedBlueprint))
                     .addSuperclassConstructorParameter(constructorParamFormat, *constructorParamArgs.toTypedArray())
                     .build(),
             )

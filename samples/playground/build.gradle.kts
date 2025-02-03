@@ -30,7 +30,7 @@ plugins {
 
 gtkKn {
     entryPoint = "org.gtkkn.samples.playground.main"
-    targetLibraryVersions.putAll(mapOf("gio" to "2.28", "gtk" to "4.10"))
+    targetLibraryVersions.putAll(mapOf("gio" to "2.28", "glib" to "2.26", "gtk" to "4.10"))
 }
 
 kotlin {

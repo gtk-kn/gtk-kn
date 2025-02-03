@@ -48,7 +48,7 @@ public object Log {
     internal val lock: ReentrantLock = ReentrantLock()
 
     @PublishedApi
-    internal val writers: MutableSet<LogWriter> = mutableSetOf<LogWriter>()
+    internal val writers: MutableSet<LogWriter> = mutableSetOf()
 
     /**
      * A user-configurable default domain for logs. If set, any `log` call with `domain = null`

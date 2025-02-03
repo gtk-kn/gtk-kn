@@ -27,7 +27,7 @@ import org.gtkkn.bindings.gtk.MessageDialog
 import org.gtkkn.bindings.gtk.MessageType
 import org.gtkkn.bindings.gtk.ResponseType
 import org.gtkkn.bindings.gtk.Window
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gtk.gtk_message_dialog_new
 
 public fun TypeCompanion<MessageDialog>.new(

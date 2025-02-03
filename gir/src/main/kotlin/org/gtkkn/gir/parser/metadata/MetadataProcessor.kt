@@ -181,6 +181,8 @@ class MetadataProcessor(
         applyOut(node, metadata)
         applyOwned(node, tag, metadata)
         applyParent(node, metadata)
+        applyPrivate(node, metadata)
+        applyReadable(node, metadata)
         applyRef(node, metadata)
         applyRefFunction(node, metadata)
         applyRefSinkFunction(node, metadata)
@@ -453,6 +455,20 @@ class MetadataProcessor(
                 parentNode?.removeChild(node)
                 location.appendChild(node)
             }
+        }
+    }
+
+    private fun applyPrivate(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.PRIVATE)) {
+            val private = metadata.getBool(ArgumentType.PRIVATE)
+            setBooleanAttribute(node, "private", private)
+        }
+    }
+
+    private fun applyReadable(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.READABLE)) {
+            val readable = metadata.getBool(ArgumentType.READABLE)
+            setBooleanAttribute(node, "readable", readable)
         }
     }
 

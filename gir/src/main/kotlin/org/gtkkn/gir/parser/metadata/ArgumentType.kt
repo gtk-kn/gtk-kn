@@ -196,6 +196,16 @@ enum class ArgumentType {
     PARENT,
 
     /**
+     * Whether the field should be private.
+     */
+    PRIVATE,
+
+    /**
+     * Whether the field/property should be readable.
+     */
+    READABLE,
+
+    /**
      * Whether the parameter direction is ref or not.
      */
     REF,

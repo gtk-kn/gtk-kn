@@ -19,15 +19,21 @@
  */
 package org.gtkkn.extensions.glib.cinterop
 
-import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.NativePtr
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ptr
+import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_malloc
 import org.gtkkn.native.glib.gpointer
 import kotlin.native.internal.performGCOnCleanerWorker
 import kotlin.native.ref.WeakReference
 import kotlin.native.runtime.GC
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 /**
@@ -37,8 +43,8 @@ import kotlin.test.assertNull
  * for `Proxy` objects is handled correctly in various scenarios, including:
  *
  * 1. Ensuring owned memory is freed using the correct cleanup function
- *    (`g_free`, `g_boxed_free`, or custom free function) when the object
- *    is garbage-collected.
+ *    (`g_free`, `g_boxed_free`, custom free function, or `nativeHeap.free`)
+ *    when the object is garbage-collected.
  * 2. Ensuring that non-owned memory is not automatically cleaned up.
  * 3. Verifying that custom cleanup functions work as intended.
  * 4. Testing the behavior of the `Cleaner` and garbage collection mechanism.
@@ -53,8 +59,8 @@ import kotlin.test.assertNull
  *   associated object is garbage-collected.
  *
  * - **Mocked Native Functions:** Used to track calls to native cleanup
- *   functions (`g_free`, `g_boxed_free`), ensuring no real resources are
- *   allocated or freed.
+ *   functions (`g_free`, `g_boxed_free`, `nativeHeap.free`), ensuring no
+ *   real resources are allocated or freed.
  *
  * - **Wrapping Lambda:** Used to limit the scope of strong references,
  *   ensuring the garbage collector can collect the `ProxyInstance`.
@@ -64,6 +70,110 @@ import kotlin.test.assertNull
  *   cleaner execution.
  */
 class MemoryCleanerTest {
+    @BeforeTest
+    fun setUp() {
+        // Use the mock implementation to track calls instead of performing real native free
+        MemoryCleaner.nativeFunctions = TestGLib
+    }
+
+    /**
+     * Tests that a custom cleanup function is called exactly once when the
+     * memory is owned and the object is garbage-collected.
+     */
+    @Test
+    fun `custom cleanup function is called once when memory is owned and garbage-collected`() {
+        // Arrange
+        customFreeFuncCallCount = 0
+
+        val testPointer = createTestPointer()
+
+        var proxyWeakRef: WeakReference<ProxyInstance>? = null
+
+        // Wrapping lambda to limit scope
+        {
+            val proxy = ProxyInstance(testPointer)
+            MemoryCleaner.setFreeFunc(proxy, true) { gpointer ->
+                customFreeFuncCallCount += 1
+                // Manually free the memory for the test
+                g_free(gpointer)
+            }
+            proxyWeakRef = WeakReference(proxy)
+
+            // No strong references to proxy beyond this point
+        }()
+
+        // Act
+        // Force garbage collection
+        GC.collect()
+        performGCOnCleanerWorker()
+
+        // Assert
+        assertNull(proxyWeakRef?.value, "ProxyInstance should have been collected")
+        assertEquals(1, customFreeFuncCallCount, "Custom free function should have been called once.")
+    }
+
+    @Test
+    fun `custom cleanup function is not called if there is still exists a strong reference to the proxy`() {
+        // Arrange
+        customFreeFuncCallCount = 0
+
+        val testPointer = createTestPointer()
+
+        var proxyStrongRef: ProxyInstance? = null
+
+        // Wrapping lambda to limit scope
+        {
+            val proxy = ProxyInstance(testPointer)
+            MemoryCleaner.setFreeFunc(proxy, true) { gpointer ->
+                customFreeFuncCallCount += 1
+                // Manually free the memory for the test
+                g_free(gpointer)
+            }
+            proxyStrongRef = proxy
+        }()
+
+        // Act
+        // Force garbage collection
+        GC.collect()
+        performGCOnCleanerWorker()
+
+        // Assert
+        assertNotNull(proxyStrongRef, "ProxyInstance should have been collected")
+        assertEquals(0, customFreeFuncCallCount, "Custom free function should have been called once.")
+    }
+
+    /**
+     * Tests that `g_boxed_free` is called exactly once when a boxed type
+     * is owned and garbage-collected.
+     */
+    @Test
+    fun `g_boxed_free is called once for owned boxed type during garbage collection`() {
+        // Arrange
+        gBoxedFreeCallCount = 0
+
+        val testAddress = createTestPointer()
+
+        var proxyWeakRef: WeakReference<ProxyInstance>? = null
+
+        // Wrapping lambda to limit scope
+        {
+            val proxy = ProxyInstance(testAddress)
+            MemoryCleaner.setBoxedType(proxy, 123UL, true)
+            proxyWeakRef = WeakReference(proxy)
+
+            // No strong references to proxy beyond this point
+        }()
+
+        // Act
+        // Force garbage collection
+        GC.collect()
+        performGCOnCleanerWorker()
+
+        // Assert
+        assertNull(proxyWeakRef?.value, "ProxyInstance should have been collected")
+        assertEquals(1, gBoxedFreeCallCount, "g_boxed_free should have been called once.")
+    }
+
     /**
      * Tests that `g_free` is called exactly once when the memory is owned
      * and the object is garbage-collected.
@@ -72,7 +182,6 @@ class MemoryCleanerTest {
     fun `g_free is called once when memory is owned and garbage-collected`() {
         // Arrange
         gFreeCallCount = 0
-        MemoryCleaner.nativeFunctions = TestGLib
 
         val testAddress = createTestPointer()
 
@@ -100,24 +209,29 @@ class MemoryCleanerTest {
     }
 
     /**
-     * Tests that `g_boxed_free` is called exactly once when a boxed type
-     * is owned and garbage-collected.
+     * Tests that `nativeHeapFree` is called exactly once when the memory is
+     * owned and the object is garbage-collected, for memory allocated on the
+     * Kotlin/Native heap (using `nativeHeap.alloc`).
      */
     @Test
-    fun `g_boxed_free is called once for owned boxed type during garbage collection`() {
+    fun `nativeHeap free is called once when memory is owned and garbage-collected`() {
         // Arrange
-        gBoxedFreeCallCount = 0
-        MemoryCleaner.nativeFunctions = TestGLib
-
-        val testAddress = createTestPointer()
+        nativeHeapFreeCount = 0
 
         var proxyWeakRef: WeakReference<ProxyInstance>? = null
 
         // Wrapping lambda to limit scope
         {
-            val proxy = ProxyInstance(testAddress)
-            MemoryCleaner.takeOwnership(proxy)
-            MemoryCleaner.setBoxedType(proxy, 123UL)
+            // Allocate a `GError` on the native heap
+            val gError: GError = nativeHeap.alloc<GError>()
+
+            // Create a proxy for the allocated memory
+            val proxy = ProxyInstance(gError.ptr)
+
+            // Take ownership & configure the memory for native heap cleanup
+            MemoryCleaner.setNativeHeap(proxy, true)
+
+            // Keep a weak reference to the proxy
             proxyWeakRef = WeakReference(proxy)
 
             // No strong references to proxy beyond this point
@@ -130,44 +244,7 @@ class MemoryCleanerTest {
 
         // Assert
         assertNull(proxyWeakRef?.value, "ProxyInstance should have been collected")
-        assertEquals(1, gBoxedFreeCallCount, "g_boxed_free should have been called once.")
-    }
-
-    /**
-     * Tests that a custom cleanup function is called exactly once when the
-     * memory is owned and the object is garbage-collected.
-     */
-    @Test
-    fun `custom cleanup function is called once when memory is owned and garbage-collected`() {
-        // Arrange
-        customFreeFuncCallCount = 0
-        MemoryCleaner.nativeFunctions = TestGLib
-
-        val testAddress = createTestPointer()
-
-        var proxyWeakRef: WeakReference<ProxyInstance>? = null
-
-        // Wrapping lambda to limit scope
-        {
-            val proxy = ProxyInstance(testAddress)
-            MemoryCleaner.takeOwnership(proxy)
-            MemoryCleaner.setFreeFunc(proxy) { address ->
-                customFreeFuncCallCount += 1
-                g_free(address)
-            }
-            proxyWeakRef = WeakReference(proxy)
-
-            // No strong references to proxy beyond this point
-        }()
-
-        // Act
-        // Force garbage collection
-        GC.collect()
-        performGCOnCleanerWorker()
-
-        // Assert
-        assertNull(proxyWeakRef?.value, "ProxyInstance should have been collected")
-        assertEquals(1, customFreeFuncCallCount, "Custom free function should have been called once.")
+        assertEquals(1, nativeHeapFreeCount, "nativeHeapFree should have been called once.")
     }
 
     /**
@@ -177,10 +254,10 @@ class MemoryCleanerTest {
     @Test
     fun `no cleanup function is called when memory is not owned and garbage-collected`() {
         // Arrange
-        gFreeCallCount = 0
-        gBoxedFreeCallCount = 0
         customFreeFuncCallCount = 0
-        MemoryCleaner.nativeFunctions = TestGLib
+        gBoxedFreeCallCount = 0
+        gFreeCallCount = 0
+        nativeHeapFreeCount = 0
 
         val testAddress = createTestPointer()
 
@@ -202,9 +279,10 @@ class MemoryCleanerTest {
 
         // Assert
         assertNull(proxyWeakRef?.value, "ProxyInstance should have been collected")
-        assertEquals(0, gFreeCallCount, "g_free should not have been called.")
-        assertEquals(0, gBoxedFreeCallCount, "g_boxed_free should not have been called.")
         assertEquals(0, customFreeFuncCallCount, "Custom free function should not have been called.")
+        assertEquals(0, gBoxedFreeCallCount, "g_boxed_free should not have been called.")
+        assertEquals(0, gFreeCallCount, "g_free should not have been called.")
+        assertEquals(0, nativeHeapFreeCount, "nativeHeap.free should not have been called.")
 
         // Clean up: free the memory manually
         g_free(testAddress)
@@ -215,29 +293,38 @@ class MemoryCleanerTest {
      * methods for the tests.
      */
     companion object {
-        var gFreeCallCount = 0
-        var gBoxedFreeCallCount = 0
         var customFreeFuncCallCount = 0
+        var gBoxedFreeCallCount = 0
+        var gFreeCallCount = 0
+        var nativeHeapFreeCount = 0
 
         /**
          * Mock implementation of native functions used for testing.
          */
         object TestGLib : MemoryCleaner.NativeFunctions {
-            override fun g_free(mem: COpaquePointer?) {
-                gFreeCallCount += 1
-                // Free the memory allocated with g_malloc
-                org.gtkkn.native.glib.g_free(mem)
-            }
-
-            override fun g_boxed_free(gtype: ULong, boxed: COpaquePointer?) {
+            override fun gBoxedFree(gtype: ULong, boxed: gpointer) {
                 gBoxedFreeCallCount += 1
                 // Free the memory allocated with g_malloc
-                org.gtkkn.native.glib.g_free(boxed)
+                g_free(boxed)
+            }
+
+            override fun gFree(mem: gpointer) {
+                gFreeCallCount += 1
+                // Free the memory allocated with g_malloc
+                g_free(mem)
+            }
+
+            override fun nativeHeapFree(mem: NativePtr) {
+                nativeHeapFreeCount += 1
+                nativeHeap.free(mem)
             }
         }
 
         /**
-         * Helper method to allocate memory for testing.
+         * Helper method to allocate memory for testing via g_malloc.
+         * For many tests, we just need to verify that `g_free` or `g_boxed_free`
+         * is called, so `g_malloc` suffices. For native-heap tests, see the new
+         * `nativeHeap free` test.
          */
         fun createTestPointer(): gpointer = checkNotNull(g_malloc(1.toULong()))
     }

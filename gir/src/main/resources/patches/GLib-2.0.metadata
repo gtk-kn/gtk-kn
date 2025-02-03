@@ -37,3 +37,7 @@ dcgettext no_string_conversion
 dgettext no_string_conversion
 dngettext no_string_conversion
 dpgettext no_string_conversion
+
+// GVariant has a method "get_type" that clashes with the "getType()" method that is generated in Kotlin.
+// Therefore, it is renamed to "getVariantType()"
+Variant.get_type name="get_variant_type"

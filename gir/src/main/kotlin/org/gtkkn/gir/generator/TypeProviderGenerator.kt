@@ -48,22 +48,20 @@ interface TypeProviderGenerator {
                 .filter { it.glibGetTypeFunc != null }
                 .forEach { clazz ->
                     addStatement(
-                        "if (%M(%S) != null) put(%T::class, %T.type)",
-                        BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
-                        checkNotNull(clazz.glibGetTypeFunc).simpleName,
-                        clazz.typeName,
-                        clazz.typeName,
+                        "if (%T.getTypeOrNull() != null) put(%T::class, %T.type)",
+                        clazz.kotlinTypeName,
+                        clazz.kotlinTypeName,
+                        clazz.kotlinTypeName,
                     )
                 }
             repository.interfaceBlueprints
                 .filter { it.glibGetTypeFunc != null }
                 .forEach { iface ->
                     addStatement(
-                        "if (%M(%S) != null) put(%T::class, %T.type)",
-                        BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
-                        checkNotNull(iface.glibGetTypeFunc).simpleName,
-                        iface.typeName,
-                        iface.typeName,
+                        "if (%T.getTypeOrNull() != null) put(%T::class, %T.type)",
+                        iface.kotlinTypeName,
+                        iface.kotlinTypeName,
+                        iface.kotlinTypeName,
                     )
                 }
             endControlFlow()

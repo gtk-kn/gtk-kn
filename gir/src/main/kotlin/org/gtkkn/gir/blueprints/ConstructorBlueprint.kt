@@ -37,7 +37,9 @@ import com.squareup.kotlinpoet.MemberName
  * @property exceptionResolvingFunctionMember member name of the error resolving function.
  * @property kdoc the KDoc of the constructor
  * @property optInVersionBlueprint version number of a constructor
+ * @property deprecatedBlueprint deprecation info of a constructor
  * @property returnTypeKDoc the KDoc of the return type
+ * @property memoryManagement the [MemoryManagement] information of the constructor
  */
 data class ConstructorBlueprint(
     val kotlinName: String,
@@ -49,7 +51,9 @@ data class ConstructorBlueprint(
     override val exceptionResolvingFunctionMember: MemberName,
     val kdoc: String?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val returnTypeKDoc: String?,
+    val memoryManagement: MemoryManagement,
 ) : CallableBlueprint {
     override val noStringConversion: Boolean = false
 }

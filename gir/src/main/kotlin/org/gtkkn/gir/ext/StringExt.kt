@@ -35,3 +35,29 @@ fun String.escape(): String = this.replace("\\", "\\\\")
  * @return A new string with doubled backslashes replaced by single backslashes.
  */
 fun String.compress(): String = this.replace("\\\\", "\\")
+
+/**
+ * Converts a nullable String to a strict Boolean value, recognizing:
+ *   - Truthy strings: {"1", "true", "t", "yes", "y", "on"} (case-insensitive)
+ *   - Falsy strings:  {null, "0", "false", "f", "no", "n", "off"} (case-insensitive)
+ * Throws [IllegalArgumentException] if the string is not recognized.
+ */
+fun String?.parseBoolean(): Boolean {
+    // Define our recognized sets of "true" and "false" strings.
+    val trueValues = setOf("1", "true", "t", "yes", "y", "on")
+    val falseValues = setOf("0", "false", "f", "no", "n", "off")
+
+    // Null is considered false.
+    if (this == null) {
+        return false
+    }
+
+    // Normalize: trim whitespace and convert to lower-case.
+    val normalized = this.trim().lowercase()
+
+    return when (normalized) {
+        in trueValues -> true
+        in falseValues -> false
+        else -> throw IllegalArgumentException("Unrecognized boolean value: '$this'")
+    }
+}

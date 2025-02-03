@@ -26,5 +26,6 @@ data class AliasBlueprint(
     val kotlinName: String,
     val parentTypeName: TypeName,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
 )

@@ -20,6 +20,7 @@
 
 package org.gtkkn.gir.parser.metadata
 
+import org.gtkkn.gir.ext.parseBoolean
 import org.junit.jupiter.api.assertThrows
 import org.w3c.dom.Document
 import org.w3c.dom.Node
@@ -78,7 +79,7 @@ class MetadataProcessorTest {
         val classNode = findNodeByName(document.documentElement, "class", "AbstractClass")
         assertNotNull(classNode)
 
-        val abstractAttr = classNode.attributes.getNamedItem("abstract")?.nodeValue?.toBoolean()
+        val abstractAttr = classNode.attributes.getNamedItem("abstract")?.nodeValue?.parseBoolean()
         assertTrue(abstractAttr == true, "The 'abstract' attribute should be true")
     }
 
@@ -215,7 +216,7 @@ class MetadataProcessorTest {
         val arrayNode = processor.getChildNode(checkNotNull(returnValueNode), "array")
         assertNotNull(arrayNode, "An 'array' node should be present in the return-value")
 
-        val zeroTerminatedAttr = arrayNode.attributes.getNamedItem("zero-terminated")?.nodeValue?.toBoolean()
+        val zeroTerminatedAttr = arrayNode.attributes.getNamedItem("zero-terminated")?.nodeValue?.parseBoolean()
         assertTrue(zeroTerminatedAttr == true, "The 'zero-terminated' attribute of the array should be 'true'")
     }
 
@@ -428,7 +429,9 @@ class MetadataProcessorTest {
 
         val callbackNode = findNodeByName(document.documentElement, "callback", "TestCallback")
         assertNotNull(callbackNode)
-        val delegateTargetAttr = callbackNode.attributes.getNamedItem("gtk-kn-delegate-target")?.nodeValue?.toBoolean()
+        val delegateTargetAttr = callbackNode.attributes.getNamedItem(
+            "gtk-kn-delegate-target"
+        )?.nodeValue?.parseBoolean()
         assertTrue(delegateTargetAttr == true, "The 'gtk-kn-delegate-target' attribute should be true")
     }
 
@@ -499,7 +502,7 @@ class MetadataProcessorTest {
         val methodNode = findNodeByName(document.documentElement, "method", "old_method")
         assertNotNull(methodNode)
 
-        val deprecatedAttr = methodNode.attributes.getNamedItem("deprecated")?.nodeValue?.toBoolean()
+        val deprecatedAttr = methodNode.attributes.getNamedItem("deprecated")?.nodeValue?.parseBoolean()
         assertTrue(deprecatedAttr == true, "The 'deprecated' attribute should be true")
     }
 
@@ -616,7 +619,7 @@ class MetadataProcessorTest {
         val paramNode = findNodeByName(document.documentElement, "parameter", "param1")
         assertNotNull(paramNode)
 
-        val enumRawValueAttr = paramNode.attributes.getNamedItem("gtk-kn-enum-raw-value")?.nodeValue?.toBoolean()
+        val enumRawValueAttr = paramNode.attributes.getNamedItem("gtk-kn-enum-raw-value")?.nodeValue?.parseBoolean()
         assertTrue(enumRawValueAttr == true, "The 'gtk-kn-enum-raw-value' attribute should be true")
     }
 
@@ -685,7 +688,7 @@ class MetadataProcessorTest {
 
         val classNode = findNodeByName(document.documentElement, "class", "TestClass")
         assertNotNull(classNode)
-        val floatingAttr = classNode.attributes.getNamedItem("gtk-kn-floating")?.nodeValue?.toBoolean()
+        val floatingAttr = classNode.attributes.getNamedItem("gtk-kn-floating")?.nodeValue?.parseBoolean()
         assertTrue(floatingAttr == true, "The 'gtk-kn-floating' attribute should be true")
     }
 
@@ -753,7 +756,7 @@ class MetadataProcessorTest {
         // Assert that the 'introspectable' attribute is set to 'true' on the IntrospectableClass node
         val hiddenClassNode = findNodeByName(document.documentElement, "class", "IntrospectableClass")
         assertNotNull(hiddenClassNode)
-        val introspectable = hiddenClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
+        val introspectable = hiddenClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.parseBoolean()
         assertTrue(introspectable == true, "The 'introspectable' attribute should be true")
     }
 
@@ -1073,7 +1076,7 @@ class MetadataProcessorTest {
         val methodNode = findNodeByName(document.documentElement, "method", "test_method")
         assertNotNull(methodNode)
         val noAccessorMethodAttr =
-            methodNode.attributes.getNamedItem("gtk-kn-no-accessor-method")?.nodeValue?.toBoolean()
+            methodNode.attributes.getNamedItem("gtk-kn-no-accessor-method")?.nodeValue?.parseBoolean()
         assertTrue(noAccessorMethodAttr == true, "The 'gtk-kn-no-accessor-method' attribute should be true")
     }
 
@@ -1103,7 +1106,7 @@ class MetadataProcessorTest {
         val functionNode = findNodeByName(document.documentElement, "function", "test_function")
         assertNotNull(functionNode)
         val noStringConversionAttr =
-            functionNode.attributes.getNamedItem("gtk-kn-no-string-conversion")?.nodeValue?.toBoolean()
+            functionNode.attributes.getNamedItem("gtk-kn-no-string-conversion")?.nodeValue?.parseBoolean()
         assertTrue(noStringConversionAttr == true, "The 'gtk-kn-no-string-conversion' attribute should be true")
     }
 
@@ -1147,7 +1150,7 @@ class MetadataProcessorTest {
         val paramNode = findNodeByName(document.documentElement, "parameter", "param1")
         assertNotNull(paramNode)
 
-        val nullableAttr = paramNode.attributes.getNamedItem("nullable")?.nodeValue?.toBoolean()
+        val nullableAttr = paramNode.attributes.getNamedItem("nullable")?.nodeValue?.parseBoolean()
         assertTrue(nullableAttr == true, "The 'nullable' attribute should be true")
     }
 
@@ -1322,6 +1325,86 @@ class MetadataProcessorTest {
     }
 
     @Test
+    fun `test apply PRIVATE argument to parameter node`() {
+        // Prepare the XML document with a node without a name
+        val xmlContent =
+            """
+                <repository>
+                    <namespace name="TestNamespace">
+                        <record name="TestRecord">
+                            <field name="field1" private="1"/>
+                        </record>
+                    </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare empty metadata content
+        val metadataContent =
+            """
+                TestRecord.field1 private = false
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the field node
+        val paramNode = findNodeByName(document.documentElement, "field", "field1")
+        assertNotNull(paramNode)
+
+        val parentPrivate = paramNode.attributes.getNamedItem("private")?.nodeValue?.parseBoolean()
+        assertTrue(parentPrivate == false, "Parent 'private' should be false")
+    }
+
+    @Test
+    fun `test apply READABLE argument to parameter node`() {
+        // Prepare the XML document with a node without a name
+        val xmlContent =
+            """
+                <repository>
+                    <namespace name="TestNamespace">
+                        <record name="TestRecord">
+                            <field name="field1" readable="0"/>
+                        </record>
+                    </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare empty metadata content
+        val metadataContent =
+            """
+                TestRecord.field1 readable
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the field node
+        val paramNode = findNodeByName(document.documentElement, "field", "field1")
+        assertNotNull(paramNode)
+
+        val parentReadable = paramNode.attributes.getNamedItem("readable")?.nodeValue?.parseBoolean()
+        assertTrue(parentReadable == true, "Parent 'readable' should be false")
+    }
+
+    @Test
     fun `test apply REF argument to parameter node`() {
         // Prepare the XML document
         val xmlContent =
@@ -1463,7 +1546,7 @@ class MetadataProcessorTest {
         val paramNode = findNodeByName(document.documentElement, "parameter", "param1")
         assertNotNull(paramNode)
 
-        val reinterpretAttr = paramNode.attributes.getNamedItem("gtk-kn-reinterpret")?.nodeValue?.toBoolean()
+        val reinterpretAttr = paramNode.attributes.getNamedItem("gtk-kn-reinterpret")?.nodeValue?.parseBoolean()
         assertTrue(reinterpretAttr == true, "The 'gtk-kn-reinterpret' attribute should be true")
     }
 
@@ -1531,7 +1614,7 @@ class MetadataProcessorTest {
         val functionNode = findNodeByName(document.documentElement, "function", "test_function")
         assertNotNull(functionNode)
         val retModPointerAttr =
-            functionNode.attributes.getNamedItem("gtk-kn-returns-modified-pointer")?.nodeValue?.toBoolean()
+            functionNode.attributes.getNamedItem("gtk-kn-returns-modified-pointer")?.nodeValue?.parseBoolean()
         assertTrue(retModPointerAttr == true, "The 'gtk-kn-returns-modified-pointer' attribute should be true")
     }
 
@@ -1607,7 +1690,7 @@ class MetadataProcessorTest {
         val classNode = findNodeByName(document.documentElement, "class", "SealedClass")
         assertNotNull(classNode)
 
-        val finalAttr = classNode.attributes.getNamedItem("final")?.nodeValue?.toBoolean()
+        val finalAttr = classNode.attributes.getNamedItem("final")?.nodeValue?.parseBoolean()
         assertTrue(finalAttr == true, "The 'final' attribute should be true")
     }
 
@@ -1728,7 +1811,7 @@ class MetadataProcessorTest {
         // Assert that the 'introspectable' attribute is set to 'false' on the TestClass node
         val testClassNode = findNodeByName(document.documentElement, "class", "TestClass")
         assertNotNull(testClassNode)
-        val ignore = testClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        val ignore = testClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.parseBoolean()
         assertTrue(ignore == true, "The 'gtk-kn-ignore' attribute should be true")
     }
 
@@ -1768,7 +1851,7 @@ class MetadataProcessorTest {
         val methodNode = findNodeByName(document.documentElement, "method", "throwing_method")
         assertNotNull(methodNode)
 
-        val throwsAttr = methodNode.attributes.getNamedItem("throws")?.nodeValue?.toBoolean()
+        val throwsAttr = methodNode.attributes.getNamedItem("throws")?.nodeValue?.parseBoolean()
         assertTrue(throwsAttr == true, "The 'throws' attribute should be true")
     }
 
@@ -2102,7 +2185,7 @@ class MetadataProcessorTest {
         val methodNode = findNodeByName(document.documentElement, "method", "virtual_method")
         assertNotNull(methodNode)
 
-        val virtualAttr = methodNode.attributes.getNamedItem("gtk-kn-virtual")?.nodeValue?.toBoolean()
+        val virtualAttr = methodNode.attributes.getNamedItem("gtk-kn-virtual")?.nodeValue?.parseBoolean()
         assertTrue(virtualAttr == true, "The 'gtk-kn-virtual' attribute should be true")
     }
 
@@ -2250,7 +2333,7 @@ class MetadataProcessorTest {
         // Assert that the 'introspectable' attribute is set to 'false' on the ParentClass node
         val parentClassNode = findNodeByName(document.documentElement, "class", "ParentClass")
         assertNotNull(parentClassNode)
-        val parentIgnore = parentClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        val parentIgnore = parentClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.parseBoolean()
         assertTrue(parentIgnore == true, "Parent 'gtk-kn-ignore' should be true")
 
         // Assert that the child method is not processed (introspectable attribute is not set)
@@ -2295,7 +2378,7 @@ class MetadataProcessorTest {
         // Assert that the 'introspectable' attribute is set to 'false' on the union node
         val unionNode = findNodeByName(document.documentElement, "union", null)
         assertNotNull(unionNode)
-        val ignore = unionNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        val ignore = unionNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.parseBoolean()
         assertTrue(ignore == true, "The 'gtk-kn-ignore' attribute should be true for union")
     }
 
@@ -2373,17 +2456,17 @@ class MetadataProcessorTest {
         // Assert that the 'introspectable' attribute is set correctly on each class
         val firstClassNode = findNodeByName(document.documentElement, "class", "FirstClass")
         assertNotNull(firstClassNode)
-        val firstIgnore = firstClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        val firstIgnore = firstClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.parseBoolean()
         assertTrue(firstIgnore == true, "FirstClass 'gtk-kn-ignore' should be true")
 
         val secondClassNode = findNodeByName(document.documentElement, "class", "SecondClass")
         assertNotNull(secondClassNode)
-        val introspectable = secondClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
+        val introspectable = secondClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.parseBoolean()
         assertTrue(introspectable == false, "SecondClass 'introspectable' should be false")
 
         val thirdClassNode = findNodeByName(document.documentElement, "class", "ThirdClass")
         assertNotNull(thirdClassNode)
-        val secondIntrospectable = thirdClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.toBoolean()
+        val secondIntrospectable = thirdClassNode.attributes.getNamedItem("gtk-kn-ignore")?.nodeValue?.parseBoolean()
         assertTrue(secondIntrospectable == true, "ThirdClass 'gtk-kn-ignore' should be true")
     }
 

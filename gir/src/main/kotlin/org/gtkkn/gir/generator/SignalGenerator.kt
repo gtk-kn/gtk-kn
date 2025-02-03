@@ -40,6 +40,7 @@ interface SignalGenerator : ClosureImplementationGenerator, ConversionBlockGener
                     signal.detailed,
                     signal.parameters,
                     signal.optInVersionBlueprint,
+                    signal.deprecatedBlueprint,
                     signal.returnTypeKDoc,
                 ),
             )
@@ -86,6 +87,7 @@ interface SignalGenerator : ClosureImplementationGenerator, ConversionBlockGener
                 signal.detailed,
                 signal.parameters,
                 signal.optInVersionBlueprint,
+                signal.deprecatedBlueprint,
             ),
         )
 

@@ -30,5 +30,6 @@ data class BitfieldBlueprint(
     val functionBlueprints: List<FunctionBlueprint>,
     val nativeValueTypeName: TypeName,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
 )

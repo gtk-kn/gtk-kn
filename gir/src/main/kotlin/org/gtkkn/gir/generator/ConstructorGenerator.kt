@@ -30,11 +30,13 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
-import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.FieldBlueprint
+import org.gtkkn.gir.blueprints.HasConstructorsBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
+import org.gtkkn.gir.blueprints.MemoryManagement
 import org.gtkkn.gir.blueprints.ParameterBlueprint
+import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 
 /**
@@ -43,109 +45,118 @@ import org.gtkkn.gir.blueprints.TypeInfo
  */
 interface ConstructorGenerator : FieldGenerator, MethodGenerator {
     /**
-     * Builds the primary pointer constructor for a class.
-     *
-     * @param builder The [TypeSpec.Builder] to which this constructor is added.
-     * @param clazz The [ClassBlueprint] describing the class.
+     * Builds the initializer block and ensure that the TypeCache will be populated by the repository object
      */
-    fun buildPointerConstructor(builder: TypeSpec.Builder, clazz: ClassBlueprint) {
-        val constructorSpecBuilder = FunSpec.constructorBuilder()
-            .addParameter(clazz.objectPointerName, clazz.objectPointerTypeName)
+    fun TypeSpec.Builder.addRepositoryObjectInitializerBlock(repository: RepositoryBlueprint) =
+        addInitializerBlock(CodeBlock.of("%T\n", repository.repositoryObjectName))
 
-        if (clazz.hasParent) {
+    /**
+     * Builds the primary pointer constructor for a class/record/union.
+     */
+    fun TypeSpec.Builder.addPrimaryPointerConstructor(
+        blueprint: HasConstructorsBlueprint,
+    ) {
+        addProperty(buildClassObjectPointerProperty(blueprint))
+        val builder = FunSpec.constructorBuilder()
+            .addParameter(blueprint.objectPointerName, blueprint.objectPointerTypeName)
+
+        if (blueprint.hasParent) {
             // If class has a parent, pass the pointer to the superclass constructor
-            builder.addSuperclassConstructorParameter(
-                CodeBlock.of("%L.%M()", clazz.objectPointerName, BindingsGenerator.REINTERPRET_FUNC),
+            addSuperclassConstructorParameter(
+                CodeBlock.of("%L.%M()", blueprint.objectPointerName, BindingsGenerator.REINTERPRET_FUNC),
             )
         } else {
-            if (clazz.kotlinName == "Object") {
-                constructorSpecBuilder.addStatement("%M()", BindingsGenerator.GOBJECT_ASSOCIATE_CUSTOM_OBJECT)
+            if (blueprint.objectPointerName == "gobjectObjectPointer") {
+                builder.addStatement("%M()", BindingsGenerator.GOBJECT_ASSOCIATE_CUSTOM_OBJECT)
             }
         }
-
-        builder.primaryConstructor(constructorSpecBuilder.build())
+        primaryConstructor(builder.build())
     }
 
     /**
-     * Builds a class constructor based on the given [ConstructorBlueprint].
+     * Builds a property representing the object's pointer.
      *
-     * If the constructor requires no parameters and does not throw, it's straightforward.
-     * Otherwise, it may require preparing a GError pointer, handling memory scoping,
-     * and error conditions.
-     *
-     * @param constructor The blueprint describing the constructor.
-     * @param callThisConstructor A lambda used to delegate the constructed code block
-     *        to `callThisConstructor()`, effectively chaining constructors.
+     * @param blueprint The [HasConstructorsBlueprint] blueprint.
      */
-    fun buildClassConstructor(
-        constructor: ConstructorBlueprint,
-        callThisConstructor: FunSpec.Builder.(CodeBlock) -> Unit
-    ): FunSpec {
-        val builder = FunSpec.constructorBuilder()
+    fun buildClassObjectPointerProperty(blueprint: HasConstructorsBlueprint): PropertySpec =
+        PropertySpec.builder(blueprint.objectPointerName, blueprint.objectPointerTypeName)
+            .initializer(blueprint.objectPointerName)
+            .build()
 
-        ensureReturnTypeIsObjectPointer(constructor)
+    fun TypeSpec.Builder.addGirConstructors(
+        blueprint: HasConstructorsBlueprint,
+        companionSpecBuilder: TypeSpec.Builder
+    ): Boolean {
+        val (noArgConstructors, argumentConstructors) = blueprint.constructors.partition { it.parameters.isEmpty() }
+        addNoArgConstructors(noArgConstructors, blueprint, companionSpecBuilder)
+        addArgumentConstructors(argumentConstructors, blueprint, companionSpecBuilder)
+        return noArgConstructors.isNotEmpty()
+    }
 
-        addConstructorKDocAndAnnotations(builder, constructor)
-
-        if (constructor.parameters.isEmpty()) {
-            // No-arg constructor
-            if (constructor.throws) error("Throwing no-argument constructors are not supported")
-            builder.callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
-        } else {
-            // Constructor with arguments
-            appendSignatureParameters(builder, constructor.parameters)
-
-            val codeBlockBuilder = CodeBlock.builder()
-            if (constructor.needsMemscoped) {
-                codeBlockBuilder.beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
+    /**
+     * Handles no-arg constructors (some may be conflicting).
+     * The first no-arg constructor becomes the main no-arg constructor,
+     * subsequent ones are added as factory methods in the companion.
+     */
+    fun TypeSpec.Builder.addNoArgConstructors(
+        noArgConstructors: List<ConstructorBlueprint>,
+        blueprint: HasConstructorsBlueprint,
+        companionSpecBuilder: TypeSpec.Builder
+    ) {
+        noArgConstructors
+            .sortedBy { it.nativeName.length }
+            .forEachIndexed { index, constructor ->
+                if (index == 0) {
+                    // main no-arg constructor
+                    val mainNoArgConstructor = buildClassConstructor(blueprint, constructor)
+                    addFunction(mainNoArgConstructor)
+                } else {
+                    // conflicting no-arg constructor -> factory method
+                    val factory = buildClassConstructorFactoryMethod(blueprint, constructor)
+                    companionSpecBuilder.addFunction(factory)
+                }
             }
+    }
 
-            if (constructor.throws) {
-                codeBlockBuilder.addStatement(
-                    "val gError = %M<%M>()",
-                    BindingsGenerator.ALLOC_POINTER_TO,
-                    BindingsGenerator.G_ERROR_MEMBER,
-                )
-                codeBlockBuilder.add("val gResult = %M(", constructor.nativeMemberName)
-            } else {
-                codeBlockBuilder.add("%M(", constructor.nativeMemberName)
-            }
-
-            // Append parameters
-            constructor.parameters.forEachIndexed { index, param ->
-                if (index > 0) codeBlockBuilder.add(", ")
-                codeBlockBuilder.add(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
-            }
-
-            if (constructor.throws) {
-                codeBlockBuilder.add(", gError.%M", BindingsGenerator.PTR_FUNC)
-            }
-            codeBlockBuilder.add(")")
-
-            if (constructor.throws) {
-                codeBlockBuilder.addStatement("")
-                codeBlockBuilder.beginControlFlow("if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
-                codeBlockBuilder.addStatement(
-                    "throw %M(%T(gError.%M!!.%M))",
-                    constructor.exceptionResolvingFunctionMember,
-                    BindingsGenerator.GLIB_ERROR_TYPE,
-                    BindingsGenerator.POINTED_FUNC,
-                    BindingsGenerator.PTR_FUNC,
-                )
-                codeBlockBuilder.endControlFlow()
-                codeBlockBuilder.addStatement("gResult!!.reinterpret()")
-            } else {
-                codeBlockBuilder.add("!!.reinterpret()")
-            }
-
-            if (constructor.needsMemscoped) {
-                codeBlockBuilder.endControlFlow()
-            }
-
-            builder.callThisConstructor(codeBlockBuilder.build())
+    /**
+     * Handles argument constructors, grouped by signature to detect conflicts.
+     * The first in each group is created as a regular constructor, subsequent ones
+     * become factory methods in the companion.
+     */
+    fun TypeSpec.Builder.addArgumentConstructors(
+        argumentConstructors: List<ConstructorBlueprint>,
+        blueprint: HasConstructorsBlueprint,
+        companionSpecBuilder: TypeSpec.Builder
+    ) {
+        val groupBySignature = argumentConstructors.groupBy { constructor ->
+            constructor.parameters.joinToString(",") { it.typeInfo.kotlinTypeName.toString() }
         }
 
-        return builder.build()
+        groupBySignature.values.forEach { group ->
+            when (group.size) {
+                0 -> error("Should not happen")
+                1 -> {
+                    // Single, non-conflicting constructor
+                    val primaryConstructor = buildClassConstructor(blueprint, group.first())
+                    addFunction(primaryConstructor)
+                }
+
+                else -> {
+                    // Conflicting constructors with the same signature
+                    group.sortedBy { it.nativeName.length }.forEachIndexed { index, constructor ->
+                        if (index == 0) {
+                            // shortest method name as the actual constructor
+                            val primaryConstructor = buildClassConstructor(blueprint, constructor)
+                            addFunction(primaryConstructor)
+                        } else {
+                            // add conflicting ones as factory methods
+                            val factory = buildClassConstructorFactoryMethod(blueprint, constructor)
+                            companionSpecBuilder.addFunction(factory)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -155,93 +166,278 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
      * with the given parameters, handling memory scoping, errors, and
      * returning a [Result] if `throws` is true.
      *
-     * @param typeName The class [TypeName].
+     * @param blueprint The class [HasConstructorsBlueprint].
      * @param constructor The constructor blueprint describing the native constructor.
-     * @param appendSignatureParameters A function to append parameters to the signature.
-     * @param addGErrorAllocation A function to allocate and initialize a GError pointer.
-     * @param addErrorHandling A function to handle GError after calling the native constructor.
      */
     fun buildClassConstructorFactoryMethod(
-        typeName: ClassName,
+        blueprint: HasConstructorsBlueprint,
         constructor: ConstructorBlueprint,
-        appendSignatureParameters: FunSpec.Builder.(List<ParameterBlueprint>) -> Unit,
-        addGErrorAllocation: FunSpec.Builder.() -> Unit,
-        addErrorHandling: FunSpec.Builder.(ConstructorBlueprint, String) -> Unit,
     ): FunSpec {
         val builder = FunSpec.builder(constructor.kotlinName)
-        val returnTypeName = determineConstructorReturnType(typeName, constructor)
-        builder.returns(returnTypeName)
 
-        ensureReturnTypeIsObjectPointer(constructor)
+        val returnTypeName = determineConstructorReturnType(blueprint.instanceTypeName, constructor)
+        builder.returns(returnTypeName)
         addConstructorKDocIfAny(builder, constructor)
 
-        // If memscoped is needed
-        handleMemScopedStart(builder, constructor)
-
-        if (constructor.parameters.isEmpty()) {
-            // No-arg factory constructor
-            if (constructor.throws) {
-                builder.addGErrorAllocation()
-                builder.addStatement(
-                    "val gResult = %M(gError.%M)",
-                    constructor.nativeMemberName,
-                    BindingsGenerator.PTR_FUNC,
-                )
-                builder.addErrorHandling(constructor, "gResult")
-            } else {
-                builder.addStatement(
-                    "return %T(%M()!!.%M())",
-                    typeName,
-                    constructor.nativeMemberName,
-                    BindingsGenerator.REINTERPRET_FUNC,
-                )
-            }
-
-            if (constructor.needsMemscoped) {
-                builder.endControlFlow()
-            }
-        } else {
-            // Factory constructor with arguments
-            builder.appendSignatureParameters(constructor.parameters)
-
-            if (constructor.throws) {
-                builder.addGErrorAllocation()
-                builder.addCode("val gResult = %M(", constructor.nativeMemberName)
-            } else {
-                builder.addCode("return %T(%M(", typeName, constructor.nativeMemberName)
-            }
-
-            // Append parameters
-            constructor.parameters.forEachIndexed { index, param ->
-                if (index > 0) {
-                    builder.addCode(", ")
-                }
-                builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
-            }
-
-            if (constructor.throws) {
-                builder.addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
-                builder.addCode(")\n")
-                builder.addErrorHandling(constructor, "gResult")
-            } else {
-                builder.addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC)
-            }
-
-            handleMemScopedEnd(builder, constructor)
+        if (constructor.parameters.isNotEmpty()) {
+            appendSignatureParameters(builder, constructor.parameters)
         }
 
+        val codeBlock = buildNativeCallCodeBlock(
+            blueprint = blueprint,
+            constructorBlueprint = constructor,
+            isFactory = true,
+        ) { param -> buildParameterConversionBlock(param.typeInfo, param.kotlinName) }
+
+        builder.addCode(codeBlock)
         return builder.build()
     }
 
     /**
-     * Builds a property representing the object's pointer.
+     * Builds a class constructor based on the given [ConstructorBlueprint].
      *
-     * @param clazz The class blueprint.
+     * If the constructor requires no parameters and does not throw, it's straightforward.
+     * Otherwise, it may require preparing a GError pointer, handling memory scoping,
+     * and error conditions.
+     *
+     * @param blueprint the [HasConstructorsBlueprint]
+     * @param constructor The blueprint describing the constructor.
      */
-    fun buildClassObjectPointerProperty(clazz: ClassBlueprint): PropertySpec =
-        PropertySpec.builder(clazz.objectPointerName, clazz.objectPointerTypeName)
-            .initializer(clazz.objectPointerName)
-            .build()
+    fun buildClassConstructor(
+        blueprint: HasConstructorsBlueprint,
+        constructor: ConstructorBlueprint,
+    ): FunSpec {
+        val builder = FunSpec.constructorBuilder()
+        addConstructorKDocAndAnnotations(builder, constructor)
+
+        if (constructor.parameters.isNotEmpty()) {
+            appendSignatureParameters(builder, constructor.parameters)
+        }
+
+        val codeBlock = buildNativeCallCodeBlock(
+            blueprint = blueprint,
+            constructorBlueprint = constructor,
+            isFactory = false,
+        ) { param -> buildParameterConversionBlock(param.typeInfo, param.kotlinName) }
+
+        builder.callThisConstructor(codeBlock)
+        builder.addCode(buildConstructorMemoryManagementBlock(constructor, false))
+        return builder.build()
+    }
+
+    fun buildConstructorMemoryManagementBlock(
+        constructor: ConstructorBlueprint,
+        useInstance: Boolean,
+    ): CodeBlock {
+        val code = CodeBlock.builder()
+        val target = if (useInstance) "instance" else "this"
+        when (constructor.memoryManagement) {
+            is MemoryManagement.InstanceCache -> code.addStatement(
+                "%T.put(%L)",
+                BindingsGenerator.INSTANCE_CACHE_TYPE,
+                target,
+            )
+
+            is MemoryManagement.MemoryCleaner -> {
+                when (constructor.memoryManagement.freeOperation) {
+                    MemoryManagement.MemoryCleaner.FreeOperation.BoxedType ->
+                        code.addStatement(
+                            "%T.setBoxedType(%L, getType(), owned = true)",
+                            BindingsGenerator.MEMORY_CLEANER_TYPE,
+                            target,
+                        )
+
+                    is MemoryManagement.MemoryCleaner.FreeOperation.CustomFreeFunction ->
+                        code.addStatement(
+                            "%T.setFreeFunc(%L, owned = true) { %M(it.%M()) }",
+                            BindingsGenerator.MEMORY_CLEANER_TYPE,
+                            target,
+                            constructor.memoryManagement.freeOperation.memberName,
+                            BindingsGenerator.REINTERPRET_FUNC,
+                        )
+
+                    null -> code.addStatement("%T.takeOwnership(%L)", BindingsGenerator.MEMORY_CLEANER_TYPE, target)
+                }
+            }
+        }
+        return code.build()
+    }
+
+    /**
+     * Core method that constructs the code block to call the native function with parameters,
+     * handle GError, memscoped, reinterpret, etc.
+     */
+    private fun buildNativeCallCodeBlock(
+        blueprint: HasConstructorsBlueprint,
+        constructorBlueprint: ConstructorBlueprint,
+        isFactory: Boolean,
+        parameterConversion: (ParameterBlueprint) -> CodeBlock
+    ): CodeBlock {
+        val code = CodeBlock.builder()
+        beginMemScopedIfNeeded(code, constructorBlueprint)
+        beginNativeFunctionCall(code, blueprint, constructorBlueprint, isFactory)
+        appendParameters(code, constructorBlueprint, parameterConversion)
+        passGErrorPointerIfNeeded(code, constructorBlueprint)
+        endNativeFunctionCall(code)
+        handleResult(code, blueprint, constructorBlueprint, isFactory)
+        endMemScopedIfNeeded(code, constructorBlueprint)
+        return code.build()
+    }
+
+    private fun beginMemScopedIfNeeded(code: CodeBlock.Builder, constructorBlueprint: ConstructorBlueprint) {
+        if (constructorBlueprint.needsMemscoped) {
+            code.beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
+        }
+    }
+
+    private fun beginNativeFunctionCall(
+        code: CodeBlock.Builder,
+        blueprint: HasConstructorsBlueprint,
+        constructorBlueprint: ConstructorBlueprint,
+        isFactory: Boolean,
+    ) {
+        if (constructorBlueprint.throws) {
+            // Throwing => allocate GError, store in gResult
+            code.addStatement(
+                "val gError = %M<%M>()",
+                BindingsGenerator.ALLOC_POINTER_TO,
+                BindingsGenerator.G_ERROR_MEMBER,
+            )
+            code.addStatement("gError.%M = null", BindingsGenerator.VALUE_PROPERTY)
+            code.add("val gResult = %M(", constructorBlueprint.nativeMemberName)
+        } else {
+            // Non-throwing => either "return SomeClass(...)" or direct call
+            if (isFactory) {
+                code.add("return %T(%M(", blueprint.instanceTypeName, constructorBlueprint.nativeMemberName)
+            } else {
+                code.add("%M(", constructorBlueprint.nativeMemberName) // e.g. callThisConstructor(...)
+            }
+        }
+    }
+
+    private fun appendParameters(
+        code: CodeBlock.Builder,
+        constructorBlueprint: ConstructorBlueprint,
+        parameterConversion: (ParameterBlueprint) -> CodeBlock
+    ) {
+        constructorBlueprint.parameters.forEachIndexed { index, param ->
+            if (index > 0) code.add(", ")
+            code.add(parameterConversion(param))
+        }
+    }
+
+    private fun passGErrorPointerIfNeeded(code: CodeBlock.Builder, constructorBlueprint: ConstructorBlueprint) {
+        if (constructorBlueprint.throws) {
+            code.add(", gError.%M", BindingsGenerator.PTR_FUNC)
+        }
+    }
+
+    private fun endNativeFunctionCall(code: CodeBlock.Builder) {
+        code.add(")")
+    }
+
+    private fun handleResult(
+        code: CodeBlock.Builder,
+        blueprint: HasConstructorsBlueprint,
+        constructorBlueprint: ConstructorBlueprint,
+        isFactory: Boolean
+    ) {
+        if (constructorBlueprint.throws) {
+            code.add("\n")
+            if (isFactory) {
+                handleThrowingFactoryResult(code, constructorBlueprint, blueprint)
+            } else {
+                handleThrowingConstructorResult(code, constructorBlueprint, blueprint)
+            }
+        } else {
+            handleNonThrowingResult(code, blueprint, constructorBlueprint, isFactory)
+        }
+    }
+
+    private fun handleThrowingFactoryResult(
+        code: CodeBlock.Builder,
+        constructorBlueprint: ConstructorBlueprint,
+        blueprint: HasConstructorsBlueprint
+    ) {
+        // if (gError != null) => failure(...) else => success(...)
+        code.beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+        code.addStatement(
+            "%T.failure(%M(%T(gError.%M!!.%M)))",
+            BindingsGenerator.RESULT_TYPE,
+            constructorBlueprint.exceptionResolvingFunctionMember,
+            BindingsGenerator.GLIB_ERROR_TYPE,
+            BindingsGenerator.POINTED_FUNC,
+            BindingsGenerator.PTR_FUNC,
+        )
+        code.nextControlFlow("else")
+        if (blueprint.objectPointerTypeName != constructorBlueprint.returnTypeInfo.nativeTypeName) {
+            code.addStatement(
+                "val instance = %T(checkNotNull(gResult).%M())",
+                determineNonNullReturnType(constructorBlueprint),
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+        } else {
+            code.addStatement(
+                "val instance = %T(checkNotNull(gResult))",
+                determineNonNullReturnType(constructorBlueprint),
+            )
+        }
+        code.add(buildConstructorMemoryManagementBlock(constructorBlueprint, true))
+        code.addStatement(
+            "%T.success(instance)",
+            BindingsGenerator.RESULT_TYPE,
+        )
+        code.endControlFlow()
+    }
+
+    private fun handleThrowingConstructorResult(
+        code: CodeBlock.Builder,
+        constructorBlueprint: ConstructorBlueprint,
+        blueprint: HasConstructorsBlueprint
+    ) {
+        code.beginControlFlow("if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+        code.addStatement(
+            "throw %M(%T(gError.%M!!.%M))",
+            constructorBlueprint.exceptionResolvingFunctionMember,
+            BindingsGenerator.GLIB_ERROR_TYPE,
+            BindingsGenerator.POINTED_FUNC,
+            BindingsGenerator.PTR_FUNC,
+        )
+        code.endControlFlow()
+
+        code.add("gResult!!")
+        if (blueprint.objectPointerTypeName != constructorBlueprint.returnTypeInfo.nativeTypeName) {
+            code.add(".%M()", BindingsGenerator.REINTERPRET_FUNC)
+        }
+    }
+
+    private fun handleNonThrowingResult(
+        code: CodeBlock.Builder,
+        blueprint: HasConstructorsBlueprint,
+        constructorBlueprint: ConstructorBlueprint,
+        isFactory: Boolean
+    ) {
+        code.add("!!")
+        if (blueprint.objectPointerTypeName != constructorBlueprint.returnTypeInfo.nativeTypeName) {
+            code.add(".%M()", BindingsGenerator.REINTERPRET_FUNC)
+        }
+        if (isFactory) {
+            code.add(")")
+            val codeBlock = buildConstructorMemoryManagementBlock(constructorBlueprint, false)
+            if (codeBlock.isNotEmpty()) {
+                code.beginControlFlow(".apply ")
+                code.add(codeBlock)
+                code.endControlFlow()
+            }
+        }
+    }
+
+    private fun endMemScopedIfNeeded(code: CodeBlock.Builder, ctor: ConstructorBlueprint) {
+        if (ctor.needsMemscoped) {
+            code.add("\n")
+            code.endControlFlow() // close memScoped
+        }
+    }
 
     /**
      * Builds a property for an interface pointer on a class that implements an interface.
@@ -262,47 +458,6 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
             .build()
 
     /**
-     * Allocates and initializes a GError pointer.
-     *
-     * This is typically used before calling a native constructor that may throw errors.
-     */
-    fun FunSpec.Builder.addGErrorAllocation() {
-        addStatement("val gError = %M<%M>()", BindingsGenerator.ALLOC_POINTER_TO, BindingsGenerator.G_ERROR_MEMBER)
-        addStatement("gError.%M = null", BindingsGenerator.VALUE_PROPERTY)
-    }
-
-    /**
-     * Handles GError after calling a native constructor function.
-     *
-     * If `gError` is set, returns a failure [Result].
-     * Otherwise, returns a success [Result] wrapping the constructed object.
-     *
-     * @param constructor The constructor blueprint.
-     * @param gResultVariableName The name of the variable holding the native result.
-     */
-    fun FunSpec.Builder.addErrorHandling(constructor: ConstructorBlueprint, gResultVariableName: String = "gResult") {
-        beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
-        addStatement(
-            "%T.failure(%M(%T(gError.%M!!.%M)))",
-            BindingsGenerator.RESULT_TYPE,
-            constructor.exceptionResolvingFunctionMember,
-            BindingsGenerator.GLIB_ERROR_TYPE,
-            BindingsGenerator.POINTED_FUNC,
-            BindingsGenerator.PTR_FUNC,
-        )
-        endControlFlow()
-        beginControlFlow("else")
-        val nonNullReturnType = determineNonNullReturnType(constructor)
-        addStatement(
-            "%T.success(%T(checkNotNull($gResultVariableName).%M()))",
-            BindingsGenerator.RESULT_TYPE,
-            nonNullReturnType,
-            BindingsGenerator.REINTERPRET_FUNC,
-        )
-        endControlFlow()
-    }
-
-    /**
      * Creates a simple primary constructor with a single parameter.
      */
     fun buildSimplePrimaryConstructor(paramName: String, paramType: TypeName): FunSpec =
@@ -311,36 +466,11 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
             .build()
 
     /**
-     * Adds a primary constructor with `pointer` and optionally `cleaner`.
-     */
-    fun TypeSpec.Builder.addPrimaryConstructorWithCleaner(
-        objectPointerTypeName: TypeName,
-        objectPointerName: String,
-        addCleaner: Boolean
-    ) {
-        val constructorBuilder = FunSpec.constructorBuilder()
-            .addParameter(objectPointerName, objectPointerTypeName)
-
-        if (addCleaner) {
-            constructorBuilder.addParameter(
-                ParameterSpec.builder(
-                    "cleaner",
-                    BindingsGenerator.CLEANER.copy(nullable = true),
-                )
-                    .defaultValue("null")
-                    .build(),
-            )
-        }
-
-        primaryConstructor(constructorBuilder.build())
-    }
-
-    /**
      * Adds a no-argument constructor that allocates the object on the native heap.
      *
      * The allocated memory is freed automatically when the object is GCed.
      */
-    fun TypeSpec.Builder.addNoArgConstructor(
+    fun TypeSpec.Builder.addRecordUnionNoArgConstructor(
         kotlinName: String,
         nativeTypeName: TypeName,
         objectPointerTypeName: TypeName,
@@ -348,56 +478,17 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
         addFunction(
             FunSpec.constructorBuilder().apply {
                 buildMethodKDoc(getNoArgConstructorKdoc(kotlinName))?.let { addKdoc(it) }
-                callThisConstructor(buildNoArgAllocationCodeBlock(nativeTypeName))
+                callThisConstructor(
+                    CodeBlock.of(
+                        "%T.%T<%T>().%M",
+                        BindingsGenerator.NATIVE_HEAP_OBJECT,
+                        BindingsGenerator.NATIVE_PLACEMENT_ALLOC,
+                        nativeTypeName,
+                        BindingsGenerator.PTR_FUNC,
+                    ),
+                )
+                addStatement("%T.setNativeHeap(this, owned = true)", BindingsGenerator.MEMORY_CLEANER_TYPE)
             }.build(),
-        )
-    }
-
-    /**
-     * Builds a CodeBlock that allocates a structure on the native heap and associates a cleaner.
-     */
-    fun buildNoArgAllocationCodeBlock(nativeTypeName: TypeName): CodeBlock =
-        CodeBlock.builder()
-            .beginControlFlow(
-                "%T.%T<%T>().run",
-                BindingsGenerator.NATIVE_HEAP_OBJECT,
-                BindingsGenerator.NATIVE_PLACEMENT_ALLOC,
-                nativeTypeName,
-            )
-            .addStatement(
-                "val cleaner = %M(rawPtr) { %T.free(it) }",
-                BindingsGenerator.CREATE_CLEANER,
-                BindingsGenerator.NATIVE_HEAP_OBJECT,
-            )
-            .addStatement("ptr to cleaner")
-            .endControlFlow()
-            .build()
-
-    /**
-     * Adds a private constructor that takes a Pair<CPointer, Cleaner> and unpacks it.
-     */
-    fun TypeSpec.Builder.addPairConstructor(
-        kotlinTypeName: ClassName,
-        objectPointerName: String,
-        objectPointerTypeName: TypeName
-    ) {
-        addFunction(
-            FunSpec.constructorBuilder()
-                .addModifiers(KModifier.PRIVATE)
-                .addKdoc(
-                    """
-                        Private constructor that unpacks the pair into pointer and cleaner.
-
-                        @param pair A pair containing the pointer to %T and a [Cleaner] instance.
-                    """.trimIndent(),
-                    kotlinTypeName,
-                )
-                .addParameter(
-                    "pair",
-                    BindingsGenerator.PAIR_TYPE.parameterizedBy(objectPointerTypeName, BindingsGenerator.CLEANER),
-                )
-                .callThisConstructor(CodeBlock.of("%L = pair.first, cleaner = pair.second", objectPointerName))
-                .build(),
         )
     }
 
@@ -406,7 +497,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
      *
      * The AutofreeScope manages memory lifetime, commonly used with `memScoped`.
      */
-    fun TypeSpec.Builder.addAutofreeScopeConstructor(kotlinName: String, nativeTypeName: TypeName) {
+    fun TypeSpec.Builder.addRecordUnionAutofreeScopeConstructor(kotlinName: String, nativeTypeName: TypeName) {
         addFunction(
             FunSpec.constructorBuilder().apply {
                 val kdoc = getAutofreeScopeConstructorKdoc(kotlinName)
@@ -445,75 +536,12 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
         }
     }
 
-    /**
-     * Adds logic for non-throwable factory constructors.
-     *
-     * This directly calls the native constructor and returns a success result.
-     */
-    fun addNonThrowableFactoryConstructorLogic(
-        builder: FunSpec.Builder,
-        kotlinTypeName: ClassName,
-        constructor: ConstructorBlueprint
-    ) {
-        builder.addCode("return %T(%M(", kotlinTypeName, constructor.nativeMemberName)
-        constructor.parameters.forEachIndexed { index, param ->
-            if (index > 0) builder.addCode(", ")
-            builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
-        }
-        builder.addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC)
-    }
-
-    /**
-     * Adds logic for throwable factory constructors, handling GError and returning [Result].
-     */
-    fun addThrowableFactoryConstructorLogic(builder: FunSpec.Builder, constructor: ConstructorBlueprint) {
-        builder.addStatement(
-            "val gError = %M<%M>()",
-            BindingsGenerator.ALLOC_POINTER_TO,
-            BindingsGenerator.G_ERROR_MEMBER,
-        )
-        builder.addCode("val gResult = %M(", constructor.nativeMemberName)
-
-        constructor.parameters.forEachIndexed { index, param ->
-            if (index > 0) builder.addCode(", ")
-            builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
-        }
-
-        builder.addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
-        builder.addCode(")\n")
-
-        builder.beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
-        builder.addStatement(
-            "%T.failure(%M(%T(gError.%M!!.%M)))",
-            BindingsGenerator.RESULT_TYPE,
-            constructor.exceptionResolvingFunctionMember,
-            BindingsGenerator.GLIB_ERROR_TYPE,
-            BindingsGenerator.POINTED_FUNC,
-            BindingsGenerator.PTR_FUNC,
-        )
-        builder.endControlFlow()
-        builder.beginControlFlow("else")
-
-        val nonNullReturnType = determineNonNullReturnType(constructor)
-        builder.addStatement(
-            "%T.success(%T(checkNotNull(gResult)))",
-            BindingsGenerator.RESULT_TYPE,
-            nonNullReturnType,
-        )
-        builder.endControlFlow()
-    }
-
-    private fun ensureReturnTypeIsObjectPointer(constructor: ConstructorBlueprint) {
-        if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
-            error("Invalid constructor return type")
-        }
-    }
-
     private fun addConstructorKDocAndAnnotations(funBuilder: FunSpec.Builder, constructor: ConstructorBlueprint) {
         buildMethodKDoc(
             kdoc = constructor.kdoc,
             parameters = constructor.parameters,
             optInVersionBlueprint = constructor.optInVersionBlueprint,
+            deprecatedBlueprint = constructor.deprecatedBlueprint,
             returnTypeKDoc = constructor.returnTypeKDoc,
         )?.let { funBuilder.addKdoc(it) }
 
@@ -528,10 +556,11 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
 
     private fun addConstructorKDocIfAny(builder: FunSpec.Builder, constructor: ConstructorBlueprint) {
         buildMethodKDoc(
-            constructor.kdoc,
-            constructor.parameters,
-            constructor.optInVersionBlueprint,
-            constructor.returnTypeKDoc,
+            kdoc = constructor.kdoc,
+            parameters = constructor.parameters,
+            optInVersionBlueprint = constructor.optInVersionBlueprint,
+            deprecatedBlueprint = constructor.deprecatedBlueprint,
+            returnTypeKDoc = constructor.returnTypeKDoc,
         )?.let { builder.addKdoc(it) }
     }
 

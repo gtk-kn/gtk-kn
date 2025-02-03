@@ -27,33 +27,24 @@ package org.gtkkn.samples.playground
 import kotlinx.cinterop.memScoped
 import org.gtkkn.bindings.adw.HeaderBar
 import org.gtkkn.bindings.gdk.Rectangle
+import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
-import org.gtkkn.extensions.glib.util.log.LogLevel.CRITICAL
-import org.gtkkn.extensions.glib.util.log.LogLevel.DEBUG
-import org.gtkkn.extensions.glib.util.log.LogLevel.INFO
-import org.gtkkn.extensions.glib.util.log.LogLevel.MESSAGE
-import org.gtkkn.extensions.glib.util.log.LogLevel.WARNING
 import org.gtkkn.extensions.glib.util.log.log
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gobject.G_TYPE_STRING
+import org.gtkkn.native.gtk.gtk_box_new
 
 fun main() = Application {
-    log(DEBUG) { "This is a debug message" }
-    log(INFO) { "This is an info message" }
-    log(MESSAGE) { "This is an message" }
-    log(WARNING) { "This is an warning message" }
-    log(CRITICAL) { "This is an critical message" }
-
     // setup a HeaderBar since adw windows don't have any by default
     val headerBar = HeaderBar().apply {
         title = "gtk-kn playground"
     }
-
     // setup window layout
-    val layout = Box(Orientation.VERTICAL, 0).apply {
+    val layout = InstanceCache.get<Box>(gtk_box_new(Orientation.VERTICAL.nativeValue, 0)!!, true, null)!!.apply {
         append(headerBar)
     }
     content = layout
@@ -66,6 +57,12 @@ fun main() = Application {
         hexpand = true
         vexpand = true
     }
+
+    log { "#### MemoryCleaner test" };
+    {
+        val d = DateTime()
+        log { "DateTime: ${d.toUnix()}" }
+    }()
 
     log { "#### Record test" }
 

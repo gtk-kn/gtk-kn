@@ -23,9 +23,7 @@ package org.gtkkn.gir.generator
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.TypeSpec
-import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.RecordUnionCommonBlueprint
 
 /**
@@ -39,8 +37,20 @@ interface RecordUnionGenerator : FieldGenerator, MethodGenerator, FunctionGenera
     fun TypeSpec.Builder.addCommonTopLevelKdocAndAnnotations(
         blueprint: RecordUnionCommonBlueprint
     ) {
-        addKdoc(buildTypeKDoc(blueprint.kdoc, blueprint.optInVersionBlueprint, blueprint.skippedObjects))
+        addKdoc(
+            buildTypeKDoc(
+                blueprint.kdoc,
+                blueprint.optInVersionBlueprint,
+                blueprint.deprecatedBlueprint,
+                blueprint.skippedObjects
+            )
+        )
         blueprint.optInVersionBlueprint?.typeName?.let { addAnnotation(it) }
+    }
+
+    fun TypeSpec.Builder.setupInheritance(blueprint: RecordUnionCommonBlueprint) {
+        superclass(BindingsGenerator.PROXY_INSTANCE_TYPE)
+        addSuperclassConstructorParameter(blueprint.objectPointerName)
     }
 
     fun TypeSpec.Builder.addMethodsAndFields(
@@ -80,76 +90,19 @@ interface RecordUnionGenerator : FieldGenerator, MethodGenerator, FunctionGenera
         .build()
 
     fun buildCompanionObject(
+        companionSpecBuilder: TypeSpec.Builder,
         blueprint: RecordUnionCommonBlueprint,
         kotlinTypeName: ClassName
     ): TypeSpec? {
         if (blueprint.constructors.isEmpty() && blueprint.functions.isEmpty()) {
             return null
         }
-        val companionSpecBuilder = TypeSpec.companionObjectBuilder()
-        blueprint.constructors.forEach {
-            companionSpecBuilder.addFunction(buildFactoryConstructorFunction(kotlinTypeName, it))
-        }
         blueprint.functions.forEach {
             companionSpecBuilder.addFunction(buildFunction(it))
         }
+        if (kotlinTypeName == ClassName.bestGuess("org.gtkkn.bindings.glib.Variant")) {
+            companionSpecBuilder.addFunction(buildVariantGetTypeFunction())
+        }
         return companionSpecBuilder.build()
-    }
-
-    /**
-     * Builds a factory constructor function (in the companion object) from a ConstructorBlueprint.
-     */
-    fun buildFactoryConstructorFunction(
-        kotlinTypeName: ClassName,
-        constructor: ConstructorBlueprint
-    ): FunSpec {
-        val funSpecBuilder = FunSpec.builder(constructor.kotlinName)
-
-        // Add KDoc
-        buildMethodKDoc(
-            constructor.kdoc,
-            constructor.parameters,
-            constructor.optInVersionBlueprint,
-            constructor.returnTypeKDoc,
-        )?.let { funSpecBuilder.addKdoc(it) }
-
-        // Determine return type
-        val returnTypeName = if (constructor.throws) {
-            BindingsGenerator.RESULT_TYPE.parameterizedBy(constructor.returnTypeInfo.kotlinTypeName)
-        } else {
-            constructor.returnTypeInfo.kotlinTypeName
-        }
-        funSpecBuilder.returns(returnTypeName)
-
-        if (constructor.parameters.isNotEmpty()) {
-            funSpecBuilder.appendSignatureParameters(constructor.parameters)
-        }
-
-        if (constructor.needsMemscoped) {
-            funSpecBuilder.beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
-        }
-
-        if (constructor.parameters.isEmpty()) {
-            if (constructor.throws) {
-                error("Throwing no-argument constructors are not supported")
-            }
-            funSpecBuilder.addStatement(
-                "return %T(%M()!!)",
-                kotlinTypeName,
-                constructor.nativeMemberName,
-            )
-        } else {
-            if (constructor.throws) {
-                addThrowableFactoryConstructorLogic(funSpecBuilder, constructor)
-            } else {
-                addNonThrowableFactoryConstructorLogic(funSpecBuilder, kotlinTypeName, constructor)
-            }
-        }
-
-        if (constructor.needsMemscoped) {
-            funSpecBuilder.endControlFlow()
-        }
-
-        return funSpecBuilder.build()
     }
 }

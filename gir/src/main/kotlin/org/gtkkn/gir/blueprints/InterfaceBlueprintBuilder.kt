@@ -26,6 +26,7 @@ import com.squareup.kotlinpoet.ParameterizedTypeName
 import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.generator.BindingsGenerator
 import org.gtkkn.gir.model.GirClass
+import org.gtkkn.gir.model.GirConstant
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
@@ -44,11 +45,12 @@ class InterfaceBlueprintBuilder(
     private val girNamespace: GirNamespace,
     private val girNode: GirInterface,
 ) : BlueprintBuilder<InterfaceBlueprint>(context) {
-    private val methodBluePrints = mutableListOf<MethodBlueprint>()
-    private val propertyBluePrints = mutableListOf<PropertyBlueprint>()
-    private val signalBluePrints = mutableListOf<SignalBlueprint>()
+    private val methodBlueprints = mutableListOf<MethodBlueprint>()
+    private val constantBlueprints = mutableListOf<ConstantBlueprint>()
+    private val propertyBlueprints = mutableListOf<PropertyBlueprint>()
+    private val signalBlueprints = mutableListOf<SignalBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
-    private val propertyMethodBluePrintMap = hashMapOf<String, MethodBlueprint>()
+    private val propertyMethodBlueprintMap = hashMapOf<String, MethodBlueprint>()
     private val parentInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
 
     override fun blueprintObjectType(): String = "interface"
@@ -70,6 +72,7 @@ class InterfaceBlueprintBuilder(
         )
 
         girNode.methods.forEach { addMethod(it, objectPointerTypeName) }
+        girNode.constants.forEach { addConstant(it) }
         girNode.properties.forEach { addProperty(it) }
         girNode.signals.forEach { addSignal(it) }
         girNode.functions.forEach { addFunction(it) }
@@ -97,21 +100,30 @@ class InterfaceBlueprintBuilder(
         return InterfaceBlueprint(
             kotlinName = kotlinClassName.simpleName,
             nativeName = girNode.name,
-            typeName = kotlinClassName,
-            methods = methodBluePrints,
-            properties = propertyBluePrints,
+            kotlinTypeName = kotlinClassName,
+            methods = methodBlueprints,
+            constants = constantBlueprints,
+            properties = propertyBlueprints,
             skippedObjects = skippedObjects,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
-            signals = signalBluePrints,
+            signals = signalBlueprints,
             functions = functionBlueprints,
             parentInterfaces = parentInterfaces,
             implClassSuperclassTypeName = implClassSuperclassTypeName,
             glibGetTypeFunc = glibGetTypeMember,
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info).build()
                 .getOrNull(),
+            deprecatedBlueprint = DeprecatedBlueprintBuilder(context, girNode.info, girNode.doc).build().getOrNull(),
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
         )
+    }
+
+    private fun addConstant(girConstant: GirConstant) {
+        when (val result = ConstantBlueprintBuilder(context, girNamespace, girConstant).build()) {
+            is BlueprintResult.Ok -> constantBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
     }
 
     private fun addProperty(property: GirProperty) {
@@ -120,10 +132,10 @@ class InterfaceBlueprintBuilder(
                 context,
                 girNamespace,
                 property,
-                propertyMethodBluePrintMap,
+                propertyMethodBlueprintMap,
             ).build()
         ) {
-            is BlueprintResult.Ok -> propertyBluePrints.add(result.blueprint)
+            is BlueprintResult.Ok -> propertyBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }
@@ -136,11 +148,11 @@ class InterfaceBlueprintBuilder(
             objectPointerTypeName = objectPointerTypeName,
         ).build()) {
             is BlueprintResult.Ok -> {
-                methodBluePrints.add(result.blueprint)
+                methodBlueprints.add(result.blueprint)
                 if (method.callable.getName().startsWith("get") && result.blueprint.parameters.isEmpty() ||
                     method.callable.getName().startsWith("set") && result.blueprint.parameters.size == 1
                 ) {
-                    propertyMethodBluePrintMap[method.callable.getName()] = result.blueprint
+                    propertyMethodBlueprintMap[method.callable.getName()] = result.blueprint
                 }
             }
 
@@ -156,7 +168,7 @@ class InterfaceBlueprintBuilder(
             methods = girNode.methods,
             functions = girNode.functions,
         ).build()) {
-            is BlueprintResult.Ok -> signalBluePrints.add(result.blueprint)
+            is BlueprintResult.Ok -> signalBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }

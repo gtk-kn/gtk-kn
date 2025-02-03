@@ -60,13 +60,11 @@ interface KGTypeGenerator {
         if (clazz.glibGetTypeFunc == null) {
             null
         } else {
-            val propertyType = BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE.parameterizedBy(clazz.typeName)
+            val propertyType = BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE.parameterizedBy(clazz.kotlinTypeName)
             PropertySpec.builder("type", propertyType)
                 .initializer(
-                    "%T(%M(%S)!!) { %T(it.%M()) }",
+                    "%T(getTypeOrNull()!!) { %T(it.%M()) }",
                     BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE,
-                    BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
-                    clazz.glibGetTypeFunc.simpleName,
                     clazz.instanceTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -81,13 +79,11 @@ interface KGTypeGenerator {
         if (iface.glibGetTypeFunc == null) {
             null
         } else {
-            val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.typeName)
+            val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.kotlinTypeName)
             PropertySpec.builder("type", propertyType)
                 .initializer(
-                    "%T(%M(%S)!!) { %T(it.%M()) }",
+                    "%T(getTypeOrNull()!!) { %T(it.%M()) }",
                     BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE,
-                    BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
-                    iface.glibGetTypeFunc.simpleName,
                     iface.instanceTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )

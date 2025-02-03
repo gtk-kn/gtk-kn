@@ -21,6 +21,7 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.CodeBlock
+import org.gtkkn.gir.blueprints.DeprecatedBlueprint
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.SkippedObject
@@ -30,10 +31,12 @@ interface KDocGenerator {
     fun buildTypeKDoc(
         kdoc: String?,
         optInVersionBlueprint: OptInVersionBlueprint?,
+        deprecatedBlueprint: DeprecatedBlueprint?,
         skippedObjects: List<SkippedObject> = emptyList()
     ): CodeBlock =
         CodeBlock.builder().apply {
             val documentedSkippedObjects = skippedObjects.filter { it.documented }
+            addDeprecation(deprecatedBlueprint)
             kdoc?.let { add("%L", it) }
             if (documentedSkippedObjects.isNotEmpty()) {
                 if (kdoc != null) {
@@ -51,6 +54,7 @@ interface KDocGenerator {
         kdoc: String?,
         parameters: List<ParameterBlueprint> = emptyList(),
         optInVersionBlueprint: OptInVersionBlueprint? = null,
+        deprecatedBlueprint: DeprecatedBlueprint? = null,
         returnTypeKDoc: String? = null,
     ): CodeBlock? =
         if (!kdoc.isNullOrBlank() ||
@@ -59,6 +63,7 @@ interface KDocGenerator {
             !optInVersionBlueprint?.version.isNullOrBlank()
         ) {
             CodeBlock.builder().apply {
+                addDeprecation(deprecatedBlueprint)
                 kdoc?.let { add("%L", it) }
                 if (parameters.isNotEmpty() || returnTypeKDoc != null || optInVersionBlueprint?.version != null) {
                     add("\n")
@@ -78,8 +83,10 @@ interface KDocGenerator {
         detailed: Boolean,
         parameters: List<ParameterBlueprint>,
         optInVersionBlueprint: OptInVersionBlueprint?,
+        deprecatedBlueprint: DeprecatedBlueprint?,
         returnTypeKDoc: String?,
     ): CodeBlock = CodeBlock.builder().apply {
+        addDeprecation(deprecatedBlueprint)
         kdoc?.let { add("%L", it) }
         add("\n\n@param connectFlags a combination of [ConnectFlags]")
         if (detailed) {
@@ -98,7 +105,9 @@ interface KDocGenerator {
         detailed: Boolean,
         parameters: List<ParameterBlueprint>,
         optInVersionBlueprint: OptInVersionBlueprint?,
+        deprecatedBlueprint: DeprecatedBlueprint?,
     ): CodeBlock = CodeBlock.builder().apply {
+        addDeprecation(deprecatedBlueprint)
         kdoc?.let { add("%L", it) }
         if (detailed || parameters.isNotEmpty() || !optInVersionBlueprint?.version.isNullOrBlank()) {
             add("\n")
@@ -115,7 +124,9 @@ interface KDocGenerator {
     fun buildPropertyKDoc(
         kdoc: String?,
         optInVersionBlueprint: OptInVersionBlueprint?,
+        deprecatedBlueprint: DeprecatedBlueprint?,
     ): CodeBlock = CodeBlock.builder().apply {
+        addDeprecation(deprecatedBlueprint)
         kdoc?.let { add("%L", it) }
         optInVersionBlueprint?.version?.let { add("\n\n@since %L", it) }
     }.build()
@@ -134,6 +145,17 @@ interface KDocGenerator {
         }
         returnTypeKDoc?.let { add("\n- return %L", it) }
     }.build()
+
+    fun CodeBlock.Builder.addDeprecation(deprecatedBlueprint: DeprecatedBlueprint?) {
+        deprecatedBlueprint?.let { deprecated ->
+            add("# ⚠\uFE0F Deprecated ⚠\uFE0F\n")
+            add("\nThis is deprecated%L.\n", deprecated.version?.let { " since version $it" }.orEmpty())
+            deprecated.message?.let { message ->
+                add("\n%L\n", message)
+            }
+            add("---\n\n")
+        }
+    }
 
     fun getAutofreeScopeConstructorKdoc(kotlinName: String) =
         """

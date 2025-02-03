@@ -28,5 +28,6 @@ data class PropertyBlueprint(
     val isOverride: Boolean,
     val isOpen: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
 )

@@ -25,5 +25,6 @@ data class ConstantBlueprint(
     val typeInfo: TypeInfo,
     val constantValue: String,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
 )

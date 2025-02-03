@@ -34,5 +34,6 @@ data class EnumBlueprint(
     val errorExceptionTypeName: ClassName?,
     val memberConstantsAreScopedToType: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
 )

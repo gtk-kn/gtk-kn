@@ -66,7 +66,8 @@ kotlin {
 tasks {
     val bindings = fileTree("${projectDir}/src/nativeMain/kotlin/org/gtkkn/bindings/")
     val cleanBindings by registering(Delete::class) {
-        group = BasePlugin.BUILD_GROUP
+        group = "gtkkn"
+        description = "Clean generated bindings"
         delete(bindings, optInAnnotationsFile)
     }
     girTask.outputs.files(bindings)
