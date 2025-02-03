@@ -96,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">Cond</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Cond</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Cond</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>glibCondPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/index.html">ProxyInstance</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/core/glib/src/nativeMain/kotlin/org/gtkkn/bindings/glib/Cond.kt#L98">source</a>)</span></span></div><p class="paragraph">The #GCond struct is an opaque data structure that represents a condition. Threads can block on a #GCond if they find a certain condition to be false. If other threads change the state of this condition they signal the #GCond, and that causes the waiting threads to be woken up.</p><p class="paragraph">Consider the following example of a shared variable.  One or more threads can wait for data to be published to the variable and when another thread publishes the data, it can signal one of the waiting threads to wake up to collect the data.</p><p class="paragraph">Here is an example for using GCond to block a thread until a condition is satisfied: |[<!-- language="C" --> gpointer current_data = NULL; GMutex data_mutex; GCond data_cond;</p><p class="paragraph">void push_data (gpointer data) {     g_mutex_lock (&amp;data_mutex);     current_data = data;     g_cond_signal (&amp;data_cond);     g_mutex_unlock (&amp;data_mutex); }</p><p class="paragraph">gpointer pop_data (void) {     gpointer data;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">g_mutex_lock (&amp;data_mutex);
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Cond</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>glibCondPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/index.html">ProxyInstance</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/core/glib/src/nativeMain/kotlin/org/gtkkn/bindings/glib/Cond.kt#L96">source</a>)</span></span></div><p class="paragraph">The #GCond struct is an opaque data structure that represents a condition. Threads can block on a #GCond if they find a certain condition to be false. If other threads change the state of this condition they signal the #GCond, and that causes the waiting threads to be woken up.</p><p class="paragraph">Consider the following example of a shared variable.  One or more threads can wait for data to be published to the variable and when another thread publishes the data, it can signal one of the waiting threads to wake up to collect the data.</p><p class="paragraph">Here is an example for using GCond to block a thread until a condition is satisfied: |[<!-- language="C" --> gpointer current_data = NULL; GMutex data_mutex; GCond data_cond;</p><p class="paragraph">void push_data (gpointer data) {     g_mutex_lock (&amp;data_mutex);     current_data = data;     g_cond_signal (&amp;data_cond);     g_mutex_unlock (&amp;data_mutex); }</p><p class="paragraph">gpointer pop_data (void) {     gpointer data;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">g_mutex_lock (&amp;data_mutex);
 while (!current_data)
   g_cond_wait (&amp;data_cond, &amp;data_mutex);
 data = current_data;
@@ -110,17 +110,17 @@ return data;</code></pre><span class="top-right-position"><span class="copy-icon
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="">Constructors</h2>
-        <div class="table"><a data-name="-1730666051%2FConstructors%2F-2021666004" anchor-label="Cond" id="-1730666051%2FConstructors%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+        <div class="table"><a data-name="-150456277%2FConstructors%2F-2021666004" anchor-label="Cond" id="-150456277%2FConstructors%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
           <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-cond.html"><span><span>Cond</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1730666051%2FConstructors%2F-2021666004"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-150456277%2FConstructors%2F-2021666004"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Cond.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Cond using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">glibCondPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Cond.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Cond using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">glibCondPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -182,7 +182,22 @@ return data;</code></pre><span class="top-right-position"><span class="copy-icon
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="">Functions</h2>
-        <div class="table"><a data-name="-1386993695%2FFunctions%2F-2021666004" anchor-label="broadcast" id="-1386993695%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+        <div class="table"><a data-name="2045956294%2FFunctions%2F-2021666004" anchor-label="addCleaner" id="2045956294%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/add-cleaner.html"><span>add</span><wbr><span><span>Cleaner</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2045956294%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/add-cleaner.html"><span class="token function">addCleaner</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Registers a cleaner to be executed when this proxy object is garbage collected.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1386993695%2FFunctions%2F-2021666004" anchor-label="broadcast" id="-1386993695%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
           <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -237,7 +252,22 @@ return data;</code></pre><span class="top-right-position"><span class="copy-icon
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Destroys a #GCond that has been created with g_cond_new().</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1143452133%2FFunctions%2F-2021666004" anchor-label="getSimpleNameWithHandle" id="1143452133%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy/get-simple-name-with-handle.html"><span>get</span><wbr><span>Simple</span><wbr><span>Name</span><wbr><span>With</span><wbr><span><span>Handle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1143452133%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy/get-simple-name-with-handle.html"><span class="token function">getSimpleNameWithHandle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -272,6 +302,21 @@ return data;</code></pre><span class="top-right-position"><span class="copy-icon
               </div>
             </div>
           </div>
+<a data-name="2011079003%2FFunctions%2F-2021666004" anchor-label="removeCleaner" id="2011079003%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/remove-cleaner.html"><span>remove</span><wbr><span><span>Cleaner</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2011079003%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/remove-cleaner.html"><span class="token function">removeCleaner</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Removes a previously registered cleaner from this proxy object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-2054513040%2FFunctions%2F-2021666004" anchor-label="signal" id="-2054513040%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
           <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
             <div class="main-subrow keyValue ">
@@ -297,7 +342,7 @@ return data;</code></pre><span class="top-right-position"><span class="copy-icon
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="timed-wait.html"><span class="token function">timedWait</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mutex<span class="token operator">: </span><a href="../-mutex/index.html">Mutex</a><span class="token punctuation">, </span></span><span class="parameter ">absTime<span class="token operator">: </span><a href="../-time-val/index.html">TimeVal</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Waits until this thread is woken up on @cond, but not longer than until the time specified by @abs_time. The @mutex is unlocked before falling asleep and locked again before resuming.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="timed-wait.html"><span class="token function">timedWait</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mutex<span class="token operator">: </span><a href="../-mutex/index.html">Mutex</a><span class="token punctuation">, </span></span><span class="parameter ">absTime<span class="token operator">: </span><a href="../-time-val/index.html">TimeVal</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
                 </div>
               </div>
             </div>

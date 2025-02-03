@@ -96,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">StaticRwLock</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Static</span><wbr><span>Rw</span><wbr><span><span>Lock</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">StaticRwLock</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>glibStaticRwLockPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/index.html">ProxyInstance</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/core/glib/src/nativeMain/kotlin/org/gtkkn/bindings/glib/StaticRwLock.kt#L102">source</a>)</span></span></div><p class="paragraph">The #GStaticRWLock struct represents a read-write lock. A read-write lock can be used for protecting data that some portions of code only read from, while others also write. In such situations it is desirable that several readers can read at once, whereas of course only one writer may write at a time.</p><p class="paragraph">Take a look at the following example: |[ GStaticRWLock rwlock = G_STATIC_RW_LOCK_INIT; GPtrArray *array;</p><p class="paragraph">gpointer my_array_get (guint index) {     gpointer retval = NULL;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">if (!array)
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">StaticRwLock</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>glibStaticRwLockPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/index.html">ProxyInstance</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/core/glib/src/nativeMain/kotlin/org/gtkkn/bindings/glib/StaticRwLock.kt#L107">source</a>)</span></span></div><h1 class="">⚠️ Deprecated ⚠️</h1><p class="paragraph">This is deprecated since version 2.32.</p><p class="paragraph"></p><p class="paragraph">Use a #GRWLock instead</p> ---<p></p><p class="paragraph">The #GStaticRWLock struct represents a read-write lock. A read-write lock can be used for protecting data that some portions of code only read from, while others also write. In such situations it is desirable that several readers can read at once, whereas of course only one writer may write at a time.</p><p class="paragraph">Take a look at the following example: |[ GStaticRWLock rwlock = G_STATIC_RW_LOCK_INIT; GPtrArray *array;</p><p class="paragraph">gpointer my_array_get (guint index) {     gpointer retval = NULL;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">if (!array)
   return NULL;
 
 g_static_rw_lock_reader_lock (&amp;rwlock);
@@ -118,17 +118,17 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="">Constructors</h2>
-        <div class="table"><a data-name="899063485%2FConstructors%2F-2021666004" anchor-label="StaticRwLock" id="899063485%2FConstructors%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+        <div class="table"><a data-name="130145067%2FConstructors%2F-2021666004" anchor-label="StaticRwLock" id="130145067%2FConstructors%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
           <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-static-rw-lock.html"><span>Static</span><wbr><span>Rw</span><wbr><span><span>Lock</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="899063485%2FConstructors%2F-2021666004"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="130145067%2FConstructors%2F-2021666004"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new StaticRwLock.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new StaticRwLock using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">glibStaticRwLockPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new StaticRwLock.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new StaticRwLock using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">glibStaticRwLockPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -171,7 +171,22 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="">Functions</h2>
-        <div class="table"><a data-name="2059056792%2FFunctions%2F-2021666004" anchor-label="equals" id="2059056792%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+        <div class="table"><a data-name="2045956294%2FFunctions%2F-2021666004" anchor-label="addCleaner" id="2045956294%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/add-cleaner.html"><span>add</span><wbr><span><span>Cleaner</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2045956294%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/add-cleaner.html"><span class="token function">addCleaner</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Registers a cleaner to be executed when this proxy object is garbage collected.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2059056792%2FFunctions%2F-2021666004" anchor-label="equals" id="2059056792%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
           <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -196,7 +211,22 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Releases all resources allocated to @lock.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1143452133%2FFunctions%2F-2021666004" anchor-label="getSimpleNameWithHandle" id="1143452133%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy/get-simple-name-with-handle.html"><span>get</span><wbr><span>Simple</span><wbr><span>Name</span><wbr><span>With</span><wbr><span><span>Handle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1143452133%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy/get-simple-name-with-handle.html"><span class="token function">getSimpleNameWithHandle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -226,7 +256,7 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init.html"><span class="token function">init</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A #GStaticRWLock must be initialized with this function before it can be used. Alternatively you can initialize it with %G_STATIC_RW_LOCK_INIT.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init.html"><span class="token function">init</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -241,7 +271,7 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reader-lock.html"><span class="token function">readerLock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Locks @lock for reading. There may be unlimited concurrent locks for reading of a #GStaticRWLock at the same time.  If @lock is already locked for writing by another thread or if another thread is already waiting to lock @lock for writing, this function will block until</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reader-lock.html"><span class="token function">readerLock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -256,7 +286,7 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reader-trylock.html"><span class="token function">readerTrylock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tries to lock @lock for reading. If @lock is already locked for writing by another thread or if another thread is already waiting to lock @lock for writing, immediately returns false. Otherwise locks</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reader-trylock.html"><span class="token function">readerTrylock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -271,7 +301,22 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reader-unlock.html"><span class="token function">readerUnlock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unlocks @lock. If a thread waits to lock @lock for writing and all locks for reading have been unlocked, the waiting thread is woken up and can lock @lock for writing.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reader-unlock.html"><span class="token function">readerUnlock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2011079003%2FFunctions%2F-2021666004" anchor-label="removeCleaner" id="2011079003%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/remove-cleaner.html"><span>remove</span><wbr><span><span>Cleaner</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2011079003%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/remove-cleaner.html"><span class="token function">removeCleaner</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Removes a previously registered cleaner from this proxy object.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -286,7 +331,7 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="writer-lock.html"><span class="token function">writerLock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Locks @lock for writing. If @lock is already locked for writing or reading by other threads, this function will block until @lock is completely unlocked and then lock @lock for writing. While this functions waits to lock @lock, no other thread can lock @lock for reading. When @lock is locked for writing, no other thread can lock</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="writer-lock.html"><span class="token function">writerLock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -301,7 +346,7 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="writer-trylock.html"><span class="token function">writerTrylock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tries to lock @lock for writing. If @lock is already locked (for either reading or writing) by another thread, it immediately returns false. Otherwise it locks @lock for writing and returns true. This lock has to be unlocked by g_static_rw_lock_writer_unlock().</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="writer-trylock.html"><span class="token function">writerTrylock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -316,7 +361,7 @@ g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="writer-unlock.html"><span class="token function">writerUnlock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unlocks @lock. If a thread is waiting to lock @lock for writing and all locks for reading have been unlocked, the waiting thread is woken up and can lock @lock for writing. If no thread is waiting to lock @lock for writing, and some thread or threads are waiting to lock @lock for reading, the waiting threads are woken up and can lock @lock for reading.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="writer-unlock.html"><span class="token function">writerUnlock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is deprecated since version 2.32.</p></div></div></div>
                 </div>
               </div>
             </div>

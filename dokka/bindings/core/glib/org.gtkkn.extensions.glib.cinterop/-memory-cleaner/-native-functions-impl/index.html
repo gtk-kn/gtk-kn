@@ -96,39 +96,54 @@
   <div class="breadcrumbs"><a href="../../../index.html">glib</a><span class="delimiter">/</span><a href="../../index.html">org.gtkkn.extensions.glib.cinterop</a><span class="delimiter">/</span><a href="../index.html">MemoryCleaner</a><span class="delimiter">/</span><span class="current">NativeFunctionsImpl</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Native</span><wbr><span>Functions</span><wbr><span><span>Impl</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">NativeFunctionsImpl</a> : <a href="../../../../../../bindings/core/glib/org.gtkkn.extensions.glib.cinterop/-memory-cleaner/-native-functions/index.html">MemoryCleaner.NativeFunctions</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/core/glib/src/nativeMain/kotlin/org/gtkkn/extensions/glib/cinterop/MemoryCleaner.kt#L247">source</a>)</span></span></div><p class="paragraph">Default implementation of native cleanup functions for production use.</p><p class="paragraph">This implementation directly calls the native functions <code class="lang-kotlin">g_free</code> and <code class="lang-kotlin">g_boxed_free</code> from their respective libraries (<code class="lang-kotlin">glib</code> and <code class="lang-kotlin">gobject</code>).</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">NativeFunctionsImpl</a> : <a href="../../../../../../bindings/core/glib/org.gtkkn.extensions.glib.cinterop/-memory-cleaner/-native-functions/index.html">MemoryCleaner.NativeFunctions</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/core/glib/src/nativeMain/kotlin/org/gtkkn/extensions/glib/cinterop/MemoryCleaner.kt#L342">source</a>)</span></span></div><p class="paragraph">Default implementation of native cleanup functions for production use.</p><p class="paragraph">This implementation directly calls the native functions <code class="lang-kotlin">g_free</code>, <code class="lang-kotlin">g_boxed_free</code>, and <code class="lang-kotlin">nativeHeap.free</code> from their respective libraries.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="FUNCTION">
         <h2 class="">Functions</h2>
-        <div class="table"><a data-name="1914256868%2FFunctions%2F-2021666004" anchor-label="g_boxed_free" id="1914256868%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+        <div class="table"><a data-name="249183078%2FFunctions%2F-2021666004" anchor-label="gBoxedFree" id="249183078%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
           <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="g_boxed_free.html"><span>g_</span><wbr><span>boxed_</span><wbr><span>free</span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1914256868%2FFunctions%2F-2021666004"></span>
+                  <div><a href="g-boxed-free.html"><span>g</span><wbr><span>Boxed</span><wbr><span><span>Free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="249183078%2FFunctions%2F-2021666004"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="g_boxed_free.html"><span class="token function">g_boxed_free</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gtype<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">boxed<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="g-boxed-free.html"><span class="token function">gBoxedFree</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gtype<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">boxed<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="832524697%2FFunctions%2F-2021666004" anchor-label="g_free" id="832524697%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+<a data-name="-1059126352%2FFunctions%2F-2021666004" anchor-label="gFree" id="-1059126352%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
           <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="g_free.html"><span>g_</span><wbr><span>free</span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="832524697%2FFunctions%2F-2021666004"></span>
+                  <div><a href="g-free.html"><span>g</span><wbr><span><span>Free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1059126352%2FFunctions%2F-2021666004"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="g_free.html"><span class="token function">g_free</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mem<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="g-free.html"><span class="token function">gFree</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mem<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2095493383%2FFunctions%2F-2021666004" anchor-label="nativeHeapFree" id="-2095493383%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-heap-free.html"><span>native</span><wbr><span>Heap</span><wbr><span><span>Free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2095493383%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="native-heap-free.html"><span class="token function">nativeHeapFree</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mem<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
