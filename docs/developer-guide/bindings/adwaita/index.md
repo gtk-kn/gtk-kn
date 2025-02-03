@@ -1,18 +1,28 @@
-# Adwaita
+---
+title: Adwaita
+description: Learn how Adwaita extends GTK with HIG-compliant widgets, theming, and dark mode support to create modern GNOME applications.
+...
 
-[Adwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/) (Libadwaita or Adw) is a set of widgets and classes that
-extend the GTK toolkit, the default UI toolkit for GNOME. It’s designed to implement GNOME’s design patterns, as
-outlined in the [GNOME Human Interface Guidelines](https://developer.gnome.org/hig/) (HIG). The HIG provides
-recommendations for creating consistent, intuitive, and accessible user interfaces across GNOME applications.
+[Adwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/) (also known as **Libadwaita** or **Adw**) is a set of
+widgets and classes that extend the GTK toolkit, the default UI framework for GNOME applications.
 
-Adwaita offers a range of HIG-compliant widgets, including buttons, switches, and dialogs, that give applications a
-consistent and modern GNOME look. It supports high-resolution displays, with scalable icons for clarity on various
-screen sizes.
+It is designed to implement GNOME’s design patterns, as outlined in
+the [GNOME Human Interface Guidelines](https://developer.gnome.org/hig/) (HIG). These guidelines ensure consistency,
+intuitiveness, and accessibility across GNOME applications. For a deeper dive into designing modern GTK applications,
+check out our [UI Design Guide](../../ui-design.md).
 
-In addition to widgets, Adwaita includes CSS stylesheets that define their visual appearance, offering a flexible way to
-customize styling while following GNOME’s guidelines. Adwaita also supports dark mode, which can be toggled system-wide
-or on a per-application basis.
+## What Adwaita Offers
 
-Overall, Adwaita is crucial for GNOME, providing a cohesive, modern look that aligns with the GNOME HIG. With support
-for high-resolution displays and dark mode, it’s a versatile toolkit for building modern, user-friendly desktop
-applications.
+- **HIG-Compliant Widgets** – Pre-styled components like buttons, switches, dialogs, and more, ensuring a modern and
+consistent GNOME look.
+- **High-Resolution Display Support** – Scalable icons and UI elements for crisp visuals on all screen sizes.
+- **Built-in Theming** – Customizable CSS stylesheets that allow UI personalization while maintaining GNOME’s design
+principles.
+- **Dark Mode Support** – Easily toggle between light and dark themes, either system-wide or per application.
+
+## Why Use Adwaita?
+
+Adwaita is essential for creating visually cohesive, modern, and user-friendly GTK applications. It helps developers
+ensure their apps seamlessly integrate with the GNOME desktop environment, following best practices for UI/UX design.
+
+To learn more about designing beautiful and modern GTK applications, visit our [UI Design Guide](../../ui-design.md).
