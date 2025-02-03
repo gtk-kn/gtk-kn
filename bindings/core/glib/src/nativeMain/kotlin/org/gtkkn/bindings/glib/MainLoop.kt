@@ -4,7 +4,7 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -26,6 +26,23 @@ import kotlin.Unit
  * representing the main event loop of a GLib or GTK application.
  */
 public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : ProxyInstance(glibMainLoopPointer) {
+    /**
+     * Creates a new #GMainLoop structure.
+     *
+     * @param context a #GMainContext  (if null, the global-default
+     *   main context will be used).
+     * @param isRunning set to true to indicate that the loop is running. This
+     * is not very important since calling g_main_loop_run() will set this to
+     * true anyway.
+     * @return a new #GMainLoop.
+     */
+    public constructor(
+        context: MainContext? = null,
+        isRunning: Boolean,
+    ) : this(g_main_loop_new(context?.glibMainContextPointer, isRunning.asGBoolean())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Returns the #GMainContext of @loop.
      *
@@ -75,19 +92,6 @@ public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : Pro
     public fun unref(): Unit = g_main_loop_unref(glibMainLoopPointer)
 
     public companion object {
-        /**
-         * Creates a new #GMainLoop structure.
-         *
-         * @param context a #GMainContext  (if null, the global-default
-         *   main context will be used).
-         * @param isRunning set to true to indicate that the loop is running. This
-         * is not very important since calling g_main_loop_run() will set this to
-         * true anyway.
-         * @return a new #GMainLoop.
-         */
-        public fun new(context: MainContext? = null, isRunning: Boolean): MainLoop =
-            MainLoop(g_main_loop_new(context?.glibMainContextPointer, isRunning.asGBoolean())!!.reinterpret())
-
         /**
          * Get the GType of MainLoop
          *

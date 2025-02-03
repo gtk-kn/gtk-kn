@@ -15,12 +15,12 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GMenuModel
 import org.gtkkn.native.gio.g_menu_model_get_item_attribute_value
 import org.gtkkn.native.gio.g_menu_model_get_item_link
@@ -165,6 +165,10 @@ import kotlin.Unit
 public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuModel>) :
     Object(gioMenuModelPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Queries the item at position @item_index in @model for the attribute
      * specified by @attribute.
@@ -214,7 +218,7 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
     @GioVersion2_32
     public open fun getItemLink(itemIndex: gint, link: String): MenuModel? =
         g_menu_model_get_item_link(gioMenuModelPointer, itemIndex, link)?.run {
-            MenuModelImpl(this)
+            InstanceCache.get(this, true) { MenuModelImpl(reinterpret()) }!!
         }
 
     /**
@@ -278,7 +282,7 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
     @GioVersion2_32
     public open fun iterateItemAttributes(itemIndex: gint): MenuAttributeIter =
         g_menu_model_iterate_item_attributes(gioMenuModelPointer, itemIndex)!!.run {
-            MenuAttributeIter.MenuAttributeIterImpl(this)
+            InstanceCache.get(this, true) { MenuAttributeIter.MenuAttributeIterImpl(reinterpret()) }!!
         }
 
     /**
@@ -294,7 +298,7 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
     @GioVersion2_32
     public open fun iterateItemLinks(itemIndex: gint): MenuLinkIter =
         g_menu_model_iterate_item_links(gioMenuModelPointer, itemIndex)!!.run {
-            MenuLinkIter.MenuLinkIterImpl(this)
+            InstanceCache.get(this, true) { MenuLinkIter.MenuLinkIterImpl(reinterpret()) }!!
         }
 
     /**
@@ -358,7 +362,7 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
 
     public companion object : TypeCompanion<MenuModel> {
         override val type: GeneratedClassKGType<MenuModel> =
-            GeneratedClassKGType(getTypeOrNull("g_menu_model_get_type")!!) { MenuModelImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { MenuModelImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -370,6 +374,16 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
          * @return the GType
          */
         public fun getType(): GType = g_menu_model_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_menu_model_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_menu_model_get_type")
     }
 }
 

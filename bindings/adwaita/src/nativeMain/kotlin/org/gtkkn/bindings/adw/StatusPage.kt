@@ -8,10 +8,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwStatusPage
 import org.gtkkn.native.adw.adw_status_page_get_child
 import org.gtkkn.native.adw.adw_status_page_get_description
@@ -53,6 +53,10 @@ import kotlin.String
 public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>) :
     Widget(adwStatusPagePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -72,7 +76,7 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
          * @return the child widget of @self
          */
         get() = adw_status_page_get_child(adwStatusPagePointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -175,11 +179,13 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
      *
      * @return the newly created `AdwStatusPage`
      */
-    public constructor() : this(adw_status_page_new()!!.reinterpret())
+    public constructor() : this(adw_status_page_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<StatusPage> {
         override val type: GeneratedClassKGType<StatusPage> =
-            GeneratedClassKGType(getTypeOrNull("adw_status_page_get_type")!!) { StatusPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { StatusPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -191,5 +197,16 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
          * @return the GType
          */
         public fun getType(): GType = adw_status_page_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_status_page_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_status_page_get_type")
     }
 }

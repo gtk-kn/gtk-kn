@@ -11,10 +11,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GMenuItem
 import org.gtkkn.native.gio.g_menu_item_get_attribute_value
 import org.gtkkn.native.gio.g_menu_item_get_link
@@ -52,6 +52,10 @@ import kotlin.Unit
 public open class MenuItem(public val gioMenuItemPointer: CPointer<GMenuItem>) :
     Object(gioMenuItemPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GMenuItem.
      *
@@ -70,7 +74,9 @@ public open class MenuItem(public val gioMenuItemPointer: CPointer<GMenuItem>) :
     public constructor(
         label: String? = null,
         detailedAction: String? = null,
-    ) : this(g_menu_item_new(label, detailedAction)!!.reinterpret())
+    ) : this(g_menu_item_new(label, detailedAction)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a #GMenuItem as an exact copy of an existing menu item in a
@@ -87,7 +93,9 @@ public open class MenuItem(public val gioMenuItemPointer: CPointer<GMenuItem>) :
     public constructor(
         model: MenuModel,
         itemIndex: gint,
-    ) : this(g_menu_item_new_from_model(model.gioMenuModelPointer, itemIndex)!!.reinterpret())
+    ) : this(g_menu_item_new_from_model(model.gioMenuModelPointer, itemIndex)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GMenuItem representing a section.
@@ -159,7 +167,9 @@ public open class MenuItem(public val gioMenuItemPointer: CPointer<GMenuItem>) :
     public constructor(
         label: String? = null,
         section: MenuModel,
-    ) : this(g_menu_item_new_section(label, section.gioMenuModelPointer)!!.reinterpret())
+    ) : this(g_menu_item_new_section(label, section.gioMenuModelPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Queries the named @attribute on @menu_item.
@@ -188,7 +198,7 @@ public open class MenuItem(public val gioMenuItemPointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_34
     public open fun getLink(link: String): MenuModel? = g_menu_item_get_link(gioMenuItemPointer, link)?.run {
-        MenuModel.MenuModelImpl(this)
+        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
     }
 
     /**
@@ -372,81 +382,28 @@ public open class MenuItem(public val gioMenuItemPointer: CPointer<GMenuItem>) :
 
     public companion object : TypeCompanion<MenuItem> {
         override val type: GeneratedClassKGType<MenuItem> =
-            GeneratedClassKGType(getTypeOrNull("g_menu_item_get_type")!!) { MenuItem(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { MenuItem(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
 
         /**
-         * Creates a new #GMenuItem representing a section.
+         * Get the GType of MenuItem
          *
-         * This is a convenience API around g_menu_item_new() and
-         * g_menu_item_set_section().
-         *
-         * The effect of having one menu appear as a section of another is
-         * exactly as it sounds: the items from @section become a direct part of
-         * the menu that @menu_item is added to.
-         *
-         * Visual separation is typically displayed between two non-empty
-         * sections.  If @label is non-null then it will be encorporated into
-         * this visual indication.  This allows for labeled subsections of a
-         * menu.
-         *
-         * As a simple example, consider a typical "Edit" menu from a simple
-         * program.  It probably contains an "Undo" and "Redo" item, followed by
-         * a separator, followed by "Cut", "Copy" and "Paste".
-         *
-         * This would be accomplished by creating three #GMenu instances.  The
-         * first would be populated with the "Undo" and "Redo" items, and the
-         * second with the "Cut", "Copy" and "Paste" items.  The first and
-         * second menus would then be added as submenus of the third.  In XML
-         * format, this would look something like the following:
-         * |[
-         * <menu id='edit-menu'>
-         *   <section>
-         *     <item label='Undo'/>
-         *     <item label='Redo'/>
-         *   </section>
-         *   <section>
-         *     <item label='Cut'/>
-         *     <item label='Copy'/>
-         *     <item label='Paste'/>
-         *   </section>
-         * </menu>
-         * ]|
-         *
-         * The following example is exactly equivalent.  It is more illustrative
-         * of the exact relationship between the menus and items (keeping in
-         * mind that the 'link' element defines a new menu that is linked to the
-         * containing one).  The style of the second example is more verbose and
-         * difficult to read (and therefore not recommended except for the
-         * purpose of understanding what is really going on).
-         * |[
-         * <menu id='edit-menu'>
-         *   <item>
-         *     <link name='section'>
-         *       <item label='Undo'/>
-         *       <item label='Redo'/>
-         *     </link>
-         *   </item>
-         *   <item>
-         *     <link name='section'>
-         *       <item label='Cut'/>
-         *       <item label='Copy'/>
-         *       <item label='Paste'/>
-         *     </link>
-         *   </item>
-         * </menu>
-         * ]|
-         *
-         * @param label the section label, or null
-         * @param section a #GMenuModel with the items of the section
-         * @return a new #GMenuItem
-         * @since 2.32
+         * @return the GType
          */
-        public fun newSection(label: String? = null, section: MenuModel): MenuItem =
-            MenuItem(g_menu_item_new_section(label, section.gioMenuModelPointer)!!.reinterpret())
+        public fun getType(): GType = g_menu_item_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_menu_item_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_menu_item_get_type")
 
         /**
          * Creates a new #GMenuItem representing a submenu.
@@ -459,14 +416,9 @@ public open class MenuItem(public val gioMenuItemPointer: CPointer<GMenuItem>) :
          * @return a new #GMenuItem
          * @since 2.32
          */
-        public fun newSubmenu(label: String? = null, submenu: MenuModel): MenuItem =
-            MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer)!!.reinterpret())
-
-        /**
-         * Get the GType of MenuItem
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = g_menu_item_get_type()
+        public fun submenu(label: String? = null, submenu: MenuModel): MenuItem =
+            MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer)!!).apply {
+                InstanceCache.put(this)
+            }
     }
 }

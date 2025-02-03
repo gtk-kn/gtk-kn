@@ -8,6 +8,7 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.bindings.pango.Layout
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.gfloat
@@ -93,6 +94,19 @@ import kotlin.Unit
 @GskVersion4_14
 public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuilder>) :
     ProxyInstance(gskPathBuilderPointer) {
+    /**
+     * Create a new `GskPathBuilder` object.
+     *
+     * The resulting builder would create an empty `GskPath`.
+     * Use addition functions to add types to it.
+     *
+     * @return a new `GskPathBuilder`
+     * @since 4.14
+     */
+    public constructor() : this(gsk_path_builder_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Adds a Cairo path to the builder.
      *
@@ -635,17 +649,6 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
     public fun unref(): Unit = gsk_path_builder_unref(gskPathBuilderPointer)
 
     public companion object {
-        /**
-         * Create a new `GskPathBuilder` object.
-         *
-         * The resulting builder would create an empty `GskPath`.
-         * Use addition functions to add types to it.
-         *
-         * @return a new `GskPathBuilder`
-         * @since 4.14
-         */
-        public fun new(): PathBuilder = PathBuilder(gsk_path_builder_new()!!)
-
         /**
          * Get the GType of PathBuilder
          *

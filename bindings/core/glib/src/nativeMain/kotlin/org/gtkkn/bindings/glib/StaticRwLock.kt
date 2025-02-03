@@ -8,6 +8,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GStaticRWLock
@@ -20,12 +21,16 @@ import org.gtkkn.native.glib.g_static_rw_lock_writer_lock
 import org.gtkkn.native.glib.g_static_rw_lock_writer_trylock
 import org.gtkkn.native.glib.g_static_rw_lock_writer_unlock
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.32.
+ *
+ * Use a #GRWLock instead
+ * ---
+ *
  * The #GStaticRWLock struct represents a read-write lock. A read-write
  * lock can be used for protecting data that some portions of code only
  * read from, while others also write. In such situations it is
@@ -99,7 +104,7 @@ import kotlin.native.ref.createCleaner
  * #GStaticRWLock. The above example most probably would fare better with a
  * #GStaticMutex.
  */
-public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRWLock>, cleaner: Cleaner? = null) :
+public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRWLock>) :
     ProxyInstance(glibStaticRwLockPointer) {
     /**
      * Allocate a new StaticRwLock.
@@ -107,21 +112,9 @@ public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRW
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GStaticRWLock>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to StaticRwLock and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GStaticRWLock>, Cleaner>,
-    ) : this(glibStaticRwLockPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GStaticRWLock>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new StaticRwLock using the provided [AutofreeScope].
@@ -133,6 +126,13 @@ public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRW
     public constructor(scope: AutofreeScope) : this(scope.alloc<GStaticRWLock>().ptr)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use a #GRWLock instead
+     * ---
+     *
      * Releases all resources allocated to @lock.
      *
      * You don't have to call this functions for a #GStaticRWLock with an
@@ -143,6 +143,13 @@ public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRW
     public fun free(): Unit = g_static_rw_lock_free(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_init() instead
+     * ---
+     *
      * A #GStaticRWLock must be initialized with this function before it
      * can be used. Alternatively you can initialize it with
      * %G_STATIC_RW_LOCK_INIT.
@@ -150,6 +157,13 @@ public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRW
     public fun `init`(): Unit = g_static_rw_lock_init(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_reader_lock() instead
+     * ---
+     *
      * Locks @lock for reading. There may be unlimited concurrent locks for
      * reading of a #GStaticRWLock at the same time.  If @lock is already
      * locked for writing by another thread or if another thread is already
@@ -165,6 +179,13 @@ public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRW
     public fun readerLock(): Unit = g_static_rw_lock_reader_lock(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_reader_trylock() instead
+     * ---
+     *
      * Tries to lock @lock for reading. If @lock is already locked for
      * writing by another thread or if another thread is already waiting to
      * lock @lock for writing, immediately returns false. Otherwise locks
@@ -176,6 +197,13 @@ public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRW
     public fun readerTrylock(): Boolean = g_static_rw_lock_reader_trylock(glibStaticRwLockPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_reader_unlock() instead
+     * ---
+     *
      * Unlocks @lock. If a thread waits to lock @lock for writing and all
      * locks for reading have been unlocked, the waiting thread is woken up
      * and can lock @lock for writing.
@@ -183,6 +211,13 @@ public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRW
     public fun readerUnlock(): Unit = g_static_rw_lock_reader_unlock(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_writer_lock() instead
+     * ---
+     *
      * Locks @lock for writing. If @lock is already locked for writing or
      * reading by other threads, this function will block until @lock is
      * completely unlocked and then lock @lock for writing. While this
@@ -194,6 +229,13 @@ public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRW
     public fun writerLock(): Unit = g_static_rw_lock_writer_lock(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_writer_trylock() instead
+     * ---
+     *
      * Tries to lock @lock for writing. If @lock is already locked (for
      * either reading or writing) by another thread, it immediately returns
      * false. Otherwise it locks @lock for writing and returns true. This
@@ -204,6 +246,13 @@ public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRW
     public fun writerTrylock(): Boolean = g_static_rw_lock_writer_trylock(glibStaticRwLockPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_writer_unlock() instead
+     * ---
+     *
      * Unlocks @lock. If a thread is waiting to lock @lock for writing and
      * all locks for reading have been unlocked, the waiting thread is
      * woken up and can lock @lock for writing. If no thread is waiting to

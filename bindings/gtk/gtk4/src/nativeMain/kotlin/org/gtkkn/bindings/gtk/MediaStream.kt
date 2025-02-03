@@ -10,12 +10,11 @@ import org.gtkkn.bindings.gdk.Surface
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint64
@@ -91,6 +90,10 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
     Object(gtkMediaStreamPointer.reinterpret()),
     Paintable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 
@@ -249,6 +252,13 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
         set(volume) = gtk_media_stream_set_volume(gtkMediaStreamPointer, volume)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [method@Gtk.MediaStream.stream_ended] instead
+     * ---
+     *
      * Pauses the media stream and marks it as ended.
      *
      * This is a hint only, calls to [method@Gtk.MediaStream.play]
@@ -343,6 +353,13 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
     public open fun play(): Unit = gtk_media_stream_play(gtkMediaStreamPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [method@Gtk.MediaStream.stream_prepared] instead.
+     * ---
+     *
      * Same as gtk_media_stream_stream_prepared().
      *
      * @param hasAudio true if the stream should advertise audio support
@@ -475,6 +492,13 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
     public open fun streamUnprepared(): Unit = gtk_media_stream_stream_unprepared(gtkMediaStreamPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [method@Gtk.MediaStream.stream_unprepared] instead.
+     * ---
+     *
      * Same as gtk_media_stream_stream_unprepared().
      */
     public open fun unprepared(): Unit = gtk_media_stream_unprepared(gtkMediaStreamPointer)
@@ -512,7 +536,7 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<MediaStream> {
         override val type: GeneratedClassKGType<MediaStream> =
-            GeneratedClassKGType(getTypeOrNull("gtk_media_stream_get_type")!!) { MediaStreamImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { MediaStreamImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -524,5 +548,16 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_media_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_media_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_media_stream_get_type")
     }
 }

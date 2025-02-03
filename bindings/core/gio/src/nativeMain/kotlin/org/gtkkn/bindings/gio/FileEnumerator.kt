@@ -16,12 +16,12 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GFileEnumerator
 import org.gtkkn.native.gio.g_file_enumerator_close
 import org.gtkkn.native.gio.g_file_enumerator_close_async
@@ -78,6 +78,10 @@ import kotlin.Unit
 public open class FileEnumerator(public val gioFileEnumeratorPointer: CPointer<GFileEnumerator>) :
     Object(gioFileEnumeratorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Releases all resources used by this enumerator, making the
      * enumerator return %G_IO_ERROR_CLOSED on all calls.
@@ -235,7 +239,7 @@ public open class FileEnumerator(public val gioFileEnumeratorPointer: CPointer<G
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            FileInfo(this)
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -368,7 +372,7 @@ public open class FileEnumerator(public val gioFileEnumeratorPointer: CPointer<G
 
     public companion object : TypeCompanion<FileEnumerator> {
         override val type: GeneratedClassKGType<FileEnumerator> =
-            GeneratedClassKGType(getTypeOrNull("g_file_enumerator_get_type")!!) { FileEnumerator(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FileEnumerator(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -380,5 +384,16 @@ public open class FileEnumerator(public val gioFileEnumeratorPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = g_file_enumerator_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_file_enumerator_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_file_enumerator_get_type")
     }
 }

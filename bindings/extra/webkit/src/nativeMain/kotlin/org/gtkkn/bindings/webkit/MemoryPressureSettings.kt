@@ -5,6 +5,7 @@ package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.guint
@@ -53,6 +54,16 @@ import kotlin.Unit
 public class MemoryPressureSettings(
     public val webkitMemoryPressureSettingsPointer: CPointer<WebKitMemoryPressureSettings>,
 ) : ProxyInstance(webkitMemoryPressureSettingsPointer) {
+    /**
+     * Create a new #WebKitMemoryPressureSettings with the default values.
+     *
+     * @return A new #WebKitMemoryPressureSettings instance filled with the default values.
+     * @since 2.34
+     */
+    public constructor() : this(webkit_memory_pressure_settings_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Make a copy of @settings.
      *
@@ -199,14 +210,6 @@ public class MemoryPressureSettings(
         webkit_memory_pressure_settings_set_strict_threshold(webkitMemoryPressureSettingsPointer, `value`)
 
     public companion object {
-        /**
-         * Create a new #WebKitMemoryPressureSettings with the default values.
-         *
-         * @return A new #WebKitMemoryPressureSettings instance filled with the default values.
-         * @since 2.34
-         */
-        public fun new(): MemoryPressureSettings = MemoryPressureSettings(webkit_memory_pressure_settings_new()!!)
-
         /**
          * Get the GType of MemoryPressureSettings
          *

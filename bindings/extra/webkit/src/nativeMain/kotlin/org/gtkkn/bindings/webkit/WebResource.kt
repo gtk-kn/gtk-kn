@@ -20,11 +20,11 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.glib.GError
@@ -62,6 +62,10 @@ import kotlin.Unit
 public class WebResource(public val webkitWebResourcePointer: CPointer<WebKitWebResource>) :
     Object(webkitWebResourcePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The #WebKitURIResponse associated with this resource.
      */
@@ -77,7 +81,7 @@ public class WebResource(public val webkitWebResourcePointer: CPointer<WebKitWeb
          *     the response hasn't been received yet.
          */
         get() = webkit_web_resource_get_response(webkitWebResourcePointer)!!.run {
-            UriResponse(this)
+            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!
         }
 
     /**
@@ -265,10 +269,10 @@ public class WebResource(public val webkitWebResourcePointer: CPointer<WebKitWeb
 
     public companion object : TypeCompanion<WebResource> {
         override val type: GeneratedClassKGType<WebResource> =
-            GeneratedClassKGType(getTypeOrNull("webkit_web_resource_get_type")!!) { WebResource(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { WebResource(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -277,6 +281,17 @@ public class WebResource(public val webkitWebResourcePointer: CPointer<WebKitWeb
          * @return the GType
          */
         public fun getType(): GType = webkit_web_resource_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_web_resource_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_web_resource_get_type")
     }
 }
 
@@ -308,7 +323,7 @@ private val onFailedWithTlsErrorsFunc:
             ) -> Unit
             >().get().invoke(
             certificate!!.run {
-                TlsCertificate.TlsCertificateImpl(this)
+                InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
             },
             errors.run {
                 TlsCertificateFlags(this)
@@ -335,10 +350,10 @@ private val onSentRequestFunc:
         ->
         userData.asStableRef<(request: UriRequest, redirectedResponse: UriResponse) -> Unit>().get().invoke(
             request!!.run {
-                UriRequest(this)
+                InstanceCache.get(this, false) { UriRequest(reinterpret()) }!!
             },
             redirectedResponse!!.run {
-                UriResponse(this)
+                InstanceCache.get(this, false) { UriResponse(reinterpret()) }!!
             }
         )
     }

@@ -10,6 +10,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GPathBuf
@@ -30,11 +31,8 @@ import org.gtkkn.native.glib.g_path_buf_set_filename
 import org.gtkkn.native.glib.g_path_buf_to_path
 import org.gtkkn.native.glib.gpointer
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * `GPathBuf` is a helper type that allows you to easily build paths from
@@ -70,29 +68,16 @@ import kotlin.native.ref.createCleaner
  * @since 2.76
  */
 @GLibVersion2_76
-public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibPathBufPointer) {
+public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>) : ProxyInstance(glibPathBufPointer) {
     /**
      * Allocate a new PathBuf.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GPathBuf>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PathBuf and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GPathBuf>, Cleaner>,
-    ) : this(glibPathBufPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GPathBuf>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PathBuf using the provided [AutofreeScope].

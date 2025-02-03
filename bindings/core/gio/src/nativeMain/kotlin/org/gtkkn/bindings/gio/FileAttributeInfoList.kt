@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GFileAttributeInfoList
 import org.gtkkn.native.gio.g_file_attribute_info_list_add
@@ -49,6 +50,15 @@ public class FileAttributeInfoList(public val gioFileAttributeInfoListPointer: C
         set(`value`) {
             gioFileAttributeInfoListPointer.pointed.n_infos = value
         }
+
+    /**
+     * Creates a new file attribute info list.
+     *
+     * @return a #GFileAttributeInfoList.
+     */
+    public constructor() : this(g_file_attribute_info_list_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Adds a new attribute with @name to the @list, setting
@@ -100,13 +110,6 @@ public class FileAttributeInfoList(public val gioFileAttributeInfoListPointer: C
     override fun toString(): String = "FileAttributeInfoList(infos=$infos, nInfos=$nInfos)"
 
     public companion object {
-        /**
-         * Creates a new file attribute info list.
-         *
-         * @return a #GFileAttributeInfoList.
-         */
-        public fun new(): FileAttributeInfoList = FileAttributeInfoList(g_file_attribute_info_list_new()!!)
-
         /**
          * Get the GType of FileAttributeInfoList
          *

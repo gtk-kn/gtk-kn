@@ -65,6 +65,14 @@ public class Module(public val gmoduleModulePointer: CPointer<GModule>) : ProxyI
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.76.
+         *
+         * Use g_module_open() instead with @module_name as the
+         * basename of the file_name argument. See %G_MODULE_SUFFIX for why.
+         * ---
+         *
          * A portable way to build the filename of a module. The platform-specific
          * prefix and suffix are added to the filename, if needed, and the result
          * is added to the directory, using the correct separator character.

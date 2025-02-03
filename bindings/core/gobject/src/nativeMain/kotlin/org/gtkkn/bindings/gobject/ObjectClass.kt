@@ -9,17 +9,15 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.g_object_class_find_property
 import org.gtkkn.native.gobject.g_object_class_install_property
 import org.gtkkn.native.gobject.g_object_class_override_property
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The class structure for the GObject type.
@@ -63,7 +61,7 @@ import kotlin.native.ref.createCleaner
  * - field `notify`: Fields with callbacks are not supported
  * - field `constructed`: Fields with callbacks are not supported
  */
-public class ObjectClass(public val gobjectObjectClassPointer: CPointer<GObjectClass>, cleaner: Cleaner? = null) :
+public class ObjectClass(public val gobjectObjectClassPointer: CPointer<GObjectClass>) :
     ProxyInstance(gobjectObjectClassPointer) {
     /**
      * Allocate a new ObjectClass.
@@ -71,21 +69,9 @@ public class ObjectClass(public val gobjectObjectClassPointer: CPointer<GObjectC
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GObjectClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to ObjectClass and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GObjectClass>, Cleaner>,
-    ) : this(gobjectObjectClassPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GObjectClass>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new ObjectClass using the provided [AutofreeScope].

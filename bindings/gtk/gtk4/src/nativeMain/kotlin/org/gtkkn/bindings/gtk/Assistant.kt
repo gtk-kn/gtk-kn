@@ -13,13 +13,13 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -63,6 +63,13 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This widget will be removed in GTK 5
+ * ---
+ *
  * `GtkAssistant` is used to represent a complex as a series of steps.
  *
  * ![An example GtkAssistant](assistant.png)
@@ -107,6 +114,10 @@ import kotlin.Unit
 public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistant>) :
     Window(gtkAssistantPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -130,6 +141,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
      */
     public open val pages: ListModel
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets a list model of the assistant pages.
          *
          * @return A list model of the pages.
@@ -139,13 +157,29 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new `GtkAssistant`.
      *
      * @return a newly created `GtkAssistant`
      */
-    public constructor() : this(gtk_assistant_new()!!.reinterpret())
+    public constructor() : this(gtk_assistant_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Adds a widget to the action area of a `GtkAssistant`.
      *
      * @param child a `GtkWidget`
@@ -154,6 +188,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         gtk_assistant_add_action_widget(gtkAssistantPointer, child.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Appends a page to the @assistant.
      *
      * @param page a `GtkWidget`
@@ -163,6 +204,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         gtk_assistant_append_page(gtkAssistantPointer, page.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Erases the visited page history.
      *
      * GTK will then hide the back button on the current page,
@@ -177,6 +225,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     public open fun commit(): Unit = gtk_assistant_commit(gtkAssistantPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the page number of the current page.
      *
      * @return The index (starting from 0) of the current
@@ -186,6 +241,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     public open fun getCurrentPage(): gint = gtk_assistant_get_current_page(gtkAssistantPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the number of pages in the @assistant
      *
      * @return the number of pages in the @assistant
@@ -193,6 +255,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     public open fun getNPages(): gint = gtk_assistant_get_n_pages(gtkAssistantPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the child widget contained in page number @page_num.
      *
      * @param pageNum the index of a page in the @assistant,
@@ -201,10 +270,17 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
      *   if @page_num is out of bounds
      */
     public open fun getNthPage(pageNum: gint): Widget? = gtk_assistant_get_nth_page(gtkAssistantPointer, pageNum)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the `GtkAssistantPage` object for @child.
      *
      * @param child a child of @assistant
@@ -212,10 +288,17 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
      */
     public open fun getPage(child: Widget): AssistantPage =
         gtk_assistant_get_page(gtkAssistantPointer, child.gtkWidgetPointer)!!.run {
-            AssistantPage(this)
+            InstanceCache.get(this, true) { AssistantPage(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Gets whether @page is complete.
      *
      * @param page a page of @assistant
@@ -225,6 +308,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         gtk_assistant_get_page_complete(gtkAssistantPointer, page.gtkWidgetPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Gets the title for @page.
      *
      * @param page a page of @assistant
@@ -235,6 +325,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
             ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Gets the page type of @page.
      *
      * @param page a page of @assistant
@@ -246,6 +343,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Inserts a page in the @assistant at a given position.
      *
      * @param page a `GtkWidget`
@@ -257,6 +361,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         gtk_assistant_insert_page(gtkAssistantPointer, page.gtkWidgetPointer, position)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Navigate to the next page.
      *
      * It is a programming error to call this function when
@@ -268,6 +379,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     public open fun nextPage(): Unit = gtk_assistant_next_page(gtkAssistantPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Prepends a page to the @assistant.
      *
      * @param page a `GtkWidget`
@@ -277,6 +395,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         gtk_assistant_prepend_page(gtkAssistantPointer, page.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Navigate to the previous visited page.
      *
      * It is a programming error to call this function when
@@ -288,6 +413,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     public open fun previousPage(): Unit = gtk_assistant_previous_page(gtkAssistantPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Removes a widget from the action area of a `GtkAssistant`.
      *
      * @param child a `GtkWidget`
@@ -296,6 +428,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         gtk_assistant_remove_action_widget(gtkAssistantPointer, child.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Removes the @page_num’s page from @assistant.
      *
      * @param pageNum the index of a page in the @assistant,
@@ -304,6 +443,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     public open fun removePage(pageNum: gint): Unit = gtk_assistant_remove_page(gtkAssistantPointer, pageNum)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Switches the page to @page_num.
      *
      * Note that this will only be necessary in custom buttons,
@@ -318,6 +464,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     public open fun setCurrentPage(pageNum: gint): Unit = gtk_assistant_set_current_page(gtkAssistantPointer, pageNum)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Sets the page forwarding function to be @page_func.
      *
      * This function will be used to determine what will be
@@ -341,6 +494,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Sets whether @page contents are complete.
      *
      * This will make @assistant update the buttons state
@@ -353,6 +513,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         gtk_assistant_set_page_complete(gtkAssistantPointer, page.gtkWidgetPointer, complete.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Sets a title for @page.
      *
      * The title is displayed in the header area of the assistant
@@ -365,6 +532,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         gtk_assistant_set_page_title(gtkAssistantPointer, page.gtkWidgetPointer, title)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Sets the page type for @page.
      *
      * The page type determines the page behavior in the @assistant.
@@ -376,6 +550,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         gtk_assistant_set_page_type(gtkAssistantPointer, page.gtkWidgetPointer, type.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Forces @assistant to recompute the buttons state.
      *
      * GTK automatically takes care of this in most situations,
@@ -389,6 +570,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     public open fun updateButtonsState(): Unit = gtk_assistant_update_buttons_state(gtkAssistantPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emitted when the apply button is clicked.
      *
      * The default behavior of the `GtkAssistant` is to switch to the page
@@ -415,6 +603,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emits the "apply" signal. See [onApply].
      */
     public fun emitApply() {
@@ -422,6 +617,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emitted when then the cancel button is clicked.
      *
      * @param connectFlags a combination of [ConnectFlags]
@@ -438,6 +640,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emits the "cancel" signal. See [onCancel].
      */
     public fun emitCancel() {
@@ -445,6 +654,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emitted either when the close button of a summary page is clicked,
      * or when the apply button in the last page in the flow (of type
      * %GTK_ASSISTANT_PAGE_CONFIRM) is clicked.
@@ -463,6 +679,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emits the "close" signal. See [onClose].
      */
     public fun emitClose() {
@@ -470,6 +693,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * The action signal for the Escape binding.
      *
      * @param connectFlags a combination of [ConnectFlags]
@@ -486,6 +716,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emits the "escape" signal. See [onEscape].
      */
     public fun emitEscape() {
@@ -493,6 +730,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emitted when a new page is set as the assistant's current page,
      * before making the new page visible.
      *
@@ -513,6 +757,13 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emits the "prepare" signal. See [onPrepare].
      *
      * @param page the current page
@@ -523,7 +774,7 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
 
     public companion object : TypeCompanion<Assistant> {
         override val type: GeneratedClassKGType<Assistant> =
-            GeneratedClassKGType(getTypeOrNull("gtk_assistant_get_type")!!) { Assistant(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Assistant(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -535,6 +786,17 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
          * @return the GType
          */
         public fun getType(): GType = gtk_assistant_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_assistant_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_assistant_get_type")
     }
 }
 
@@ -577,7 +839,7 @@ private val onPrepareFunc: CPointer<CFunction<(CPointer<GtkWidget>) -> Unit>> = 
     ->
     userData.asStableRef<(page: Widget) -> Unit>().get().invoke(
         page!!.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
         }
     )
 }

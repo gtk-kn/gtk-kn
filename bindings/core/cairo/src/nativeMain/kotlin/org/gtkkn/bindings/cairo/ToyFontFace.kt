@@ -6,10 +6,11 @@ package org.gtkkn.bindings.cairo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
+import org.gtkkn.native.cairo.cairo_font_face_destroy
 import org.gtkkn.native.cairo.cairo_font_face_t
 import org.gtkkn.native.cairo.cairo_gobject_font_face_get_type
 import org.gtkkn.native.cairo.cairo_toy_font_face_create
@@ -22,11 +23,17 @@ import kotlin.String
 public open class ToyFontFace(public val cairoToyFontFacePointer: CPointer<cairo_font_face_t>) :
     FontFace(cairoToyFontFacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(
         family: String,
         slant: FontSlant,
         weight: FontWeight,
-    ) : this(cairo_toy_font_face_create(family, slant.nativeValue, weight.nativeValue)!!.reinterpret())
+    ) : this(cairo_toy_font_face_create(family, slant.nativeValue, weight.nativeValue)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_font_face_destroy(it.reinterpret()) }
+    }
 
     public open fun getFamily(): String =
         cairo_toy_font_face_get_family(cairoToyFontFacePointer)?.toKString() ?: error("Expected not null string")
@@ -41,9 +48,7 @@ public open class ToyFontFace(public val cairoToyFontFacePointer: CPointer<cairo
 
     public companion object : TypeCompanion<ToyFontFace> {
         override val type: GeneratedClassKGType<ToyFontFace> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_font_face_get_type")!!) {
-                ToyFontFace(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ToyFontFace(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()
@@ -55,5 +60,16 @@ public open class ToyFontFace(public val cairoToyFontFacePointer: CPointer<cairo
          * @return the GType
          */
         public fun getType(): GType = cairo_gobject_font_face_get_type()
+
+        /**
+         * Gets the GType of from the symbol `cairo_gobject_font_face_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("cairo_gobject_font_face_get_type")
     }
 }

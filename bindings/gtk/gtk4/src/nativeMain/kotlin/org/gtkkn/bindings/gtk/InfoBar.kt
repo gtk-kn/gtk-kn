@@ -11,13 +11,13 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -48,6 +48,16 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * There is no replacement in GTK for an "info bar" widget;
+ *   you can use [class@Gtk.Revealer] with a [class@Gtk.Box] containing a
+ *   [class@Gtk.Label] and an optional [class@Gtk.Button], according to
+ *   your application's design.
+ * ---
+ *
  * `GtkInfoBar` can be used to show messages to the user without a dialog.
  *
  * ![An example GtkInfoBar](info-bar.png)
@@ -130,6 +140,10 @@ import kotlin.Unit
 public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
     Widget(gtkInfoBarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -146,6 +160,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
      */
     public open var messageType: MessageType
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns the message type of the message area.
          *
          * @return the message type of the message area.
@@ -155,6 +174,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets the message type of the message area.
          *
          * GTK uses this type to determine how the message is displayed.
@@ -168,6 +192,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
      */
     public open var revealed: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns whether the info bar is currently revealed.
          *
          * @return the current value of the [property@Gtk.InfoBar:revealed] property
@@ -175,6 +204,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
         get() = gtk_info_bar_get_revealed(gtkInfoBarPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets whether the `GtkInfoBar` is revealed.
          *
          * Changing this will make @info_bar reveal or conceal
@@ -193,6 +227,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
      */
     public open var showCloseButton: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns whether the widget will display a standard close button.
          *
          * @return true if the widget displays standard close button
@@ -200,6 +239,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
         get() = gtk_info_bar_get_show_close_button(gtkInfoBarPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * If true, a standard close button is shown.
          *
          * When clicked it emits the response %GTK_RESPONSE_CLOSE.
@@ -209,13 +253,25 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
         set(setting) = gtk_info_bar_set_show_close_button(gtkInfoBarPointer, setting.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkInfoBar` object.
      *
      * @return a new `GtkInfoBar` object
      */
-    public constructor() : this(gtk_info_bar_new()!!.reinterpret())
+    public constructor() : this(gtk_info_bar_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Add an activatable widget to the action area of a `GtkInfoBar`.
      *
      * This also connects a signal handler that will emit the
@@ -230,6 +286,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
         gtk_info_bar_add_action_widget(gtkInfoBarPointer, child.gtkWidgetPointer, responseId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds a button with the given text.
      *
      * Clicking the button will emit the [signal@Gtk.InfoBar::response]
@@ -244,10 +305,15 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
      */
     public open fun addButton(buttonText: String, responseId: gint): Button =
         gtk_info_bar_add_button(gtkInfoBarPointer, buttonText, responseId)!!.run {
-            Button(reinterpret())
+            InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds a widget to the content area of the info bar.
      *
      * @param widget the child to be added
@@ -255,6 +321,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
     public open fun addChild(widget: Widget): Unit = gtk_info_bar_add_child(gtkInfoBarPointer, widget.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Removes a widget from the action area of @info_bar.
      *
      * The widget must have been put there by a call to
@@ -266,6 +337,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
         gtk_info_bar_remove_action_widget(gtkInfoBarPointer, widget.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Removes a widget from the content area of the info bar.
      *
      * @param widget a child that has been added to the content area
@@ -274,6 +350,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
         gtk_info_bar_remove_child(gtkInfoBarPointer, widget.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the “response” signal with the given @response_id.
      *
      * @param responseId a response ID
@@ -281,6 +362,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
     public open fun response(responseId: gint): Unit = gtk_info_bar_response(gtkInfoBarPointer, responseId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the last widget in the info bar’s action area with
      * the given response_id as the default widget for the dialog.
      *
@@ -295,6 +381,11 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
         gtk_info_bar_set_default_response(gtkInfoBarPointer, responseId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the sensitivity of action widgets for @response_id.
      *
      * Calls `gtk_widget_set_sensitive (widget, setting)` for each
@@ -365,7 +456,7 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
 
     public companion object : TypeCompanion<InfoBar> {
         override val type: GeneratedClassKGType<InfoBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_info_bar_get_type")!!) { InfoBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { InfoBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -377,6 +468,16 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_info_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_info_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_info_bar_get_type")
     }
 }
 

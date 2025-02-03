@@ -13,13 +13,13 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.AppInfo
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAppInfo
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -49,6 +49,15 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * The application selection widgets should be
+ *   implemented according to the design of each platform and/or
+ *   application requiring them.
+ * ---
+ *
  * `GtkAppChooserWidget` is a widget for selecting applications.
  *
  * It is the main building block for [class@Gtk.AppChooserDialog].
@@ -81,6 +90,10 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
     Widget(gtkAppChooserWidgetPointer.reinterpret()),
     AppChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAppChooserPointer: CPointer<GtkAppChooser>
         get() = handle.reinterpret()
 
@@ -100,6 +113,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
      */
     public open var showAll: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show all applications
          * in a flat list.
          *
@@ -108,6 +128,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
         get() = gtk_app_chooser_widget_get_show_all(gtkAppChooserWidgetPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show all applications
          * in a flat list.
          *
@@ -124,6 +151,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
      */
     public open var showDefault: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show the default handler
          * for the content type in a separate section.
          *
@@ -132,6 +166,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
         get() = gtk_app_chooser_widget_get_show_default(gtkAppChooserWidgetPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show the default handler
          * for the content type in a separate section.
          *
@@ -148,6 +189,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
      */
     public open var showFallback: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show related applications
          * for the content type in a separate section.
          *
@@ -156,6 +204,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
         get() = gtk_app_chooser_widget_get_show_fallback(gtkAppChooserWidgetPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show related applications
          * for the content type in a separate section.
          *
@@ -169,6 +224,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
      */
     public open var showOther: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show applications
          * which are unrelated to the content type.
          *
@@ -177,6 +239,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
         get() = gtk_app_chooser_widget_get_show_other(gtkAppChooserWidgetPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show applications
          * which are unrelated to the content type.
          *
@@ -193,6 +262,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
      */
     public open var showRecommended: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show recommended applications
          * for the content type in a separate section.
          *
@@ -201,6 +277,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
         get() = gtk_app_chooser_widget_get_show_recommended(gtkAppChooserWidgetPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show recommended applications
          * for the content type in a separate section.
          *
@@ -209,15 +292,31 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
         set(setting) = gtk_app_chooser_widget_set_show_recommended(gtkAppChooserWidgetPointer, setting.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new `GtkAppChooserWidget` for applications
      * that can handle content of the given type.
      *
      * @param contentType the content type to show applications for
      * @return a newly created `GtkAppChooserWidget`
      */
-    public constructor(contentType: String) : this(gtk_app_chooser_widget_new(contentType)!!.reinterpret())
+    public constructor(contentType: String) : this(gtk_app_chooser_widget_new(contentType)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the text that is shown if there are not applications
      * that can handle the content type.
      *
@@ -227,6 +326,13 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
         gtk_app_chooser_widget_get_default_text(gtkAppChooserWidgetPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Sets the text that is shown if there are not applications
      * that can handle the content type.
      *
@@ -303,9 +409,7 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
 
     public companion object : TypeCompanion<AppChooserWidget> {
         override val type: GeneratedClassKGType<AppChooserWidget> =
-            GeneratedClassKGType(getTypeOrNull("gtk_app_chooser_widget_get_type")!!) {
-                AppChooserWidget(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { AppChooserWidget(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -317,6 +421,17 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gtk_app_chooser_widget_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_app_chooser_widget_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_app_chooser_widget_get_type")
     }
 }
 

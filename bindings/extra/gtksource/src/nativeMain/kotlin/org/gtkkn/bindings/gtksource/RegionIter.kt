@@ -9,6 +9,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gtk.TextIter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gtksource.GtkSourceRegionIter
@@ -16,40 +17,23 @@ import org.gtkkn.native.gtksource.gtk_source_region_iter_get_subregion
 import org.gtkkn.native.gtksource.gtk_source_region_iter_is_end
 import org.gtkkn.native.gtksource.gtk_source_region_iter_next
 import kotlin.Boolean
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque datatype.
  *
  * Ignore all its fields and initialize the iter with [method@Region.get_start_region_iter].
  */
-public class RegionIter(
-    public val gtksourceRegionIterPointer: CPointer<GtkSourceRegionIter>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gtksourceRegionIterPointer) {
+public class RegionIter(public val gtksourceRegionIterPointer: CPointer<GtkSourceRegionIter>) :
+    ProxyInstance(gtksourceRegionIterPointer) {
     /**
      * Allocate a new RegionIter.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkSourceRegionIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to RegionIter and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkSourceRegionIter>, Cleaner>,
-    ) : this(gtksourceRegionIterPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkSourceRegionIter>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new RegionIter using the provided [AutofreeScope].

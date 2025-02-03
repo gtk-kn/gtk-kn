@@ -13,11 +13,11 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.bindings.gtk.Gtk.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gsize
@@ -209,6 +209,10 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
     LayoutManager(gtkConstraintLayoutPointer.reinterpret()),
     Buildable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 
@@ -217,7 +221,9 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
      *
      * @return the newly created `GtkConstraintLayout`
      */
-    public constructor() : this(gtk_constraint_layout_new()!!.reinterpret())
+    public constructor() : this(gtk_constraint_layout_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a constraint to the layout manager.
@@ -435,9 +441,7 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
 
     public companion object : TypeCompanion<ConstraintLayout> {
         override val type: GeneratedClassKGType<ConstraintLayout> =
-            GeneratedClassKGType(getTypeOrNull("gtk_constraint_layout_get_type")!!) {
-                ConstraintLayout(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ConstraintLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -449,5 +453,16 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gtk_constraint_layout_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_constraint_layout_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_constraint_layout_get_type")
     }
 }

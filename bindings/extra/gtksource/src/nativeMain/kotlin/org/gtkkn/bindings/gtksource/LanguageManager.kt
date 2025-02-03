@@ -8,12 +8,12 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceLanguageManager
 import org.gtkkn.native.gtksource.gtk_source_language_manager_append_search_path
@@ -49,6 +49,10 @@ import kotlin.collections.List
 public open class LanguageManager(public val gtksourceLanguageManagerPointer: CPointer<GtkSourceLanguageManager>) :
     Object(gtksourceLanguageManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open val languageIds: List<String>?
         /**
          * Returns the ids of the available languages.
@@ -68,7 +72,9 @@ public open class LanguageManager(public val gtksourceLanguageManagerPointer: CP
      *
      * @return a new #GtkSourceLanguageManager.
      */
-    public constructor() : this(gtk_source_language_manager_new()!!.reinterpret())
+    public constructor() : this(gtk_source_language_manager_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends @path to the list of directories where the @manager looks for
@@ -94,7 +100,7 @@ public open class LanguageManager(public val gtksourceLanguageManagerPointer: CP
      */
     public open fun getLanguage(id: String): Language? =
         gtk_source_language_manager_get_language(gtksourceLanguageManagerPointer, id)?.run {
-            Language(this)
+            InstanceCache.get(this, true) { Language(reinterpret()) }!!
         }
 
     /**
@@ -155,7 +161,7 @@ public open class LanguageManager(public val gtksourceLanguageManagerPointer: CP
      */
     public open fun guessLanguage(filename: String? = null, contentType: String? = null): Language? =
         gtk_source_language_manager_guess_language(gtksourceLanguageManagerPointer, filename, contentType)?.run {
-            Language(this)
+            InstanceCache.get(this, true) { Language(reinterpret()) }!!
         }
 
     /**
@@ -195,12 +201,10 @@ public open class LanguageManager(public val gtksourceLanguageManagerPointer: CP
 
     public companion object : TypeCompanion<LanguageManager> {
         override val type: GeneratedClassKGType<LanguageManager> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_language_manager_get_type")!!) {
-                LanguageManager(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { LanguageManager(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -210,7 +214,7 @@ public open class LanguageManager(public val gtksourceLanguageManagerPointer: CP
          * Return value is owned by GtkSourceView library and must not be unref'ed.
          */
         public fun getDefault(): LanguageManager = gtk_source_language_manager_get_default()!!.run {
-            LanguageManager(this)
+            InstanceCache.get(this, true) { LanguageManager(reinterpret()) }!!
         }
 
         /**
@@ -219,5 +223,16 @@ public open class LanguageManager(public val gtksourceLanguageManagerPointer: CP
          * @return the GType
          */
         public fun getType(): GType = gtk_source_language_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_language_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_language_manager_get_type")
     }
 }

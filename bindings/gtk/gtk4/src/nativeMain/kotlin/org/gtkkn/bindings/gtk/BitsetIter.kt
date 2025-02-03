@@ -8,6 +8,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.guint
@@ -17,9 +18,6 @@ import org.gtkkn.native.gtk.gtk_bitset_iter_get_type
 import org.gtkkn.native.gtk.gtk_bitset_iter_get_value
 import org.gtkkn.native.gtk.gtk_bitset_iter_is_valid
 import kotlin.Boolean
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque, stack-allocated struct for iterating
@@ -37,7 +35,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `value`: value: Out parameter is not supported
  */
-public class BitsetIter(public val gtkBitsetIterPointer: CPointer<GtkBitsetIter>, cleaner: Cleaner? = null) :
+public class BitsetIter(public val gtkBitsetIterPointer: CPointer<GtkBitsetIter>) :
     ProxyInstance(gtkBitsetIterPointer) {
     /**
      * Allocate a new BitsetIter.
@@ -45,21 +43,9 @@ public class BitsetIter(public val gtkBitsetIterPointer: CPointer<GtkBitsetIter>
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkBitsetIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to BitsetIter and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkBitsetIter>, Cleaner>,
-    ) : this(gtkBitsetIterPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkBitsetIter>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new BitsetIter using the provided [AutofreeScope].

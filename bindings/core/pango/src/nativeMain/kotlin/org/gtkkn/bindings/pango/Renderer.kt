@@ -10,10 +10,10 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_38
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint16
@@ -55,6 +55,10 @@ import kotlin.Unit
 public abstract class Renderer(public val pangoRendererPointer: CPointer<PangoRenderer>) :
     Object(pangoRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Does initial setup before rendering operations on @renderer.
      *
@@ -284,7 +288,7 @@ public abstract class Renderer(public val pangoRendererPointer: CPointer<PangoRe
      */
     @PangoVersion1_20
     public open fun getLayout(): Layout? = pango_renderer_get_layout(pangoRendererPointer)?.run {
-        Layout(this)
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**
@@ -392,7 +396,7 @@ public abstract class Renderer(public val pangoRendererPointer: CPointer<PangoRe
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =
-            GeneratedClassKGType(getTypeOrNull("pango_renderer_get_type")!!) { RendererImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { RendererImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()
@@ -404,5 +408,16 @@ public abstract class Renderer(public val pangoRendererPointer: CPointer<PangoRe
          * @return the GType
          */
         public fun getType(): GType = pango_renderer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_renderer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_renderer_get_type")
     }
 }

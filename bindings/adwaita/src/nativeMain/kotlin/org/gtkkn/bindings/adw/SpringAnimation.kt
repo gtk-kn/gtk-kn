@@ -7,12 +7,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwSpringAnimation
 import org.gtkkn.native.adw.adw_spring_animation_calculate_value
 import org.gtkkn.native.adw.adw_spring_animation_calculate_velocity
@@ -73,6 +73,10 @@ import kotlin.Boolean
 public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwSpringAnimation>) :
     Animation(adwSpringAnimationPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * Whether the animation should be clamped.
      *
@@ -288,7 +292,9 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
             springParams.adwSpringParamsPointer,
             target.adwAnimationTargetPointer
         )!!.reinterpret()
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Calculates the value @self will have at @time.
@@ -324,9 +330,7 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
 
     public companion object : TypeCompanion<SpringAnimation> {
         override val type: GeneratedClassKGType<SpringAnimation> =
-            GeneratedClassKGType(getTypeOrNull("adw_spring_animation_get_type")!!) {
-                SpringAnimation(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { SpringAnimation(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -338,5 +342,16 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
          * @return the GType
          */
         public fun getType(): GType = adw_spring_animation_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_spring_animation_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_spring_animation_get_type")
     }
 }

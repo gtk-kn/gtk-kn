@@ -5,12 +5,12 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -60,6 +60,10 @@ public open class EditableLabel(public val gtkEditableLabelPointer: CPointer<Gtk
     Widget(gtkEditableLabelPointer.reinterpret()),
     Editable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkEditablePointer: CPointer<GtkEditable>
         get() = handle.reinterpret()
 
@@ -89,7 +93,9 @@ public open class EditableLabel(public val gtkEditableLabelPointer: CPointer<Gtk
      * @param str the text for the label
      * @return the new `GtkEditableLabel`
      */
-    public constructor(str: String) : this(gtk_editable_label_new(str)!!.reinterpret())
+    public constructor(str: String) : this(gtk_editable_label_new(str)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Switches the label into “editing mode”.
@@ -111,7 +117,7 @@ public open class EditableLabel(public val gtkEditableLabelPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<EditableLabel> {
         override val type: GeneratedClassKGType<EditableLabel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_editable_label_get_type")!!) { EditableLabel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { EditableLabel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -123,5 +129,16 @@ public open class EditableLabel(public val gtkEditableLabelPointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_editable_label_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_editable_label_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_editable_label_get_type")
     }
 }

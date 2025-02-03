@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -38,6 +38,10 @@ import org.gtkkn.native.gtk.gtk_window_handle_set_child
 public open class WindowHandle(public val gtkWindowHandlePointer: CPointer<GtkWindowHandle>) :
     Widget(gtkWindowHandlePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -57,7 +61,7 @@ public open class WindowHandle(public val gtkWindowHandlePointer: CPointer<GtkWi
          * @return the child widget of @self
          */
         get() = gtk_window_handle_get_child(gtkWindowHandlePointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -72,11 +76,13 @@ public open class WindowHandle(public val gtkWindowHandlePointer: CPointer<GtkWi
      *
      * @return a new `GtkWindowHandle`.
      */
-    public constructor() : this(gtk_window_handle_new()!!.reinterpret())
+    public constructor() : this(gtk_window_handle_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<WindowHandle> {
         override val type: GeneratedClassKGType<WindowHandle> =
-            GeneratedClassKGType(getTypeOrNull("gtk_window_handle_get_type")!!) { WindowHandle(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { WindowHandle(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -88,5 +94,16 @@ public open class WindowHandle(public val gtkWindowHandlePointer: CPointer<GtkWi
          * @return the GType
          */
         public fun getType(): GType = gtk_window_handle_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_window_handle_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_window_handle_get_type")
     }
 }

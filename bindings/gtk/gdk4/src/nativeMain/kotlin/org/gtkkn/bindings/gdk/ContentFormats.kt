@@ -5,9 +5,9 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -79,6 +79,36 @@ import org.gtkkn.bindings.glib.String as GlibString
  */
 public class ContentFormats(public val gdkContentFormatsPointer: CPointer<GdkContentFormats>) :
     ProxyInstance(gdkContentFormatsPointer) {
+    /**
+     * Creates a new `GdkContentFormats` from an array of mime types.
+     *
+     * The mime types must be valid and different from each other or the
+     * behavior of the return value is undefined. If you cannot guarantee
+     * this, use [struct@Gdk.ContentFormatsBuilder] instead.
+     *
+     * @param mimeTypes Pointer to an
+     *   array of mime types
+     * @param nMimeTypes number of entries in @mime_types.
+     * @return the new `GdkContentFormats`.
+     */
+    public constructor(mimeTypes: List<KotlinString>? = null, nMimeTypes: guint) : this(
+        memScoped {
+            gdk_content_formats_new(mimeTypes?.toCStringList(this), nMimeTypes)!!
+        }
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new `GdkContentFormats` for a given `GType`.
+     *
+     * @param type a `GType`
+     * @return a new `GdkContentFormats`
+     */
+    public constructor(type: GType) : this(gdk_content_formats_new_for_gtype(type)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Checks if a given `GType` is part of the given @formats.
      *
@@ -227,35 +257,6 @@ public class ContentFormats(public val gdkContentFormatsPointer: CPointer<GdkCon
     public fun unref(): Unit = gdk_content_formats_unref(gdkContentFormatsPointer)
 
     public companion object {
-        /**
-         * Creates a new `GdkContentFormats` from an array of mime types.
-         *
-         * The mime types must be valid and different from each other or the
-         * behavior of the return value is undefined. If you cannot guarantee
-         * this, use [struct@Gdk.ContentFormatsBuilder] instead.
-         *
-         * @param mimeTypes Pointer to an
-         *   array of mime types
-         * @param nMimeTypes number of entries in @mime_types.
-         * @return the new `GdkContentFormats`.
-         */
-        public fun new(mimeTypes: List<KotlinString>? = null, nMimeTypes: guint): ContentFormats {
-            memScoped {
-                return ContentFormats(
-                    gdk_content_formats_new(mimeTypes?.toCStringList(this), nMimeTypes)!!.reinterpret()
-                )
-            }
-        }
-
-        /**
-         * Creates a new `GdkContentFormats` for a given `GType`.
-         *
-         * @param type a `GType`
-         * @return a new `GdkContentFormats`
-         */
-        public fun newForGtype(type: GType): ContentFormats =
-            ContentFormats(gdk_content_formats_new_for_gtype(type)!!.reinterpret())
-
         /**
          * Parses the given @string into `GdkContentFormats` and
          * returns the formats.

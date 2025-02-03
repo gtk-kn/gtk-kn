@@ -8,11 +8,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceStyleScheme
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_get_authors
@@ -44,6 +44,10 @@ import kotlin.collections.List
 public open class StyleScheme(public val gtksourceStyleSchemePointer: CPointer<GtkSourceStyleScheme>) :
     Object(gtksourceStyleSchemePointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Style scheme description, a translatable string to present to the user.
      */
@@ -125,17 +129,15 @@ public open class StyleScheme(public val gtksourceStyleSchemePointer: CPointer<G
      */
     public open fun getStyle(styleId: String): Style? =
         gtk_source_style_scheme_get_style(gtksourceStyleSchemePointer, styleId)?.run {
-            Style(this)
+            InstanceCache.get(this, true) { Style(reinterpret()) }!!
         }
 
     public companion object : TypeCompanion<StyleScheme> {
         override val type: GeneratedClassKGType<StyleScheme> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_get_type")!!) {
-                StyleScheme(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { StyleScheme(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -144,5 +146,16 @@ public open class StyleScheme(public val gtksourceStyleSchemePointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_source_style_scheme_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_style_scheme_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_style_scheme_get_type")
     }
 }

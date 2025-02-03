@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_58
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GTimeZone
@@ -67,6 +68,67 @@ import kotlin.Unit
  */
 @GLibVersion2_26
 public class TimeZone(public val glibTimeZonePointer: CPointer<GTimeZone>) : ProxyInstance(glibTimeZonePointer) {
+    /**
+     * Creates a #GTimeZone corresponding to UTC.
+     *
+     * This is equivalent to calling g_time_zone_new() with a value like
+     * "Z", "UTC", "+00", etc.
+     *
+     * You should release the return value by calling g_time_zone_unref()
+     * when you are done with it.
+     *
+     * @return the universal timezone
+     * @since 2.26
+     */
+    public constructor() : this(g_time_zone_new_utc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.68.
+     *
+     * Use g_time_zone_new_identifier() instead, as it provides
+     *     error reporting. Change your code to handle a potentially %NULL return
+     *     value.
+     * ---
+     *
+     * A version of g_time_zone_new_identifier() which returns the UTC time zone
+     * if @identifier could not be parsed or loaded.
+     *
+     * If you need to check whether @identifier was loaded successfully, use
+     * g_time_zone_new_identifier().
+     *
+     * @param identifier a timezone identifier
+     * @return the requested timezone
+     * @since 2.26
+     */
+    public constructor(identifier: String? = null) : this(g_time_zone_new(identifier)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a #GTimeZone corresponding to the given constant offset from UTC,
+     * in seconds.
+     *
+     * This is equivalent to calling g_time_zone_new() with a string in the form
+     * `[+|-]hh[:mm[:ss]]`.
+     *
+     * It is possible for this function to fail if @seconds is too big (greater than
+     * 24 hours), in which case this function will return the UTC timezone for
+     * backwards compatibility. To detect failures like this, use
+     * g_time_zone_new_identifier() directly.
+     *
+     * @param seconds offset to UTC, in seconds
+     * @return a timezone at the given offset from UTC, or UTC on
+     *   failure
+     * @since 2.58
+     */
+    public constructor(seconds: gint) : this(g_time_zone_new_offset(seconds)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Finds an interval within @tz that corresponds to the given @time_.
      * The meaning of @time_ depends on @type.
@@ -177,17 +239,22 @@ public class TimeZone(public val glibTimeZonePointer: CPointer<GTimeZone>) : Pro
 
     public companion object {
         /**
-         * A version of g_time_zone_new_identifier() which returns the UTC time zone
-         * if @identifier could not be parsed or loaded.
+         * Creates a #GTimeZone corresponding to local time.  The local time
+         * zone may change between invocations to this function; for example,
+         * if the system administrator changes it.
          *
-         * If you need to check whether @identifier was loaded successfully, use
-         * g_time_zone_new_identifier().
+         * This is equivalent to calling g_time_zone_new() with the value of
+         * the `TZ` environment variable (including the possibility of null).
          *
-         * @param identifier a timezone identifier
-         * @return the requested timezone
+         * You should release the return value by calling g_time_zone_unref()
+         * when you are done with it.
+         *
+         * @return the local timezone
          * @since 2.26
          */
-        public fun new(identifier: String? = null): TimeZone = TimeZone(g_time_zone_new(identifier)!!.reinterpret())
+        public fun local(): TimeZone = TimeZone(g_time_zone_new_local()!!).apply {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        }
 
         /**
          * Creates a #GTimeZone corresponding to @identifier. If @identifier cannot be
@@ -261,57 +328,10 @@ public class TimeZone(public val glibTimeZonePointer: CPointer<GTimeZone>) : Pro
          *     failure
          * @since 2.68
          */
-        public fun newIdentifier(identifier: String? = null): TimeZone? =
-            TimeZone(g_time_zone_new_identifier(identifier)!!.reinterpret())
-
-        /**
-         * Creates a #GTimeZone corresponding to local time.  The local time
-         * zone may change between invocations to this function; for example,
-         * if the system administrator changes it.
-         *
-         * This is equivalent to calling g_time_zone_new() with the value of
-         * the `TZ` environment variable (including the possibility of null).
-         *
-         * You should release the return value by calling g_time_zone_unref()
-         * when you are done with it.
-         *
-         * @return the local timezone
-         * @since 2.26
-         */
-        public fun newLocal(): TimeZone = TimeZone(g_time_zone_new_local()!!)
-
-        /**
-         * Creates a #GTimeZone corresponding to the given constant offset from UTC,
-         * in seconds.
-         *
-         * This is equivalent to calling g_time_zone_new() with a string in the form
-         * `[+|-]hh[:mm[:ss]]`.
-         *
-         * It is possible for this function to fail if @seconds is too big (greater than
-         * 24 hours), in which case this function will return the UTC timezone for
-         * backwards compatibility. To detect failures like this, use
-         * g_time_zone_new_identifier() directly.
-         *
-         * @param seconds offset to UTC, in seconds
-         * @return a timezone at the given offset from UTC, or UTC on
-         *   failure
-         * @since 2.58
-         */
-        public fun newOffset(seconds: gint): TimeZone = TimeZone(g_time_zone_new_offset(seconds)!!.reinterpret())
-
-        /**
-         * Creates a #GTimeZone corresponding to UTC.
-         *
-         * This is equivalent to calling g_time_zone_new() with a value like
-         * "Z", "UTC", "+00", etc.
-         *
-         * You should release the return value by calling g_time_zone_unref()
-         * when you are done with it.
-         *
-         * @return the universal timezone
-         * @since 2.26
-         */
-        public fun newUtc(): TimeZone = TimeZone(g_time_zone_new_utc()!!)
+        public fun identifier(identifier: String? = null): TimeZone =
+            TimeZone(g_time_zone_new_identifier(identifier)!!.reinterpret()).apply {
+                MemoryCleaner.setBoxedType(this, getType(), owned = true)
+            }
 
         /**
          * Get the GType of TimeZone

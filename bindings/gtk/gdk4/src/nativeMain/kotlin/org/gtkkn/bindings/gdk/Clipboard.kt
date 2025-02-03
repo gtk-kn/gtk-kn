@@ -24,13 +24,13 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkClipboard
 import org.gtkkn.native.gdk.gdk_clipboard_get_content
 import org.gtkkn.native.gdk.gdk_clipboard_get_display
@@ -90,6 +90,10 @@ import kotlin.collections.List
 public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboard>) :
     Object(gdkClipboardPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The `GdkContentProvider` or null if the clipboard is empty or contents are
      * provided otherwise.
@@ -105,7 +109,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
          *   if the clipboard does not maintain any content
          */
         get() = gdk_clipboard_get_content(gdkClipboardPointer)?.run {
-            ContentProvider(this)
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
         }
 
     /**
@@ -118,7 +122,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
          * @return a `GdkDisplay`
          */
         get() = gdk_clipboard_get_display(gdkClipboardPointer)!!.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -263,7 +267,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            Texture.TextureImpl(this)
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -455,7 +459,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
 
     public companion object : TypeCompanion<Clipboard> {
         override val type: GeneratedClassKGType<Clipboard> =
-            GeneratedClassKGType(getTypeOrNull("gdk_clipboard_get_type")!!) { Clipboard(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Clipboard(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -467,6 +471,17 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
          * @return the GType
          */
         public fun getType(): GType = gdk_clipboard_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_clipboard_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_clipboard_get_type")
     }
 }
 

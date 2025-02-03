@@ -12,10 +12,10 @@ import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkContentDeserializer
 import org.gtkkn.native.gdk.gdk_content_deserializer_get_cancellable
 import org.gtkkn.native.gdk.gdk_content_deserializer_get_gtype
@@ -56,6 +56,10 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
     Object(gdkContentDeserializerPointer.reinterpret()),
     AsyncResult,
     KGTyped {
+    init {
+        Gdk
+    }
+
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
         get() = handle.reinterpret()
 
@@ -68,7 +72,7 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
      */
     public open fun getCancellable(): Cancellable? =
         gdk_content_deserializer_get_cancellable(gdkContentDeserializerPointer)?.run {
-            Cancellable(this)
+            InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!
         }
 
     /**
@@ -87,7 +91,7 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
      */
     public open fun getInputStream(): InputStream =
         gdk_content_deserializer_get_input_stream(gdkContentDeserializerPointer)!!.run {
-            InputStream.InputStreamImpl(this)
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
     /**
@@ -150,9 +154,7 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
 
     public companion object : TypeCompanion<ContentDeserializer> {
         override val type: GeneratedClassKGType<ContentDeserializer> =
-            GeneratedClassKGType(getTypeOrNull("gdk_content_deserializer_get_type")!!) {
-                ContentDeserializer(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ContentDeserializer(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -164,5 +166,16 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
          * @return the GType
          */
         public fun getType(): GType = gdk_content_deserializer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_content_deserializer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_content_deserializer_get_type")
     }
 }

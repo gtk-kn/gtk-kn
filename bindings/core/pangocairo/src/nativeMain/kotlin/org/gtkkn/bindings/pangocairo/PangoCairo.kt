@@ -11,7 +11,6 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.cairo.FontOptions
 import org.gtkkn.bindings.pango.AttrShape
-import org.gtkkn.bindings.pango.Font
 import org.gtkkn.bindings.pango.GlyphItem
 import org.gtkkn.bindings.pango.GlyphString
 import org.gtkkn.bindings.pango.Layout
@@ -22,6 +21,8 @@ import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.cairo.cairo_t
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
@@ -57,6 +58,10 @@ import org.gtkkn.bindings.pango.Context as PangoContext
  * - parameter `data`: Unsupported pointer to primitive type
  */
 public object PangoCairo {
+    init {
+        registerTypes()
+    }
+
     /**
      * Retrieves any font rendering options previously set with
      * [func@PangoCairo.context_set_font_options].
@@ -163,7 +168,7 @@ public object PangoCairo {
     @PangoCairoVersion1_22
     public fun createContext(cr: CairoContext): PangoContext =
         pango_cairo_create_context(cr.cairoContextPointer)!!.run {
-            PangoContext(this)
+            InstanceCache.get(this, true) { PangoContext(reinterpret()) }!!
         }
 
     /**
@@ -186,7 +191,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun createLayout(cr: CairoContext): Layout = pango_cairo_create_layout(cr.cairoContextPointer)!!.run {
-        Layout(this)
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**
@@ -221,7 +226,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun glyphStringPath(cr: CairoContext, font: Font, glyphs: GlyphString): Unit =
+    public fun glyphStringPath(cr: CairoContext, font: org.gtkkn.bindings.pango.Font, glyphs: GlyphString): Unit =
         pango_cairo_glyph_string_path(cr.cairoContextPointer, font.pangoFontPointer, glyphs.pangoGlyphStringPointer)
 
     /**
@@ -308,7 +313,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun showGlyphString(cr: CairoContext, font: Font, glyphs: GlyphString): Unit =
+    public fun showGlyphString(cr: CairoContext, font: org.gtkkn.bindings.pango.Font, glyphs: GlyphString): Unit =
         pango_cairo_show_glyph_string(cr.cairoContextPointer, font.pangoFontPointer, glyphs.pangoGlyphStringPointer)
 
     /**
@@ -367,6 +372,15 @@ public object PangoCairo {
     @PangoCairoVersion1_10
     public fun updateLayout(cr: CairoContext, layout: Layout): Unit =
         pango_cairo_update_layout(cr.cairoContextPointer, layout.pangoLayoutPointer)
+
+    private fun registerTypes() {
+        Font.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Font::class, gtype) { Font.FontImpl(it.reinterpret()) }
+        }
+        FontMap.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontMap::class, gtype) { FontMap.FontMapImpl(it.reinterpret()) }
+        }
+    }
 }
 
 public val ShapeRendererFuncFunc: CPointer<

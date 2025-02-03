@@ -6,10 +6,10 @@ package org.gtkkn.bindings.soup
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupCache
@@ -37,6 +37,10 @@ public open class Cache(public val soupCachePointer: CPointer<SoupCache>) :
     Object(soupCachePointer.reinterpret()),
     SessionFeature,
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 
@@ -53,7 +57,9 @@ public open class Cache(public val soupCachePointer: CPointer<SoupCache>) :
     public constructor(
         cacheDir: String? = null,
         cacheType: CacheType,
-    ) : this(soup_cache_new(cacheDir, cacheType.nativeValue)!!.reinterpret())
+    ) : this(soup_cache_new(cacheDir, cacheType.nativeValue)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Will remove all entries in the @cache plus all the cache files.
@@ -109,7 +115,7 @@ public open class Cache(public val soupCachePointer: CPointer<SoupCache>) :
 
     public companion object : TypeCompanion<Cache> {
         override val type: GeneratedClassKGType<Cache> =
-            GeneratedClassKGType(getTypeOrNull("soup_cache_get_type")!!) { Cache(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Cache(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -121,5 +127,15 @@ public open class Cache(public val soupCachePointer: CPointer<SoupCache>) :
          * @return the GType
          */
         public fun getType(): GType = soup_cache_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_cache_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_cache_get_type")
     }
 }

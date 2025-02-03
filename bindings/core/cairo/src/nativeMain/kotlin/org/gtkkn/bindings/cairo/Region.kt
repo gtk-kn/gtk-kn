@@ -6,6 +6,7 @@ package org.gtkkn.bindings.cairo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.cairo.cairo_gobject_region_get_type
@@ -14,6 +15,7 @@ import org.gtkkn.native.cairo.cairo_region_contains_rectangle
 import org.gtkkn.native.cairo.cairo_region_copy
 import org.gtkkn.native.cairo.cairo_region_create
 import org.gtkkn.native.cairo.cairo_region_create_rectangle
+import org.gtkkn.native.cairo.cairo_region_destroy
 import org.gtkkn.native.cairo.cairo_region_equal
 import org.gtkkn.native.cairo.cairo_region_get_extents
 import org.gtkkn.native.cairo.cairo_region_get_rectangle
@@ -41,6 +43,16 @@ import kotlin.Unit
  */
 @CairoVersion1_10
 public class Region(public val cairoRegionPointer: CPointer<cairo_region_t>) : ProxyInstance(cairoRegionPointer) {
+    public constructor() : this(cairo_region_create()!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_region_destroy(it.reinterpret()) }
+    }
+
+    public constructor(rectangle: RectangleInt) : this(
+        cairo_region_create_rectangle(rectangle.cairoRectangleIntPointer)!!
+    ) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_region_destroy(it.reinterpret()) }
+    }
+
     public fun copy(): Region = cairo_region_copy(cairoRegionPointer)!!.run {
         Region(this)
     }
@@ -111,11 +123,6 @@ public class Region(public val cairoRegionPointer: CPointer<cairo_region_t>) : P
         }
 
     public companion object {
-        public fun create(): Region = Region(cairo_region_create()!!)
-
-        public fun createRectangle(rectangle: RectangleInt): Region =
-            Region(cairo_region_create_rectangle(rectangle.cairoRectangleIntPointer)!!.reinterpret())
-
         /**
          * Get the GType of Region
          *

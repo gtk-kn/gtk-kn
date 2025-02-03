@@ -37,14 +37,13 @@ import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
-import org.gtkkn.native.gdk.GdkPixbuf
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.gdk_pixbuf_add_alpha
 import org.gtkkn.native.gdk.gdk_pixbuf_apply_embedded_orientation
 import org.gtkkn.native.gdk.gdk_pixbuf_calculate_rowstride
@@ -269,11 +268,15 @@ import kotlin.collections.List
  * - parameter `width`: width: Out parameter is not supported
  * - parameter `width`: width: Out parameter is not supported
  */
-public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
+public open class Pixbuf(public val gdkPixbufPointer: CPointer<org.gtkkn.native.gdk.GdkPixbuf>) :
     Object(gdkPixbufPointer.reinterpret()),
     Icon,
     LoadableIcon,
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     override val gioIconPointer: CPointer<GIcon>
         get() = handle.reinterpret()
 
@@ -393,7 +396,9 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
         height: gint,
     ) : this(
         gdk_pixbuf_new(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)!!.reinterpret()
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GdkPixbuf out of in-memory readonly image data.
@@ -430,8 +435,10 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
             width,
             height,
             rowstride
-        )!!.reinterpret()
-    )
+        )!!
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from a file.
@@ -455,13 +462,16 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
     public constructor(filename: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = gdk_pixbuf_new_from_file(filename, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
             gResult!!.reinterpret()
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from a file.
@@ -504,6 +514,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult =
                 gdk_pixbuf_new_from_file_at_scale(filename, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
             if (gError.pointed != null) {
@@ -511,7 +522,9 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
             }
             gResult!!.reinterpret()
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from a file.
@@ -548,13 +561,16 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = gdk_pixbuf_new_from_file_at_size(filename, width, height, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
             gResult!!.reinterpret()
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from an input stream.
@@ -579,6 +595,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
     public constructor(stream: InputStream, cancellable: Cancellable? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult =
                 gdk_pixbuf_new_from_stream(stream.gioInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
             if (gError.pointed != null) {
@@ -586,7 +603,9 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
             }
             gResult!!.reinterpret()
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from an input stream.
@@ -629,6 +648,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult =
                 gdk_pixbuf_new_from_stream_at_scale(
                     stream.gioInputStreamPointer,
@@ -643,7 +663,9 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
             }
             gResult!!.reinterpret()
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Finishes an asynchronous pixbuf creation operation started with
@@ -657,13 +679,16 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
     public constructor(asyncResult: AsyncResult) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = gdk_pixbuf_new_from_stream_finish(asyncResult.gioAsyncResultPointer, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
             gResult!!.reinterpret()
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by parsing XPM data in memory.
@@ -676,9 +701,11 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
      */
     public constructor(`data`: List<String>) : this(
         memScoped {
-            gdk_pixbuf_new_from_xpm_data(`data`.toCStringList(this))!!.reinterpret()
+            gdk_pixbuf_new_from_xpm_data(`data`.toCStringList(this))!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Takes an existing pixbuf and adds an alpha channel to it.
@@ -703,7 +730,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
      */
     public open fun addAlpha(substituteColor: Boolean, r: guint8, g: guint8, b: guint8): Pixbuf =
         gdk_pixbuf_add_alpha(gdkPixbufPointer, substituteColor.asGBoolean(), r, g, b)!!.run {
-            Pixbuf(this)
+            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
         }
 
     /**
@@ -723,7 +750,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
      */
     @GdkPixbufVersion2_12
     public open fun applyEmbeddedOrientation(): Pixbuf? = gdk_pixbuf_apply_embedded_orientation(gdkPixbufPointer)?.run {
-        Pixbuf(this)
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**
@@ -851,7 +878,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
         color1,
         color2
     )?.run {
-        Pixbuf(this)
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**
@@ -864,7 +891,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
      * @return A newly-created pixbuf
      */
     public open fun copy(): Pixbuf? = gdk_pixbuf_copy(gdkPixbufPointer)?.run {
-        Pixbuf(this)
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**
@@ -934,7 +961,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
     @GdkPixbufVersion2_6
     public open fun flip(horizontal: Boolean): Pixbuf? =
         gdk_pixbuf_flip(gdkPixbufPointer, horizontal.asGBoolean())?.run {
-            Pixbuf(this)
+            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
         }
 
     /**
@@ -1001,7 +1028,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
      */
     public open fun newSubpixbuf(srcX: gint, srcY: gint, width: gint, height: gint): Pixbuf =
         gdk_pixbuf_new_subpixbuf(gdkPixbufPointer, srcX, srcY, width, height)!!.run {
-            Pixbuf(this)
+            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
         }
 
     /**
@@ -1023,12 +1050,19 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.0.
+     *
+     * Use g_object_ref().
+     * ---
+     *
      * Adds a reference to a pixbuf.
      *
      * @return The same as the @pixbuf argument.
      */
     override fun ref(): Pixbuf = gdk_pixbuf_ref(gdkPixbufPointer)!!.run {
-        Pixbuf(this)
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**
@@ -1054,7 +1088,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
     @GdkPixbufVersion2_6
     public open fun rotateSimple(angle: PixbufRotation): Pixbuf? =
         gdk_pixbuf_rotate_simple(gdkPixbufPointer, angle.nativeValue)?.run {
-            Pixbuf(this)
+            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
         }
 
     /**
@@ -1310,7 +1344,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
      */
     public open fun scaleSimple(destWidth: gint, destHeight: gint, interpType: InterpType): Pixbuf? =
         gdk_pixbuf_scale_simple(gdkPixbufPointer, destWidth, destHeight, interpType.nativeValue)?.run {
-            Pixbuf(this)
+            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
         }
 
     /**
@@ -1329,160 +1363,23 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
         gdk_pixbuf_set_option(gdkPixbufPointer, key, `value`).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.0.
+     *
+     * Use g_object_unref().
+     * ---
+     *
      * Removes a reference from a pixbuf.
      */
     override fun unref(): Unit = gdk_pixbuf_unref(gdkPixbufPointer)
 
     public companion object : TypeCompanion<Pixbuf> {
         override val type: GeneratedClassKGType<Pixbuf> =
-            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_get_type")!!) { Pixbuf(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Pixbuf(it.reinterpret()) }
 
         init {
-            GdkpixbufTypeProvider.register()
-        }
-
-        /**
-         * Creates a new pixbuf by loading an image from a file.
-         *
-         * The file format is detected automatically.
-         *
-         * If `NULL` is returned, then @error will be set. Possible errors are:
-         *
-         *  - the file could not be opened
-         *  - there is no loader for the file's format
-         *  - there is not enough memory to allocate the image buffer
-         *  - the image buffer contains invalid data
-         *
-         * The error domains are `GDK_PIXBUF_ERROR` and `G_FILE_ERROR`.
-         *
-         * @param filename Name of file to load, in the GLib file
-         *   name encoding
-         * @return A newly-created pixbuf
-         */
-        public fun newFromFile(filename: String): Result<Pixbuf> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = gdk_pixbuf_new_from_file(filename, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(Pixbuf(checkNotNull(gResult).reinterpret()))
-            }
-        }
-
-        /**
-         * Creates a new pixbuf by loading an image from an resource.
-         *
-         * The file format is detected automatically. If `NULL` is returned, then
-         * @error will be set.
-         *
-         * @param resourcePath the path of the resource file
-         * @return A newly-created pixbuf
-         * @since 2.26
-         */
-        public fun newFromResource(resourcePath: String): Result<Pixbuf> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = gdk_pixbuf_new_from_resource(resourcePath, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(Pixbuf(checkNotNull(gResult).reinterpret()))
-            }
-        }
-
-        /**
-         * Creates a new pixbuf by loading an image from a file.
-         *
-         * The file format is detected automatically.
-         *
-         * If `NULL` is returned, then @error will be set. Possible errors are:
-         *
-         *  - the file could not be opened
-         *  - there is no loader for the file's format
-         *  - there is not enough memory to allocate the image buffer
-         *  - the image buffer contains invalid data
-         *
-         * The error domains are `GDK_PIXBUF_ERROR` and `G_FILE_ERROR`.
-         *
-         * The image will be scaled to fit in the requested size, optionally preserving
-         * the image's aspect ratio.
-         *
-         * When preserving the aspect ratio, a `width` of -1 will cause the image
-         * to be scaled to the exact given height, and a `height` of -1 will cause
-         * the image to be scaled to the exact given width. When not preserving
-         * aspect ratio, a `width` or `height` of -1 means to not scale the image
-         * at all in that dimension. Negative values for `width` and `height` are
-         * allowed since 2.8.
-         *
-         * @param filename Name of file to load, in the GLib file
-         *     name encoding
-         * @param width The width the image should have or -1 to not constrain the width
-         * @param height The height the image should have or -1 to not constrain the height
-         * @param preserveAspectRatio `TRUE` to preserve the image's aspect ratio
-         * @return A newly-created pixbuf
-         * @since 2.6
-         */
-        public fun newFromFileAtScale(
-            filename: String,
-            width: gint,
-            height: gint,
-            preserveAspectRatio: Boolean,
-        ): Result<Pixbuf> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult =
-                gdk_pixbuf_new_from_file_at_scale(filename, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(Pixbuf(checkNotNull(gResult).reinterpret()))
-            }
-        }
-
-        /**
-         * Creates a new pixbuf by loading an image from an resource.
-         *
-         * The file format is detected automatically. If `NULL` is returned, then
-         * @error will be set.
-         *
-         * The image will be scaled to fit in the requested size, optionally
-         * preserving the image's aspect ratio. When preserving the aspect ratio,
-         * a @width of -1 will cause the image to be scaled to the exact given
-         * height, and a @height of -1 will cause the image to be scaled to the
-         * exact given width. When not preserving aspect ratio, a @width or
-         * @height of -1 means to not scale the image at all in that dimension.
-         *
-         * The stream is not closed.
-         *
-         * @param resourcePath the path of the resource file
-         * @param width The width the image should have or -1 to not constrain the width
-         * @param height The height the image should have or -1 to not constrain the height
-         * @param preserveAspectRatio `TRUE` to preserve the image's aspect ratio
-         * @return A newly-created pixbuf
-         * @since 2.26
-         */
-        public fun newFromResourceAtScale(
-            resourcePath: String,
-            width: gint,
-            height: gint,
-            preserveAspectRatio: Boolean,
-        ): Result<Pixbuf> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult =
-                gdk_pixbuf_new_from_resource_at_scale(
-                    resourcePath,
-                    width,
-                    height,
-                    preserveAspectRatio.asGBoolean(),
-                    gError.ptr
-                )
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(Pixbuf(checkNotNull(gResult).reinterpret()))
-            }
+            GdkPixbufTypeProvider.register()
         }
 
         /**
@@ -1673,5 +1570,89 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
          * @return the GType
          */
         public fun getType(): GType = gdk_pixbuf_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_pixbuf_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_pixbuf_get_type")
+
+        /**
+         * Creates a new pixbuf by loading an image from an resource.
+         *
+         * The file format is detected automatically. If `NULL` is returned, then
+         * @error will be set.
+         *
+         * @param resourcePath the path of the resource file
+         * @return A newly-created pixbuf
+         * @since 2.26
+         */
+        public fun fromResource(resourcePath: String): Result<Pixbuf> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = gdk_pixbuf_new_from_resource(resourcePath, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = Pixbuf(checkNotNull(gResult).reinterpret())
+                    InstanceCache.put(instance)
+                    Result.success(instance)
+                }
+            }
+        }
+
+        /**
+         * Creates a new pixbuf by loading an image from an resource.
+         *
+         * The file format is detected automatically. If `NULL` is returned, then
+         * @error will be set.
+         *
+         * The image will be scaled to fit in the requested size, optionally
+         * preserving the image's aspect ratio. When preserving the aspect ratio,
+         * a @width of -1 will cause the image to be scaled to the exact given
+         * height, and a @height of -1 will cause the image to be scaled to the
+         * exact given width. When not preserving aspect ratio, a @width or
+         * @height of -1 means to not scale the image at all in that dimension.
+         *
+         * The stream is not closed.
+         *
+         * @param resourcePath the path of the resource file
+         * @param width The width the image should have or -1 to not constrain the width
+         * @param height The height the image should have or -1 to not constrain the height
+         * @param preserveAspectRatio `TRUE` to preserve the image's aspect ratio
+         * @return A newly-created pixbuf
+         * @since 2.26
+         */
+        public fun fromResourceAtScale(
+            resourcePath: String,
+            width: gint,
+            height: gint,
+            preserveAspectRatio: Boolean,
+        ): Result<Pixbuf> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult =
+                    gdk_pixbuf_new_from_resource_at_scale(
+                        resourcePath,
+                        width,
+                        height,
+                        preserveAspectRatio.asGBoolean(),
+                        gError.ptr
+                    )
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = Pixbuf(checkNotNull(gResult).reinterpret())
+                    InstanceCache.put(instance)
+                    Result.success(instance)
+                }
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@
 package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.adw.AdwSpringParams
 import org.gtkkn.native.adw.adw_spring_params_get_damping
@@ -55,6 +55,36 @@ import kotlin.Unit
 public class SpringParams(public val adwSpringParamsPointer: CPointer<AdwSpringParams>) :
     ProxyInstance(adwSpringParamsPointer) {
     /**
+     * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping_ratio.
+     *
+     * The damping value is calculated from @damping_ratio and the other two
+     * parameters.
+     *
+     * * If @damping_ratio is 0, the spring will not be damped and will oscillate
+     *   endlessly.
+     * * If @damping_ratio is between 0 and 1, the spring is underdamped and will
+     *   always overshoot.
+     * * If @damping_ratio is 1, the spring is critically damped and will reach its
+     *   resting position the quickest way possible.
+     * * If @damping_ratio is larger than 1, the spring is overdamped and will reach
+     *   its resting position faster than it can complete an oscillation.
+     *
+     * [ctor@SpringParams.new_full] allows to pass a raw damping value instead.
+     *
+     * @param dampingRatio the damping ratio of the spring
+     * @param mass the mass of the spring
+     * @param stiffness the stiffness of the spring
+     * @return the newly created spring parameters
+     */
+    public constructor(
+        dampingRatio: gdouble,
+        mass: gdouble,
+        stiffness: gdouble,
+    ) : this(adw_spring_params_new(dampingRatio, mass, stiffness)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
      * Gets the damping of @self.
      *
      * @return the damping
@@ -100,31 +130,6 @@ public class SpringParams(public val adwSpringParamsPointer: CPointer<AdwSpringP
 
     public companion object {
         /**
-         * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping_ratio.
-         *
-         * The damping value is calculated from @damping_ratio and the other two
-         * parameters.
-         *
-         * * If @damping_ratio is 0, the spring will not be damped and will oscillate
-         *   endlessly.
-         * * If @damping_ratio is between 0 and 1, the spring is underdamped and will
-         *   always overshoot.
-         * * If @damping_ratio is 1, the spring is critically damped and will reach its
-         *   resting position the quickest way possible.
-         * * If @damping_ratio is larger than 1, the spring is overdamped and will reach
-         *   its resting position faster than it can complete an oscillation.
-         *
-         * [ctor@SpringParams.new_full] allows to pass a raw damping value instead.
-         *
-         * @param dampingRatio the damping ratio of the spring
-         * @param mass the mass of the spring
-         * @param stiffness the stiffness of the spring
-         * @return the newly created spring parameters
-         */
-        public fun new(dampingRatio: gdouble, mass: gdouble, stiffness: gdouble): SpringParams =
-            SpringParams(adw_spring_params_new(dampingRatio, mass, stiffness)!!.reinterpret())
-
-        /**
          * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping.
          *
          * See [ctor@SpringParams.new] for a simplified constructor using damping ratio
@@ -135,8 +140,10 @@ public class SpringParams(public val adwSpringParamsPointer: CPointer<AdwSpringP
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
          */
-        public fun newFull(damping: gdouble, mass: gdouble, stiffness: gdouble): SpringParams =
-            SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!.reinterpret())
+        public fun full(damping: gdouble, mass: gdouble, stiffness: gdouble): SpringParams =
+            SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!).apply {
+                MemoryCleaner.setBoxedType(this, getType(), owned = true)
+            }
 
         /**
          * Get the GType of SpringParams

@@ -14,18 +14,19 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_72
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusMethodInvocation
 import org.gtkkn.native.gio.GDebugController
 import org.gtkkn.native.gio.GDebugControllerDBus
@@ -166,6 +167,10 @@ public open class DebugControllerDBus(public val gioDebugControllerDBusPointer: 
     DebugController,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDebugControllerPointer: CPointer<GDebugController>
         get() = handle.reinterpret()
 
@@ -191,6 +196,7 @@ public open class DebugControllerDBus(public val gioDebugControllerDBusPointer: 
     public constructor(connection: DBusConnection, cancellable: Cancellable? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult =
                 g_debug_controller_dbus_new(
                     connection.gioDBusConnectionPointer,
@@ -202,7 +208,9 @@ public open class DebugControllerDBus(public val gioDebugControllerDBusPointer: 
             }
             gResult!!.reinterpret()
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Stop the debug controller, unregistering its object from the bus.
@@ -265,9 +273,7 @@ public open class DebugControllerDBus(public val gioDebugControllerDBusPointer: 
 
     public companion object : TypeCompanion<DebugControllerDBus> {
         override val type: GeneratedClassKGType<DebugControllerDBus> =
-            GeneratedClassKGType(getTypeOrNull("g_debug_controller_dbus_get_type")!!) {
-                DebugControllerDBus(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { DebugControllerDBus(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -279,6 +285,17 @@ public open class DebugControllerDBus(public val gioDebugControllerDBusPointer: 
          * @return the GType
          */
         public fun getType(): GType = g_debug_controller_dbus_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_debug_controller_dbus_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_debug_controller_dbus_get_type")
     }
 }
 
@@ -290,7 +307,7 @@ private val onAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>
         ->
         userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(
             invocation!!.run {
-                DBusMethodInvocation(this)
+                InstanceCache.get(this, false) { DBusMethodInvocation(reinterpret()) }!!
             }
         ).asGBoolean()
     }

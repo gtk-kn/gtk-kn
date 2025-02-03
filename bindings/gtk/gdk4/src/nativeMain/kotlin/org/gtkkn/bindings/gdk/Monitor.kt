@@ -15,12 +15,12 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkMonitor
 import org.gtkkn.native.gdk.gdk_monitor_get_connector
 import org.gtkkn.native.gdk.gdk_monitor_get_description
@@ -63,6 +63,10 @@ import kotlin.Unit
 public open class Monitor(public val gdkMonitorPointer: CPointer<GdkMonitor>) :
     Object(gdkMonitorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The connector name.
      */
@@ -105,7 +109,7 @@ public open class Monitor(public val gdkMonitorPointer: CPointer<GdkMonitor>) :
          * @return the display
          */
         get() = gdk_monitor_get_display(gdkMonitorPointer)!!.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -276,7 +280,7 @@ public open class Monitor(public val gdkMonitorPointer: CPointer<GdkMonitor>) :
 
     public companion object : TypeCompanion<Monitor> {
         override val type: GeneratedClassKGType<Monitor> =
-            GeneratedClassKGType(getTypeOrNull("gdk_monitor_get_type")!!) { Monitor(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Monitor(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -288,6 +292,16 @@ public open class Monitor(public val gdkMonitorPointer: CPointer<GdkMonitor>) :
          * @return the GType
          */
         public fun getType(): GType = gdk_monitor_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_monitor_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_monitor_get_type")
     }
 }
 

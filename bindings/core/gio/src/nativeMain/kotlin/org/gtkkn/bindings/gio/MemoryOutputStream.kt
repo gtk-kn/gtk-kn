@@ -9,10 +9,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GMemoryOutputStream
 import org.gtkkn.native.gio.GPollableOutputStream
 import org.gtkkn.native.gio.GSeekable
@@ -45,6 +45,10 @@ public open class MemoryOutputStream(public val gioMemoryOutputStreamPointer: CP
     PollableOutputStream,
     Seekable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>
         get() = handle.reinterpret()
 
@@ -119,7 +123,9 @@ public open class MemoryOutputStream(public val gioMemoryOutputStreamPointer: CP
      *
      * @since 2.36
      */
-    public constructor() : this(g_memory_output_stream_new_resizable()!!.reinterpret())
+    public constructor() : this(g_memory_output_stream_new_resizable()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns data from the @ostream as a #GBytes. @ostream must be
@@ -150,9 +156,7 @@ public open class MemoryOutputStream(public val gioMemoryOutputStreamPointer: CP
 
     public companion object : TypeCompanion<MemoryOutputStream> {
         override val type: GeneratedClassKGType<MemoryOutputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_memory_output_stream_get_type")!!) {
-                MemoryOutputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { MemoryOutputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -164,5 +168,16 @@ public open class MemoryOutputStream(public val gioMemoryOutputStreamPointer: CP
          * @return the GType
          */
         public fun getType(): GType = g_memory_output_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_memory_output_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_memory_output_stream_get_type")
     }
 }

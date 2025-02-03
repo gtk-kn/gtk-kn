@@ -14,11 +14,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gio.g_list_model_get_item_type
 import org.gtkkn.native.gio.g_list_model_get_n_items
@@ -151,7 +151,7 @@ public interface ListModel :
      */
     @GioVersion2_44
     public fun getItem(position: guint): Object? = g_list_model_get_object(gioListModelPointer, position)?.run {
-        Object(this)
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -219,13 +219,19 @@ public interface ListModel :
      *
      * @constructor Creates a new instance of ListModel for the provided [CPointer].
      */
-    public data class ListModelImpl(override val gioListModelPointer: CPointer<GListModel>) :
+    public class ListModelImpl(gioListModelPointer: CPointer<GListModel>) :
         Object(gioListModelPointer.reinterpret()),
-        ListModel
+        ListModel {
+        init {
+            Gio
+        }
+
+        override val gioListModelPointer: CPointer<GListModel> = gioListModelPointer
+    }
 
     public companion object : TypeCompanion<ListModel> {
         override val type: GeneratedInterfaceKGType<ListModel> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_list_model_get_type")!!) { ListModelImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { ListModelImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -237,6 +243,16 @@ public interface ListModel :
          * @return the GType
          */
         public fun getType(): GType = g_list_model_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_list_model_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_list_model_get_type")
     }
 }
 

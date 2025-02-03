@@ -4,13 +4,16 @@
 package org.gtkkn.bindings.cairo
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_16
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.cairo.cairo_font_options_copy
 import org.gtkkn.native.cairo.cairo_font_options_create
+import org.gtkkn.native.cairo.cairo_font_options_destroy
 import org.gtkkn.native.cairo.cairo_font_options_equal
 import org.gtkkn.native.cairo.cairo_font_options_get_antialias
 import org.gtkkn.native.cairo.cairo_font_options_get_color_mode
@@ -47,6 +50,10 @@ import kotlin.Unit
  */
 public class FontOptions(public val cairoFontOptionsPointer: CPointer<cairo_font_options_t>) :
     ProxyInstance(cairoFontOptionsPointer) {
+    public constructor() : this(cairo_font_options_create()!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_font_options_destroy(it.reinterpret()) }
+    }
+
     public fun copy(): FontOptions = cairo_font_options_copy(cairoFontOptionsPointer)!!.run {
         FontOptions(this)
     }
@@ -163,8 +170,6 @@ public class FontOptions(public val cairoFontOptionsPointer: CPointer<cairo_font
         cairo_font_options_set_custom_palette_color(cairoFontOptionsPointer, index, red, green, blue, alpha)
 
     public companion object {
-        public fun create(): FontOptions = FontOptions(cairo_font_options_create()!!)
-
         /**
          * Get the GType of FontOptions
          *

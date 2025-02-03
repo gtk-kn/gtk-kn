@@ -14,10 +14,10 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_20
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDataInputStream
 import org.gtkkn.native.gio.GSeekable
 import org.gtkkn.native.gio.g_data_input_stream_get_byte_order
@@ -68,6 +68,10 @@ import kotlin.Unit
 public open class DataInputStream(public val gioDataInputStreamPointer: CPointer<GDataInputStream>) :
     BufferedInputStream(gioDataInputStreamPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSeekablePointer: CPointer<GSeekable>
         get() = handle.reinterpret()
 
@@ -125,9 +129,9 @@ public open class DataInputStream(public val gioDataInputStreamPointer: CPointer
      * @param baseStream a #GInputStream.
      * @return a new #GDataInputStream.
      */
-    public constructor(
-        baseStream: InputStream,
-    ) : this(g_data_input_stream_new(baseStream.gioInputStreamPointer)!!.reinterpret())
+    public constructor(baseStream: InputStream) : this(g_data_input_stream_new(baseStream.gioInputStreamPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Reads an unsigned 8-bit/1-byte value from @stream.
@@ -318,6 +322,14 @@ public open class DataInputStream(public val gioDataInputStreamPointer: CPointer
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.56.
+     *
+     * Use g_data_input_stream_read_upto_async() instead, which
+     *     has more consistent behaviour regarding the stop character.
+     * ---
+     *
      * The asynchronous version of g_data_input_stream_read_until().
      * It is an error to have two outstanding calls to this function.
      *
@@ -402,9 +414,7 @@ public open class DataInputStream(public val gioDataInputStreamPointer: CPointer
 
     public companion object : TypeCompanion<DataInputStream> {
         override val type: GeneratedClassKGType<DataInputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_data_input_stream_get_type")!!) {
-                DataInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { DataInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -416,5 +426,16 @@ public open class DataInputStream(public val gioDataInputStreamPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = g_data_input_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_data_input_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_data_input_stream_get_type")
     }
 }

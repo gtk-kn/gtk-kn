@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileChooser
 import org.gtkkn.native.gtk.GtkFileChooserNative
@@ -22,6 +22,13 @@ import org.gtkkn.native.gtk.gtk_file_chooser_native_set_cancel_label
 import kotlin.String
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FileDialog] instead
+ * ---
+ *
  * `GtkFileChooserNative` is an abstraction of a dialog suitable
  * for use with “File Open” or “File Save as” commands.
  *
@@ -173,6 +180,10 @@ public open class FileChooserNative(public val gtkFileChooserNativePointer: CPoi
     NativeDialog(gtkFileChooserNativePointer.reinterpret()),
     FileChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkFileChooserPointer: CPointer<GtkFileChooser>
         get() = handle.reinterpret()
 
@@ -182,6 +193,13 @@ public open class FileChooserNative(public val gtkFileChooserNativePointer: CPoi
      */
     public open var acceptLabel: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Retrieves the custom label text for the accept button.
          *
          * @return The custom label
@@ -189,6 +207,13 @@ public open class FileChooserNative(public val gtkFileChooserNativePointer: CPoi
         get() = gtk_file_chooser_native_get_accept_label(gtkFileChooserNativePointer)?.toKString()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Sets the custom label text for the accept button.
          *
          * If characters in @label are preceded by an underscore, they are
@@ -208,6 +233,13 @@ public open class FileChooserNative(public val gtkFileChooserNativePointer: CPoi
      */
     public open var cancelLabel: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Retrieves the custom label text for the cancel button.
          *
          * @return The custom label
@@ -215,6 +247,13 @@ public open class FileChooserNative(public val gtkFileChooserNativePointer: CPoi
         get() = gtk_file_chooser_native_get_cancel_label(gtkFileChooserNativePointer)?.toKString()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Sets the custom label text for the cancel button.
          *
          * If characters in @label are preceded by an underscore, they are
@@ -229,6 +268,13 @@ public open class FileChooserNative(public val gtkFileChooserNativePointer: CPoi
         set(cancelLabel) = gtk_file_chooser_native_set_cancel_label(gtkFileChooserNativePointer, cancelLabel)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Creates a new `GtkFileChooserNative`.
      *
      * @param title Title of the native
@@ -245,20 +291,14 @@ public open class FileChooserNative(public val gtkFileChooserNativePointer: CPoi
         acceptLabel: String? = null,
         cancelLabel: String? = null,
     ) : this(
-        gtk_file_chooser_native_new(
-            title,
-            parent?.gtkWindowPointer,
-            action.nativeValue,
-            acceptLabel,
-            cancelLabel
-        )!!.reinterpret()
-    )
+        gtk_file_chooser_native_new(title, parent?.gtkWindowPointer, action.nativeValue, acceptLabel, cancelLabel)!!
+    ) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<FileChooserNative> {
         override val type: GeneratedClassKGType<FileChooserNative> =
-            GeneratedClassKGType(getTypeOrNull("gtk_file_chooser_native_get_type")!!) {
-                FileChooserNative(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { FileChooserNative(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -270,5 +310,16 @@ public open class FileChooserNative(public val gtkFileChooserNativePointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = gtk_file_chooser_native_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_file_chooser_native_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_file_chooser_native_get_type")
     }
 }

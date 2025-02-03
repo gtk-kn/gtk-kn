@@ -6,11 +6,11 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
@@ -51,6 +51,10 @@ import kotlin.Unit
 public open class Gutter(public val gtksourceGutterPointer: CPointer<GtkSourceGutter>) :
     Widget(gtksourceGutterPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -70,7 +74,7 @@ public open class Gutter(public val gtksourceGutterPointer: CPointer<GtkSourceGu
          * @return the associated #GtkSourceView.
          */
         get() = gtk_source_gutter_get_view(gtksourceGutterPointer)!!.run {
-            View(this)
+            InstanceCache.get(this, true) { View(reinterpret()) }!!
         }
 
     /**
@@ -99,10 +103,10 @@ public open class Gutter(public val gtksourceGutterPointer: CPointer<GtkSourceGu
 
     public companion object : TypeCompanion<Gutter> {
         override val type: GeneratedClassKGType<Gutter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_get_type")!!) { Gutter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Gutter(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -111,5 +115,16 @@ public open class Gutter(public val gtksourceGutterPointer: CPointer<GtkSourceGu
          * @return the GType
          */
         public fun getType(): GType = gtk_source_gutter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_gutter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_gutter_get_type")
     }
 }

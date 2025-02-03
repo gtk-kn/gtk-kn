@@ -33,14 +33,14 @@ import org.gtkkn.bindings.glib.OptionGroup
 import org.gtkkn.bindings.glib.VariantDict
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
 import org.gtkkn.native.gio.GApplication
@@ -240,6 +240,10 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
     ActionGroup,
     ActionMap,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
 
@@ -476,7 +480,9 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
     public constructor(
         applicationId: String? = null,
         flags: ApplicationFlags,
-    ) : this(g_application_new(applicationId, flags.mask)!!.reinterpret())
+    ) : this(g_application_new(applicationId, flags.mask)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Activates the application.
@@ -604,7 +610,7 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
     @GioVersion2_34
     public open fun getDbusConnection(): DBusConnection? =
         g_application_get_dbus_connection(gioApplicationPointer)?.run {
-            DBusConnection(this)
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
         }
 
     /**
@@ -877,6 +883,17 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
         g_application_send_notification(gioApplicationPointer, id, notification.gioNotificationPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use the #GActionMap interface instead.  Never ever
+     * mix use of this API with use of #GActionMap on the same @application
+     * or things will go very badly wrong.  This function is known to
+     * introduce buggy behaviour (ie: signals not emitted on changes to the
+     * action group), so you should really use #GActionMap instead.
+     * ---
+     *
      * This used to be how actions were associated with a #GApplication.
      * Now there is #GActionMap for that.
      *
@@ -1188,7 +1205,7 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
-            GeneratedClassKGType(getTypeOrNull("g_application_get_type")!!) { Application(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Application(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -1208,7 +1225,7 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
          */
         @GioVersion2_32
         public fun getDefault(): Application? = g_application_get_default()?.run {
-            Application(this)
+            InstanceCache.get(this, true) { Application(reinterpret()) }!!
         }
 
         /**
@@ -1269,6 +1286,17 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
          * @return the GType
          */
         public fun getType(): GType = g_application_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_application_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_application_get_type")
     }
 }
 
@@ -1288,7 +1316,7 @@ private val onCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCommandL
         ->
         userData.asStableRef<(commandLine: ApplicationCommandLine) -> gint>().get().invoke(
             commandLine!!.run {
-                ApplicationCommandLine(this)
+                InstanceCache.get(this, false) { ApplicationCommandLine(reinterpret()) }!!
             }
         )
     }

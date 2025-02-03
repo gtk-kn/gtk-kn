@@ -10,21 +10,19 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gtk.GtkRequestedSize
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Represents a request of a screen object in a given orientation. These
  * are primarily used in container implementations when allocating a natural
  * size for children calling. See [func@distribute_natural_allocation].
  */
-public class RequestedSize(public val gtkRequestedSizePointer: CPointer<GtkRequestedSize>, cleaner: Cleaner? = null) :
+public class RequestedSize(public val gtkRequestedSizePointer: CPointer<GtkRequestedSize>) :
     ProxyInstance(gtkRequestedSizePointer) {
     /**
      * A client pointer
@@ -65,21 +63,9 @@ public class RequestedSize(public val gtkRequestedSizePointer: CPointer<GtkReque
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkRequestedSize>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to RequestedSize and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkRequestedSize>, Cleaner>,
-    ) : this(gtkRequestedSizePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkRequestedSize>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new RequestedSize using the provided [AutofreeScope].

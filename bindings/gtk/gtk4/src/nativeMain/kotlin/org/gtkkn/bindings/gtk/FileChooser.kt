@@ -16,13 +16,13 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileChooser
@@ -59,6 +59,13 @@ import kotlin.Unit
 import kotlin.collections.List
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FileDialog] instead
+ * ---
+ *
  * `GtkFileChooser` is an interface that can be implemented by file
  * selection widgets.
  *
@@ -110,10 +117,24 @@ public interface FileChooser :
     public val gtkFileChooserPointer: CPointer<GtkFileChooser>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * The type of operation that the file chooser is performing.
      */
     public var action: FileChooserAction
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Gets the type of operation that the file chooser is performing.
          *
          * @return the action that the file selector is performing
@@ -123,6 +144,13 @@ public interface FileChooser :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Sets the type of operation that the chooser is performing.
          *
          * The user interface is adapted to suit the selected action.
@@ -136,11 +164,25 @@ public interface FileChooser :
         set(action) = gtk_file_chooser_set_action(gtkFileChooserPointer, action.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Whether a file chooser not in %GTK_FILE_CHOOSER_ACTION_OPEN mode
      * will offer the user to create new folders.
      */
     public var createFolders: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Gets whether file chooser will offer to create new folders.
          *
          * @return true if the Create Folder button should be displayed.
@@ -148,6 +190,13 @@ public interface FileChooser :
         get() = gtk_file_chooser_get_create_folders(gtkFileChooserPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Sets whether file chooser will offer to create new folders.
          *
          * This is only relevant if the action is not set to be
@@ -158,6 +207,13 @@ public interface FileChooser :
         set(createFolders) = gtk_file_chooser_set_create_folders(gtkFileChooserPointer, createFolders.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * A `GListModel` containing the filters that have been
      * added with gtk_file_chooser_add_filter().
      *
@@ -166,6 +222,13 @@ public interface FileChooser :
      */
     public val filters: ListModel
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Gets the current set of user-selectable filters, as a list model.
          *
          * See [method@Gtk.FileChooser.add_filter] and
@@ -182,10 +245,24 @@ public interface FileChooser :
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Whether to allow multiple files to be selected.
      */
     public var selectMultiple: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Gets whether multiple files can be selected in the file
          * chooser.
          *
@@ -194,6 +271,13 @@ public interface FileChooser :
         get() = gtk_file_chooser_get_select_multiple(gtkFileChooserPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Sets whether multiple files can be selected in the file chooser.
          *
          * This is only relevant if the action is set to be
@@ -205,6 +289,13 @@ public interface FileChooser :
         set(selectMultiple) = gtk_file_chooser_set_select_multiple(gtkFileChooserPointer, selectMultiple.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * A `GListModel` containing the shortcut folders that have been
      * added with gtk_file_chooser_add_shortcut_folder().
      *
@@ -213,6 +304,13 @@ public interface FileChooser :
      */
     public val shortcutFolders: ListModel
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Queries the list of shortcut folders in the file chooser.
          *
          * You should not modify the returned list model. Future changes to
@@ -225,6 +323,13 @@ public interface FileChooser :
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Adds a 'choice' to the file chooser.
      *
      * This is typically implemented as a combobox or, for boolean choices,
@@ -255,6 +360,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Adds @filter to the list of filters that the user can select between.
      *
      * When a filter is selected, only files that are passed by that
@@ -269,6 +381,13 @@ public interface FileChooser :
         gtk_file_chooser_add_filter(gtkFileChooserPointer, filter.gtkFileFilterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Adds a folder to be displayed with the shortcut folders
      * in a file chooser.
      *
@@ -291,6 +410,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Gets the type of operation that the file chooser is performing.
      *
      * @return the action that the file selector is performing
@@ -300,6 +426,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Gets the currently selected option in the 'choice' with the given ID.
      *
      * @param id the ID of the choice to get
@@ -308,6 +441,13 @@ public interface FileChooser :
     public fun getChoice(id: String): String? = gtk_file_chooser_get_choice(gtkFileChooserPointer, id)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Gets whether file chooser will offer to create new folders.
      *
      * @return true if the Create Folder button should be displayed.
@@ -315,6 +455,13 @@ public interface FileChooser :
     public fun getCreateFolders(): Boolean = gtk_file_chooser_get_create_folders(gtkFileChooserPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Gets the current folder of @chooser as `GFile`.
      *
      * @return the `GFile` for the current folder.
@@ -324,6 +471,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Gets the current name in the file selector, as entered by the user.
      *
      * This is meant to be used in save dialogs, to get the currently typed
@@ -338,6 +492,13 @@ public interface FileChooser :
     public fun getCurrentName(): String? = gtk_file_chooser_get_current_name(gtkFileChooserPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Gets the `GFile` for the currently selected file in
      * the file selector.
      *
@@ -355,6 +516,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Lists all the selected files and subfolders in the current folder
      * of @chooser as `GFile`.
      *
@@ -367,15 +535,29 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Gets the current filter.
      *
      * @return the current filter
      */
     public fun getFilter(): FileFilter? = gtk_file_chooser_get_filter(gtkFileChooserPointer)?.run {
-        FileFilter(this)
+        InstanceCache.get(this, true) { FileFilter(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Gets the current set of user-selectable filters, as a list model.
      *
      * See [method@Gtk.FileChooser.add_filter] and
@@ -392,6 +574,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Gets whether multiple files can be selected in the file
      * chooser.
      *
@@ -400,6 +589,13 @@ public interface FileChooser :
     public fun getSelectMultiple(): Boolean = gtk_file_chooser_get_select_multiple(gtkFileChooserPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Queries the list of shortcut folders in the file chooser.
      *
      * You should not modify the returned list model. Future changes to
@@ -412,6 +608,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Removes a 'choice' that has been added with gtk_file_chooser_add_choice().
      *
      * @param id the ID of the choice to remove
@@ -419,6 +622,13 @@ public interface FileChooser :
     public fun removeChoice(id: String): Unit = gtk_file_chooser_remove_choice(gtkFileChooserPointer, id)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Removes @filter from the list of filters that the user can select between.
      *
      * @param filter a `GtkFileFilter`
@@ -427,6 +637,13 @@ public interface FileChooser :
         gtk_file_chooser_remove_filter(gtkFileChooserPointer, filter.gtkFileFilterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Removes a folder from the shortcut folders in a file chooser.
      *
      * @param folder a `GFile` for the folder to remove
@@ -448,6 +665,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Sets the type of operation that the chooser is performing.
      *
      * The user interface is adapted to suit the selected action.
@@ -462,6 +686,13 @@ public interface FileChooser :
         gtk_file_chooser_set_action(gtkFileChooserPointer, action.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Selects an option in a 'choice' that has been added with
      * gtk_file_chooser_add_choice().
      *
@@ -474,6 +705,13 @@ public interface FileChooser :
         gtk_file_chooser_set_choice(gtkFileChooserPointer, id, option)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Sets whether file chooser will offer to create new folders.
      *
      * This is only relevant if the action is not set to be
@@ -485,6 +723,13 @@ public interface FileChooser :
         gtk_file_chooser_set_create_folders(gtkFileChooserPointer, createFolders.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Sets the current folder for @chooser from a `GFile`.
      *
      * @param file the `GFile` for the new folder
@@ -506,6 +751,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Sets the current name in the file selector, as if entered
      * by the user.
      *
@@ -525,6 +777,13 @@ public interface FileChooser :
     public fun setCurrentName(name: String): Unit = gtk_file_chooser_set_current_name(gtkFileChooserPointer, name)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Sets @file as the current filename for the file chooser.
      *
      * This includes changing to the file’s parent folder and actually selecting
@@ -582,6 +841,13 @@ public interface FileChooser :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Sets the current filter.
      *
      * Only the files that pass the filter will be displayed.
@@ -598,6 +864,13 @@ public interface FileChooser :
         gtk_file_chooser_set_filter(gtkFileChooserPointer, filter.gtkFileFilterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Sets whether multiple files can be selected in the file chooser.
      *
      * This is only relevant if the action is set to be
@@ -614,15 +887,19 @@ public interface FileChooser :
      *
      * @constructor Creates a new instance of FileChooser for the provided [CPointer].
      */
-    public data class FileChooserImpl(override val gtkFileChooserPointer: CPointer<GtkFileChooser>) :
+    public class FileChooserImpl(gtkFileChooserPointer: CPointer<GtkFileChooser>) :
         Object(gtkFileChooserPointer.reinterpret()),
-        FileChooser
+        FileChooser {
+        init {
+            Gtk
+        }
+
+        override val gtkFileChooserPointer: CPointer<GtkFileChooser> = gtkFileChooserPointer
+    }
 
     public companion object : TypeCompanion<FileChooser> {
         override val type: GeneratedInterfaceKGType<FileChooser> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_file_chooser_get_type")!!) {
-                FileChooserImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { FileChooserImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -634,5 +911,16 @@ public interface FileChooser :
          * @return the GType
          */
         public fun getType(): GType = gtk_file_chooser_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_file_chooser_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_file_chooser_get_type")
     }
 }

@@ -10,14 +10,19 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTrashStack
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.48.
+ *
+ * `GTrashStack` is deprecated without replacement
+ * ---
+ *
  * A `GTrashStack` is an efficient way to keep a stack of unused allocated
  * memory chunks. Each memory chunk is required to be large enough to hold
  * a `gpointer`. This allows the stack to be maintained without any space
@@ -39,7 +44,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `stack_p`: Unsupported pointer-to-pointer cType GTrashStack**
  * - parameter `stack_p`: Unsupported pointer-to-pointer cType GTrashStack**
  */
-public class TrashStack(public val glibTrashStackPointer: CPointer<GTrashStack>, cleaner: Cleaner? = null) :
+public class TrashStack(public val glibTrashStackPointer: CPointer<GTrashStack>) :
     ProxyInstance(glibTrashStackPointer) {
     /**
      * pointer to the previous element of the stack,
@@ -62,21 +67,9 @@ public class TrashStack(public val glibTrashStackPointer: CPointer<GTrashStack>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTrashStack>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TrashStack and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTrashStack>, Cleaner>,
-    ) : this(glibTrashStackPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTrashStack>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TrashStack using the provided [AutofreeScope].

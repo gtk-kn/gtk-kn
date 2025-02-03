@@ -7,10 +7,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.gtk_constraint_target_get_type
@@ -31,15 +30,20 @@ public interface ConstraintTarget :
      *
      * @constructor Creates a new instance of ConstraintTarget for the provided [CPointer].
      */
-    public data class ConstraintTargetImpl(override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>) :
+    public class ConstraintTargetImpl(gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>) :
         Object(gtkConstraintTargetPointer.reinterpret()),
-        ConstraintTarget
+        ConstraintTarget {
+        init {
+            Gtk
+        }
+
+        override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget> =
+            gtkConstraintTargetPointer
+    }
 
     public companion object : TypeCompanion<ConstraintTarget> {
         override val type: GeneratedInterfaceKGType<ConstraintTarget> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_constraint_target_get_type")!!) {
-                ConstraintTargetImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { ConstraintTargetImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -51,5 +55,16 @@ public interface ConstraintTarget :
          * @return the GType
          */
         public fun getType(): GType = gtk_constraint_target_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_constraint_target_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_constraint_target_get_type")
     }
 }

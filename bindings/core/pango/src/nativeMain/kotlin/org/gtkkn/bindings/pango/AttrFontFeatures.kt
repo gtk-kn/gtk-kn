@@ -12,15 +12,13 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_38
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.pango.PangoAttrFontFeatures
 import org.gtkkn.native.pango.pango_attr_font_features_new
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrFontFeatures` structure is used to represent OpenType
@@ -33,10 +31,8 @@ import kotlin.native.ref.createCleaner
  * @since 1.38
  */
 @PangoVersion1_38
-public class AttrFontFeatures(
-    public val pangoAttrFontFeaturesPointer: CPointer<PangoAttrFontFeatures>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(pangoAttrFontFeaturesPointer) {
+public class AttrFontFeatures(public val pangoAttrFontFeaturesPointer: CPointer<PangoAttrFontFeatures>) :
+    ProxyInstance(pangoAttrFontFeaturesPointer) {
     /**
      * the features, as a string in CSS syntax
      */
@@ -55,21 +51,9 @@ public class AttrFontFeatures(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrFontFeatures>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to AttrFontFeatures and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoAttrFontFeatures>, Cleaner>,
-    ) : this(pangoAttrFontFeaturesPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoAttrFontFeatures>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new AttrFontFeatures using the provided [AutofreeScope].

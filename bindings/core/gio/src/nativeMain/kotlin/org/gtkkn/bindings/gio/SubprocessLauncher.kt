@@ -18,13 +18,13 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.SpawnChildSetupFunc
 import org.gtkkn.bindings.glib.SpawnChildSetupFuncFunc
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSubprocessLauncher
 import org.gtkkn.native.gio.g_subprocess_launcher_close
 import org.gtkkn.native.gio.g_subprocess_launcher_get_type
@@ -74,6 +74,10 @@ import kotlin.collections.List
 public open class SubprocessLauncher(public val gioSubprocessLauncherPointer: CPointer<GSubprocessLauncher>) :
     Object(gioSubprocessLauncherPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GSubprocessLauncher.
      *
@@ -84,7 +88,9 @@ public open class SubprocessLauncher(public val gioSubprocessLauncherPointer: CP
      * @param flags #GSubprocessFlags
      * @since 2.40
      */
-    public constructor(flags: SubprocessFlags) : this(g_subprocess_launcher_new(flags.mask)!!.reinterpret())
+    public constructor(flags: SubprocessFlags) : this(g_subprocess_launcher_new(flags.mask)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Closes all the file descriptors previously passed to the object with
@@ -303,7 +309,7 @@ public open class SubprocessLauncher(public val gioSubprocessLauncherPointer: CP
             argv.toCStringList(this),
             gError.ptr
         )?.run {
-            Subprocess(this)
+            InstanceCache.get(this, true) { Subprocess(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -427,9 +433,7 @@ public open class SubprocessLauncher(public val gioSubprocessLauncherPointer: CP
 
     public companion object : TypeCompanion<SubprocessLauncher> {
         override val type: GeneratedClassKGType<SubprocessLauncher> =
-            GeneratedClassKGType(getTypeOrNull("g_subprocess_launcher_get_type")!!) {
-                SubprocessLauncher(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { SubprocessLauncher(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -441,5 +445,16 @@ public open class SubprocessLauncher(public val gioSubprocessLauncherPointer: CP
          * @return the GType
          */
         public fun getType(): GType = g_subprocess_launcher_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_subprocess_launcher_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_subprocess_launcher_get_type")
     }
 }

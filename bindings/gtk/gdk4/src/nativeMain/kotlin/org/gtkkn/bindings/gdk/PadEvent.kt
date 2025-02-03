@@ -5,10 +5,9 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPadEvent
 import org.gtkkn.native.gdk.gdk_pad_event_get_button
 import org.gtkkn.native.gdk.gdk_pad_event_get_type
@@ -26,6 +25,10 @@ import org.gtkkn.native.gobject.GType
 public open class PadEvent(public val gdkPadEventPointer: CPointer<GdkPadEvent>) :
     Event(gdkPadEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts information about the pressed button from
      * a pad event.
@@ -36,7 +39,7 @@ public open class PadEvent(public val gdkPadEventPointer: CPointer<GdkPadEvent>)
 
     public companion object : TypeCompanion<PadEvent> {
         override val type: GeneratedClassKGType<PadEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_pad_event_get_type")!!) { PadEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { PadEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -48,5 +51,16 @@ public open class PadEvent(public val gdkPadEventPointer: CPointer<GdkPadEvent>)
          * @return the GType
          */
         public fun getType(): GType = gdk_pad_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_pad_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_pad_event_get_type")
     }
 }

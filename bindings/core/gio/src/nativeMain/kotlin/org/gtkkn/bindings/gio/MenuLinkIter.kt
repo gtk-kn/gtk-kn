@@ -8,11 +8,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GMenuLinkIter
 import org.gtkkn.native.gio.g_menu_link_iter_get_name
 import org.gtkkn.native.gio.g_menu_link_iter_get_type
@@ -36,6 +36,10 @@ import kotlin.String
 public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<GMenuLinkIter>) :
     Object(gioMenuLinkIterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Gets the name of the link at the current iterator position.
      *
@@ -58,7 +62,7 @@ public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<G
      */
     @GioVersion2_32
     public open fun getValue(): MenuModel = g_menu_link_iter_get_value(gioMenuLinkIterPointer)!!.run {
-        MenuModel.MenuModelImpl(this)
+        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
     }
 
     /**
@@ -86,9 +90,7 @@ public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<G
 
     public companion object : TypeCompanion<MenuLinkIter> {
         override val type: GeneratedClassKGType<MenuLinkIter> =
-            GeneratedClassKGType(getTypeOrNull("g_menu_link_iter_get_type")!!) {
-                MenuLinkIterImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { MenuLinkIterImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -100,5 +102,16 @@ public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = g_menu_link_iter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_menu_link_iter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_menu_link_iter_get_type")
     }
 }

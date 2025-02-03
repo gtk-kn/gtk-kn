@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskBlendNode
 import org.gtkkn.native.gsk.gsk_blend_node_get_blend_mode
@@ -16,6 +16,7 @@ import org.gtkkn.native.gsk.gsk_blend_node_get_bottom_child
 import org.gtkkn.native.gsk.gsk_blend_node_get_top_child
 import org.gtkkn.native.gsk.gsk_blend_node_get_type
 import org.gtkkn.native.gsk.gsk_blend_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node applying a blending function between its two child nodes.
@@ -23,6 +24,10 @@ import org.gtkkn.native.gsk.gsk_blend_node_new
 public open class BlendNode(public val gskBlendNodePointer: CPointer<GskBlendNode>) :
     RenderNode(gskBlendNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will use @blend_mode to blend the @top
      * node onto the @bottom node.
@@ -38,7 +43,9 @@ public open class BlendNode(public val gskBlendNodePointer: CPointer<GskBlendNod
         blendMode: BlendMode,
     ) : this(
         gsk_blend_node_new(bottom.gskRenderNodePointer, top.gskRenderNodePointer, blendMode.nativeValue)!!.reinterpret()
-    )
+    ) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the blend mode used by @node.
@@ -70,7 +77,7 @@ public open class BlendNode(public val gskBlendNodePointer: CPointer<GskBlendNod
 
     public companion object : TypeCompanion<BlendNode> {
         override val type: GeneratedClassKGType<BlendNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_blend_node_get_type")!!) { BlendNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { BlendNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -82,5 +89,16 @@ public open class BlendNode(public val gskBlendNodePointer: CPointer<GskBlendNod
          * @return the GType
          */
         public fun getType(): GType = gsk_blend_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_blend_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_blend_node_get_type")
     }
 }

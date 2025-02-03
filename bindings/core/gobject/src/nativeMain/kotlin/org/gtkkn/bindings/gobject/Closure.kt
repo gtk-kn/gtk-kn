@@ -9,8 +9,8 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
@@ -23,11 +23,8 @@ import org.gtkkn.native.gobject.g_closure_new_simple
 import org.gtkkn.native.gobject.g_closure_ref
 import org.gtkkn.native.gobject.g_closure_sink
 import org.gtkkn.native.gobject.g_closure_unref
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GClosure` represents a callback supplied by the programmer.
@@ -87,8 +84,7 @@ import kotlin.native.ref.createCleaner
  * - method `set_meta_marshal`: Callback gpointer not found
  * - field `marshal`: Fields with callbacks are not supported
  */
-public class Closure(public val gobjectClosurePointer: CPointer<GClosure>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectClosurePointer) {
+public class Closure(public val gobjectClosurePointer: CPointer<GClosure>) : ProxyInstance(gobjectClosurePointer) {
     /**
      * Indicates whether the closure is currently being invoked with
      *   g_closure_invoke()
@@ -114,26 +110,84 @@ public class Closure(public val gobjectClosurePointer: CPointer<GClosure>, clean
         }
 
     /**
+     * A variant of g_closure_new_simple() which stores @object in the
+     * @data field of the closure and calls g_object_watch_closure() on
+     * @object and the created closure. This function is mainly useful
+     * when implementing new types of closures.
+     *
+     * @param sizeofClosure the size of the structure to allocate, must be at least
+     *  `sizeof (GClosure)`
+     * @param object a #GObject pointer to store in the @data field of the newly
+     *  allocated #GClosure
+     * @return a newly allocated #GClosure
+     */
+    public constructor(
+        sizeofClosure: guint,
+        `object`: Object,
+    ) : this(g_closure_new_object(sizeofClosure, `object`.gobjectObjectPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Allocates a struct of the given size and initializes the initial
+     * part as a #GClosure.
+     *
+     * This function is mainly useful when implementing new types of closures:
+     *
+     * |[<!-- language="C" -->
+     * typedef struct _MyClosure MyClosure;
+     * struct _MyClosure
+     * {
+     *   GClosure closure;
+     *   // extra data goes here
+     * };
+     *
+     * static void
+     * my_closure_finalize (gpointer  notify_data,
+     *                      GClosure *closure)
+     * {
+     *   MyClosure *my_closure = (MyClosure *)closure;
+     *
+     *   // free extra data here
+     * }
+     *
+     * MyClosure *my_closure_new (gpointer data)
+     * {
+     *   GClosure *closure;
+     *   MyClosure *my_closure;
+     *
+     *   closure = g_closure_new_simple (sizeof (MyClosure), data);
+     *   my_closure = (MyClosure *) closure;
+     *
+     *   // initialize extra data here
+     *
+     *   g_closure_add_finalize_notifier (closure, notify_data,
+     *                                    my_closure_finalize);
+     *   return my_closure;
+     * }
+     * ]|
+     *
+     * @param sizeofClosure the size of the structure to allocate, must be at least
+     *                  `sizeof (GClosure)`
+     * @param data data to store in the @data field of the newly allocated #GClosure
+     * @return a floating reference to a new #GClosure
+     */
+    public constructor(
+        sizeofClosure: guint,
+        `data`: gpointer? = null,
+    ) : this(g_closure_new_simple(sizeofClosure, `data`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
      * Allocate a new Closure.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GClosure>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Closure and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GClosure>, Cleaner>,
-    ) : this(gobjectClosurePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GClosure>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Closure using the provided [AutofreeScope].
@@ -272,68 +326,6 @@ public class Closure(public val gobjectClosurePointer: CPointer<GClosure>, clean
     override fun toString(): String = "Closure(inMarshal=$inMarshal, isInvalid=$isInvalid)"
 
     public companion object {
-        /**
-         * A variant of g_closure_new_simple() which stores @object in the
-         * @data field of the closure and calls g_object_watch_closure() on
-         * @object and the created closure. This function is mainly useful
-         * when implementing new types of closures.
-         *
-         * @param sizeofClosure the size of the structure to allocate, must be at least
-         *  `sizeof (GClosure)`
-         * @param object a #GObject pointer to store in the @data field of the newly
-         *  allocated #GClosure
-         * @return a newly allocated #GClosure
-         */
-        public fun newObject(sizeofClosure: guint, `object`: Object): Closure =
-            Closure(g_closure_new_object(sizeofClosure, `object`.gobjectObjectPointer)!!.reinterpret())
-
-        /**
-         * Allocates a struct of the given size and initializes the initial
-         * part as a #GClosure.
-         *
-         * This function is mainly useful when implementing new types of closures:
-         *
-         * |[<!-- language="C" -->
-         * typedef struct _MyClosure MyClosure;
-         * struct _MyClosure
-         * {
-         *   GClosure closure;
-         *   // extra data goes here
-         * };
-         *
-         * static void
-         * my_closure_finalize (gpointer  notify_data,
-         *                      GClosure *closure)
-         * {
-         *   MyClosure *my_closure = (MyClosure *)closure;
-         *
-         *   // free extra data here
-         * }
-         *
-         * MyClosure *my_closure_new (gpointer data)
-         * {
-         *   GClosure *closure;
-         *   MyClosure *my_closure;
-         *
-         *   closure = g_closure_new_simple (sizeof (MyClosure), data);
-         *   my_closure = (MyClosure *) closure;
-         *
-         *   // initialize extra data here
-         *
-         *   g_closure_add_finalize_notifier (closure, notify_data,
-         *                                    my_closure_finalize);
-         *   return my_closure;
-         * }
-         * ]|
-         *
-         * @param sizeofClosure the size of the structure to allocate, must be at least
-         *                  `sizeof (GClosure)`
-         * @param data data to store in the @data field of the newly allocated #GClosure
-         * @return a floating reference to a new #GClosure
-         */
-        public fun newSimple(sizeofClosure: guint, `data`: gpointer? = null): Closure =
-            Closure(g_closure_new_simple(sizeofClosure, `data`)!!.reinterpret())
-
         /**
          * Get the GType of Closure
          *

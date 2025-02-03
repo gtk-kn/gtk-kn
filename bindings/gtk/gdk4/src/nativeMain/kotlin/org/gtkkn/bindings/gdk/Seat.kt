@@ -13,11 +13,11 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDevice
 import org.gtkkn.native.gdk.GdkDeviceTool
 import org.gtkkn.native.gdk.GdkSeat
@@ -41,6 +41,10 @@ import kotlin.Unit
 public abstract class Seat(public val gdkSeatPointer: CPointer<GdkSeat>) :
     Object(gdkSeatPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * `GdkDisplay` of this seat.
      */
@@ -52,7 +56,7 @@ public abstract class Seat(public val gdkSeatPointer: CPointer<GdkSeat>) :
          *   is owned by GTK and must not be freed.
          */
         get() = gdk_seat_get_display(gdkSeatPointer)!!.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -84,7 +88,7 @@ public abstract class Seat(public val gdkSeatPointer: CPointer<GdkSeat>) :
      *   capabilities. This object is owned by GTK and must not be freed.
      */
     public open fun getKeyboard(): Device? = gdk_seat_get_keyboard(gdkSeatPointer)?.run {
-        Device.DeviceImpl(this)
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
     }
 
     /**
@@ -94,7 +98,7 @@ public abstract class Seat(public val gdkSeatPointer: CPointer<GdkSeat>) :
      *   capabilities. This object is owned by GTK and must not be freed.
      */
     public open fun getPointer(): Device? = gdk_seat_get_pointer(gdkSeatPointer)?.run {
-        Device.DeviceImpl(this)
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
     }
 
     /**
@@ -225,7 +229,7 @@ public abstract class Seat(public val gdkSeatPointer: CPointer<GdkSeat>) :
 
     public companion object : TypeCompanion<Seat> {
         override val type: GeneratedClassKGType<Seat> =
-            GeneratedClassKGType(getTypeOrNull("gdk_seat_get_type")!!) { SeatImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { SeatImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -237,6 +241,16 @@ public abstract class Seat(public val gdkSeatPointer: CPointer<GdkSeat>) :
          * @return the GType
          */
         public fun getType(): GType = gdk_seat_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_seat_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_seat_get_type")
     }
 }
 
@@ -248,7 +262,7 @@ private val onDeviceAddedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Unit>
         ->
         userData.asStableRef<(device: Device) -> Unit>().get().invoke(
             device!!.run {
-                Device.DeviceImpl(this)
+                InstanceCache.get(this, false) { Device.DeviceImpl(reinterpret()) }!!
             }
         )
     }
@@ -262,7 +276,7 @@ private val onDeviceRemovedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Uni
         ->
         userData.asStableRef<(device: Device) -> Unit>().get().invoke(
             device!!.run {
-                Device.DeviceImpl(this)
+                InstanceCache.get(this, false) { Device.DeviceImpl(reinterpret()) }!!
             }
         )
     }
@@ -276,7 +290,7 @@ private val onToolAddedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Uni
         ->
         userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(
             tool!!.run {
-                DeviceTool(this)
+                InstanceCache.get(this, false) { DeviceTool(reinterpret()) }!!
             }
         )
     }
@@ -290,7 +304,7 @@ private val onToolRemovedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> U
         ->
         userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(
             tool!!.run {
-                DeviceTool(this)
+                InstanceCache.get(this, false) { DeviceTool(reinterpret()) }!!
             }
         )
     }

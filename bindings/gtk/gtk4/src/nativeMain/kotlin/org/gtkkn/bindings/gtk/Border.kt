@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBorder
@@ -68,6 +69,16 @@ public class Border(public val gtkBorderPointer: CPointer<GtkBorder>) : ProxyIns
         }
 
     /**
+     * Allocates a new `GtkBorder` struct and initializes its elements to zero.
+     *
+     * @return a newly allocated `GtkBorder` struct.
+     *  Free with [method@Gtk.Border.free]
+     */
+    public constructor() : this(gtk_border_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
      * Copies a `GtkBorder`.
      *
      * @return a copy of @border_.
@@ -84,14 +95,6 @@ public class Border(public val gtkBorderPointer: CPointer<GtkBorder>) : ProxyIns
     override fun toString(): String = "Border(left=$left, right=$right, top=$top, bottom=$bottom)"
 
     public companion object {
-        /**
-         * Allocates a new `GtkBorder` struct and initializes its elements to zero.
-         *
-         * @return a newly allocated `GtkBorder` struct.
-         *  Free with [method@Gtk.Border.free]
-         */
-        public fun new(): Border = Border(gtk_border_new()!!)
-
         /**
          * Get the GType of Border
          *

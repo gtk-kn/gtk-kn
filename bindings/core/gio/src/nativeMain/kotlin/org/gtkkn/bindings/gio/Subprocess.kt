@@ -11,18 +11,19 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.GSubprocess
 import org.gtkkn.native.gio.g_subprocess_communicate_async
@@ -132,6 +133,10 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
     Object(gioSubprocessPointer.reinterpret()),
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioInitablePointer: CPointer<GInitable>
         get() = handle.reinterpret()
 
@@ -150,13 +155,16 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
     public constructor(argv: List<String>, flags: SubprocessFlags) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_subprocess_newv(argv.toCStringList(this), flags.mask, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Asynchronous version of g_subprocess_communicate().  Complete
@@ -304,7 +312,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
      */
     @GioVersion2_40
     public open fun getStderrPipe(): InputStream? = g_subprocess_get_stderr_pipe(gioSubprocessPointer)?.run {
-        InputStream.InputStreamImpl(this)
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
     }
 
     /**
@@ -319,7 +327,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
      */
     @GioVersion2_40
     public open fun getStdinPipe(): OutputStream? = g_subprocess_get_stdin_pipe(gioSubprocessPointer)?.run {
-        OutputStream.OutputStreamImpl(this)
+        InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!
     }
 
     /**
@@ -334,7 +342,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
      */
     @GioVersion2_40
     public open fun getStdoutPipe(): InputStream? = g_subprocess_get_stdout_pipe(gioSubprocessPointer)?.run {
-        InputStream.InputStreamImpl(this)
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
     }
 
     /**
@@ -524,7 +532,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
 
     public companion object : TypeCompanion<Subprocess> {
         override val type: GeneratedClassKGType<Subprocess> =
-            GeneratedClassKGType(getTypeOrNull("g_subprocess_get_type")!!) { Subprocess(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Subprocess(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -536,5 +544,15 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
          * @return the GType
          */
         public fun getType(): GType = g_subprocess_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_subprocess_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_subprocess_get_type")
     }
 }

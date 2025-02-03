@@ -3,13 +3,18 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.CompareDataFunc
 import org.gtkkn.bindings.glib.CompareDataFuncFunc
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -28,6 +33,14 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.32.
+ *
+ * Use `GArray` instead, if possible for the given use case,
+ *    as described above.
+ * ---
+ *
  * A `GValueArray` is a container structure to hold an array of generic values.
  *
  * The prime purpose of a `GValueArray` is for it to be used as an
@@ -79,6 +92,83 @@ public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArra
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_sized_new() instead.
+     * ---
+     *
+     * Allocate and initialize a new #GValueArray, optionally preserve space
+     * for @n_prealloced elements. New arrays always contain 0 elements,
+     * regardless of the value of @n_prealloced.
+     *
+     * @param nPrealloced number of values to preallocate space for
+     * @return a newly allocated #GValueArray with 0 values
+     */
+    public constructor(nPrealloced: guint) : this(g_value_array_new(nPrealloced)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Allocate a new ValueArray.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GValueArray>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
+
+    /**
+     * Allocate a new ValueArray using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GValueArray>().ptr)
+
+    /**
+     * Allocate a new ValueArray.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param nValues number of values contained in the array
+     * @param values array of values
+     */
+    public constructor(nValues: guint, values: Value?) : this() {
+        this.nValues = nValues
+        this.values = values
+    }
+
+    /**
+     * Allocate a new ValueArray using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param nValues number of values contained in the array
+     * @param values array of values
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        nValues: guint,
+        values: Value?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.nValues = nValues
+        this.values = values
+    }
+
+    /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_append_val() instead.
+     * ---
+     *
      * Insert a copy of @value as last element of @value_array. If @value is
      * null, an uninitialized value is appended.
      *
@@ -91,6 +181,13 @@ public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArra
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_ref() instead.
+     * ---
+     *
      * Construct an exact copy of a #GValueArray by duplicating all its
      * contents.
      *
@@ -101,11 +198,25 @@ public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArra
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_unref() instead.
+     * ---
+     *
      * Free a #GValueArray including its contents.
      */
     public fun free(): Unit = g_value_array_free(gobjectValueArrayPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_array_index() instead.
+     * ---
+     *
      * Return a pointer to the value at @index_ containd in @value_array.
      *
      * @param index index of the value of interest
@@ -116,6 +227,13 @@ public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArra
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_insert_val() instead.
+     * ---
+     *
      * Insert a copy of @value at specified position into @value_array. If @value
      * is null, an uninitialized value is inserted.
      *
@@ -129,6 +247,13 @@ public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArra
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_prepend_val() instead.
+     * ---
+     *
      * Insert a copy of @value as first element of @value_array. If @value is
      * null, an uninitialized value is prepended.
      *
@@ -141,6 +266,13 @@ public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArra
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_remove_index() instead.
+     * ---
+     *
      * Remove the value at position @index_ from @value_array.
      *
      * @param index position of value to remove, which must be less than
@@ -152,6 +284,13 @@ public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArra
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_sort_with_data().
+     * ---
+     *
      * Sort @value_array using @compare_func to compare the elements according
      * to the semantics of #GCompareDataFunc.
      *
@@ -172,16 +311,6 @@ public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArra
     override fun toString(): String = "ValueArray(nValues=$nValues, values=$values)"
 
     public companion object {
-        /**
-         * Allocate and initialize a new #GValueArray, optionally preserve space
-         * for @n_prealloced elements. New arrays always contain 0 elements,
-         * regardless of the value of @n_prealloced.
-         *
-         * @param nPrealloced number of values to preallocate space for
-         * @return a newly allocated #GValueArray with 0 values
-         */
-        public fun new(nPrealloced: guint): ValueArray = ValueArray(g_value_array_new(nPrealloced)!!.reinterpret())
-
         /**
          * Get the GType of ValueArray
          *

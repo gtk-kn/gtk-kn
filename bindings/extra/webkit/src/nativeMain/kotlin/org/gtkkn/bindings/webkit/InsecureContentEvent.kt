@@ -8,12 +8,22 @@ import org.gtkkn.native.webkit.WebKitInsecureContentEvent
 import org.gtkkn.native.webkit.webkit_insecure_content_event_get_type
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.46.
+ * ---
+ *
  * Enum values previously used to denote the different events which can trigger
  * the detection of insecure content. Since 2.46, WebKit generally no longer
  * loads insecure content in secure contexts.
  */
 public enum class InsecureContentEvent(public val nativeValue: WebKitInsecureContentEvent) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     * ---
+     *
      * Insecure content has been detected by
      * trying to execute any kind of logic (e.g. a script) from an
      * untrusted source.
@@ -21,6 +31,11 @@ public enum class InsecureContentEvent(public val nativeValue: WebKitInsecureCon
     RUN(WebKitInsecureContentEvent.WEBKIT_INSECURE_CONTENT_RUN),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     * ---
+     *
      * Insecure content has been
      * detected by trying to display any kind of resource (e.g. an image)
      * from an untrusted source.

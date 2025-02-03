@@ -10,6 +10,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.cairo.cairo_matrix_init
 import org.gtkkn.native.cairo.cairo_matrix_init_identity
@@ -21,11 +22,8 @@ import org.gtkkn.native.cairo.cairo_matrix_scale
 import org.gtkkn.native.cairo.cairo_matrix_t
 import org.gtkkn.native.cairo.cairo_matrix_translate
 import org.gtkkn.native.glib.gdouble
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * ## Skipped during bindings generation
@@ -33,8 +31,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `dx`: Unsupported pointer to primitive type
  * - parameter `x`: Unsupported pointer to primitive type
  */
-public class Matrix(public val cairoMatrixPointer: CPointer<cairo_matrix_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(cairoMatrixPointer) {
+public class Matrix(public val cairoMatrixPointer: CPointer<cairo_matrix_t>) : ProxyInstance(cairoMatrixPointer) {
     public var xx: gdouble
         get() = cairoMatrixPointer.pointed.xx
 
@@ -89,21 +86,9 @@ public class Matrix(public val cairoMatrixPointer: CPointer<cairo_matrix_t>, cle
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<cairo_matrix_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Matrix and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<cairo_matrix_t>, Cleaner>,
-    ) : this(cairoMatrixPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<cairo_matrix_t>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Matrix using the provided [AutofreeScope].

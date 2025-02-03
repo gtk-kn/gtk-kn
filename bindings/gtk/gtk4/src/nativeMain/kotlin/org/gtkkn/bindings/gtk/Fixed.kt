@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.Transform
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
@@ -71,6 +71,10 @@ import kotlin.Unit
 public open class Fixed(public val gtkFixedPointer: CPointer<GtkFixed>) :
     Widget(gtkFixedPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -85,7 +89,9 @@ public open class Fixed(public val gtkFixedPointer: CPointer<GtkFixed>) :
      *
      * @return a new `GtkFixed`.
      */
-    public constructor() : this(gtk_fixed_new()!!.reinterpret())
+    public constructor() : this(gtk_fixed_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Retrieves the transformation for @widget set using
@@ -143,7 +149,7 @@ public open class Fixed(public val gtkFixedPointer: CPointer<GtkFixed>) :
 
     public companion object : TypeCompanion<Fixed> {
         override val type: GeneratedClassKGType<Fixed> =
-            GeneratedClassKGType(getTypeOrNull("gtk_fixed_get_type")!!) { Fixed(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Fixed(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -155,5 +161,15 @@ public open class Fixed(public val gtkFixedPointer: CPointer<GtkFixed>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_fixed_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_fixed_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_fixed_get_type")
     }
 }

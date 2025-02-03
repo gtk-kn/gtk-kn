@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkActivateAction
 import org.gtkkn.native.gtk.gtk_activate_action_get
@@ -20,11 +20,13 @@ import org.gtkkn.native.gtk.gtk_activate_action_get_type
 public open class ActivateAction(public val gtkActivateActionPointer: CPointer<GtkActivateAction>) :
     ShortcutAction(gtkActivateActionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public companion object : TypeCompanion<ActivateAction> {
         override val type: GeneratedClassKGType<ActivateAction> =
-            GeneratedClassKGType(getTypeOrNull("gtk_activate_action_get_type")!!) {
-                ActivateAction(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ActivateAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -39,7 +41,7 @@ public open class ActivateAction(public val gtkActivateActionPointer: CPointer<G
          * @return The activate action
          */
         public fun `get`(): ActivateAction = gtk_activate_action_get()!!.run {
-            ActivateAction(reinterpret())
+            InstanceCache.get(reinterpret(), true) { ActivateAction(reinterpret()) }!!
         }
 
         /**
@@ -48,5 +50,16 @@ public open class ActivateAction(public val gtkActivateActionPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_activate_action_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_activate_action_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_activate_action_get_type")
     }
 }

@@ -19,14 +19,13 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -75,6 +74,10 @@ import kotlin.collections.List
 public open class AlertDialog(public val gtkAlertDialogPointer: CPointer<GtkAlertDialog>) :
     Object(gtkAlertDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * This property determines what happens when the Escape key is
      * pressed while the alert is shown.
@@ -309,7 +312,7 @@ public open class AlertDialog(public val gtkAlertDialogPointer: CPointer<GtkAler
 
     public companion object : TypeCompanion<AlertDialog> {
         override val type: GeneratedClassKGType<AlertDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_alert_dialog_get_type")!!) { AlertDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { AlertDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -321,5 +324,16 @@ public open class AlertDialog(public val gtkAlertDialogPointer: CPointer<GtkAler
          * @return the GType
          */
         public fun getType(): GType = gtk_alert_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_alert_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_alert_dialog_get_type")
     }
 }

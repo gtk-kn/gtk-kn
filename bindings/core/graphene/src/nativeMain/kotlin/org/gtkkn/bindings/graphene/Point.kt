@@ -3,15 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
@@ -29,11 +26,8 @@ import org.gtkkn.native.graphene.graphene_point_t
 import org.gtkkn.native.graphene.graphene_point_to_vec2
 import org.gtkkn.native.graphene.graphene_point_zero
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A point with two coordinates.
@@ -45,8 +39,7 @@ import kotlin.native.ref.createCleaner
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(graphenePointPointer) {
+public class Point(public val graphenePointPointer: CPointer<graphene_point_t>) : ProxyInstance(graphenePointPointer) {
     /**
      * the X coordinate of the point
      */
@@ -70,66 +63,34 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
         }
 
     /**
-     * Allocate a new Point.
+     * Allocates a new #graphene_point_t structure.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The coordinates of the returned point are (0, 0).
+     *
+     * It's possible to chain this function with graphene_point_init()
+     * or graphene_point_init_from_point(), e.g.:
+     *
+     * |[<!-- language="C" -->
+     *   graphene_point_t *
+     *   point_new (float x, float y)
+     *   {
+     *     return graphene_point_init (graphene_point_alloc (), x, y);
+     *   }
+     *
+     *   graphene_point_t *
+     *   point_copy (const graphene_point_t *p)
+     *   {
+     *     return graphene_point_init_from_point (graphene_point_alloc (), p);
+     *   }
+     * ]|
+     *
+     * @return the newly allocated #graphene_point_t.
+     *   Use graphene_point_free() to free the resources allocated by
+     *   this function.
+     * @since 1.0
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_point_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Point and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_point_t>, Cleaner>,
-    ) : this(graphenePointPointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Point using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_point_t>().ptr)
-
-    /**
-     * Allocate a new Point.
-     *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
-     *
-     * @param x the X coordinate of the point
-     * @param y the Y coordinate of the point
-     */
-    public constructor(x: gfloat, y: gfloat) : this() {
-        this.x = x
-        this.y = y
-    }
-
-    /**
-     * Allocate a new Point using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param x the X coordinate of the point
-     * @param y the Y coordinate of the point
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(
-        x: gfloat,
-        y: gfloat,
-        scope: AutofreeScope,
-    ) : this(scope) {
-        this.x = x
-        this.y = y
+    public constructor() : this(graphene_point_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
     }
 
     /**
@@ -236,35 +197,6 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
     override fun toString(): String = "Point(x=$x, y=$y)"
 
     public companion object {
-        /**
-         * Allocates a new #graphene_point_t structure.
-         *
-         * The coordinates of the returned point are (0, 0).
-         *
-         * It's possible to chain this function with graphene_point_init()
-         * or graphene_point_init_from_point(), e.g.:
-         *
-         * |[<!-- language="C" -->
-         *   graphene_point_t *
-         *   point_new (float x, float y)
-         *   {
-         *     return graphene_point_init (graphene_point_alloc (), x, y);
-         *   }
-         *
-         *   graphene_point_t *
-         *   point_copy (const graphene_point_t *p)
-         *   {
-         *     return graphene_point_init_from_point (graphene_point_alloc (), p);
-         *   }
-         * ]|
-         *
-         * @return the newly allocated #graphene_point_t.
-         *   Use graphene_point_free() to free the resources allocated by
-         *   this function.
-         * @since 1.0
-         */
-        public fun alloc(): Point = Point(graphene_point_alloc()!!)
-
         /**
          * Returns a point fixed at (0, 0).
          *

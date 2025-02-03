@@ -11,6 +11,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -19,17 +20,14 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gtk.GtkRecentData
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.collections.List
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Meta-data to be passed to gtk_recent_manager_add_full() when
  * registering a recently used resource.
  */
-public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>, cleaner: Cleaner? = null) :
+public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>) :
     ProxyInstance(gtkRecentDataPointer) {
     /**
      * a UTF-8 encoded string, containing the name of the recently
@@ -124,21 +122,9 @@ public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkRecentData>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to RecentData and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkRecentData>, Cleaner>,
-    ) : this(gtkRecentDataPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkRecentData>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new RecentData using the provided [AutofreeScope].

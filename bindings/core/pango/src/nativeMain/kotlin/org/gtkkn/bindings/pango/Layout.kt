@@ -26,12 +26,12 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
@@ -156,6 +156,10 @@ import kotlin.Unit
 public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
     Object(pangoLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Create a new `PangoLayout` object with attributes initialized to
      * default values for a particular `PangoContext`.
@@ -163,7 +167,9 @@ public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
      * @param context a `PangoContext`
      * @return the newly allocated `PangoLayout`
      */
-    public constructor(context: Context) : this(pango_layout_new(context.pangoContextPointer)!!.reinterpret())
+    public constructor(context: Context) : this(pango_layout_new(context.pangoContextPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Forces recomputation of any state in the `PangoLayout` that
@@ -183,7 +189,7 @@ public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
      * @return the newly allocated `PangoLayout`
      */
     public open fun copy(): Layout = pango_layout_copy(pangoLayoutPointer)!!.run {
-        Layout(this)
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**
@@ -271,7 +277,7 @@ public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
      * @return the `PangoContext` for the layout
      */
     public open fun getContext(): Context = pango_layout_get_context(pangoLayoutPointer)!!.run {
-        Context(this)
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!
     }
 
     /**
@@ -1038,7 +1044,7 @@ public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
 
     public companion object : TypeCompanion<Layout> {
         override val type: GeneratedClassKGType<Layout> =
-            GeneratedClassKGType(getTypeOrNull("pango_layout_get_type")!!) { Layout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Layout(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()
@@ -1069,7 +1075,7 @@ public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
                     flags.mask,
                     gError.ptr
                 )?.run {
-                    Layout(this)
+                    InstanceCache.get(this, true) { Layout(reinterpret()) }!!
                 }
 
                 return if (gError.pointed != null) {
@@ -1085,5 +1091,15 @@ public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
          * @return the GType
          */
         public fun getType(): GType = pango_layout_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_layout_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_layout_get_type")
     }
 }

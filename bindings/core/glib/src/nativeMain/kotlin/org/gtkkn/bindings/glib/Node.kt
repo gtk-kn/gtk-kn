@@ -13,6 +13,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GNode
@@ -48,17 +49,13 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GNode struct represents one node in a [n-ary tree][glib-N-ary-Trees].
  */
-public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibNodePointer) {
+public class Node(public val glibNodePointer: CPointer<GNode>) : ProxyInstance(glibNodePointer) {
     /**
      * contains the actual data of the node.
      */
@@ -132,21 +129,9 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GNode>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Node and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GNode>, Cleaner>,
-    ) : this(glibNodePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GNode>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Node using the provided [AutofreeScope].

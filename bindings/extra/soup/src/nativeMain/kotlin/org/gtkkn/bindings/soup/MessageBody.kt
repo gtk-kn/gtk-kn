@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -62,6 +63,18 @@ public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessage
         set(`value`) {
             soupMessageBodyPointer.pointed.length = value
         }
+
+    /**
+     * Creates a new #SoupMessageBody.
+     *
+     * [class@Message] uses this internally; you
+     * will not normally need to call it yourself.
+     *
+     * @return a new #SoupMessageBody.
+     */
+    public constructor() : this(soup_message_body_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Appends the data from @buffer to @body.
@@ -203,16 +216,6 @@ public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessage
     override fun toString(): String = "MessageBody(length=$length)"
 
     public companion object {
-        /**
-         * Creates a new #SoupMessageBody.
-         *
-         * [class@Message] uses this internally; you
-         * will not normally need to call it yourself.
-         *
-         * @return a new #SoupMessageBody.
-         */
-        public fun new(): MessageBody = MessageBody(soup_message_body_new()!!)
-
         /**
          * Get the GType of MessageBody
          *

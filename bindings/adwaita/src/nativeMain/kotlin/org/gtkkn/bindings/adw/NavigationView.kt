@@ -15,14 +15,14 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwNavigationPage
 import org.gtkkn.native.adw.AdwNavigationView
 import org.gtkkn.native.adw.AdwSwipeable
@@ -227,6 +227,10 @@ public class NavigationView(public val adwNavigationViewPointer: CPointer<AdwNav
     Widget(adwNavigationViewPointer.reinterpret()),
     Swipeable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
         get() = handle.reinterpret()
 
@@ -338,7 +342,7 @@ public class NavigationView(public val adwNavigationViewPointer: CPointer<AdwNav
          * @since 1.4
          */
         get() = adw_navigation_view_get_visible_page(adwNavigationViewPointer)?.run {
-            NavigationPage(this)
+            InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!
         }
 
     /**
@@ -347,7 +351,9 @@ public class NavigationView(public val adwNavigationViewPointer: CPointer<AdwNav
      * @return the new created `AdwNavigationView`
      * @since 1.4
      */
-    public constructor() : this(adw_navigation_view_new()!!.reinterpret())
+    public constructor() : this(adw_navigation_view_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Permanently adds @page to @self.
@@ -379,7 +385,7 @@ public class NavigationView(public val adwNavigationViewPointer: CPointer<AdwNav
     @AdwVersion1_4
     public fun findPage(tag: String): NavigationPage? =
         adw_navigation_view_find_page(adwNavigationViewPointer, tag)?.run {
-            NavigationPage(this)
+            InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!
         }
 
     /**
@@ -397,7 +403,7 @@ public class NavigationView(public val adwNavigationViewPointer: CPointer<AdwNav
     @AdwVersion1_4
     public fun getPreviousPage(page: NavigationPage): NavigationPage? =
         adw_navigation_view_get_previous_page(adwNavigationViewPointer, page.adwNavigationPagePointer)?.run {
-            NavigationPage(this)
+            InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!
         }
 
     /**
@@ -660,9 +666,7 @@ public class NavigationView(public val adwNavigationViewPointer: CPointer<AdwNav
 
     public companion object : TypeCompanion<NavigationView> {
         override val type: GeneratedClassKGType<NavigationView> =
-            GeneratedClassKGType(getTypeOrNull("adw_navigation_view_get_type")!!) {
-                NavigationView(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { NavigationView(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -674,6 +678,17 @@ public class NavigationView(public val adwNavigationViewPointer: CPointer<AdwNav
          * @return the GType
          */
         public fun getType(): GType = adw_navigation_view_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_navigation_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_navigation_view_get_type")
     }
 }
 
@@ -694,7 +709,7 @@ private val onPoppedFunc: CPointer<CFunction<(CPointer<AdwNavigationPage>) -> Un
         ->
         userData.asStableRef<(page: NavigationPage) -> Unit>().get().invoke(
             page!!.run {
-                NavigationPage(this)
+                InstanceCache.get(this, false) { NavigationPage(reinterpret()) }!!
             }
         )
     }

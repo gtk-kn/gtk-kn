@@ -6,12 +6,12 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -49,6 +49,10 @@ public open class BoxLayout(public val gtkBoxLayoutPointer: CPointer<GtkBoxLayou
     LayoutManager(gtkBoxLayoutPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 
@@ -157,11 +161,13 @@ public open class BoxLayout(public val gtkBoxLayoutPointer: CPointer<GtkBoxLayou
      * @param orientation the orientation for the new layout
      * @return a new box layout
      */
-    public constructor(orientation: Orientation) : this(gtk_box_layout_new(orientation.nativeValue)!!.reinterpret())
+    public constructor(orientation: Orientation) : this(gtk_box_layout_new(orientation.nativeValue)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<BoxLayout> {
         override val type: GeneratedClassKGType<BoxLayout> =
-            GeneratedClassKGType(getTypeOrNull("gtk_box_layout_get_type")!!) { BoxLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { BoxLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -173,5 +179,16 @@ public open class BoxLayout(public val gtkBoxLayoutPointer: CPointer<GtkBoxLayou
          * @return the GType
          */
         public fun getType(): GType = gtk_box_layout_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_box_layout_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_box_layout_get_type")
     }
 }

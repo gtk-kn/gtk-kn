@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkIMMulticontext
 import org.gtkkn.native.gtk.gtk_im_multicontext_get_context_id
@@ -30,12 +30,18 @@ import kotlin.Unit
 public open class ImMulticontext(public val gtkImMulticontextPointer: CPointer<GtkIMMulticontext>) :
     ImContext(gtkImMulticontextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkIMMulticontext`.
      *
      * @return a new `GtkIMMulticontext`.
      */
-    public constructor() : this(gtk_im_multicontext_new()!!.reinterpret())
+    public constructor() : this(gtk_im_multicontext_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the id of the currently active delegate of the @context.
@@ -62,9 +68,7 @@ public open class ImMulticontext(public val gtkImMulticontextPointer: CPointer<G
 
     public companion object : TypeCompanion<ImMulticontext> {
         override val type: GeneratedClassKGType<ImMulticontext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_im_multicontext_get_type")!!) {
-                ImMulticontext(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ImMulticontext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -76,5 +80,16 @@ public open class ImMulticontext(public val gtkImMulticontextPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_im_multicontext_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_im_multicontext_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_im_multicontext_get_type")
     }
 }

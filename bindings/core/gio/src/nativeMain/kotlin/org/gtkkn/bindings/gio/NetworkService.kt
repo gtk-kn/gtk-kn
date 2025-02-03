@@ -9,10 +9,10 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GNetworkService
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_network_service_get_domain
@@ -40,6 +40,10 @@ public open class NetworkService(public val gioNetworkServicePointer: CPointer<G
     Object(gioNetworkServicePointer.reinterpret()),
     SocketConnectable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
 
@@ -132,11 +136,13 @@ public open class NetworkService(public val gioNetworkServicePointer: CPointer<G
         service: String,
         protocol: String,
         domain: String,
-    ) : this(g_network_service_new(service, protocol, domain)!!.reinterpret())
+    ) : this(g_network_service_new(service, protocol, domain)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<NetworkService> {
         override val type: GeneratedClassKGType<NetworkService> =
-            GeneratedClassKGType(getTypeOrNull("g_network_service_get_type")!!) { NetworkService(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { NetworkService(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -148,5 +154,16 @@ public open class NetworkService(public val gioNetworkServicePointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = g_network_service_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_network_service_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_network_service_get_type")
     }
 }

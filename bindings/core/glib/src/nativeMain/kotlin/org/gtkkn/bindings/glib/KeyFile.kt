@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_56
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -224,6 +225,19 @@ import kotlin.collections.List
  * - parameter `length`: length: Out parameter is not supported
  */
 public class KeyFile(public val glibKeyFilePointer: CPointer<GKeyFile>) : ProxyInstance(glibKeyFilePointer) {
+    /**
+     * Creates a new empty #GKeyFile object. Use
+     * g_key_file_load_from_file(), g_key_file_load_from_data(),
+     * g_key_file_load_from_dirs() or g_key_file_load_from_data_dirs() to
+     * read an existing key file.
+     *
+     * @return an empty #GKeyFile.
+     * @since 2.6
+     */
+    public constructor() : this(g_key_file_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Clears all keys and groups from @key_file, and decreases the
      * reference count by 1. If the reference count reaches zero,
@@ -913,17 +927,6 @@ public class KeyFile(public val glibKeyFilePointer: CPointer<GKeyFile>) : ProxyI
     public fun unref(): Unit = g_key_file_unref(glibKeyFilePointer)
 
     public companion object {
-        /**
-         * Creates a new empty #GKeyFile object. Use
-         * g_key_file_load_from_file(), g_key_file_load_from_data(),
-         * g_key_file_load_from_dirs() or g_key_file_load_from_data_dirs() to
-         * read an existing key file.
-         *
-         * @return an empty #GKeyFile.
-         * @since 2.6
-         */
-        public fun new(): KeyFile = KeyFile(g_key_file_new()!!)
-
         public fun errorQuark(): Quark = g_key_file_error_quark()
 
         /**

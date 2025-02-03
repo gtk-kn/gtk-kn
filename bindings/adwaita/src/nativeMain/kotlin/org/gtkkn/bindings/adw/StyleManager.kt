@@ -7,11 +7,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwStyleManager
 import org.gtkkn.native.adw.adw_style_manager_get_color_scheme
 import org.gtkkn.native.adw.adw_style_manager_get_dark
@@ -42,6 +42,10 @@ import kotlin.Boolean
 public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleManager>) :
     Object(adwStyleManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * The requested application color scheme.
      *
@@ -155,7 +159,7 @@ public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleMa
          * @return the display
          */
         get() = adw_style_manager_get_display(adwStyleManagerPointer)?.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -196,7 +200,7 @@ public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleMa
 
     public companion object : TypeCompanion<StyleManager> {
         override val type: GeneratedClassKGType<StyleManager> =
-            GeneratedClassKGType(getTypeOrNull("adw_style_manager_get_type")!!) { StyleManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { StyleManager(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -213,7 +217,7 @@ public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleMa
          * @return the default style manager
          */
         public fun getDefault(): StyleManager = adw_style_manager_get_default()!!.run {
-            StyleManager(this)
+            InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!
         }
 
         /**
@@ -229,7 +233,7 @@ public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleMa
          */
         public fun getForDisplay(display: Display): StyleManager =
             adw_style_manager_get_for_display(display.gdkDisplayPointer)!!.run {
-                StyleManager(this)
+                InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!
             }
 
         /**
@@ -238,5 +242,16 @@ public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleMa
          * @return the GType
          */
         public fun getType(): GType = adw_style_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_style_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_style_manager_get_type")
     }
 }

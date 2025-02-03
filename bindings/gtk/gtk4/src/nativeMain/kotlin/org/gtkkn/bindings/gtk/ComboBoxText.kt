@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
@@ -34,6 +34,14 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.DropDown] with a [class@Gtk.StringList]
+ *   instead
+ * ---
+ *
  * A `GtkComboBoxText` is a simple variant of `GtkComboBox` for text-only
  * use cases.
  *
@@ -93,6 +101,10 @@ import kotlin.Unit
 public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkComboBoxText>) :
     ComboBox(gtkComboBoxTextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -109,13 +121,29 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Creates a new `GtkComboBoxText`.
      *
      * @return A new `GtkComboBoxText`
      */
-    public constructor() : this(gtk_combo_box_text_new()!!.reinterpret())
+    public constructor() : this(gtk_combo_box_text_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Appends @text to the list of strings stored in @combo_box.
      *
      * If @id is non-null then it is used as the ID of the row.
@@ -130,6 +158,13 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
         gtk_combo_box_text_append(gtkComboBoxTextPointer, id, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Appends @text to the list of strings stored in @combo_box.
      *
      * This is the same as calling [method@Gtk.ComboBoxText.insert_text]
@@ -140,6 +175,13 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
     public open fun appendText(text: String): Unit = gtk_combo_box_text_append_text(gtkComboBoxTextPointer, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Returns the currently active string in @combo_box.
      *
      * If no row is currently selected, null is returned.
@@ -154,6 +196,13 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
     public open fun getActiveText(): String? = gtk_combo_box_text_get_active_text(gtkComboBoxTextPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Inserts @text at @position in the list of strings stored in @combo_box.
      *
      * If @id is non-null then it is used as the ID of the row.
@@ -169,6 +218,13 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
         gtk_combo_box_text_insert(gtkComboBoxTextPointer, position, id, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Inserts @text at @position in the list of strings stored in @combo_box.
      *
      * If @position is negative then @text is appended.
@@ -183,6 +239,13 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
         gtk_combo_box_text_insert_text(gtkComboBoxTextPointer, position, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Prepends @text to the list of strings stored in @combo_box.
      *
      * If @id is non-null then it is used as the ID of the row.
@@ -197,6 +260,13 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
         gtk_combo_box_text_prepend(gtkComboBoxTextPointer, id, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Prepends @text to the list of strings stored in @combo_box.
      *
      * This is the same as calling [method@Gtk.ComboBoxText.insert_text]
@@ -207,6 +277,13 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
     public open fun prependText(text: String): Unit = gtk_combo_box_text_prepend_text(gtkComboBoxTextPointer, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Removes the string at @position from @combo_box.
      *
      * @param position Index of the item to remove
@@ -214,24 +291,24 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
     public open fun remove(position: gint): Unit = gtk_combo_box_text_remove(gtkComboBoxTextPointer, position)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Removes all the text entries from the combo box.
      */
     public open fun removeAll(): Unit = gtk_combo_box_text_remove_all(gtkComboBoxTextPointer)
 
     public companion object : TypeCompanion<ComboBoxText> {
         override val type: GeneratedClassKGType<ComboBoxText> =
-            GeneratedClassKGType(getTypeOrNull("gtk_combo_box_text_get_type")!!) { ComboBoxText(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ComboBoxText(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        /**
-         * Creates a new `GtkComboBoxText` with an entry.
-         *
-         * @return a new `GtkComboBoxText`
-         */
-        public fun newWithEntry(): ComboBoxText = ComboBoxText(gtk_combo_box_text_new_with_entry()!!.reinterpret())
 
         /**
          * Get the GType of ComboBoxText
@@ -239,5 +316,32 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
          * @return the GType
          */
         public fun getType(): GType = gtk_combo_box_text_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_combo_box_text_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_combo_box_text_get_type")
+
+        /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
+         * Creates a new `GtkComboBoxText` with an entry.
+         *
+         * @return a new `GtkComboBoxText`
+         */
+        public fun withEntry(): ComboBoxText = ComboBoxText(gtk_combo_box_text_new_with_entry()!!.reinterpret()).apply {
+            InstanceCache.put(this)
+        }
     }
 }

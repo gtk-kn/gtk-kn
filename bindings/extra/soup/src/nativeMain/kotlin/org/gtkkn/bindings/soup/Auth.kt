@@ -9,11 +9,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuth
 import org.gtkkn.native.soup.soup_auth_authenticate
@@ -56,6 +56,10 @@ import kotlin.Unit
 public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
     Object(soupAuthPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * The authority (host:port) being authenticated to.
      */
@@ -111,7 +115,9 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
         type: GType,
         msg: Message,
         authHeader: String,
-    ) : this(soup_auth_new(type, msg.soupMessagePointer, authHeader)!!.reinterpret())
+    ) : this(soup_auth_new(type, msg.soupMessagePointer, authHeader)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Call this on an auth to authenticate it.
@@ -252,7 +258,7 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
 
     public companion object : TypeCompanion<Auth> {
         override val type: GeneratedClassKGType<Auth> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_get_type")!!) { AuthImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { AuthImpl(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -264,5 +270,15 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
          * @return the GType
          */
         public fun getType(): GType = soup_auth_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_auth_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_auth_get_type")
     }
 }

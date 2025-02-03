@@ -4,6 +4,7 @@
 package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkContentFormatsBuilder
 import org.gtkkn.native.gdk.gdk_content_formats_builder_add_formats
@@ -25,6 +26,18 @@ import kotlin.Unit
  */
 public class ContentFormatsBuilder(public val gdkContentFormatsBuilderPointer: CPointer<GdkContentFormatsBuilder>) :
     ProxyInstance(gdkContentFormatsBuilderPointer) {
+    /**
+     * Create a new `GdkContentFormatsBuilder` object.
+     *
+     * The resulting builder would create an empty `GdkContentFormats`.
+     * Use addition functions to add types to it.
+     *
+     * @return a new `GdkContentFormatsBuilder`
+     */
+    public constructor() : this(gdk_content_formats_builder_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Appends all formats from @formats to @builder, skipping those that
      * already exist.
@@ -98,16 +111,6 @@ public class ContentFormatsBuilder(public val gdkContentFormatsBuilderPointer: C
     public fun unref(): Unit = gdk_content_formats_builder_unref(gdkContentFormatsBuilderPointer)
 
     public companion object {
-        /**
-         * Create a new `GdkContentFormatsBuilder` object.
-         *
-         * The resulting builder would create an empty `GdkContentFormats`.
-         * Use addition functions to add types to it.
-         *
-         * @return a new `GdkContentFormatsBuilder`
-         */
-        public fun new(): ContentFormatsBuilder = ContentFormatsBuilder(gdk_content_formats_builder_new()!!)
-
         /**
          * Get the GType of ContentFormatsBuilder
          *

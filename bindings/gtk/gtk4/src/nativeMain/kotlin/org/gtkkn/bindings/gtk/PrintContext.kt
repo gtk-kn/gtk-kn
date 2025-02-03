@@ -8,10 +8,10 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintContext
@@ -108,6 +108,10 @@ import org.gtkkn.bindings.pango.Context as PangoContext
 public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPrintContext>) :
     Object(gtkPrintContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `PangoContext` that can be used with the
      * `GtkPrintContext`.
@@ -116,7 +120,7 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      */
     public open fun createPangoContext(): PangoContext =
         gtk_print_context_create_pango_context(gtkPrintContextPointer)!!.run {
-            PangoContext(this)
+            InstanceCache.get(this, true) { PangoContext(reinterpret()) }!!
         }
 
     /**
@@ -126,7 +130,7 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      * @return a new Pango layout for @context
      */
     public open fun createPangoLayout(): Layout = gtk_print_context_create_pango_layout(gtkPrintContextPointer)!!.run {
-        Layout(this)
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**
@@ -170,7 +174,7 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      * @return the page setup of @context
      */
     public open fun getPageSetup(): PageSetup = gtk_print_context_get_page_setup(gtkPrintContextPointer)!!.run {
-        PageSetup(this)
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
     }
 
     /**
@@ -180,7 +184,7 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      * @return the font map of @context
      */
     public open fun getPangoFontmap(): FontMap = gtk_print_context_get_pango_fontmap(gtkPrintContextPointer)!!.run {
-        FontMap.FontMapImpl(this)
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!
     }
 
     /**
@@ -207,7 +211,7 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
 
     public companion object : TypeCompanion<PrintContext> {
         override val type: GeneratedClassKGType<PrintContext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_print_context_get_type")!!) { PrintContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { PrintContext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -219,5 +223,16 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
          * @return the GType
          */
         public fun getType(): GType = gtk_print_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_print_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_print_context_get_type")
     }
 }

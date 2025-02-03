@@ -13,10 +13,10 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSocketAddressEnumerator
 import org.gtkkn.native.gio.g_socket_address_enumerator_get_type
 import org.gtkkn.native.gio.g_socket_address_enumerator_next
@@ -48,6 +48,10 @@ public abstract class SocketAddressEnumerator(
     public val gioSocketAddressEnumeratorPointer: CPointer<GSocketAddressEnumerator>,
 ) : Object(gioSocketAddressEnumeratorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Retrieves the next #GSocketAddress from @enumerator. Note that this
      * may block for some amount of time. (Eg, a #GNetworkAddress may need
@@ -75,7 +79,7 @@ public abstract class SocketAddressEnumerator(
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            SocketAddress.SocketAddressImpl(this)
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -124,7 +128,7 @@ public abstract class SocketAddressEnumerator(
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            SocketAddress.SocketAddressImpl(this)
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -144,9 +148,7 @@ public abstract class SocketAddressEnumerator(
 
     public companion object : TypeCompanion<SocketAddressEnumerator> {
         override val type: GeneratedClassKGType<SocketAddressEnumerator> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_address_enumerator_get_type")!!) {
-                SocketAddressEnumeratorImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { SocketAddressEnumeratorImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -158,5 +160,16 @@ public abstract class SocketAddressEnumerator(
          * @return the GType
          */
         public fun getType(): GType = g_socket_address_enumerator_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_socket_address_enumerator_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_socket_address_enumerator_get_type")
     }
 }

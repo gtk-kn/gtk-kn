@@ -7,11 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
@@ -39,6 +38,13 @@ import kotlin.Boolean
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.TreeListModel] instead
+ * ---
+ *
  * A tree-like data structure that can be used with the [class@Gtk.TreeView].
  *
  * The `GtkTreeStore` object is a list model for use with a `GtkTreeView`
@@ -88,6 +94,10 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
     TreeModel,
     TreeSortable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 
@@ -104,6 +114,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Appends a new row to @tree_store.
      *
      * If @parent is non-null, then it will append the new row after the last
@@ -120,11 +137,25 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         gtk_tree_store_append(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Removes all rows from @tree_store
      */
     public open fun clear(): Unit = gtk_tree_store_clear(gtkTreeStorePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Creates a new row at @position.
      *
      * If parent is non-null, then the row will be made a child of @parent.
@@ -145,6 +176,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         gtk_tree_store_insert(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer, position)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Inserts a new row after @sibling.
      *
      * If @sibling is null, then the row will be prepended to @parent’s children.
@@ -172,6 +210,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Inserts a new row before @sibling.
      *
      * If @sibling is null, then the row will be appended to @parent’s children.
@@ -199,6 +244,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Checks if @iter is an ancestor of @descendant.
      *
      * @param iter A valid `GtkTreeIter`
@@ -212,6 +264,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
     ).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Returns the depth of the position pointed by the iterator
      *
      * The depth will be 0 for anything on the root level, 1 for anything down
@@ -224,6 +283,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         gtk_tree_store_iter_depth(gtkTreeStorePointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Checks if the given iter is a valid iter for this `GtkTreeStore`.
      *
      * This function is slow. Only use it for debugging and/or testing
@@ -236,6 +302,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         gtk_tree_store_iter_is_valid(gtkTreeStorePointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Moves @iter in @tree_store to the position after @position.
      *
      * @iter and @position should be in the same level.
@@ -251,6 +324,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         gtk_tree_store_move_after(gtkTreeStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Moves @iter in @tree_store to the position before @position.
      *
      * @iter and @position should be in the same level.
@@ -266,6 +346,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         gtk_tree_store_move_before(gtkTreeStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Prepends a new row to @tree_store.
      *
      * If @parent is non-null, then it will prepend the new row before the first
@@ -281,6 +368,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         gtk_tree_store_prepend(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Removes @iter from @tree_store.
      *
      * After being removed, @iter is set to the next valid row at that level, or
@@ -293,6 +387,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         gtk_tree_store_remove(gtkTreeStorePointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Sets the data in the cell specified by @iter and @column.
      *
      * The type of @value must be convertible to the type of the
@@ -306,6 +407,13 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
         gtk_tree_store_set_value(gtkTreeStorePointer, iter.gtkTreeIterPointer, column, `value`.gobjectValuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Swaps @a and @b in the same level of @tree_store.
      *
      * Note that this function only works with unsorted stores.
@@ -318,7 +426,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
 
     public companion object : TypeCompanion<TreeStore> {
         override val type: GeneratedClassKGType<TreeStore> =
-            GeneratedClassKGType(getTypeOrNull("gtk_tree_store_get_type")!!) { TreeStore(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TreeStore(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -330,5 +438,16 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_store_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_store_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_store_get_type")
     }
 }

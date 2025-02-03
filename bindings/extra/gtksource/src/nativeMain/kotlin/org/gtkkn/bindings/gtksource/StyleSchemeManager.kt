@@ -7,12 +7,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceStyleSchemeManager
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_manager_append_search_path
@@ -40,6 +40,10 @@ public open class StyleSchemeManager(
     public val gtksourceStyleSchemeManagerPointer: CPointer<GtkSourceStyleSchemeManager>,
 ) : Object(gtksourceStyleSchemeManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open val schemeIds: List<String>?
         /**
          * Returns the ids of the available style schemes.
@@ -59,7 +63,9 @@ public open class StyleSchemeManager(
      *
      * @return a new #GtkSourceStyleSchemeManager.
      */
-    public constructor() : this(gtk_source_style_scheme_manager_new()!!.reinterpret())
+    public constructor() : this(gtk_source_style_scheme_manager_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends @path to the list of directories where the @manager looks for
@@ -90,7 +96,7 @@ public open class StyleSchemeManager(
      */
     public open fun getScheme(schemeId: String): StyleScheme? =
         gtk_source_style_scheme_manager_get_scheme(gtksourceStyleSchemeManagerPointer, schemeId)?.run {
-            StyleScheme(this)
+            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!
         }
 
     /**
@@ -135,12 +141,10 @@ public open class StyleSchemeManager(
 
     public companion object : TypeCompanion<StyleSchemeManager> {
         override val type: GeneratedClassKGType<StyleSchemeManager> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_manager_get_type")!!) {
-                StyleSchemeManager(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { StyleSchemeManager(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -150,7 +154,7 @@ public open class StyleSchemeManager(
          * is owned by GtkSourceView library and must not be unref'ed.
          */
         public fun getDefault(): StyleSchemeManager = gtk_source_style_scheme_manager_get_default()!!.run {
-            StyleSchemeManager(this)
+            InstanceCache.get(this, true) { StyleSchemeManager(reinterpret()) }!!
         }
 
         /**
@@ -159,5 +163,16 @@ public open class StyleSchemeManager(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_style_scheme_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_style_scheme_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_style_scheme_manager_get_type")
     }
 }

@@ -11,11 +11,11 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -48,6 +48,10 @@ import kotlin.Unit
 public open class GestureLongPress(public val gtkGestureLongPressPointer: CPointer<GtkGestureLongPress>) :
     GestureSingle(gtkGestureLongPressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Factor by which to modify the default timeout.
      */
@@ -74,7 +78,9 @@ public open class GestureLongPress(public val gtkGestureLongPressPointer: CPoint
      *
      * @return a newly created `GtkGestureLongPress`.
      */
-    public constructor() : this(gtk_gesture_long_press_new()!!.reinterpret())
+    public constructor() : this(gtk_gesture_long_press_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted whenever a press moved too far, or was released
@@ -131,9 +137,7 @@ public open class GestureLongPress(public val gtkGestureLongPressPointer: CPoint
 
     public companion object : TypeCompanion<GestureLongPress> {
         override val type: GeneratedClassKGType<GestureLongPress> =
-            GeneratedClassKGType(getTypeOrNull("gtk_gesture_long_press_get_type")!!) {
-                GestureLongPress(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { GestureLongPress(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -145,6 +149,17 @@ public open class GestureLongPress(public val gtkGestureLongPressPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gtk_gesture_long_press_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_gesture_long_press_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_gesture_long_press_get_type")
     }
 }
 

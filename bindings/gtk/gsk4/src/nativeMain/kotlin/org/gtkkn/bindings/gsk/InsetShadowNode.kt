@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskInsetShadowNode
@@ -21,6 +21,7 @@ import org.gtkkn.native.gsk.gsk_inset_shadow_node_get_outline
 import org.gtkkn.native.gsk.gsk_inset_shadow_node_get_spread
 import org.gtkkn.native.gsk.gsk_inset_shadow_node_get_type
 import org.gtkkn.native.gsk.gsk_inset_shadow_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node for an inset shadow.
@@ -28,6 +29,10 @@ import org.gtkkn.native.gsk.gsk_inset_shadow_node_new
 public open class InsetShadowNode(public val gskInsetShadowNodePointer: CPointer<GskInsetShadowNode>) :
     RenderNode(gskInsetShadowNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will render an inset shadow
      * into the box given by @outline.
@@ -56,7 +61,9 @@ public open class InsetShadowNode(public val gskInsetShadowNodePointer: CPointer
             spread,
             blurRadius
         )!!.reinterpret()
-    )
+    ) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the blur radius to apply to the shadow.
@@ -108,9 +115,7 @@ public open class InsetShadowNode(public val gskInsetShadowNodePointer: CPointer
 
     public companion object : TypeCompanion<InsetShadowNode> {
         override val type: GeneratedClassKGType<InsetShadowNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_inset_shadow_node_get_type")!!) {
-                InsetShadowNode(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { InsetShadowNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -122,5 +127,16 @@ public open class InsetShadowNode(public val gskInsetShadowNodePointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gsk_inset_shadow_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_inset_shadow_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_inset_shadow_node_get_type")
     }
 }

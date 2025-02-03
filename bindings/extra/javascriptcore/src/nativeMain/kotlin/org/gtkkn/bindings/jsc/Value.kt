@@ -16,15 +16,15 @@ import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_28
 import org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_38
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
@@ -104,6 +104,10 @@ import kotlin.collections.List
 public class Value(public val jscValuePointer: CPointer<JSCValue>) :
     Object(jscValuePointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * The #JSCContext in which the value was created.
      */
@@ -114,7 +118,7 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
          * @return the #JSCValue context.
          */
         get() = jsc_value_get_context(jscValuePointer)!!.run {
-            Context(this)
+            InstanceCache.get(this, true) { Context(reinterpret()) }!!
         }
 
     /**
@@ -165,7 +169,9 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
             },
             destroyNotify?.let { StableRef.create(destroyNotify).asCPointer() }
         )!!.reinterpret()
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCValue referencing an array of strings with the items from @strv. If @array
@@ -177,9 +183,11 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
      */
     public constructor(context: Context, strv: List<String>) : this(
         memScoped {
-            jsc_value_new_array_from_strv(context.jscContextPointer, strv.toCStringList(this))!!.reinterpret()
+            jsc_value_new_array_from_strv(context.jscContextPointer, strv.toCStringList(this))!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCValue from @value
@@ -191,7 +199,9 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
     public constructor(
         context: Context,
         `value`: Boolean,
-    ) : this(jsc_value_new_boolean(context.jscContextPointer, `value`.asGBoolean())!!.reinterpret())
+    ) : this(jsc_value_new_boolean(context.jscContextPointer, `value`.asGBoolean())!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCValue referencing a new value created by parsing @json.
@@ -204,7 +214,9 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
     public constructor(
         context: Context,
         json: String,
-    ) : this(jsc_value_new_from_json(context.jscContextPointer, json)!!.reinterpret())
+    ) : this(jsc_value_new_from_json(context.jscContextPointer, json)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a function in @context. If @name is null an anonymous function will be created.
@@ -236,8 +248,10 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
             StableRef.create(callback).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             returnType
-        )!!.reinterpret()
-    )
+        )!!
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCValue referencing <function>null</function> in @context.
@@ -245,7 +259,9 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
      * @param context a #JSCContext
      * @return a #JSCValue.
      */
-    public constructor(context: Context) : this(jsc_value_new_null(context.jscContextPointer)!!.reinterpret())
+    public constructor(context: Context) : this(jsc_value_new_null(context.jscContextPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCValue from @number.
@@ -257,7 +273,9 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
     public constructor(
         context: Context,
         number: gdouble,
-    ) : this(jsc_value_new_number(context.jscContextPointer, number)!!.reinterpret())
+    ) : this(jsc_value_new_number(context.jscContextPointer, number)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCValue from @instance. If @instance is null a new empty object is created.
@@ -273,7 +291,9 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
         context: Context,
         instance: gpointer? = null,
         jscClass: Class? = null,
-    ) : this(jsc_value_new_object(context.jscContextPointer, instance, jscClass?.jscClassPointer)!!.reinterpret())
+    ) : this(jsc_value_new_object(context.jscContextPointer, instance, jscClass?.jscClassPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCValue from @string. If you need to create a #JSCValue from a
@@ -286,7 +306,9 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
     public constructor(
         context: Context,
         string: String? = null,
-    ) : this(jsc_value_new_string(context.jscContextPointer, string)!!.reinterpret())
+    ) : this(jsc_value_new_string(context.jscContextPointer, string)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCValue from @bytes.
@@ -298,7 +320,9 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
     public constructor(
         context: Context,
         bytes: Bytes? = null,
-    ) : this(jsc_value_new_string_from_bytes(context.jscContextPointer, bytes?.glibBytesPointer)!!.reinterpret())
+    ) : this(jsc_value_new_string_from_bytes(context.jscContextPointer, bytes?.glibBytesPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new typed array containing a given amount of elements.
@@ -320,7 +344,9 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
         context: Context,
         type: TypedArrayType,
         length: gsize,
-    ) : this(jsc_value_new_typed_array(context.jscContextPointer, type.nativeValue, length)!!.reinterpret())
+    ) : this(jsc_value_new_typed_array(context.jscContextPointer, type.nativeValue, length)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the size in bytes of the array buffer.
@@ -440,7 +466,7 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
     @JavaScriptCoreVersion2_38
     public fun newTypedArrayWithBuffer(type: TypedArrayType, offset: gsize, length: Long): Value =
         jsc_value_new_typed_array_with_buffer(jscValuePointer, type.nativeValue, offset, length)!!.run {
-            Value(this)
+            InstanceCache.get(this, true) { Value(reinterpret()) }!!
         }
 
     /**
@@ -485,7 +511,7 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
      * @return the property #JSCValue.
      */
     public fun objectGetProperty(name: String): Value = jsc_value_object_get_property(jscValuePointer, name)!!.run {
-        Value(this)
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!
     }
 
     /**
@@ -496,7 +522,7 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
      */
     public fun objectGetPropertyAtIndex(index: guint): Value =
         jsc_value_object_get_property_at_index(jscValuePointer, index)!!.run {
-            Value(this)
+            InstanceCache.get(this, true) { Value(reinterpret()) }!!
         }
 
     /**
@@ -595,7 +621,7 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
      */
     @JavaScriptCoreVersion2_38
     public fun typedArrayGetBuffer(): Value = jsc_value_typed_array_get_buffer(jscValuePointer)!!.run {
-        Value(this)
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!
     }
 
     /**
@@ -638,29 +664,11 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
 
     public companion object : TypeCompanion<Value> {
         override val type: GeneratedClassKGType<Value> =
-            GeneratedClassKGType(getTypeOrNull("jsc_value_get_type")!!) { Value(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Value(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
+            JavaScriptCoreTypeProvider.register()
         }
-
-        /**
-         * Create a new #JSCValue referencing <function>null</function> in @context.
-         *
-         * @param context a #JSCContext
-         * @return a #JSCValue.
-         */
-        public fun newNull(context: Context): Value =
-            Value(jsc_value_new_null(context.jscContextPointer)!!.reinterpret())
-
-        /**
-         * Create a new #JSCValue referencing <function>undefined</function> in @context.
-         *
-         * @param context a #JSCContext
-         * @return a #JSCValue.
-         */
-        public fun newUndefined(context: Context): Value =
-            Value(jsc_value_new_undefined(context.jscContextPointer)!!.reinterpret())
 
         /**
          * Get the GType of Value
@@ -668,5 +676,26 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
          * @return the GType
          */
         public fun getType(): GType = jsc_value_get_type()
+
+        /**
+         * Gets the GType of from the symbol `jsc_value_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("jsc_value_get_type")
+
+        /**
+         * Create a new #JSCValue referencing <function>undefined</function> in @context.
+         *
+         * @param context a #JSCContext
+         * @return a #JSCValue.
+         */
+        public fun undefined(context: Context): Value =
+            Value(jsc_value_new_undefined(context.jscContextPointer)!!).apply {
+                InstanceCache.put(this)
+            }
     }
 }

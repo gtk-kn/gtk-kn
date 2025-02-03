@@ -5,12 +5,12 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBoolFilter
 import org.gtkkn.native.gtk.gtk_bool_filter_get_expression
@@ -28,6 +28,10 @@ import kotlin.Boolean
 public open class BoolFilter(public val gtkBoolFilterPointer: CPointer<GtkBoolFilter>) :
     Filter(gtkBoolFilterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The boolean expression to evaluate on item.
      */
@@ -76,13 +80,13 @@ public open class BoolFilter(public val gtkBoolFilterPointer: CPointer<GtkBoolFi
      * @param expression The expression to evaluate
      * @return a new `GtkBoolFilter`
      */
-    public constructor(
-        expression: Expression? = null,
-    ) : this(gtk_bool_filter_new(expression?.gtkExpressionPointer)!!.reinterpret())
+    public constructor(expression: Expression? = null) : this(gtk_bool_filter_new(expression?.gtkExpressionPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<BoolFilter> {
         override val type: GeneratedClassKGType<BoolFilter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_bool_filter_get_type")!!) { BoolFilter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { BoolFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -94,5 +98,16 @@ public open class BoolFilter(public val gtkBoolFilterPointer: CPointer<GtkBoolFi
          * @return the GType
          */
         public fun getType(): GType = gtk_bool_filter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_bool_filter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_bool_filter_get_type")
     }
 }

@@ -10,12 +10,12 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -98,6 +98,10 @@ import kotlin.Unit
 public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
     Widget(gtkPicturePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -216,11 +220,27 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
         set(`file`) = gtk_picture_set_file(gtkPicturePointer, `file`?.gioFilePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.8.
+     *
+     * Use [property@Gtk.Picture:content-fit] instead.
+     * ---
+     *
      * Whether the GtkPicture will render its contents trying to preserve the aspect
      * ratio.
      */
     public open var keepAspectRatio: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.8.
+         *
+         * Use [method@Gtk.Picture.get_content_fit] instead. This will
+         *   now return `FALSE` only if [property@Gtk.Picture:content-fit] is
+         *   `GTK_CONTENT_FIT_FILL`. Returns `TRUE` otherwise.
+         * ---
+         *
          * Returns whether the `GtkPicture` preserves its contents aspect ratio.
          *
          * @return true if the self tries to keep the contents' aspect ratio
@@ -228,6 +248,16 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
         get() = gtk_picture_get_keep_aspect_ratio(gtkPicturePointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.8.
+         *
+         * Use [method@Gtk.Picture.set_content_fit] instead. If still
+         *   used, this method will always set the [property@Gtk.Picture:content-fit]
+         *   property to `GTK_CONTENT_FIT_CONTAIN` if @keep_aspect_ratio is true,
+         *   otherwise it will set it to `GTK_CONTENT_FIT_FILL`.
+         * ---
+         *
          * If set to true, the @self will render its contents according to
          * their aspect ratio.
          *
@@ -270,7 +300,9 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
      *
      * @return a newly created `GtkPicture` widget.
      */
-    public constructor() : this(gtk_picture_new()!!.reinterpret())
+    public constructor() : this(gtk_picture_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkPicture` displaying the given @file.
@@ -285,7 +317,9 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
      * @param file a `GFile`
      * @return a new `GtkPicture`
      */
-    public constructor(`file`: File? = null) : this(gtk_picture_new_for_file(`file`?.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File? = null) : this(gtk_picture_new_for_file(`file`?.gioFilePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkPicture` displaying the file @filename.
@@ -296,7 +330,9 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
      * @param filename a filename
      * @return a new `GtkPicture`
      */
-    public constructor(filename: String? = null) : this(gtk_picture_new_for_filename(filename)!!.reinterpret())
+    public constructor(filename: String? = null) : this(gtk_picture_new_for_filename(filename)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkPicture` displaying @paintable.
@@ -309,9 +345,19 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
      */
     public constructor(
         paintable: Paintable? = null,
-    ) : this(gtk_picture_new_for_paintable(paintable?.gdkPaintablePointer)!!.reinterpret())
+    ) : this(gtk_picture_new_for_paintable(paintable?.gdkPaintablePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [ctor@Gtk.Picture.new_for_paintable] and
+     *   [ctor@Gdk.Texture.new_for_pixbuf] instead
+     * ---
+     *
      * Creates a new `GtkPicture` displaying @pixbuf.
      *
      * This is a utility function that calls [ctor@Gtk.Picture.new_for_paintable],
@@ -324,7 +370,9 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
      */
     public constructor(
         pixbuf: Pixbuf? = null,
-    ) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkPixbufPointer)!!.reinterpret())
+    ) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkPixbufPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Makes @self load and display the given @filename.
@@ -336,6 +384,13 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
     public open fun setFilename(filename: String? = null): Unit = gtk_picture_set_filename(gtkPicturePointer, filename)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [method@Gtk.Picture.set_paintable] instead
+     * ---
+     *
      * Sets a `GtkPicture` to show a `GdkPixbuf`.
      *
      * See [ctor@Gtk.Picture.new_for_pixbuf] for details.
@@ -360,23 +415,28 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
 
     public companion object : TypeCompanion<Picture> {
         override val type: GeneratedClassKGType<Picture> =
-            GeneratedClassKGType(getTypeOrNull("gtk_picture_get_type")!!) { Picture(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Picture(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
 
         /**
-         * Creates a new `GtkPicture` displaying the file @filename.
+         * Get the GType of Picture
          *
-         * This is a utility function that calls [ctor@Gtk.Picture.new_for_file].
-         * See that function for details.
-         *
-         * @param filename a filename
-         * @return a new `GtkPicture`
+         * @return the GType
          */
-        public fun newForFilename(filename: String? = null): Picture =
-            Picture(gtk_picture_new_for_filename(filename)!!.reinterpret())
+        public fun getType(): GType = gtk_picture_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_picture_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_picture_get_type")
 
         /**
          * Creates a new `GtkPicture` displaying the resource at @resource_path.
@@ -387,14 +447,9 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
          * @param resourcePath resource path to play back
          * @return a new `GtkPicture`
          */
-        public fun newForResource(resourcePath: String? = null): Picture =
-            Picture(gtk_picture_new_for_resource(resourcePath)!!.reinterpret())
-
-        /**
-         * Get the GType of Picture
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_picture_get_type()
+        public fun forResource(resourcePath: String? = null): Picture =
+            Picture(gtk_picture_new_for_resource(resourcePath)!!.reinterpret()).apply {
+                InstanceCache.put(this)
+            }
     }
 }

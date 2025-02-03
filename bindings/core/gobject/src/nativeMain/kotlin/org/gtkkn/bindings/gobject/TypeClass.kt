@@ -7,10 +7,12 @@ import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
@@ -26,10 +28,8 @@ import org.gtkkn.native.gobject.g_type_class_peek_static
 import org.gtkkn.native.gobject.g_type_class_ref
 import org.gtkkn.native.gobject.g_type_class_unref
 import org.gtkkn.native.gobject.g_type_class_unref_uncached
-import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used as the base of all classes.
@@ -38,29 +38,20 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `private_size_or_offset`: Unsupported pointer to primitive type
  */
-public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) :
+public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>) :
     ProxyInstance(gobjectTypeClassPointer) {
+    public val gType: GType
+        get() = gobjectTypeClassPointer.pointed.g_type
+
     /**
      * Allocate a new TypeClass.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TypeClass and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTypeClass>, Cleaner>,
-    ) : this(gobjectTypeClassPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTypeClass>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TypeClass using the provided [AutofreeScope].
@@ -72,6 +63,14 @@ public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>,
     public constructor(scope: AutofreeScope) : this(scope.alloc<GTypeClass>().ptr)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.58.
+     *
+     * Use the G_ADD_PRIVATE() macro with the `G_DEFINE_*`
+     *   family of macros to add instance private data to a type
+     * ---
+     *
      * Registers a private structure for an instantiatable type.
      *
      * When an object is allocated, the private structures for
@@ -192,6 +191,8 @@ public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>,
      * otherwise.
      */
     public fun unrefUncached(): Unit = g_type_class_unref_uncached(gobjectTypeClassPointer)
+
+    override fun toString(): String = "TypeClass(gType=$gType)"
 
     public companion object {
         /**

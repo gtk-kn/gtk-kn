@@ -10,6 +10,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTuples
 import org.gtkkn.native.glib.g_tuples_destroy
@@ -17,20 +18,23 @@ import org.gtkkn.native.glib.g_tuples_index
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.26.
+ *
+ * Rarely used API
+ * ---
+ *
  * The #GTuples struct is used to return records (or tuples) from the
  * #GRelation by g_relation_select(). It only contains one public
  * member - the number of records that matched. To access the matched
  * records, you must use g_tuples_index().
  */
-public class Tuples(public val glibTuplesPointer: CPointer<GTuples>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibTuplesPointer) {
+public class Tuples(public val glibTuplesPointer: CPointer<GTuples>) : ProxyInstance(glibTuplesPointer) {
     /**
      * the number of records that matched.
      */
@@ -48,21 +52,9 @@ public class Tuples(public val glibTuplesPointer: CPointer<GTuples>, cleaner: Cl
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTuples>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Tuples and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTuples>, Cleaner>,
-    ) : this(glibTuplesPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTuples>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Tuples using the provided [AutofreeScope].
@@ -98,6 +90,13 @@ public class Tuples(public val glibTuplesPointer: CPointer<GTuples>, cleaner: Cl
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Frees the records which were returned by g_relation_select(). This
      * should always be called after g_relation_select() when you are
      * finished with the records. The records are not removed from the
@@ -106,6 +105,13 @@ public class Tuples(public val glibTuplesPointer: CPointer<GTuples>, cleaner: Cl
     public fun destroy(): Unit = g_tuples_destroy(glibTuplesPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Gets a field from the records returned by g_relation_select(). It
      * returns the given field of the record at the given index. The
      * returned value should not be changed.

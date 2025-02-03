@@ -12,16 +12,14 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GLogField
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gpointer
 import kotlin.Long
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure representing a single field in a structured log entry. See
@@ -34,8 +32,7 @@ import kotlin.native.ref.createCleaner
  * @since 2.50
  */
 @GLibVersion2_50
-public class LogField(public val glibLogFieldPointer: CPointer<GLogField>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibLogFieldPointer) {
+public class LogField(public val glibLogFieldPointer: CPointer<GLogField>) : ProxyInstance(glibLogFieldPointer) {
     /**
      * field name (UTF-8 string)
      */
@@ -76,21 +73,9 @@ public class LogField(public val glibLogFieldPointer: CPointer<GLogField>, clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GLogField>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to LogField and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GLogField>, Cleaner>,
-    ) : this(glibLogFieldPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GLogField>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new LogField using the provided [AutofreeScope].

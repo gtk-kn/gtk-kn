@@ -11,16 +11,14 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeValueTable
 import org.gtkkn.native.gobject.g_type_value_table_peek
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GTypeValueTable provides the functions required by the #GValue
@@ -35,10 +33,8 @@ import kotlin.native.ref.createCleaner
  * - field `collect_value`: TypeValueCollectFunc
  * - field `lcopy_value`: TypeValueLCopyFunc
  */
-public class TypeValueTable(
-    public val gobjectTypeValueTablePointer: CPointer<GTypeValueTable>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gobjectTypeValueTablePointer) {
+public class TypeValueTable(public val gobjectTypeValueTablePointer: CPointer<GTypeValueTable>) :
+    ProxyInstance(gobjectTypeValueTablePointer) {
     /**
      * A string format describing how to collect the contents of
      *   this value bit-by-bit. Each character in the format represents
@@ -82,21 +78,9 @@ public class TypeValueTable(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeValueTable>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TypeValueTable and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTypeValueTable>, Cleaner>,
-    ) : this(gobjectTypeValueTablePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTypeValueTable>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TypeValueTable using the provided [AutofreeScope].

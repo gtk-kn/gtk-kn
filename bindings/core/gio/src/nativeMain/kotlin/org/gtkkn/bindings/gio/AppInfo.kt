@@ -22,13 +22,12 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_74
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAppInfo
 import org.gtkkn.native.gio.g_app_info_add_supports_type
 import org.gtkkn.native.gio.g_app_info_can_delete
@@ -527,13 +526,19 @@ public interface AppInfo :
      *
      * @constructor Creates a new instance of AppInfo for the provided [CPointer].
      */
-    public data class AppInfoImpl(override val gioAppInfoPointer: CPointer<GAppInfo>) :
+    public class AppInfoImpl(gioAppInfoPointer: CPointer<GAppInfo>) :
         Object(gioAppInfoPointer.reinterpret()),
-        AppInfo
+        AppInfo {
+        init {
+            Gio
+        }
+
+        override val gioAppInfoPointer: CPointer<GAppInfo> = gioAppInfoPointer
+    }
 
     public companion object : TypeCompanion<AppInfo> {
         override val type: GeneratedInterfaceKGType<AppInfo> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_app_info_get_type")!!) { AppInfoImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { AppInfoImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -869,5 +874,15 @@ public interface AppInfo :
          * @return the GType
          */
         public fun getType(): GType = g_app_info_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_app_info_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_app_info_get_type")
     }
 }

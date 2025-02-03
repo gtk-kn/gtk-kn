@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -19,6 +19,13 @@ import org.gtkkn.native.gtk.gtk_color_chooser_widget_get_type
 import org.gtkkn.native.gtk.gtk_color_chooser_widget_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Direct use of `GtkColorChooserWidget` is deprecated.
+ * ---
+ *
  * The `GtkColorChooserWidget` widget lets the user select a color.
  *
  * By default, the chooser presents a predefined palette of colors,
@@ -52,6 +59,10 @@ public open class ColorChooserWidget(public val gtkColorChooserWidgetPointer: CP
     Widget(gtkColorChooserWidgetPointer.reinterpret()),
     ColorChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkColorChooserPointer: CPointer<GtkColorChooser>
         get() = handle.reinterpret()
 
@@ -69,13 +80,13 @@ public open class ColorChooserWidget(public val gtkColorChooserWidgetPointer: CP
      *
      * @return a new `GtkColorChooserWidget`
      */
-    public constructor() : this(gtk_color_chooser_widget_new()!!.reinterpret())
+    public constructor() : this(gtk_color_chooser_widget_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ColorChooserWidget> {
         override val type: GeneratedClassKGType<ColorChooserWidget> =
-            GeneratedClassKGType(getTypeOrNull("gtk_color_chooser_widget_get_type")!!) {
-                ColorChooserWidget(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ColorChooserWidget(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -87,5 +98,16 @@ public open class ColorChooserWidget(public val gtkColorChooserWidgetPointer: CP
          * @return the GType
          */
         public fun getType(): GType = gtk_color_chooser_widget_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_color_chooser_widget_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_color_chooser_widget_get_type")
     }
 }

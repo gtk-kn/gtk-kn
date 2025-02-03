@@ -8,11 +8,11 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusObjectManager
 import org.gtkkn.native.gio.GDBusObjectManagerServer
 import org.gtkkn.native.gio.g_dbus_object_manager_server_export
@@ -63,6 +63,10 @@ public open class DBusObjectManagerServer(
 ) : Object(gioDBusObjectManagerServerPointer.reinterpret()),
     DBusObjectManager,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>
         get() = handle.reinterpret()
 
@@ -82,7 +86,7 @@ public open class DBusObjectManagerServer(
          * @since 2.30
          */
         get() = g_dbus_object_manager_server_get_connection(gioDBusObjectManagerServerPointer)?.run {
-            DBusConnection(this)
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
         }
 
         /**
@@ -111,7 +115,9 @@ public open class DBusObjectManagerServer(
      * @return A #GDBusObjectManagerServer object. Free with g_object_unref().
      * @since 2.30
      */
-    public constructor(objectPath: String) : this(g_dbus_object_manager_server_new(objectPath)!!.reinterpret())
+    public constructor(objectPath: String) : this(g_dbus_object_manager_server_new(objectPath)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Exports @object on @manager.
@@ -177,9 +183,7 @@ public open class DBusObjectManagerServer(
 
     public companion object : TypeCompanion<DBusObjectManagerServer> {
         override val type: GeneratedClassKGType<DBusObjectManagerServer> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_object_manager_server_get_type")!!) {
-                DBusObjectManagerServer(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { DBusObjectManagerServer(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -191,5 +195,16 @@ public open class DBusObjectManagerServer(
          * @return the GType
          */
         public fun getType(): GType = g_dbus_object_manager_server_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_object_manager_server_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_object_manager_server_get_type")
     }
 }

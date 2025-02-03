@@ -16,13 +16,13 @@ import org.gtkkn.bindings.gdk.Drop
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDragAction
 import org.gtkkn.native.gdk.GdkDrop
 import org.gtkkn.native.glib.gboolean
@@ -128,6 +128,10 @@ import kotlin.Unit
 public open class DropTarget(public val gtkDropTargetPointer: CPointer<GtkDropTarget>) :
     EventController(gtkDropTargetPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The `GdkDragActions` that this drop target supports.
      */
@@ -164,14 +168,28 @@ public open class DropTarget(public val gtkDropTargetPointer: CPointer<GtkDropTa
          * @since 4.4
          */
         get() = gtk_drop_target_get_current_drop(gtkDropTargetPointer)?.run {
-            Drop.DropImpl(this)
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [property@Gtk.DropTarget:current-drop] instead
+     * ---
+     *
      * The `GdkDrop` that is currently being performed.
      */
     public open val drop: Drop?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.4.
+         *
+         * Use [method@Gtk.DropTarget.get_current_drop] instead
+         * ---
+         *
          * Gets the currently handled drop operation.
          *
          * If no drop operation is going on, null is returned.
@@ -179,7 +197,7 @@ public open class DropTarget(public val gtkDropTargetPointer: CPointer<GtkDropTa
          * @return The current drop
          */
         get() = gtk_drop_target_get_drop(gtkDropTargetPointer)?.run {
-            Drop.DropImpl(this)
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!
         }
 
     /**
@@ -264,7 +282,9 @@ public open class DropTarget(public val gtkDropTargetPointer: CPointer<GtkDropTa
      * @param actions the supported actions
      * @return the new `GtkDropTarget`
      */
-    public constructor(type: GType, actions: DragAction) : this(gtk_drop_target_new(type, actions.mask)!!.reinterpret())
+    public constructor(type: GType, actions: DragAction) : this(gtk_drop_target_new(type, actions.mask)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Rejects the ongoing drop operation.
@@ -407,7 +427,7 @@ public open class DropTarget(public val gtkDropTargetPointer: CPointer<GtkDropTa
 
     public companion object : TypeCompanion<DropTarget> {
         override val type: GeneratedClassKGType<DropTarget> =
-            GeneratedClassKGType(getTypeOrNull("gtk_drop_target_get_type")!!) { DropTarget(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DropTarget(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -419,6 +439,17 @@ public open class DropTarget(public val gtkDropTargetPointer: CPointer<GtkDropTa
          * @return the GType
          */
         public fun getType(): GType = gtk_drop_target_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_drop_target_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_drop_target_get_type")
     }
 }
 
@@ -429,7 +460,7 @@ private val onAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> gboolean>> =
     ->
     userData.asStableRef<(drop: Drop) -> Boolean>().get().invoke(
         drop!!.run {
-            Drop.DropImpl(this)
+            InstanceCache.get(this, false) { Drop.DropImpl(reinterpret()) }!!
         }
     ).asGBoolean()
 }

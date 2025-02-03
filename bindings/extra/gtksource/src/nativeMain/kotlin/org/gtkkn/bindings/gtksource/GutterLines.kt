@@ -11,11 +11,11 @@ import org.gtkkn.bindings.gtk.TextBuffer
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextView
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceGutterLines
@@ -57,6 +57,10 @@ import kotlin.Unit
 public open class GutterLines(public val gtksourceGutterLinesPointer: CPointer<GtkSourceGutterLines>) :
     Object(gtksourceGutterLinesPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Adds the class @name to @line.
      *
@@ -92,7 +96,7 @@ public open class GutterLines(public val gtksourceGutterLinesPointer: CPointer<G
      * @return a #GtkTextBuffer
      */
     public open fun getBuffer(): TextBuffer = gtk_source_gutter_lines_get_buffer(gtksourceGutterLinesPointer)!!.run {
-        TextBuffer(this)
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!
     }
 
     /**
@@ -126,7 +130,7 @@ public open class GutterLines(public val gtksourceGutterLinesPointer: CPointer<G
      * @return a #GtkTextView
      */
     public open fun getView(): TextView = gtk_source_gutter_lines_get_view(gtksourceGutterLinesPointer)!!.run {
-        TextView(this)
+        InstanceCache.get(this, true) { TextView(reinterpret()) }!!
     }
 
     /**
@@ -222,12 +226,10 @@ public open class GutterLines(public val gtksourceGutterLinesPointer: CPointer<G
 
     public companion object : TypeCompanion<GutterLines> {
         override val type: GeneratedClassKGType<GutterLines> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_lines_get_type")!!) {
-                GutterLines(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { GutterLines(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -236,5 +238,16 @@ public open class GutterLines(public val gtksourceGutterLinesPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_source_gutter_lines_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_gutter_lines_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_gutter_lines_get_type")
     }
 }

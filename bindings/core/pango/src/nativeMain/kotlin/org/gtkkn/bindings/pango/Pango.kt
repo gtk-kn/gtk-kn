@@ -26,6 +26,8 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
@@ -129,6 +131,10 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - include `HarfBuzz`: Missing dependant repository
  */
 public object Pango {
+    init {
+        registerTypes()
+    }
+
     /**
      * Whether the segment should be shifted to center around the baseline.
      *
@@ -1102,6 +1108,11 @@ public object Pango {
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.38.
+     * ---
+     *
      * Splits a %G_SEARCHPATH_SEPARATOR-separated list of files, stripping
      * white space and substituting ~/ with $HOME/.
      *
@@ -1113,6 +1124,11 @@ public object Pango {
         pango_split_file_list(str)?.toKStringList() ?: error("Expected not null string array")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.38.
+     * ---
+     *
      * Trims leading and trailing whitespace from a string.
      *
      * @param str a string
@@ -1233,6 +1249,37 @@ public object Pango {
         }
         return ex ?: GLibException(error)
     }
+
+    private fun registerTypes() {
+        Context.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Context::class, gtype) { Context(it.reinterpret()) }
+        }
+        Coverage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Coverage::class, gtype) { Coverage(it.reinterpret()) }
+        }
+        Font.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Font::class, gtype) { Font.FontImpl(it.reinterpret()) }
+        }
+        FontFace.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontFace::class, gtype) { FontFace.FontFaceImpl(it.reinterpret()) }
+        }
+        FontFamily.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontFamily::class, gtype) { FontFamily.FontFamilyImpl(it.reinterpret()) }
+        }
+        FontMap.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontMap::class, gtype) { FontMap.FontMapImpl(it.reinterpret()) }
+        }
+        Fontset.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Fontset::class, gtype) { Fontset.FontsetImpl(it.reinterpret()) }
+        }
+        FontsetSimple.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontsetSimple::class, gtype) { FontsetSimple(it.reinterpret()) }
+        }
+        Layout.getTypeOrNull()?.let { gtype -> TypeCache.register(Layout::class, gtype) { Layout(it.reinterpret()) } }
+        Renderer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Renderer::class, gtype) { Renderer.RendererImpl(it.reinterpret()) }
+        }
+    }
 }
 
 public val AttrDataCopyFuncFunc: CPointer<CFunction<() -> gpointer?>> = staticCFunction { userData: gpointer? ->
@@ -1262,10 +1309,10 @@ public val FontsetForeachFuncFunc:
         ->
         userData!!.asStableRef<(fontset: Fontset, font: Font) -> Boolean>().get().invoke(
             fontset!!.run {
-                Fontset.FontsetImpl(this)
+                InstanceCache.get(this, false) { Fontset.FontsetImpl(reinterpret()) }!!
             },
             font!!.run {
-                Font.FontImpl(this)
+                InstanceCache.get(this, false) { Font.FontImpl(reinterpret()) }!!
             }
         ).asGBoolean()
     }

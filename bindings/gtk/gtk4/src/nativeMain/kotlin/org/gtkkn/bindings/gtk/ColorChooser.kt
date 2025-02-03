@@ -14,13 +14,12 @@ import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkRGBA
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -35,6 +34,14 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.ColorDialog] and [class@Gtk.ColorDialogButton]
+ *   instead of widgets implementing `GtkColorChooser`
+ * ---
+ *
  * `GtkColorChooser` is an interface that is implemented by widgets
  * for choosing colors.
  *
@@ -55,6 +62,14 @@ public interface ColorChooser :
     public val gtkColorChooserPointer: CPointer<GtkColorChooser>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] and [class@Gtk.ColorDialogButton]
+     *   instead of widgets implementing `GtkColorChooser`
+     * ---
+     *
      * Whether colors may have alpha (translucency).
      *
      * When ::use-alpha is false, the `GdkRGBA` struct obtained
@@ -66,6 +81,13 @@ public interface ColorChooser :
      */
     public var useAlpha: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialog] instead
+         * ---
+         *
          * Returns whether the color chooser shows the alpha channel.
          *
          * @return true if the color chooser uses the alpha channel,
@@ -74,6 +96,13 @@ public interface ColorChooser :
         get() = gtk_color_chooser_get_use_alpha(gtkColorChooserPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialog] instead
+         * ---
+         *
          * Sets whether or not the color chooser should use the alpha channel.
          *
          * @param useAlpha true if color chooser should use alpha channel, false if not
@@ -81,6 +110,13 @@ public interface ColorChooser :
         set(useAlpha) = gtk_color_chooser_set_use_alpha(gtkColorChooserPointer, useAlpha.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] instead
+     * ---
+     *
      * Gets the currently-selected color.
      *
      * @param color a `GdkRGBA` to fill in with the current color
@@ -88,6 +124,13 @@ public interface ColorChooser :
     public fun getRgba(color: Rgba): Unit = gtk_color_chooser_get_rgba(gtkColorChooserPointer, color.gdkRgbaPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] instead
+     * ---
+     *
      * Returns whether the color chooser shows the alpha channel.
      *
      * @return true if the color chooser uses the alpha channel,
@@ -96,6 +139,13 @@ public interface ColorChooser :
     public fun getUseAlpha(): Boolean = gtk_color_chooser_get_use_alpha(gtkColorChooserPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] instead
+     * ---
+     *
      * Sets the color.
      *
      * @param color the new color
@@ -103,6 +153,13 @@ public interface ColorChooser :
     public fun setRgba(color: Rgba): Unit = gtk_color_chooser_set_rgba(gtkColorChooserPointer, color.gdkRgbaPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] instead
+     * ---
+     *
      * Sets whether or not the color chooser should use the alpha channel.
      *
      * @param useAlpha true if color chooser should use alpha channel, false if not
@@ -111,6 +168,14 @@ public interface ColorChooser :
         gtk_color_chooser_set_use_alpha(gtkColorChooserPointer, useAlpha.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] and [class@Gtk.ColorDialogButton]
+     *   instead of widgets implementing `GtkColorChooser`
+     * ---
+     *
      * Emitted when a color is activated from the color chooser.
      *
      * This usually happens when the user clicks a color swatch,
@@ -135,15 +200,19 @@ public interface ColorChooser :
      *
      * @constructor Creates a new instance of ColorChooser for the provided [CPointer].
      */
-    public data class ColorChooserImpl(override val gtkColorChooserPointer: CPointer<GtkColorChooser>) :
+    public class ColorChooserImpl(gtkColorChooserPointer: CPointer<GtkColorChooser>) :
         Object(gtkColorChooserPointer.reinterpret()),
-        ColorChooser
+        ColorChooser {
+        init {
+            Gtk
+        }
+
+        override val gtkColorChooserPointer: CPointer<GtkColorChooser> = gtkColorChooserPointer
+    }
 
     public companion object : TypeCompanion<ColorChooser> {
         override val type: GeneratedInterfaceKGType<ColorChooser> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_color_chooser_get_type")!!) {
-                ColorChooserImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { ColorChooserImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -155,6 +224,17 @@ public interface ColorChooser :
          * @return the GType
          */
         public fun getType(): GType = gtk_color_chooser_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_color_chooser_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_color_chooser_get_type")
     }
 }
 

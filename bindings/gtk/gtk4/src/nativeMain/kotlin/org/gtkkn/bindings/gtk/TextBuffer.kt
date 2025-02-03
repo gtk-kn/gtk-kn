@@ -18,13 +18,13 @@ import org.gtkkn.bindings.gdk.ContentProvider
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkClipboard
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.glib.gint
@@ -133,6 +133,10 @@ import kotlin.Unit
 public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBuffer>) :
     Object(gtkTextBufferPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Denotes that the buffer can reapply the last undone action.
      */
@@ -209,7 +213,7 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
          * @return the buffer’s tag table
          */
         get() = gtk_text_buffer_get_tag_table(gtkTextBufferPointer)!!.run {
-            TextTagTable(this)
+            InstanceCache.get(this, true) { TextTagTable(reinterpret()) }!!
         }
 
     /**
@@ -218,9 +222,9 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
      * @param table a tag table, or null to create a new one
      * @return a new text buffer
      */
-    public constructor(
-        table: TextTagTable? = null,
-    ) : this(gtk_text_buffer_new(table?.gtkTextTagTablePointer)!!.reinterpret())
+    public constructor(table: TextTagTable? = null) : this(gtk_text_buffer_new(table?.gtkTextTagTablePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds the mark at position @where.
@@ -368,7 +372,7 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
      */
     public open fun createChildAnchor(iter: TextIter): TextChildAnchor =
         gtk_text_buffer_create_child_anchor(gtkTextBufferPointer, iter.gtkTextIterPointer)!!.run {
-            TextChildAnchor(this)
+            InstanceCache.get(this, true) { TextChildAnchor(reinterpret()) }!!
         }
 
     /**
@@ -404,7 +408,7 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
             `where`.gtkTextIterPointer,
             leftGravity.asGBoolean()
         )!!.run {
-            TextMark(this)
+            InstanceCache.get(this, true) { TextMark(reinterpret()) }!!
         }
 
     /**
@@ -575,7 +579,7 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
      * @return insertion point mark
      */
     public open fun getInsert(): TextMark = gtk_text_buffer_get_insert(gtkTextBufferPointer)!!.run {
-        TextMark(this)
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!
     }
 
     /**
@@ -690,7 +694,7 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
      * @return a `GtkTextMark`
      */
     public open fun getMark(name: String): TextMark? = gtk_text_buffer_get_mark(gtkTextBufferPointer, name)?.run {
-        TextMark(this)
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!
     }
 
     /**
@@ -732,7 +736,7 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
      * @return selection bound mark
      */
     public open fun getSelectionBound(): TextMark = gtk_text_buffer_get_selection_bound(gtkTextBufferPointer)!!.run {
-        TextMark(this)
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!
     }
 
     /**
@@ -764,7 +768,7 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
      */
     public open fun getSelectionContent(): ContentProvider =
         gtk_text_buffer_get_selection_content(gtkTextBufferPointer)!!.run {
-            ContentProvider(this)
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
         }
 
     /**
@@ -1740,7 +1744,7 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
 
     public companion object : TypeCompanion<TextBuffer> {
         override val type: GeneratedClassKGType<TextBuffer> =
-            GeneratedClassKGType(getTypeOrNull("gtk_text_buffer_get_type")!!) { TextBuffer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TextBuffer(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -1752,6 +1756,17 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
          * @return the GType
          */
         public fun getType(): GType = gtk_text_buffer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_text_buffer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_text_buffer_get_type")
     }
 }
 
@@ -1778,7 +1793,7 @@ private val onApplyTagFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         tag!!.run {
-            TextTag(this)
+            InstanceCache.get(this, false) { TextTag(reinterpret()) }!!
         },
         start!!.run {
             TextIter(this)
@@ -1846,7 +1861,7 @@ private val onInsertChildAnchorFunc:
                 TextIter(this)
             },
             anchor!!.run {
-                TextChildAnchor(this)
+                InstanceCache.get(this, false) { TextChildAnchor(reinterpret()) }!!
             }
         )
     }
@@ -1910,7 +1925,7 @@ private val onMarkDeletedFunc: CPointer<CFunction<(CPointer<GtkTextMark>) -> Uni
         ->
         userData.asStableRef<(mark: TextMark) -> Unit>().get().invoke(
             mark!!.run {
-                TextMark(this)
+                InstanceCache.get(this, false) { TextMark(reinterpret()) }!!
             }
         )
     }
@@ -1929,7 +1944,7 @@ private val onMarkSetFunc:
                 TextIter(this)
             },
             mark!!.run {
-                TextMark(this)
+                InstanceCache.get(this, false) { TextMark(reinterpret()) }!!
             }
         )
     }
@@ -1951,7 +1966,7 @@ private val onPasteDoneFunc: CPointer<CFunction<(CPointer<GdkClipboard>) -> Unit
         ->
         userData.asStableRef<(clipboard: Clipboard) -> Unit>().get().invoke(
             clipboard!!.run {
-                Clipboard(this)
+                InstanceCache.get(this, false) { Clipboard(reinterpret()) }!!
             }
         )
     }
@@ -1988,7 +2003,7 @@ private val onRemoveTagFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         tag!!.run {
-            TextTag(this)
+            InstanceCache.get(this, false) { TextTag(reinterpret()) }!!
         },
         start!!.run {
             TextIter(this)

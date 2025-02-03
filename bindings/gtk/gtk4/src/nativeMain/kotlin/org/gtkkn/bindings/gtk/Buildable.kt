@@ -8,10 +8,9 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.gtk_buildable_get_buildable_id
@@ -53,13 +52,19 @@ public interface Buildable :
      *
      * @constructor Creates a new instance of Buildable for the provided [CPointer].
      */
-    public data class BuildableImpl(override val gtkBuildablePointer: CPointer<GtkBuildable>) :
+    public class BuildableImpl(gtkBuildablePointer: CPointer<GtkBuildable>) :
         Object(gtkBuildablePointer.reinterpret()),
-        Buildable
+        Buildable {
+        init {
+            Gtk
+        }
+
+        override val gtkBuildablePointer: CPointer<GtkBuildable> = gtkBuildablePointer
+    }
 
     public companion object : TypeCompanion<Buildable> {
         override val type: GeneratedInterfaceKGType<Buildable> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_buildable_get_type")!!) { BuildableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { BuildableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -71,5 +76,16 @@ public interface Buildable :
          * @return the GType
          */
         public fun getType(): GType = gtk_buildable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_buildable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_buildable_get_type")
     }
 }

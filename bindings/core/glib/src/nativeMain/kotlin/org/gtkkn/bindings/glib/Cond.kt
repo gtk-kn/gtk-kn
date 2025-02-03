@@ -9,6 +9,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GCond
@@ -23,10 +24,7 @@ import org.gtkkn.native.glib.g_cond_wait
 import org.gtkkn.native.glib.g_cond_wait_until
 import org.gtkkn.native.glib.gint64
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GCond struct is an opaque data structure that represents a
@@ -95,29 +93,16 @@ import kotlin.native.ref.createCleaner
  *
  * A #GCond should only be accessed via the g_cond_ functions.
  */
-public class Cond(public val glibCondPointer: CPointer<GCond>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibCondPointer) {
+public class Cond(public val glibCondPointer: CPointer<GCond>) : ProxyInstance(glibCondPointer) {
     /**
      * Allocate a new Cond.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GCond>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Cond and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GCond>, Cleaner>,
-    ) : this(glibCondPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GCond>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Cond using the provided [AutofreeScope].
@@ -151,6 +136,14 @@ public class Cond(public val glibCondPointer: CPointer<GCond>, cleaner: Cleaner?
     public fun clear(): Unit = g_cond_clear(glibCondPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * GCond can now be statically allocated, or embedded
+     * in structures and initialised with g_cond_init().
+     * ---
+     *
      * Destroys a #GCond that has been created with g_cond_new().
      *
      * Calling g_cond_free() for a #GCond on which threads are
@@ -185,6 +178,13 @@ public class Cond(public val glibCondPointer: CPointer<GCond>, cleaner: Cleaner?
     public fun signal(): Unit = g_cond_signal(glibCondPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_cond_wait_until() instead.
+     * ---
+     *
      * Waits until this thread is woken up on @cond, but not longer than
      * until the time specified by @abs_time. The @mutex is unlocked before
      * falling asleep and locked again before resuming.
@@ -285,6 +285,14 @@ public class Cond(public val glibCondPointer: CPointer<GCond>, cleaner: Cleaner?
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * GCond can now be statically allocated, or embedded
+         * in structures and initialised with g_cond_init().
+         * ---
+         *
          * Allocates and initializes a new #GCond.
          *
          * @return a newly allocated #GCond. Free with g_cond_free()

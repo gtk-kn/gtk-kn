@@ -14,12 +14,11 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GPermission
 import org.gtkkn.native.gio.g_permission_acquire
 import org.gtkkn.native.gio.g_permission_acquire_async
@@ -58,6 +57,10 @@ import kotlin.Unit
 public abstract class Permission(public val gioPermissionPointer: CPointer<GPermission>) :
     Object(gioPermissionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * true if the caller currently has permission to perform the action that
      * @permission represents the permission to perform.
@@ -299,7 +302,7 @@ public abstract class Permission(public val gioPermissionPointer: CPointer<GPerm
 
     public companion object : TypeCompanion<Permission> {
         override val type: GeneratedClassKGType<Permission> =
-            GeneratedClassKGType(getTypeOrNull("g_permission_get_type")!!) { PermissionImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { PermissionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -311,5 +314,15 @@ public abstract class Permission(public val gioPermissionPointer: CPointer<GPerm
          * @return the GType
          */
         public fun getType(): GType = g_permission_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_permission_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_permission_get_type")
     }
 }

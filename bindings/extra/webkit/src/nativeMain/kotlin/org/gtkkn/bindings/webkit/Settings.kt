@@ -29,12 +29,12 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_46
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -190,6 +190,10 @@ import kotlin.Unit
 public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>) :
     Object(webkitSettingsPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Whether file access is allowed from file URLs. By default, when
      * something is loaded in a #WebKitWebView using a file URI, cross
@@ -869,10 +873,20 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
         set(enabled) = webkit_settings_set_enable_mock_capture_devices(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.44.
+     * ---
+     *
      * Unsupported setting. This property does nothing.
      */
     public var enableOfflineWebApplicationCache: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.44.
+         * ---
+         *
          * Get the #WebKitSettings:enable-offline-web-application-cache property.
          *
          * @return false.
@@ -880,6 +894,11 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
         get() = webkit_settings_get_enable_offline_web_application_cache(webkitSettingsPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.44.
+         * ---
+         *
          * Setting no longer supported. This function does nothing.
          *
          * @param enabled Value to be set
@@ -1214,10 +1233,20 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
         ) = webkit_settings_set_javascript_can_open_windows_automatically(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.42.
+     * ---
+     *
      * Unsupported setting. This property does nothing.
      */
     public var loadIconsIgnoringImageLoadSetting: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.42.
+         * ---
+         *
          * Setting no longer supported. This function returns false.
          *
          * @return false
@@ -1225,6 +1254,11 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
         get() = webkit_settings_get_load_icons_ignoring_image_load_setting(webkitSettingsPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.42.
+         * ---
+         *
          * Setting no longer supported. This function does nothing.
          *
          * @param enabled Value to be set
@@ -1429,7 +1463,9 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
      *
      * @return a new #WebKitSettings instance.
      */
-    public constructor() : this(webkit_settings_new()!!.reinterpret())
+    public constructor() : this(webkit_settings_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Reads the contents of the given @group_name from the given @key_file and apply the value of
@@ -1547,10 +1583,10 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-            GeneratedClassKGType(getTypeOrNull("webkit_settings_get_type")!!) { Settings(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Settings(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -1641,5 +1677,16 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return the GType
          */
         public fun getType(): GType = webkit_settings_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_settings_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_settings_get_type")
     }
 }

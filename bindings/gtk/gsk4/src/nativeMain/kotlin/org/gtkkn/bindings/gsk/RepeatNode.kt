@@ -6,12 +6,13 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Rect
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRepeatNode
+import org.gtkkn.native.gsk.gsk_render_node_unref
 import org.gtkkn.native.gsk.gsk_repeat_node_get_child
 import org.gtkkn.native.gsk.gsk_repeat_node_get_child_bounds
 import org.gtkkn.native.gsk.gsk_repeat_node_get_type
@@ -23,6 +24,10 @@ import org.gtkkn.native.gsk.gsk_repeat_node_new
 public open class RepeatNode(public val gskRepeatNodePointer: CPointer<GskRepeatNode>) :
     RenderNode(gskRepeatNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will repeat the drawing of @child across
      * the given @bounds.
@@ -43,7 +48,9 @@ public open class RepeatNode(public val gskRepeatNodePointer: CPointer<GskRepeat
             child.gskRenderNodePointer,
             childBounds?.grapheneRectPointer
         )!!.reinterpret()
-    )
+    ) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the child of @node.
@@ -66,7 +73,7 @@ public open class RepeatNode(public val gskRepeatNodePointer: CPointer<GskRepeat
 
     public companion object : TypeCompanion<RepeatNode> {
         override val type: GeneratedClassKGType<RepeatNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_repeat_node_get_type")!!) { RepeatNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { RepeatNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -78,5 +85,16 @@ public open class RepeatNode(public val gskRepeatNodePointer: CPointer<GskRepeat
          * @return the GType
          */
         public fun getType(): GType = gsk_repeat_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_repeat_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_repeat_node_get_type")
     }
 }

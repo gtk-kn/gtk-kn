@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -38,6 +38,10 @@ public open class FlattenListModel(public val gtkFlattenListModelPointer: CPoint
     ListModel,
     SectionModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 
@@ -70,9 +74,9 @@ public open class FlattenListModel(public val gtkFlattenListModelPointer: CPoint
      * @param model the model to be flattened
      * @return a new `GtkFlattenListModel`
      */
-    public constructor(
-        model: ListModel? = null,
-    ) : this(gtk_flatten_list_model_new(model?.gioListModelPointer)!!.reinterpret())
+    public constructor(model: ListModel? = null) : this(gtk_flatten_list_model_new(model?.gioListModelPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the model containing the item at the given position.
@@ -87,9 +91,7 @@ public open class FlattenListModel(public val gtkFlattenListModelPointer: CPoint
 
     public companion object : TypeCompanion<FlattenListModel> {
         override val type: GeneratedClassKGType<FlattenListModel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_flatten_list_model_get_type")!!) {
-                FlattenListModel(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { FlattenListModel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -101,5 +103,16 @@ public open class FlattenListModel(public val gtkFlattenListModelPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gtk_flatten_list_model_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_flatten_list_model_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_flatten_list_model_get_type")
     }
 }

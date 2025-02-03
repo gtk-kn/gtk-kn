@@ -5,16 +5,24 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCellRendererPixbuf
 import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents. You
+ *   should use [class@Gtk.Image] for icons, and [class@Gtk.Picture] for images
+ * ---
+ *
  * Renders a pixbuf in a cell
  *
  * A `GtkCellRendererPixbuf` can be used to render an image in a cell. It allows
@@ -43,7 +51,16 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_new
 public open class CellRendererPixbuf(public val gtkCellRendererPixbufPointer: CPointer<GtkCellRendererPixbuf>) :
     CellRenderer(gtkCellRendererPixbufPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererPixbuf`. Adjust rendering
      * parameters using object properties. Object properties can be set
      * globally (with g_object_set()). Also, with `GtkTreeViewColumn`, you
@@ -54,13 +71,13 @@ public open class CellRendererPixbuf(public val gtkCellRendererPixbufPointer: CP
      *
      * @return the new cell renderer
      */
-    public constructor() : this(gtk_cell_renderer_pixbuf_new()!!.reinterpret())
+    public constructor() : this(gtk_cell_renderer_pixbuf_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<CellRendererPixbuf> {
         override val type: GeneratedClassKGType<CellRendererPixbuf> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_pixbuf_get_type")!!) {
-                CellRendererPixbuf(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { CellRendererPixbuf(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -72,5 +89,16 @@ public open class CellRendererPixbuf(public val gtkCellRendererPixbufPointer: CP
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_renderer_pixbuf_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_renderer_pixbuf_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_renderer_pixbuf_get_type")
     }
 }

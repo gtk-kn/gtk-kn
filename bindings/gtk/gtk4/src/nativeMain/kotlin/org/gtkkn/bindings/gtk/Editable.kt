@@ -18,13 +18,12 @@ import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
@@ -617,13 +616,19 @@ public interface Editable :
      *
      * @constructor Creates a new instance of Editable for the provided [CPointer].
      */
-    public data class EditableImpl(override val gtkEditablePointer: CPointer<GtkEditable>) :
+    public class EditableImpl(gtkEditablePointer: CPointer<GtkEditable>) :
         Widget(gtkEditablePointer.reinterpret()),
-        Editable
+        Editable {
+        init {
+            Gtk
+        }
+
+        override val gtkEditablePointer: CPointer<GtkEditable> = gtkEditablePointer
+    }
 
     public companion object : TypeCompanion<Editable> {
         override val type: GeneratedInterfaceKGType<Editable> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_editable_get_type")!!) { EditableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { EditableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -701,6 +706,16 @@ public interface Editable :
          * @return the GType
          */
         public fun getType(): GType = gtk_editable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_editable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_editable_get_type")
     }
 }
 

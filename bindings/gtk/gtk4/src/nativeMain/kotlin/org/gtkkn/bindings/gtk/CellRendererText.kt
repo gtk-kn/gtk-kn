@@ -14,11 +14,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -32,6 +32,14 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+ *   You should use [class@Gtk.Inscription] or [class@Gtk.Label] instead
+ * ---
+ *
  * Renders text in a cell
  *
  * A `GtkCellRendererText` renders a given text in its cell, using the font, color and
@@ -93,7 +101,16 @@ import kotlin.Unit
 public open class CellRendererText(public val gtkCellRendererTextPointer: CPointer<GtkCellRendererText>) :
     CellRenderer(gtkCellRendererTextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererText`. Adjust how text is drawn using
      * object properties. Object properties can be
      * set globally (with g_object_set()). Also, with `GtkTreeViewColumn`,
@@ -104,9 +121,16 @@ public open class CellRendererText(public val gtkCellRendererTextPointer: CPoint
      *
      * @return the new cell renderer
      */
-    public constructor() : this(gtk_cell_renderer_text_new()!!.reinterpret())
+    public constructor() : this(gtk_cell_renderer_text_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the height of a renderer to explicitly be determined by the “font” and
      * “y_pad” property set on it.  Further changes in these properties do not
      * affect the height, so they must be accompanied by a subsequent call to this
@@ -153,9 +177,7 @@ public open class CellRendererText(public val gtkCellRendererTextPointer: CPoint
 
     public companion object : TypeCompanion<CellRendererText> {
         override val type: GeneratedClassKGType<CellRendererText> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_text_get_type")!!) {
-                CellRendererText(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { CellRendererText(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -167,6 +189,17 @@ public open class CellRendererText(public val gtkCellRendererTextPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_renderer_text_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_renderer_text_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_renderer_text_get_type")
     }
 }
 

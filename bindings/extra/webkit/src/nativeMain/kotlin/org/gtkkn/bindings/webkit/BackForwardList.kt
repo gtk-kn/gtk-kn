@@ -13,11 +13,11 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
@@ -59,6 +59,10 @@ import kotlin.Unit
 public class BackForwardList(public val webkitBackForwardListPointer: CPointer<WebKitBackForwardList>) :
     Object(webkitBackForwardListPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Returns the item that precedes the current item.
      *
@@ -67,7 +71,7 @@ public class BackForwardList(public val webkitBackForwardListPointer: CPointer<W
      */
     public fun getBackItem(): BackForwardListItem? =
         webkit_back_forward_list_get_back_item(webkitBackForwardListPointer)?.run {
-            BackForwardListItem(this)
+            InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!
         }
 
     /**
@@ -100,7 +104,7 @@ public class BackForwardList(public val webkitBackForwardListPointer: CPointer<W
      */
     public fun getCurrentItem(): BackForwardListItem? =
         webkit_back_forward_list_get_current_item(webkitBackForwardListPointer)?.run {
-            BackForwardListItem(this)
+            InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!
         }
 
     /**
@@ -111,7 +115,7 @@ public class BackForwardList(public val webkitBackForwardListPointer: CPointer<W
      */
     public fun getForwardItem(): BackForwardListItem? =
         webkit_back_forward_list_get_forward_item(webkitBackForwardListPointer)?.run {
-            BackForwardListItem(this)
+            InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!
         }
 
     /**
@@ -152,7 +156,7 @@ public class BackForwardList(public val webkitBackForwardListPointer: CPointer<W
      */
     public fun getNthItem(index: gint): BackForwardListItem? =
         webkit_back_forward_list_get_nth_item(webkitBackForwardListPointer, index)?.run {
-            BackForwardListItem(this)
+            InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!
         }
 
     /**
@@ -194,12 +198,10 @@ public class BackForwardList(public val webkitBackForwardListPointer: CPointer<W
 
     public companion object : TypeCompanion<BackForwardList> {
         override val type: GeneratedClassKGType<BackForwardList> =
-            GeneratedClassKGType(getTypeOrNull("webkit_back_forward_list_get_type")!!) {
-                BackForwardList(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { BackForwardList(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -208,6 +210,17 @@ public class BackForwardList(public val webkitBackForwardListPointer: CPointer<W
          * @return the GType
          */
         public fun getType(): GType = webkit_back_forward_list_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_back_forward_list_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_back_forward_list_get_type")
     }
 }
 
@@ -226,7 +239,7 @@ private val onChangedFunc:
             ) -> Unit
             >().get().invoke(
             itemAdded?.run {
-                BackForwardListItem(this)
+                InstanceCache.get(this, false) { BackForwardListItem(reinterpret()) }!!
             },
             itemsRemoved
         )

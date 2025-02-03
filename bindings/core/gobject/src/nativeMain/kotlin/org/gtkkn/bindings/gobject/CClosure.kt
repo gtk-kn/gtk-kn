@@ -11,6 +11,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_30
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
@@ -38,11 +39,8 @@ import org.gtkkn.native.gobject.g_cclosure_marshal_VOID__ULONG
 import org.gtkkn.native.gobject.g_cclosure_marshal_VOID__VARIANT
 import org.gtkkn.native.gobject.g_cclosure_marshal_VOID__VOID
 import org.gtkkn.native.gobject.g_cclosure_marshal_generic
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A #GCClosure is a specialization of #GClosure for C function callbacks.
@@ -78,8 +76,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `destroy_data`: ClosureNotify
  * - field `closure`: Field with not-pointer record/union GClosure is not supported
  */
-public class CClosure(public val gobjectCClosurePointer: CPointer<GCClosure>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectCClosurePointer) {
+public class CClosure(public val gobjectCClosurePointer: CPointer<GCClosure>) : ProxyInstance(gobjectCClosurePointer) {
     /**
      * the callback function
      */
@@ -97,21 +94,9 @@ public class CClosure(public val gobjectCClosurePointer: CPointer<GCClosure>, cl
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GCClosure>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to CClosure and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GCClosure>, Cleaner>,
-    ) : this(gobjectCClosurePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GCClosure>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new CClosure using the provided [AutofreeScope].

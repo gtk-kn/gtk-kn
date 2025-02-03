@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBinLayout
 import org.gtkkn.native.gtk.gtk_bin_layout_get_type
@@ -26,16 +26,22 @@ import org.gtkkn.native.gtk.gtk_bin_layout_new
 public open class BinLayout(public val gtkBinLayoutPointer: CPointer<GtkBinLayout>) :
     LayoutManager(gtkBinLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkBinLayout` instance.
      *
      * @return the newly created `GtkBinLayout`
      */
-    public constructor() : this(gtk_bin_layout_new()!!.reinterpret())
+    public constructor() : this(gtk_bin_layout_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<BinLayout> {
         override val type: GeneratedClassKGType<BinLayout> =
-            GeneratedClassKGType(getTypeOrNull("gtk_bin_layout_get_type")!!) { BinLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { BinLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -47,5 +53,16 @@ public open class BinLayout(public val gtkBinLayoutPointer: CPointer<GtkBinLayou
          * @return the GType
          */
         public fun getType(): GType = gtk_bin_layout_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_bin_layout_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_bin_layout_get_type")
     }
 }

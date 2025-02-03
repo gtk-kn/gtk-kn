@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSettings
 import org.gtkkn.native.gtk.GtkStyleProvider
@@ -109,6 +109,10 @@ public open class Settings(public val gtkSettingsPointer: CPointer<GtkSettings>)
     Object(gtkSettingsPointer.reinterpret()),
     StyleProvider,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkStyleProviderPointer: CPointer<GtkStyleProvider>
         get() = handle.reinterpret()
 
@@ -125,7 +129,7 @@ public open class Settings(public val gtkSettingsPointer: CPointer<GtkSettings>)
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-            GeneratedClassKGType(getTypeOrNull("gtk_settings_get_type")!!) { Settings(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Settings(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -141,7 +145,7 @@ public open class Settings(public val gtkSettingsPointer: CPointer<GtkSettings>)
          *   no default display, then returns null.
          */
         public fun getDefault(): Settings? = gtk_settings_get_default()?.run {
-            Settings(this)
+            InstanceCache.get(this, true) { Settings(reinterpret()) }!!
         }
 
         /**
@@ -152,7 +156,7 @@ public open class Settings(public val gtkSettingsPointer: CPointer<GtkSettings>)
          */
         public fun getForDisplay(display: Display): Settings =
             gtk_settings_get_for_display(display.gdkDisplayPointer)!!.run {
-                Settings(this)
+                InstanceCache.get(this, true) { Settings(reinterpret()) }!!
             }
 
         /**
@@ -161,5 +165,15 @@ public open class Settings(public val gtkSettingsPointer: CPointer<GtkSettings>)
          * @return the GType
          */
         public fun getType(): GType = gtk_settings_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_settings_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_settings_get_type")
     }
 }

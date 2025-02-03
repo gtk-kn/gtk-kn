@@ -11,12 +11,12 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -45,6 +45,13 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.Window] instead
+ * ---
+ *
  * Dialogs are a convenient way to prompt the user for a small amount
  * of input.
  *
@@ -176,6 +183,10 @@ import kotlin.Unit
 public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
     Window(gtkDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -195,6 +206,13 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Creates a new dialog box.
      *
      * Widgets should not be packed into the `GtkWindow`
@@ -203,9 +221,18 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
      *
      * @return the new dialog as a `GtkWidget`
      */
-    public constructor() : this(gtk_dialog_new()!!.reinterpret())
+    public constructor() : this(gtk_dialog_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Adds an activatable widget to the action area of a `GtkDialog`.
      *
      * GTK connects a signal handler that will emit the
@@ -223,6 +250,13 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
         gtk_dialog_add_action_widget(gtkDialogPointer, child.gtkWidgetPointer, responseId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Adds a button with the given text.
      *
      * GTK arranges things so that clicking the button will emit the
@@ -236,19 +270,33 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
      */
     public open fun addButton(buttonText: String, responseId: gint): Widget =
         gtk_dialog_add_button(gtkDialogPointer, buttonText, responseId)!!.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Returns the content area of @dialog.
      *
      * @return the content area `GtkBox`.
      */
     public open fun getContentArea(): Box = gtk_dialog_get_content_area(gtkDialogPointer)!!.run {
-        Box(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Box(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Returns the header bar of @dialog.
      *
      * Note that the headerbar is only used by the dialog if the
@@ -257,10 +305,17 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
      * @return the header bar
      */
     public open fun getHeaderBar(): HeaderBar = gtk_dialog_get_header_bar(gtkDialogPointer)!!.run {
-        HeaderBar(reinterpret())
+        InstanceCache.get(reinterpret(), true) { HeaderBar(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Gets the response id of a widget in the action area
      * of a dialog.
      *
@@ -272,6 +327,13 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
         gtk_dialog_get_response_for_widget(gtkDialogPointer, widget.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Gets the widget button that uses the given response ID in the action area
      * of a dialog.
      *
@@ -281,10 +343,17 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
      */
     public open fun getWidgetForResponse(responseId: gint): Widget? =
         gtk_dialog_get_widget_for_response(gtkDialogPointer, responseId)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Emits the ::response signal with the given response ID.
      *
      * Used to indicate that the user has responded to the dialog in some way.
@@ -294,6 +363,13 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
     public open fun response(responseId: gint): Unit = gtk_dialog_response(gtkDialogPointer, responseId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Sets the default widget for the dialog based on the response ID.
      *
      * Pressing “Enter” normally activates the default widget.
@@ -304,6 +380,13 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
         gtk_dialog_set_default_response(gtkDialogPointer, responseId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * A convenient way to sensitize/desensitize dialog buttons.
      *
      * Calls `gtk_widget_set_sensitive (widget, @setting)`
@@ -316,6 +399,13 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
         gtk_dialog_set_response_sensitive(gtkDialogPointer, responseId, setting.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Emitted when the user uses a keybinding to close the dialog.
      *
      * This is a [keybinding signal](class.SignalAction.html).
@@ -336,6 +426,13 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Emits the "close" signal. See [onClose].
      */
     public fun emitClose() {
@@ -343,6 +440,13 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Emitted when an action widget is clicked.
      *
      * The signal is also emitted when the dialog receives a
@@ -364,6 +468,13 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Window] instead
+     * ---
+     *
      * Emits the "response" signal. See [onResponse].
      *
      * @param responseId the response ID
@@ -374,7 +485,7 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
 
     public companion object : TypeCompanion<Dialog> {
         override val type: GeneratedClassKGType<Dialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_dialog_get_type")!!) { Dialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Dialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -386,6 +497,16 @@ public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_dialog_get_type")
     }
 }
 

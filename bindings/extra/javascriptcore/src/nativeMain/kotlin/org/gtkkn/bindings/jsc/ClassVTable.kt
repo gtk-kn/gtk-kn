@@ -8,11 +8,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.jsc.JSCClassVTable
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Virtual table for a JSCClass. This can be optionally used when registering a #JSCClass in a #JSCContext
@@ -35,7 +33,7 @@ import kotlin.native.ref.createCleaner
  * - field `_jsc_reserved6`: Fields with callbacks are not supported
  * - field `_jsc_reserved7`: Fields with callbacks are not supported
  */
-public class ClassVTable(public val jscClassVTablePointer: CPointer<JSCClassVTable>, cleaner: Cleaner? = null) :
+public class ClassVTable(public val jscClassVTablePointer: CPointer<JSCClassVTable>) :
     ProxyInstance(jscClassVTablePointer) {
     /**
      * Allocate a new ClassVTable.
@@ -43,21 +41,9 @@ public class ClassVTable(public val jscClassVTablePointer: CPointer<JSCClassVTab
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<JSCClassVTable>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to ClassVTable and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<JSCClassVTable>, Cleaner>,
-    ) : this(jscClassVTablePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<JSCClassVTable>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new ClassVTable using the provided [AutofreeScope].

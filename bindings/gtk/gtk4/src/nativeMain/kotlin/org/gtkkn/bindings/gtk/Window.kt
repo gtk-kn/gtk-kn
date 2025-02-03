@@ -19,13 +19,13 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
@@ -184,6 +184,10 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
     Root,
     ShortcutManager,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkNativePointer: CPointer<GtkNative>
         get() = handle.reinterpret()
 
@@ -220,7 +224,7 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
          * @return a `GtkApplication`
          */
         get() = gtk_window_get_application(gtkWindowPointer)?.run {
-            Application(this)
+            InstanceCache.get(this, true) { Application(reinterpret()) }!!
         }
 
         /**
@@ -252,7 +256,7 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
          * @return the child widget of @window
          */
         get() = gtk_window_get_child(gtkWindowPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -302,7 +306,7 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
          * @return the default widget
          */
         get() = gtk_window_get_default_widget(gtkWindowPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -575,7 +579,7 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
          * @return the custom titlebar
          */
         get() = gtk_window_get_titlebar(gtkWindowPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -605,7 +609,7 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
          * @return the transient parent for this window
          */
         get() = gtk_window_get_transient_for(gtkWindowPointer)?.run {
-            Window(this)
+            InstanceCache.get(this, true) { Window(reinterpret()) }!!
         }
 
         /**
@@ -641,7 +645,9 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
      *
      * @return a new `GtkWindow`.
      */
-    public constructor() : this(gtk_window_new()!!.reinterpret())
+    public constructor() : this(gtk_window_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Requests that the window is closed.
@@ -700,7 +706,7 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
      * @return the currently focused widget
      */
     override fun getFocus(): Widget? = gtk_window_get_focus(gtkWindowPointer)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -712,7 +718,7 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
      *   or the default group
      */
     public open fun getGroup(): WindowGroup = gtk_window_get_group(gtkWindowPointer)!!.run {
-        WindowGroup(this)
+        InstanceCache.get(this, true) { WindowGroup(reinterpret()) }!!
     }
 
     /**
@@ -829,6 +835,13 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
     public open fun present(): Unit = gtk_window_present(gtkWindowPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.14.
+     *
+     * Use gtk_window_present()
+     * ---
+     *
      * Presents a window to the user in response to an user interaction.
      *
      * See [method@Gtk.Window.present] for more details.
@@ -1065,6 +1078,14 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Shortcut] and [class@Gtk.EventController]
+     * to implement keyboard shortcuts
+     * ---
+     *
      * emitted when the set of accelerators or mnemonics that
      * are associated with @window changes.
      *
@@ -1082,6 +1103,14 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Shortcut] and [class@Gtk.EventController]
+     * to implement keyboard shortcuts
+     * ---
+     *
      * Emits the "keys-changed" signal. See [onKeysChanged].
      */
     public fun emitKeysChanged() {
@@ -1090,7 +1119,7 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
 
     public companion object : TypeCompanion<Window> {
         override val type: GeneratedClassKGType<Window> =
-            GeneratedClassKGType(getTypeOrNull("gtk_window_get_type")!!) { Window(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Window(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -1184,6 +1213,16 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_window_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_window_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_window_get_type")
     }
 }
 

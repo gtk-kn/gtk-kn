@@ -10,20 +10,16 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.cairo.cairo_gobject_rectangle_int_get_type
 import org.gtkkn.native.cairo.cairo_rectangle_int_t
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
-public class RectangleInt(
-    public val cairoRectangleIntPointer: CPointer<cairo_rectangle_int_t>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(cairoRectangleIntPointer) {
+public class RectangleInt(public val cairoRectangleIntPointer: CPointer<cairo_rectangle_int_t>) :
+    ProxyInstance(cairoRectangleIntPointer) {
     public var x: gint
         get() = cairoRectangleIntPointer.pointed.x
 
@@ -62,21 +58,9 @@ public class RectangleInt(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<cairo_rectangle_int_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to RectangleInt and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<cairo_rectangle_int_t>, Cleaner>,
-    ) : this(cairoRectangleIntPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<cairo_rectangle_int_t>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new RectangleInt using the provided [AutofreeScope].

@@ -11,12 +11,12 @@ import org.gtkkn.bindings.gtk.PrintContext
 import org.gtkkn.bindings.gtk.TextTag
 import org.gtkkn.bindings.gtk.WrapMode
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
@@ -91,6 +91,10 @@ import org.gtkkn.bindings.gtk.Unit as GtkUnit
 public open class PrintCompositor(public val gtksourcePrintCompositorPointer: CPointer<GtkSourcePrintCompositor>) :
     Object(gtksourcePrintCompositorPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Name of the font used for the text body.
      *
@@ -141,7 +145,7 @@ public open class PrintCompositor(public val gtksourcePrintCompositorPointer: CP
          * @return the #GtkSourceBuffer associated with the compositor.
          */
         get() = gtk_source_print_compositor_get_buffer(gtksourcePrintCompositorPointer)!!.run {
-            Buffer(this)
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
         }
 
     /**
@@ -357,9 +361,9 @@ public open class PrintCompositor(public val gtksourcePrintCompositorPointer: CP
      * @param buffer the #GtkSourceBuffer to print.
      * @return a new print compositor object.
      */
-    public constructor(
-        buffer: Buffer,
-    ) : this(gtk_source_print_compositor_new(buffer.gtksourceBufferPointer)!!.reinterpret())
+    public constructor(buffer: Buffer) : this(gtk_source_print_compositor_new(buffer.gtksourceBufferPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new print compositor that can be used to print the buffer
@@ -374,9 +378,9 @@ public open class PrintCompositor(public val gtksourcePrintCompositorPointer: CP
      * @param view a #GtkSourceView to get configuration from.
      * @return a new print compositor object.
      */
-    public constructor(
-        view: View,
-    ) : this(gtk_source_print_compositor_new_from_view(view.gtksourceViewPointer)!!.reinterpret())
+    public constructor(view: View) : this(gtk_source_print_compositor_new_from_view(view.gtksourceViewPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Draw page @page_nr for printing on the the Cairo context encapsuled in @context.
@@ -732,12 +736,10 @@ public open class PrintCompositor(public val gtksourcePrintCompositorPointer: CP
 
     public companion object : TypeCompanion<PrintCompositor> {
         override val type: GeneratedClassKGType<PrintCompositor> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_print_compositor_get_type")!!) {
-                PrintCompositor(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PrintCompositor(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -746,5 +748,16 @@ public open class PrintCompositor(public val gtksourcePrintCompositorPointer: CP
          * @return the GType
          */
         public fun getType(): GType = gtk_source_print_compositor_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_print_compositor_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_print_compositor_get_type")
     }
 }

@@ -22,14 +22,14 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.gio.GTlsConnection
@@ -90,6 +90,10 @@ import kotlin.collections.List
 public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer<GTlsConnection>) :
     IoStream(gioTlsConnectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The name of the TLS ciphersuite in use. See g_tls_connection_get_ciphersuite_name().
      *
@@ -142,7 +146,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.30
          */
         get() = g_tls_connection_get_database(gioTlsConnectionPointer)?.run {
-            TlsDatabase.TlsDatabaseImpl(this)
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
         }
 
         /**
@@ -182,7 +186,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.30
          */
         get() = g_tls_connection_get_interaction(gioTlsConnectionPointer)?.run {
-            TlsInteraction(this)
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
         }
 
         /**
@@ -244,7 +248,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.28
          */
         get() = g_tls_connection_get_peer_certificate(gioTlsConnectionPointer)?.run {
-            TlsCertificate.TlsCertificateImpl(this)
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**
@@ -302,6 +306,13 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.60.
+     *
+     * The rehandshake mode is ignored.
+     * ---
+     *
      * The rehandshaking mode. See
      * g_tls_connection_set_rehandshake_mode().
      *
@@ -310,6 +321,15 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
     @GioVersion2_28
     public open var rehandshakeMode: TlsRehandshakeMode
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.60..
+         *
+         * Changing the rehandshake mode is no longer
+         *   required for compatibility. Also, rehandshaking has been removed
+         *   from the TLS protocol in TLS 1.3.
+         * ---
+         *
          * Gets @conn rehandshaking mode. See
          * g_tls_connection_set_rehandshake_mode() for details.
          *
@@ -321,6 +341,15 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.60..
+         *
+         * Changing the rehandshake mode is no longer
+         *   required for compatibility. Also, rehandshaking has been removed
+         *   from the TLS protocol in TLS 1.3.
+         * ---
+         *
          * Since GLib 2.64, changing the rehandshake mode is no longer supported
          * and will have no effect. With TLS 1.3, rehandshaking has been removed from
          * the TLS protocol, replaced by separate post-handshake authentication and
@@ -389,12 +418,26 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
         ) = g_tls_connection_set_require_close_notify(gioTlsConnectionPointer, requireCloseNotify.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.30.
+     *
+     * Use GTlsConnection:database instead
+     * ---
+     *
      * Whether or not the system certificate database will be used to
      * verify peer certificates. See
      * g_tls_connection_set_use_system_certdb().
      */
     public open var useSystemCertdb: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.30.
+         *
+         * Use g_tls_connection_get_database() instead
+         * ---
+         *
          * Gets whether @conn uses the system certificate database to verify
          * peer certificates. See g_tls_connection_set_use_system_certdb().
          *
@@ -403,6 +446,13 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
         get() = g_tls_connection_get_use_system_certdb(gioTlsConnectionPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.30.
+         *
+         * Use g_tls_connection_set_database() instead
+         * ---
+         *
          * Sets whether @conn uses the system certificate database to verify
          * peer certificates. This is true by default. If set to false, then
          * peer certificate validation will always set the
@@ -444,7 +494,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
      */
     @GioVersion2_28
     public open fun getCertificate(): TlsCertificate? = g_tls_connection_get_certificate(gioTlsConnectionPointer)?.run {
-        TlsCertificate.TlsCertificateImpl(this)
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**
@@ -668,9 +718,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
 
     public companion object : TypeCompanion<TlsConnection> {
         override val type: GeneratedClassKGType<TlsConnection> =
-            GeneratedClassKGType(getTypeOrNull("g_tls_connection_get_type")!!) {
-                TlsConnectionImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { TlsConnectionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -682,6 +730,17 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = g_tls_connection_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_tls_connection_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_tls_connection_get_type")
     }
 }
 
@@ -700,7 +759,7 @@ private val onAcceptCertificateFunc:
             ) -> Boolean
             >().get().invoke(
             peerCert!!.run {
-                TlsCertificate.TlsCertificateImpl(this)
+                InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
             },
             errors.run {
                 TlsCertificateFlags(this)

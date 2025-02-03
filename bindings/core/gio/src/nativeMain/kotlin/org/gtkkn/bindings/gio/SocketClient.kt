@@ -23,13 +23,13 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GIOStream
 import org.gtkkn.native.gio.GSocketClient
 import org.gtkkn.native.gio.GSocketClientEvent
@@ -105,6 +105,10 @@ import kotlin.Unit
 public open class SocketClient(public val gioSocketClientPointer: CPointer<GSocketClient>) :
     Object(gioSocketClientPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Enable proxy support.
      *
@@ -185,7 +189,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
          * @since 2.22
          */
         get() = g_socket_client_get_local_address(gioSocketClientPointer)?.run {
-            SocketAddress.SocketAddressImpl(this)
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         /**
@@ -310,6 +314,13 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
         set(tls) = g_socket_client_set_tls(gioSocketClientPointer, tls.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.72.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * The TLS validation flags used when creating TLS connections. The
      * default value is %G_TLS_CERTIFICATE_VALIDATE_ALL.
      *
@@ -329,6 +340,13 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
      */
     public open var tlsValidationFlags: TlsCertificateFlags
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.72.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Gets the TLS validation flags used creating TLS connections via
          * @client.
          *
@@ -344,6 +362,13 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.72.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Sets the TLS validation flags used when creating TLS connections
          * via @client. The default value is %G_TLS_CERTIFICATE_VALIDATE_ALL.
          *
@@ -364,7 +389,9 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
      *     Free the returned object with g_object_unref().
      * @since 2.22
      */
-    public constructor() : this(g_socket_client_new()!!.reinterpret())
+    public constructor() : this(g_socket_client_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Enable proxy protocols to be handled by the application. When the
@@ -429,7 +456,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            SocketConnection(this)
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -490,7 +517,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            SocketConnection(this)
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -552,7 +579,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            SocketConnection(this)
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -607,7 +634,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            SocketConnection(this)
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -651,7 +678,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            SocketConnection(this)
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -703,7 +730,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            SocketConnection(this)
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -756,7 +783,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            SocketConnection(this)
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -811,7 +838,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            SocketConnection(this)
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -974,7 +1001,7 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
 
     public companion object : TypeCompanion<SocketClient> {
         override val type: GeneratedClassKGType<SocketClient> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_client_get_type")!!) { SocketClient(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { SocketClient(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -986,6 +1013,17 @@ public open class SocketClient(public val gioSocketClientPointer: CPointer<GSock
          * @return the GType
          */
         public fun getType(): GType = g_socket_client_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_socket_client_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_socket_client_get_type")
     }
 }
 
@@ -1018,7 +1056,7 @@ private val onEventFunc: CPointer<
             SocketConnectable.SocketConnectableImpl(reinterpret())
         },
         connection?.run {
-            IoStream.IoStreamImpl(this)
+            InstanceCache.get(this, false) { IoStream.IoStreamImpl(reinterpret()) }!!
         }
     )
 }

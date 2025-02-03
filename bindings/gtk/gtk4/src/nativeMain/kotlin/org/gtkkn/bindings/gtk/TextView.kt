@@ -20,13 +20,13 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.TabArray
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
@@ -171,6 +171,10 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
     AccessibleText,
     Scrollable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = handle.reinterpret()
 
@@ -596,7 +600,9 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
      *
      * @return a new `GtkTextView`
      */
-    public constructor() : this(gtk_text_view_new()!!.reinterpret())
+    public constructor() : this(gtk_text_view_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkTextView` widget displaying the buffer @buffer.
@@ -611,7 +617,9 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
      */
     public constructor(
         buffer: TextBuffer,
-    ) : this(gtk_text_view_new_with_buffer(buffer.gtkTextBufferPointer)!!.reinterpret())
+    ) : this(gtk_text_view_new_with_buffer(buffer.gtkTextBufferPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a child widget in the text buffer, at the given @anchor.
@@ -718,7 +726,7 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
      * @return a `GtkTextBuffer`
      */
     public open fun getBuffer(): TextBuffer = gtk_text_view_get_buffer(gtkTextViewPointer)!!.run {
-        TextBuffer(this)
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!
     }
 
     /**
@@ -762,7 +770,7 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
      * @return the menu model
      */
     public open fun getExtraMenu(): MenuModel = gtk_text_view_get_extra_menu(gtkTextViewPointer)!!.run {
-        MenuModel.MenuModelImpl(this)
+        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
     }
 
     /**
@@ -778,7 +786,7 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
      */
     public open fun getGutter(win: TextWindowType): Widget? =
         gtk_text_view_get_gutter(gtkTextViewPointer, win.nativeValue)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -821,7 +829,7 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
      */
     @GtkVersion4_4
     public open fun getLtrContext(): Context = gtk_text_view_get_ltr_context(gtkTextViewPointer)!!.run {
-        Context(this)
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!
     }
 
     /**
@@ -835,7 +843,7 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
      */
     @GtkVersion4_4
     public open fun getRtlContext(): Context = gtk_text_view_get_rtl_context(gtkTextViewPointer)!!.run {
-        Context(this)
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!
     }
 
     /**
@@ -1612,7 +1620,7 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
 
     public companion object : TypeCompanion<TextView> {
         override val type: GeneratedClassKGType<TextView> =
-            GeneratedClassKGType(getTypeOrNull("gtk_text_view_get_type")!!) { TextView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TextView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -1624,6 +1632,17 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
          * @return the GType
          */
         public fun getType(): GType = gtk_text_view_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_text_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_text_view_get_type")
     }
 }
 

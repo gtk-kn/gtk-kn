@@ -15,11 +15,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GCredentials
 import org.gtkkn.native.gio.g_credentials_get_native
 import org.gtkkn.native.gio.g_credentials_get_type
@@ -83,6 +83,10 @@ import kotlin.Unit
 public open class Credentials(public val gioCredentialsPointer: CPointer<GCredentials>) :
     Object(gioCredentialsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GCredentials object with credentials matching the
      * the current process.
@@ -90,7 +94,9 @@ public open class Credentials(public val gioCredentialsPointer: CPointer<GCreden
      * @return A #GCredentials. Free with g_object_unref().
      * @since 2.26
      */
-    public constructor() : this(g_credentials_new()!!.reinterpret())
+    public constructor() : this(g_credentials_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets a pointer to native credentials of type @native_type from
@@ -236,7 +242,7 @@ public open class Credentials(public val gioCredentialsPointer: CPointer<GCreden
 
     public companion object : TypeCompanion<Credentials> {
         override val type: GeneratedClassKGType<Credentials> =
-            GeneratedClassKGType(getTypeOrNull("g_credentials_get_type")!!) { Credentials(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Credentials(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -248,5 +254,16 @@ public open class Credentials(public val gioCredentialsPointer: CPointer<GCreden
          * @return the GType
          */
         public fun getType(): GType = g_credentials_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_credentials_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_credentials_get_type")
     }
 }

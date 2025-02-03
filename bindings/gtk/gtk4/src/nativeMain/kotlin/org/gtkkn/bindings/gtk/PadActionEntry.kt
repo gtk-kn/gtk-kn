@@ -11,23 +11,19 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gtk.GtkPadActionEntry
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Struct defining a pad action entry.
  */
-public class PadActionEntry(
-    public val gtkPadActionEntryPointer: CPointer<GtkPadActionEntry>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gtkPadActionEntryPointer) {
+public class PadActionEntry(public val gtkPadActionEntryPointer: CPointer<GtkPadActionEntry>) :
+    ProxyInstance(gtkPadActionEntryPointer) {
     /**
      * the type of pad feature that will trigger this action entry.
      */
@@ -95,21 +91,9 @@ public class PadActionEntry(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkPadActionEntry>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PadActionEntry and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkPadActionEntry>, Cleaner>,
-    ) : this(gtkPadActionEntryPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkPadActionEntry>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PadActionEntry using the provided [AutofreeScope].

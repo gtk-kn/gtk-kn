@@ -11,15 +11,13 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GInputMessage
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure used for scatter/gather data input when receiving multiple
@@ -52,7 +50,7 @@ import kotlin.native.ref.createCleaner
  * @since 2.48
  */
 @GioVersion2_48
-public class InputMessage(public val gioInputMessagePointer: CPointer<GInputMessage>, cleaner: Cleaner? = null) :
+public class InputMessage(public val gioInputMessagePointer: CPointer<GInputMessage>) :
     ProxyInstance(gioInputMessagePointer) {
     /**
      * the number of input vectors pointed to by @vectors
@@ -95,21 +93,9 @@ public class InputMessage(public val gioInputMessagePointer: CPointer<GInputMess
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GInputMessage>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to InputMessage and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GInputMessage>, Cleaner>,
-    ) : this(gioInputMessagePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GInputMessage>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new InputMessage using the provided [AutofreeScope].

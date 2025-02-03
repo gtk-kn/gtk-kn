@@ -26,12 +26,12 @@ import org.gtkkn.bindings.glib.SpawnChildSetupFunc
 import org.gtkkn.bindings.glib.SpawnChildSetupFuncFunc
 import org.gtkkn.bindings.glib.SpawnFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAppInfo
 import org.gtkkn.native.gio.GDesktopAppInfo
 import org.gtkkn.native.gio.g_desktop_app_info_get_action_name
@@ -84,6 +84,10 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
     Object(gioDesktopAppInfoPointer.reinterpret()),
     AppInfo,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioAppInfoPointer: CPointer<GAppInfo>
         get() = handle.reinterpret()
 
@@ -119,7 +123,9 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @return a new #GDesktopAppInfo, or null if no desktop
      *     file with that id exists.
      */
-    public constructor(desktopId: String) : this(g_desktop_app_info_new(desktopId)!!.reinterpret())
+    public constructor(desktopId: String) : this(g_desktop_app_info_new(desktopId)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GDesktopAppInfo.
@@ -130,7 +136,9 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      */
     public constructor(
         keyFile: KeyFile,
-    ) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret())
+    ) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the user-visible display name of the "additional application
@@ -440,43 +448,11 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
 
     public companion object : TypeCompanion<DesktopAppInfo> {
         override val type: GeneratedClassKGType<DesktopAppInfo> =
-            GeneratedClassKGType(getTypeOrNull("g_desktop_app_info_get_type")!!) {
-                DesktopAppInfo(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { DesktopAppInfo(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        /**
-         * Creates a new #GDesktopAppInfo based on a desktop file id.
-         *
-         * A desktop file id is the basename of the desktop file, including the
-         * .desktop extension. GIO is looking for a desktop file with this name
-         * in the `applications` subdirectories of the XDG
-         * data directories (i.e. the directories specified in the `XDG_DATA_HOME`
-         * and `XDG_DATA_DIRS` environment variables). GIO also supports the
-         * prefix-to-subdirectory mapping that is described in the
-         * [Menu Spec](http://standards.freedesktop.org/menu-spec/latest/)
-         * (i.e. a desktop id of kde-foo.desktop will match
-         * `/usr/share/applications/kde/foo.desktop`).
-         *
-         * @param desktopId the desktop file id
-         * @return a new #GDesktopAppInfo, or null if no desktop
-         *     file with that id exists.
-         */
-        public fun new(desktopId: String): DesktopAppInfo =
-            DesktopAppInfo(g_desktop_app_info_new(desktopId)!!.reinterpret())
-
-        /**
-         * Creates a new #GDesktopAppInfo.
-         *
-         * @param filename the path of a desktop file, in the GLib
-         *      filename encoding
-         * @return a new #GDesktopAppInfo or null on error.
-         */
-        public fun newFromFilename(filename: String): DesktopAppInfo =
-            DesktopAppInfo(g_desktop_app_info_new_from_filename(filename)!!.reinterpret())
 
         /**
          * Gets all applications that implement @interface.
@@ -496,6 +472,14 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
             }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.42.
+         *
+         * do not use this API.  Since 2.42 the value of the
+         * `XDG_CURRENT_DESKTOP` environment variable will be used.
+         * ---
+         *
          * Sets the name of the desktop that the application is running in.
          * This is used by g_app_info_should_show() and
          * g_desktop_app_info_get_show_in() to evaluate the
@@ -514,5 +498,28 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = g_desktop_app_info_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_desktop_app_info_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_desktop_app_info_get_type")
+
+        /**
+         * Creates a new #GDesktopAppInfo.
+         *
+         * @param filename the path of a desktop file, in the GLib
+         *      filename encoding
+         * @return a new #GDesktopAppInfo or null on error.
+         */
+        public fun fromFilename(filename: String): DesktopAppInfo =
+            DesktopAppInfo(g_desktop_app_info_new_from_filename(filename)!!.reinterpret()).apply {
+                InstanceCache.put(this)
+            }
     }
 }

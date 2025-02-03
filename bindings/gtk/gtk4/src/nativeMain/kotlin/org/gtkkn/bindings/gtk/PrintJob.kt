@@ -20,13 +20,13 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
@@ -92,6 +92,10 @@ import kotlin.Unit
 public open class PrintJob(public val gtkPrintJobPointer: CPointer<GtkPrintJob>) :
     Object(gtkPrintJobPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The printer to send the job to.
      */
@@ -102,7 +106,7 @@ public open class PrintJob(public val gtkPrintJobPointer: CPointer<GtkPrintJob>)
          * @return the printer of @job
          */
         get() = gtk_print_job_get_printer(gtkPrintJobPointer)!!.run {
-            Printer(this)
+            InstanceCache.get(this, true) { Printer(reinterpret()) }!!
         }
 
     /**
@@ -115,7 +119,7 @@ public open class PrintJob(public val gtkPrintJobPointer: CPointer<GtkPrintJob>)
          * @return the settings of @job
          */
         get() = gtk_print_job_get_settings(gtkPrintJobPointer)!!.run {
-            PrintSettings(this)
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
         }
 
     /**
@@ -177,8 +181,10 @@ public open class PrintJob(public val gtkPrintJobPointer: CPointer<GtkPrintJob>)
             printer.gtkPrinterPointer,
             settings.gtkPrintSettingsPointer,
             pageSetup.gtkPageSetupPointer
-        )!!.reinterpret()
-    )
+        )!!
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets whether this job is printed collated.
@@ -434,7 +440,7 @@ public open class PrintJob(public val gtkPrintJobPointer: CPointer<GtkPrintJob>)
 
     public companion object : TypeCompanion<PrintJob> {
         override val type: GeneratedClassKGType<PrintJob> =
-            GeneratedClassKGType(getTypeOrNull("gtk_print_job_get_type")!!) { PrintJob(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { PrintJob(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -446,6 +452,17 @@ public open class PrintJob(public val gtkPrintJobPointer: CPointer<GtkPrintJob>)
          * @return the GType
          */
         public fun getType(): GType = gtk_print_job_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_print_job_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_print_job_get_type")
     }
 }
 

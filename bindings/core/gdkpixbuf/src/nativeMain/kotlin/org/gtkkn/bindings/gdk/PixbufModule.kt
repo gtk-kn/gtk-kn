@@ -12,14 +12,12 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gmodule.Module
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkPixbufModule
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkPixbufModule` contains the necessary functions to load and save
@@ -84,7 +82,7 @@ import kotlin.native.ref.createCleaner
  * - field `_reserved3`: Fields with callbacks are not supported
  * - field `_reserved4`: Fields with callbacks are not supported
  */
-public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? = null) :
+public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufModule>) :
     ProxyInstance(gdkPixbufModulePointer) {
     /**
      * the name of the module, usually the same as the
@@ -143,21 +141,9 @@ public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufM
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkPixbufModule>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PixbufModule and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GdkPixbufModule>, Cleaner>,
-    ) : this(gdkPixbufModulePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GdkPixbufModule>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PixbufModule using the provided [AutofreeScope].

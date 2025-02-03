@@ -4,9 +4,9 @@
 package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Context
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gfloat
@@ -45,6 +45,17 @@ import kotlin.Unit
  */
 @GskVersion4_14
 public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyInstance(gskStrokePointer) {
+    /**
+     * Creates a new `GskStroke` with the given @line_width.
+     *
+     * @param lineWidth line width of the stroke. Must be > 0
+     * @return a new `GskStroke`
+     * @since 4.14
+     */
+    public constructor(lineWidth: gfloat) : this(gsk_stroke_new(lineWidth)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Creates a copy of the given @other stroke.
      *
@@ -189,15 +200,6 @@ public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyIns
     public fun toCairo(cr: Context): Unit = gsk_stroke_to_cairo(gskStrokePointer, cr.cairoContextPointer)
 
     public companion object {
-        /**
-         * Creates a new `GskStroke` with the given @line_width.
-         *
-         * @param lineWidth line width of the stroke. Must be > 0
-         * @return a new `GskStroke`
-         * @since 4.14
-         */
-        public fun new(lineWidth: gfloat): Stroke = Stroke(gsk_stroke_new(lineWidth)!!.reinterpret())
-
         /**
          * Checks if 2 strokes are identical.
          *

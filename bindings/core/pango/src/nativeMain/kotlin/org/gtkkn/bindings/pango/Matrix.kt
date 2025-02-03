@@ -13,6 +13,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_12
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
@@ -26,11 +27,8 @@ import org.gtkkn.native.pango.pango_matrix_get_type
 import org.gtkkn.native.pango.pango_matrix_rotate
 import org.gtkkn.native.pango.pango_matrix_scale
 import org.gtkkn.native.pango.pango_matrix_translate
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoMatrix` specifies a transformation between user-space
@@ -54,8 +52,7 @@ import kotlin.native.ref.createCleaner
  * @since 1.6
  */
 @PangoVersion1_6
-public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoMatrixPointer) {
+public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>) : ProxyInstance(pangoMatrixPointer) {
     /**
      * 1st component of the transformation matrix
      */
@@ -128,21 +125,9 @@ public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleane
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoMatrix>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Matrix and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoMatrix>, Cleaner>,
-    ) : this(pangoMatrixPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoMatrix>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Matrix using the provided [AutofreeScope].

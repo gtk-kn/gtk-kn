@@ -10,16 +10,15 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gobject.GWeakRef
 import org.gtkkn.native.gobject.g_weak_ref_clear
 import org.gtkkn.native.gobject.g_weak_ref_get
 import org.gtkkn.native.gobject.g_weak_ref_init
 import org.gtkkn.native.gobject.g_weak_ref_set
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure containing a weak reference to a #GObject.
@@ -47,29 +46,16 @@ import kotlin.native.ref.createCleaner
  * It is invalid to take a #GWeakRef on an object during #GObjectClass.dispose
  * without first having or creating a strong reference to the object.
  */
-public class WeakRef(public val gobjectWeakRefPointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectWeakRefPointer) {
+public class WeakRef(public val gobjectWeakRefPointer: CPointer<GWeakRef>) : ProxyInstance(gobjectWeakRefPointer) {
     /**
      * Allocate a new WeakRef.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GWeakRef>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to WeakRef and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GWeakRef>, Cleaner>,
-    ) : this(gobjectWeakRefPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GWeakRef>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new WeakRef using the provided [AutofreeScope].
@@ -109,7 +95,7 @@ public class WeakRef(public val gobjectWeakRefPointer: CPointer<GWeakRef>, clean
      */
     @GObjectVersion2_32
     public fun `get`(): Object = g_weak_ref_get(gobjectWeakRefPointer)!!.run {
-        Object(reinterpret())
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**

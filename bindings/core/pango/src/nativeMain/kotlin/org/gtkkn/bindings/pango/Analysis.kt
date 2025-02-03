@@ -9,28 +9,27 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.guint8
 import org.gtkkn.native.pango.PangoAnalysis
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAnalysis` structure stores information about
  * the properties of a segment of text.
  */
-public class Analysis(public val pangoAnalysisPointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoAnalysisPointer) {
+public class Analysis(public val pangoAnalysisPointer: CPointer<PangoAnalysis>) : ProxyInstance(pangoAnalysisPointer) {
     /**
      * the font for this segment.
      */
     public var font: Font?
         get() = pangoAnalysisPointer.pointed.font?.run {
-            Font.FontImpl(this)
+            InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
         }
 
         @UnsafeFieldSetter
@@ -114,21 +113,9 @@ public class Analysis(public val pangoAnalysisPointer: CPointer<PangoAnalysis>, 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAnalysis>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Analysis and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoAnalysis>, Cleaner>,
-    ) : this(pangoAnalysisPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoAnalysis>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Analysis using the provided [AutofreeScope].

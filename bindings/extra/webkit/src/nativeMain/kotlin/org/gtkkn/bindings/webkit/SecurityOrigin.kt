@@ -4,9 +4,9 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
@@ -39,6 +39,40 @@ import kotlin.Unit
 @WebKitVersion2_16
 public class SecurityOrigin(public val webkitSecurityOriginPointer: CPointer<WebKitSecurityOrigin>) :
     ProxyInstance(webkitSecurityOriginPointer) {
+    /**
+     * Create a new security origin from the provided protocol, host and
+     * port.
+     *
+     * @param protocol The protocol for the new origin
+     * @param host The host for the new origin
+     * @param port The port number for the new origin, or 0 to indicate the
+     *        default port for @protocol
+     * @return A #WebKitSecurityOrigin.
+     * @since 2.16
+     */
+    public constructor(
+        protocol: String,
+        host: String,
+        port: guint16,
+    ) : this(webkit_security_origin_new(protocol, host, port)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Create a new security origin from the provided.
+     *
+     * Create a new security origin from the provided URI. Components of
+     * @uri other than protocol, host, and port do not affect the created
+     * #WebKitSecurityOrigin.
+     *
+     * @param uri The URI for the new origin
+     * @return A #WebKitSecurityOrigin.
+     * @since 2.16
+     */
+    public constructor(uri: String) : this(webkit_security_origin_new_for_uri(uri)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Gets the hostname of @origin.
      *
@@ -115,34 +149,6 @@ public class SecurityOrigin(public val webkitSecurityOriginPointer: CPointer<Web
     public fun unref(): Unit = webkit_security_origin_unref(webkitSecurityOriginPointer)
 
     public companion object {
-        /**
-         * Create a new security origin from the provided protocol, host and
-         * port.
-         *
-         * @param protocol The protocol for the new origin
-         * @param host The host for the new origin
-         * @param port The port number for the new origin, or 0 to indicate the
-         *        default port for @protocol
-         * @return A #WebKitSecurityOrigin.
-         * @since 2.16
-         */
-        public fun new(protocol: String, host: String, port: guint16): SecurityOrigin =
-            SecurityOrigin(webkit_security_origin_new(protocol, host, port)!!.reinterpret())
-
-        /**
-         * Create a new security origin from the provided.
-         *
-         * Create a new security origin from the provided URI. Components of
-         * @uri other than protocol, host, and port do not affect the created
-         * #WebKitSecurityOrigin.
-         *
-         * @param uri The URI for the new origin
-         * @return A #WebKitSecurityOrigin.
-         * @since 2.16
-         */
-        public fun newForUri(uri: String): SecurityOrigin =
-            SecurityOrigin(webkit_security_origin_new_for_uri(uri)!!.reinterpret())
-
         /**
          * Get the GType of SecurityOrigin
          *

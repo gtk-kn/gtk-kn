@@ -8,11 +8,10 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GPollableOutputStream
 import org.gtkkn.native.gio.g_pollable_output_stream_can_poll
 import org.gtkkn.native.gio.g_pollable_output_stream_create_source
@@ -112,16 +111,20 @@ public interface PollableOutputStream :
      *
      * @constructor Creates a new instance of PollableOutputStream for the provided [CPointer].
      */
-    public data class PollableOutputStreamImpl(
-        override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>,
-    ) : OutputStream(gioPollableOutputStreamPointer.reinterpret()),
-        PollableOutputStream
+    public class PollableOutputStreamImpl(gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>) :
+        OutputStream(gioPollableOutputStreamPointer.reinterpret()),
+        PollableOutputStream {
+        init {
+            Gio
+        }
+
+        override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream> =
+            gioPollableOutputStreamPointer
+    }
 
     public companion object : TypeCompanion<PollableOutputStream> {
         override val type: GeneratedInterfaceKGType<PollableOutputStream> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_pollable_output_stream_get_type")!!) {
-                PollableOutputStreamImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { PollableOutputStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -133,5 +136,16 @@ public interface PollableOutputStream :
          * @return the GType
          */
         public fun getType(): GType = g_pollable_output_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_pollable_output_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_pollable_output_stream_get_type")
     }
 }

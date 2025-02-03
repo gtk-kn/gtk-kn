@@ -9,12 +9,12 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkColumnViewColumn
@@ -59,6 +59,10 @@ import kotlin.String
 public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPointer<GtkColumnViewColumn>) :
     Object(gtkColumnViewColumnPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The `GtkColumnView` this column is a part of.
      */
@@ -71,7 +75,7 @@ public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPoint
          * @return The column view displaying @self.
          */
         get() = gtk_column_view_column_get_column_view(gtkColumnViewColumnPointer)?.run {
-            ColumnView(this)
+            InstanceCache.get(this, true) { ColumnView(reinterpret()) }!!
         }
 
     /**
@@ -106,7 +110,7 @@ public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPoint
          * @return The factory in use
          */
         get() = gtk_column_view_column_get_factory(gtkColumnViewColumnPointer)?.run {
-            ListItemFactory(this)
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
 
         /**
@@ -153,7 +157,7 @@ public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPoint
          * @return the `GMenuModel`
          */
         get() = gtk_column_view_column_get_header_menu(gtkColumnViewColumnPointer)?.run {
-            MenuModel.MenuModelImpl(this)
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
 
         /**
@@ -227,7 +231,7 @@ public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPoint
          * @return the `GtkSorter` of @self
          */
         get() = gtk_column_view_column_get_sorter(gtkColumnViewColumnPointer)?.run {
-            Sorter(this)
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!
         }
 
         /**
@@ -306,13 +310,13 @@ public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPoint
     public constructor(
         title: String? = null,
         factory: ListItemFactory? = null,
-    ) : this(gtk_column_view_column_new(title, factory?.gtkListItemFactoryPointer)!!.reinterpret())
+    ) : this(gtk_column_view_column_new(title, factory?.gtkListItemFactoryPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ColumnViewColumn> {
         override val type: GeneratedClassKGType<ColumnViewColumn> =
-            GeneratedClassKGType(getTypeOrNull("gtk_column_view_column_get_type")!!) {
-                ColumnViewColumn(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ColumnViewColumn(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -324,5 +328,16 @@ public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPoint
          * @return the GType
          */
         public fun getType(): GType = gtk_column_view_column_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_column_view_column_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_column_view_column_get_type")
     }
 }

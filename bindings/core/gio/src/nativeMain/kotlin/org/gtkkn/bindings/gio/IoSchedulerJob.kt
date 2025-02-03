@@ -18,11 +18,26 @@ import kotlin.Boolean
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.36.
+ *
+ * Use [struct@GLib.ThreadPool] or
+ *   [method@Gio.Task.run_in_thread]
+ * ---
+ *
  * Opaque class for defining and scheduling IO jobs.
  */
 public class IoSchedulerJob(public val gioIoSchedulerJobPointer: CPointer<GIOSchedulerJob>) :
     ProxyInstance(gioIoSchedulerJobPointer) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.36.
+     *
+     * Use g_main_context_invoke().
+     * ---
+     *
      * Used from an I/O job to send a callback to be run in the thread
      * that the job was started from, waiting for the result (and thus
      * blocking the I/O job).
@@ -38,6 +53,13 @@ public class IoSchedulerJob(public val gioIoSchedulerJobPointer: CPointer<GIOSch
     ).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.36.
+     *
+     * Use g_main_context_invoke().
+     * ---
+     *
      * Used from an I/O job to send a callback to be run asynchronously in
      * the thread that the job was started from. The callback will be run
      * when the main loop is available, but at that time the I/O job might

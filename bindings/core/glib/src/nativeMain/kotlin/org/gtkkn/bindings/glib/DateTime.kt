@@ -10,6 +10,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_58
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GDateTime
@@ -110,6 +111,223 @@ import kotlin.Unit
  */
 @GLibVersion2_26
 public class DateTime(public val glibDateTimePointer: CPointer<GDateTime>) : ProxyInstance(glibDateTimePointer) {
+    /**
+     * Creates a #GDateTime corresponding to this exact instant in UTC.
+     *
+     * This is equivalent to calling g_date_time_new_now() with the time
+     * zone returned by g_time_zone_new_utc().
+     *
+     * @return a new #GDateTime, or null
+     * @since 2.26
+     */
+    public constructor() : this(g_date_time_new_now_utc()!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new #GDateTime corresponding to the given date and time in
+     * the time zone @tz.
+     *
+     * The @year must be between 1 and 9999, @month between 1 and 12 and @day
+     * between 1 and 28, 29, 30 or 31 depending on the month and the year.
+     *
+     * @hour must be between 0 and 23 and @minute must be between 0 and 59.
+     *
+     * @seconds must be at least 0.0 and must be strictly less than 60.0.
+     * It will be rounded down to the nearest microsecond.
+     *
+     * If the given time is not representable in the given time zone (for
+     * example, 02:30 on March 14th 2010 in Toronto, due to daylight savings
+     * time) then the time will be rounded up to the nearest existing time
+     * (in this case, 03:00).  If this matters to you then you should verify
+     * the return value for containing the same as the numbers you gave.
+     *
+     * In the case that the given time is ambiguous in the given time zone
+     * (for example, 01:30 on November 7th 2010 in Toronto, due to daylight
+     * savings time) then the time falling within standard (ie:
+     * non-daylight) time is taken.
+     *
+     * It not considered a programmer error for the values to this function
+     * to be out of range, but in the case that they are, the function will
+     * return null.
+     *
+     * You should release the return value by calling g_date_time_unref()
+     * when you are done with it.
+     *
+     * @param tz a #GTimeZone
+     * @param year the year component of the date
+     * @param month the month component of the date
+     * @param day the day component of the date
+     * @param hour the hour component of the date
+     * @param minute the minute component of the date
+     * @param seconds the number of seconds past the minute
+     * @return a new #GDateTime, or null
+     * @since 2.26
+     */
+    public constructor(
+        tz: TimeZone,
+        year: gint,
+        month: gint,
+        day: gint,
+        hour: gint,
+        minute: gint,
+        seconds: gdouble,
+    ) : this(g_date_time_new(tz.glibTimeZonePointer, year, month, day, hour, minute, seconds)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a #GDateTime corresponding to the given
+     * [ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
+     * @text. ISO 8601 strings of the form <date><sep><time><tz> are supported, with
+     * some extensions from [RFC 3339](https://tools.ietf.org/html/rfc3339) as
+     * mentioned below.
+     *
+     * Note that as #GDateTime "is oblivious to leap seconds", leap seconds information
+     * in an ISO-8601 string will be ignored, so a `23:59:60` time would be parsed as
+     * `23:59:59`.
+     *
+     * <sep> is the separator and can be either 'T', 't' or ' '. The latter two
+     * separators are an extension from
+     * [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6).
+     *
+     * <date> is in the form:
+     *
+     * - `YYYY-MM-DD` - Year/month/day, e.g. 2016-08-24.
+     * - `YYYYMMDD` - Same as above without dividers.
+     * - `YYYY-DDD` - Ordinal day where DDD is from 001 to 366, e.g. 2016-237.
+     * - `YYYYDDD` - Same as above without dividers.
+     * - `YYYY-Www-D` - Week day where ww is from 01 to 52 and D from 1-7,
+     *   e.g. 2016-W34-3.
+     * - `YYYYWwwD` - Same as above without dividers.
+     *
+     * <time> is in the form:
+     *
+     * - `hh:mm:ss(.sss)` - Hours, minutes, seconds (subseconds), e.g. 22:10:42.123.
+     * - `hhmmss(.sss)` - Same as above without dividers.
+     *
+     * <tz> is an optional timezone suffix of the form:
+     *
+     * - `Z` - UTC.
+     * - `+hh:mm` or `-hh:mm` - Offset from UTC in hours and minutes, e.g. +12:00.
+     * - `+hh` or `-hh` - Offset from UTC in hours, e.g. +12.
+     *
+     * If the timezone is not provided in @text it must be provided in @default_tz
+     * (this field is otherwise ignored).
+     *
+     * This call can fail (returning null) if @text is not a valid ISO 8601
+     * formatted string.
+     *
+     * You should release the return value by calling g_date_time_unref()
+     * when you are done with it.
+     *
+     * @param text an ISO 8601 formatted time string.
+     * @param defaultTz a #GTimeZone to use if the text doesn't contain a
+     *                          timezone, or null.
+     * @return a new #GDateTime, or null
+     * @since 2.56
+     */
+    public constructor(
+        text: String,
+        defaultTz: TimeZone? = null,
+    ) : this(g_date_time_new_from_iso8601(text, defaultTz?.glibTimeZonePointer)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use
+     *    g_date_time_new_from_unix_utc() instead.
+     * ---
+     *
+     * Creates a #GDateTime corresponding to the given #GTimeVal @tv in UTC.
+     *
+     * The time contained in a #GTimeVal is always stored in the form of
+     * seconds elapsed since 1970-01-01 00:00:00 UTC.
+     *
+     * This call can fail (returning null) if @tv represents a time outside
+     * of the supported range of #GDateTime.
+     *
+     * You should release the return value by calling g_date_time_unref()
+     * when you are done with it.
+     *
+     * @param tv a #GTimeVal
+     * @return a new #GDateTime, or null
+     * @since 2.26
+     */
+    public constructor(tv: TimeVal) : this(g_date_time_new_from_timeval_utc(tv.glibTimeValPointer)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a #GDateTime corresponding to the given Unix time @t in UTC.
+     *
+     * Unix time is the number of seconds that have elapsed since 1970-01-01
+     * 00:00:00 UTC.
+     *
+     * This call can fail (returning null) if @t represents a time outside
+     * of the supported range of #GDateTime.
+     *
+     * You should release the return value by calling g_date_time_unref()
+     * when you are done with it.
+     *
+     * @param t the Unix time
+     * @return a new #GDateTime, or null
+     * @since 2.26
+     */
+    public constructor(t: gint64) : this(g_date_time_new_from_unix_utc(t)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new #GDateTime corresponding to the given date and time in
+     * UTC.
+     *
+     * This call is equivalent to calling g_date_time_new() with the time
+     * zone returned by g_time_zone_new_utc().
+     *
+     * @param year the year component of the date
+     * @param month the month component of the date
+     * @param day the day component of the date
+     * @param hour the hour component of the date
+     * @param minute the minute component of the date
+     * @param seconds the number of seconds past the minute
+     * @return a #GDateTime, or null
+     * @since 2.26
+     */
+    public constructor(
+        year: gint,
+        month: gint,
+        day: gint,
+        hour: gint,
+        minute: gint,
+        seconds: gdouble,
+    ) : this(g_date_time_new_utc(year, month, day, hour, minute, seconds)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a #GDateTime corresponding to this exact instant in the given
+     * time zone @tz.  The time is as accurate as the system allows, to a
+     * maximum accuracy of 1 microsecond.
+     *
+     * This function will always succeed unless GLib is still being used after the
+     * year 9999.
+     *
+     * You should release the return value by calling g_date_time_unref()
+     * when you are done with it.
+     *
+     * @param tz a #GTimeZone
+     * @return a new #GDateTime, or null
+     * @since 2.26
+     */
+    public constructor(tz: TimeZone) : this(g_date_time_new_now(tz.glibTimeZonePointer)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Creates a copy of @datetime and adds the specified timespan to the copy.
      *
@@ -696,6 +914,14 @@ public class DateTime(public val glibDateTimePointer: CPointer<GDateTime>) : Pro
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use
+     *    g_date_time_to_unix() instead.
+     * ---
+     *
      * Stores the instant in time that @datetime represents into @tv.
      *
      * The time contained in a #GTimeVal is always stored in the form of
@@ -791,111 +1017,28 @@ public class DateTime(public val glibDateTimePointer: CPointer<GDateTime>) : Pro
 
     public companion object {
         /**
-         * Creates a new #GDateTime corresponding to the given date and time in
-         * the time zone @tz.
+         * Creates a #GDateTime corresponding to this exact instant in the local
+         * time zone.
          *
-         * The @year must be between 1 and 9999, @month between 1 and 12 and @day
-         * between 1 and 28, 29, 30 or 31 depending on the month and the year.
+         * This is equivalent to calling g_date_time_new_now() with the time
+         * zone returned by g_time_zone_new_local().
          *
-         * @hour must be between 0 and 23 and @minute must be between 0 and 59.
-         *
-         * @seconds must be at least 0.0 and must be strictly less than 60.0.
-         * It will be rounded down to the nearest microsecond.
-         *
-         * If the given time is not representable in the given time zone (for
-         * example, 02:30 on March 14th 2010 in Toronto, due to daylight savings
-         * time) then the time will be rounded up to the nearest existing time
-         * (in this case, 03:00).  If this matters to you then you should verify
-         * the return value for containing the same as the numbers you gave.
-         *
-         * In the case that the given time is ambiguous in the given time zone
-         * (for example, 01:30 on November 7th 2010 in Toronto, due to daylight
-         * savings time) then the time falling within standard (ie:
-         * non-daylight) time is taken.
-         *
-         * It not considered a programmer error for the values to this function
-         * to be out of range, but in the case that they are, the function will
-         * return null.
-         *
-         * You should release the return value by calling g_date_time_unref()
-         * when you are done with it.
-         *
-         * @param tz a #GTimeZone
-         * @param year the year component of the date
-         * @param month the month component of the date
-         * @param day the day component of the date
-         * @param hour the hour component of the date
-         * @param minute the minute component of the date
-         * @param seconds the number of seconds past the minute
          * @return a new #GDateTime, or null
          * @since 2.26
          */
-        public fun new(
-            tz: TimeZone,
-            year: gint,
-            month: gint,
-            day: gint,
-            hour: gint,
-            minute: gint,
-            seconds: gdouble,
-        ): DateTime? =
-            DateTime(g_date_time_new(tz.glibTimeZonePointer, year, month, day, hour, minute, seconds)!!.reinterpret())
+        public fun nowLocal(): DateTime = DateTime(g_date_time_new_now_local()!!.reinterpret()).apply {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        }
 
         /**
-         * Creates a #GDateTime corresponding to the given
-         * [ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
-         * @text. ISO 8601 strings of the form <date><sep><time><tz> are supported, with
-         * some extensions from [RFC 3339](https://tools.ietf.org/html/rfc3339) as
-         * mentioned below.
+         * # ⚠️ Deprecated ⚠️
          *
-         * Note that as #GDateTime "is oblivious to leap seconds", leap seconds information
-         * in an ISO-8601 string will be ignored, so a `23:59:60` time would be parsed as
-         * `23:59:59`.
+         * This is deprecated since version 2.62.
          *
-         * <sep> is the separator and can be either 'T', 't' or ' '. The latter two
-         * separators are an extension from
-         * [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6).
+         * #GTimeVal is not year-2038-safe. Use
+         *    g_date_time_new_from_unix_local() instead.
+         * ---
          *
-         * <date> is in the form:
-         *
-         * - `YYYY-MM-DD` - Year/month/day, e.g. 2016-08-24.
-         * - `YYYYMMDD` - Same as above without dividers.
-         * - `YYYY-DDD` - Ordinal day where DDD is from 001 to 366, e.g. 2016-237.
-         * - `YYYYDDD` - Same as above without dividers.
-         * - `YYYY-Www-D` - Week day where ww is from 01 to 52 and D from 1-7,
-         *   e.g. 2016-W34-3.
-         * - `YYYYWwwD` - Same as above without dividers.
-         *
-         * <time> is in the form:
-         *
-         * - `hh:mm:ss(.sss)` - Hours, minutes, seconds (subseconds), e.g. 22:10:42.123.
-         * - `hhmmss(.sss)` - Same as above without dividers.
-         *
-         * <tz> is an optional timezone suffix of the form:
-         *
-         * - `Z` - UTC.
-         * - `+hh:mm` or `-hh:mm` - Offset from UTC in hours and minutes, e.g. +12:00.
-         * - `+hh` or `-hh` - Offset from UTC in hours, e.g. +12.
-         *
-         * If the timezone is not provided in @text it must be provided in @default_tz
-         * (this field is otherwise ignored).
-         *
-         * This call can fail (returning null) if @text is not a valid ISO 8601
-         * formatted string.
-         *
-         * You should release the return value by calling g_date_time_unref()
-         * when you are done with it.
-         *
-         * @param text an ISO 8601 formatted time string.
-         * @param defaultTz a #GTimeZone to use if the text doesn't contain a
-         *                          timezone, or null.
-         * @return a new #GDateTime, or null
-         * @since 2.56
-         */
-        public fun newFromIso8601(text: String, defaultTz: TimeZone? = null): DateTime? =
-            DateTime(g_date_time_new_from_iso8601(text, defaultTz?.glibTimeZonePointer)!!.reinterpret())
-
-        /**
          * Creates a #GDateTime corresponding to the given #GTimeVal @tv in the
          * local time zone.
          *
@@ -913,27 +1056,10 @@ public class DateTime(public val glibDateTimePointer: CPointer<GDateTime>) : Pro
          * @return a new #GDateTime, or null
          * @since 2.26
          */
-        public fun newFromTimevalLocal(tv: TimeVal): DateTime? =
-            DateTime(g_date_time_new_from_timeval_local(tv.glibTimeValPointer)!!.reinterpret())
-
-        /**
-         * Creates a #GDateTime corresponding to the given #GTimeVal @tv in UTC.
-         *
-         * The time contained in a #GTimeVal is always stored in the form of
-         * seconds elapsed since 1970-01-01 00:00:00 UTC.
-         *
-         * This call can fail (returning null) if @tv represents a time outside
-         * of the supported range of #GDateTime.
-         *
-         * You should release the return value by calling g_date_time_unref()
-         * when you are done with it.
-         *
-         * @param tv a #GTimeVal
-         * @return a new #GDateTime, or null
-         * @since 2.26
-         */
-        public fun newFromTimevalUtc(tv: TimeVal): DateTime? =
-            DateTime(g_date_time_new_from_timeval_utc(tv.glibTimeValPointer)!!.reinterpret())
+        public fun fromTimevalLocal(tv: TimeVal): DateTime =
+            DateTime(g_date_time_new_from_timeval_local(tv.glibTimeValPointer)!!.reinterpret()).apply {
+                MemoryCleaner.setBoxedType(this, getType(), owned = true)
+            }
 
         /**
          * Creates a #GDateTime corresponding to the given Unix time @t in the
@@ -952,7 +1078,31 @@ public class DateTime(public val glibDateTimePointer: CPointer<GDateTime>) : Pro
          * @return a new #GDateTime, or null
          * @since 2.26
          */
-        public fun newFromUnixLocal(t: gint64): DateTime? = DateTime(g_date_time_new_from_unix_local(t)!!.reinterpret())
+        public fun fromUnixLocal(t: gint64): DateTime =
+            DateTime(g_date_time_new_from_unix_local(t)!!.reinterpret()).apply {
+                MemoryCleaner.setBoxedType(this, getType(), owned = true)
+            }
+
+        /**
+         * Creates a [struct@GLib.DateTime] corresponding to the given Unix time @t in UTC.
+         *
+         * Unix time is the number of microseconds that have elapsed since 1970-01-01
+         * 00:00:00 UTC.
+         *
+         * This call can fail (returning `NULL`) if @t represents a time outside
+         * of the supported range of #GDateTime.
+         *
+         * You should release the return value by calling [method@GLib.DateTime.unref]
+         * when you are done with it.
+         *
+         * @param usecs the Unix time in microseconds
+         * @return a new [struct@GLib.DateTime], or `NULL`
+         * @since 2.80
+         */
+        public fun fromUnixUtcUsec(usecs: gint64): DateTime =
+            DateTime(g_date_time_new_from_unix_utc_usec(usecs)!!.reinterpret()).apply {
+                MemoryCleaner.setBoxedType(this, getType(), owned = true)
+            }
 
         /**
          * Creates a [struct@GLib.DateTime] corresponding to the given Unix time @t in the
@@ -971,45 +1121,10 @@ public class DateTime(public val glibDateTimePointer: CPointer<GDateTime>) : Pro
          * @return a new [struct@GLib.DateTime], or `NULL`
          * @since 2.80
          */
-        public fun newFromUnixLocalUsec(usecs: gint64): DateTime? =
-            DateTime(g_date_time_new_from_unix_local_usec(usecs)!!.reinterpret())
-
-        /**
-         * Creates a #GDateTime corresponding to the given Unix time @t in UTC.
-         *
-         * Unix time is the number of seconds that have elapsed since 1970-01-01
-         * 00:00:00 UTC.
-         *
-         * This call can fail (returning null) if @t represents a time outside
-         * of the supported range of #GDateTime.
-         *
-         * You should release the return value by calling g_date_time_unref()
-         * when you are done with it.
-         *
-         * @param t the Unix time
-         * @return a new #GDateTime, or null
-         * @since 2.26
-         */
-        public fun newFromUnixUtc(t: gint64): DateTime? = DateTime(g_date_time_new_from_unix_utc(t)!!.reinterpret())
-
-        /**
-         * Creates a [struct@GLib.DateTime] corresponding to the given Unix time @t in UTC.
-         *
-         * Unix time is the number of microseconds that have elapsed since 1970-01-01
-         * 00:00:00 UTC.
-         *
-         * This call can fail (returning `NULL`) if @t represents a time outside
-         * of the supported range of #GDateTime.
-         *
-         * You should release the return value by calling [method@GLib.DateTime.unref]
-         * when you are done with it.
-         *
-         * @param usecs the Unix time in microseconds
-         * @return a new [struct@GLib.DateTime], or `NULL`
-         * @since 2.80
-         */
-        public fun newFromUnixUtcUsec(usecs: gint64): DateTime? =
-            DateTime(g_date_time_new_from_unix_utc_usec(usecs)!!.reinterpret())
+        public fun fromUnixLocalUsec(usecs: gint64): DateTime =
+            DateTime(g_date_time_new_from_unix_local_usec(usecs)!!.reinterpret()).apply {
+                MemoryCleaner.setBoxedType(this, getType(), owned = true)
+            }
 
         /**
          * Creates a new #GDateTime corresponding to the given date and time in
@@ -1027,74 +1142,10 @@ public class DateTime(public val glibDateTimePointer: CPointer<GDateTime>) : Pro
          * @return a #GDateTime, or null
          * @since 2.26
          */
-        public fun newLocal(
-            year: gint,
-            month: gint,
-            day: gint,
-            hour: gint,
-            minute: gint,
-            seconds: gdouble,
-        ): DateTime? = DateTime(g_date_time_new_local(year, month, day, hour, minute, seconds)!!.reinterpret())
-
-        /**
-         * Creates a #GDateTime corresponding to this exact instant in the given
-         * time zone @tz.  The time is as accurate as the system allows, to a
-         * maximum accuracy of 1 microsecond.
-         *
-         * This function will always succeed unless GLib is still being used after the
-         * year 9999.
-         *
-         * You should release the return value by calling g_date_time_unref()
-         * when you are done with it.
-         *
-         * @param tz a #GTimeZone
-         * @return a new #GDateTime, or null
-         * @since 2.26
-         */
-        public fun newNow(tz: TimeZone): DateTime? =
-            DateTime(g_date_time_new_now(tz.glibTimeZonePointer)!!.reinterpret())
-
-        /**
-         * Creates a #GDateTime corresponding to this exact instant in the local
-         * time zone.
-         *
-         * This is equivalent to calling g_date_time_new_now() with the time
-         * zone returned by g_time_zone_new_local().
-         *
-         * @return a new #GDateTime, or null
-         * @since 2.26
-         */
-        public fun newNowLocal(): DateTime? = DateTime(g_date_time_new_now_local()!!)
-
-        /**
-         * Creates a #GDateTime corresponding to this exact instant in UTC.
-         *
-         * This is equivalent to calling g_date_time_new_now() with the time
-         * zone returned by g_time_zone_new_utc().
-         *
-         * @return a new #GDateTime, or null
-         * @since 2.26
-         */
-        public fun newNowUtc(): DateTime? = DateTime(g_date_time_new_now_utc()!!)
-
-        /**
-         * Creates a new #GDateTime corresponding to the given date and time in
-         * UTC.
-         *
-         * This call is equivalent to calling g_date_time_new() with the time
-         * zone returned by g_time_zone_new_utc().
-         *
-         * @param year the year component of the date
-         * @param month the month component of the date
-         * @param day the day component of the date
-         * @param hour the hour component of the date
-         * @param minute the minute component of the date
-         * @param seconds the number of seconds past the minute
-         * @return a #GDateTime, or null
-         * @since 2.26
-         */
-        public fun newUtc(year: gint, month: gint, day: gint, hour: gint, minute: gint, seconds: gdouble): DateTime? =
-            DateTime(g_date_time_new_utc(year, month, day, hour, minute, seconds)!!.reinterpret())
+        public fun local(year: gint, month: gint, day: gint, hour: gint, minute: gint, seconds: gdouble): DateTime =
+            DateTime(g_date_time_new_local(year, month, day, hour, minute, seconds)!!.reinterpret()).apply {
+                MemoryCleaner.setBoxedType(this, getType(), owned = true)
+            }
 
         /**
          * Get the GType of DateTime

@@ -11,11 +11,11 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -117,6 +117,10 @@ import kotlin.Unit
 public open class DrawingArea(public val gtkDrawingAreaPointer: CPointer<GtkDrawingArea>) :
     Widget(gtkDrawingAreaPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -181,7 +185,9 @@ public open class DrawingArea(public val gtkDrawingAreaPointer: CPointer<GtkDraw
      *
      * @return a new `GtkDrawingArea`
      */
-    public constructor() : this(gtk_drawing_area_new()!!.reinterpret())
+    public constructor() : this(gtk_drawing_area_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Setting a draw function is the main thing you want to do when using
@@ -247,7 +253,7 @@ public open class DrawingArea(public val gtkDrawingAreaPointer: CPointer<GtkDraw
 
     public companion object : TypeCompanion<DrawingArea> {
         override val type: GeneratedClassKGType<DrawingArea> =
-            GeneratedClassKGType(getTypeOrNull("gtk_drawing_area_get_type")!!) { DrawingArea(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DrawingArea(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -259,6 +265,17 @@ public open class DrawingArea(public val gtkDrawingAreaPointer: CPointer<GtkDraw
          * @return the GType
          */
         public fun getType(): GType = gtk_drawing_area_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_drawing_area_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_drawing_area_get_type")
     }
 }
 

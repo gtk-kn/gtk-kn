@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GConverterInputStream
 import org.gtkkn.native.gio.GPollableInputStream
 import org.gtkkn.native.gio.g_converter_input_stream_get_converter
@@ -27,6 +27,10 @@ public open class ConverterInputStream(public val gioConverterInputStreamPointer
     FilterInputStream(gioConverterInputStreamPointer.reinterpret()),
     PollableInputStream,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
         get() = handle.reinterpret()
 
@@ -56,13 +60,13 @@ public open class ConverterInputStream(public val gioConverterInputStreamPointer
         converter: Converter,
     ) : this(
         g_converter_input_stream_new(baseStream.gioInputStreamPointer, converter.gioConverterPointer)!!.reinterpret()
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ConverterInputStream> {
         override val type: GeneratedClassKGType<ConverterInputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_converter_input_stream_get_type")!!) {
-                ConverterInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ConverterInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -74,5 +78,16 @@ public open class ConverterInputStream(public val gioConverterInputStreamPointer
          * @return the GType
          */
         public fun getType(): GType = g_converter_input_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_converter_input_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_converter_input_stream_get_type")
     }
 }

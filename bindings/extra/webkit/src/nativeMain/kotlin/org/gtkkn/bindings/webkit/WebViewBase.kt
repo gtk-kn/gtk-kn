@@ -6,10 +6,9 @@ package org.gtkkn.bindings.webkit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -20,6 +19,10 @@ import org.gtkkn.native.webkit.webkit_web_view_base_get_type
 public open class WebViewBase(public val webkitWebViewBasePointer: CPointer<WebKitWebViewBase>) :
     Widget(webkitWebViewBasePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -31,10 +34,10 @@ public open class WebViewBase(public val webkitWebViewBasePointer: CPointer<WebK
 
     public companion object : TypeCompanion<WebViewBase> {
         override val type: GeneratedClassKGType<WebViewBase> =
-            GeneratedClassKGType(getTypeOrNull("webkit_web_view_base_get_type")!!) { WebViewBase(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { WebViewBase(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -43,5 +46,16 @@ public open class WebViewBase(public val webkitWebViewBasePointer: CPointer<WebK
          * @return the GType
          */
         public fun getType(): GType = webkit_web_view_base_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_web_view_base_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_web_view_base_get_type")
     }
 }

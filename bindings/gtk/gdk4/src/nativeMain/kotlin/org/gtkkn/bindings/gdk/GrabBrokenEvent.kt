@@ -5,11 +5,11 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkGrabBrokenEvent
 import org.gtkkn.native.gdk.gdk_grab_broken_event_get_grab_surface
 import org.gtkkn.native.gdk.gdk_grab_broken_event_get_implicit
@@ -23,6 +23,10 @@ import kotlin.Boolean
 public open class GrabBrokenEvent(public val gdkGrabBrokenEventPointer: CPointer<GdkGrabBrokenEvent>) :
     Event(gdkGrabBrokenEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts the grab surface from a grab broken event.
      *
@@ -30,7 +34,7 @@ public open class GrabBrokenEvent(public val gdkGrabBrokenEventPointer: CPointer
      */
     public open fun getGrabSurface(): Surface =
         gdk_grab_broken_event_get_grab_surface(gdkGrabBrokenEventPointer.reinterpret())!!.run {
-            Surface.SurfaceImpl(this)
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
         }
 
     /**
@@ -43,9 +47,7 @@ public open class GrabBrokenEvent(public val gdkGrabBrokenEventPointer: CPointer
 
     public companion object : TypeCompanion<GrabBrokenEvent> {
         override val type: GeneratedClassKGType<GrabBrokenEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_grab_broken_event_get_type")!!) {
-                GrabBrokenEvent(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { GrabBrokenEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -57,5 +59,16 @@ public open class GrabBrokenEvent(public val gdkGrabBrokenEventPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gdk_grab_broken_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_grab_broken_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_grab_broken_event_get_type")
     }
 }

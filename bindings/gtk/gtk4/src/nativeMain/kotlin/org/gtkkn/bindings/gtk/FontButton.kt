@@ -13,13 +13,13 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -45,6 +45,13 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FontDialogButton] instead
+ * ---
+ *
  * The `GtkFontButton` allows to open a font chooser dialog to change
  * the font.
  *
@@ -67,6 +74,10 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
     Widget(gtkFontButtonPointer.reinterpret()),
     FontChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkFontChooserPointer: CPointer<GtkFontChooser>
         get() = handle.reinterpret()
 
@@ -84,6 +95,13 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
      */
     public open var modal: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Gets whether the dialog is modal.
          *
          * @return true if the dialog is modal
@@ -91,6 +109,13 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
         get() = gtk_font_button_get_modal(gtkFontButtonPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Sets whether the dialog should be modal.
          *
          * @param modal true to make the dialog modal
@@ -102,6 +127,13 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
      */
     public open var title: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Retrieves the title of the font chooser dialog.
          *
          * @return an internal copy of the title string
@@ -110,6 +142,13 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
         get() = gtk_font_button_get_title(gtkFontButtonPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Sets the title for the font chooser dialog.
          *
          * @param title a string containing the font chooser dialog title
@@ -121,6 +160,13 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
      */
     public open var useFont: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Returns whether the selected font is used in the label.
          *
          * @return whether the selected font is used in the label.
@@ -128,6 +174,13 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
         get() = gtk_font_button_get_use_font(gtkFontButtonPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * If @use_font is true, the font name will be written
          * using the selected font.
          *
@@ -140,6 +193,13 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
      */
     public open var useSize: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Returns whether the selected size is used in the label.
          *
          * @return whether the selected size is used in the label.
@@ -147,6 +207,13 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
         get() = gtk_font_button_get_use_size(gtkFontButtonPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * If @use_size is true, the font name will be written using
          * the selected size.
          *
@@ -156,19 +223,37 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
         set(useSize) = gtk_font_button_set_use_size(gtkFontButtonPointer, useSize.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * Creates a new font picker widget.
      *
      * @return a new font picker widget.
      */
-    public constructor() : this(gtk_font_button_new()!!.reinterpret())
+    public constructor() : this(gtk_font_button_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * Creates a new font picker widget showing the given font.
      *
      * @param fontname Name of font to display in font chooser dialog
      * @return a new font picker widget.
      */
-    public constructor(fontname: String) : this(gtk_font_button_new_with_font(fontname)!!.reinterpret())
+    public constructor(fontname: String) : this(gtk_font_button_new_with_font(fontname)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted to when the font button is activated.
@@ -233,7 +318,7 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
 
     public companion object : TypeCompanion<FontButton> {
         override val type: GeneratedClassKGType<FontButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_font_button_get_type")!!) { FontButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FontButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -245,6 +330,17 @@ public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontBu
          * @return the GType
          */
         public fun getType(): GType = gtk_font_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_font_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_font_button_get_type")
     }
 }
 

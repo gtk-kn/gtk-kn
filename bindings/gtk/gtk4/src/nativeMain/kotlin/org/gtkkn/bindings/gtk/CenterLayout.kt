@@ -6,12 +6,12 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCenterLayout
 import org.gtkkn.native.gtk.gtk_center_layout_get_baseline_position
@@ -43,6 +43,10 @@ import kotlin.Unit
 public open class CenterLayout(public val gtkCenterLayoutPointer: CPointer<GtkCenterLayout>) :
     LayoutManager(gtkCenterLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Whether to shrink the center widget after other children.
      *
@@ -88,7 +92,9 @@ public open class CenterLayout(public val gtkCenterLayoutPointer: CPointer<GtkCe
      *
      * @return the newly created `GtkCenterLayout`
      */
-    public constructor() : this(gtk_center_layout_new()!!.reinterpret())
+    public constructor() : this(gtk_center_layout_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the baseline position of the layout.
@@ -106,7 +112,7 @@ public open class CenterLayout(public val gtkCenterLayoutPointer: CPointer<GtkCe
      * @return the current center widget of @self
      */
     public open fun getCenterWidget(): Widget? = gtk_center_layout_get_center_widget(gtkCenterLayoutPointer)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -115,7 +121,7 @@ public open class CenterLayout(public val gtkCenterLayoutPointer: CPointer<GtkCe
      * @return the current end widget of @self
      */
     public open fun getEndWidget(): Widget? = gtk_center_layout_get_end_widget(gtkCenterLayoutPointer)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -133,7 +139,7 @@ public open class CenterLayout(public val gtkCenterLayoutPointer: CPointer<GtkCe
      * @return The current start widget of @self
      */
     public open fun getStartWidget(): Widget? = gtk_center_layout_get_start_widget(gtkCenterLayoutPointer)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -184,7 +190,7 @@ public open class CenterLayout(public val gtkCenterLayoutPointer: CPointer<GtkCe
 
     public companion object : TypeCompanion<CenterLayout> {
         override val type: GeneratedClassKGType<CenterLayout> =
-            GeneratedClassKGType(getTypeOrNull("gtk_center_layout_get_type")!!) { CenterLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { CenterLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -196,5 +202,16 @@ public open class CenterLayout(public val gtkCenterLayoutPointer: CPointer<GtkCe
          * @return the GType
          */
         public fun getType(): GType = gtk_center_layout_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_center_layout_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_center_layout_get_type")
     }
 }

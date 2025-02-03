@@ -9,12 +9,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceSnippetManager
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_get_default
@@ -48,6 +48,10 @@ import kotlin.collections.List
 public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPointer<GtkSourceSnippetManager>) :
     Object(gtksourceSnippetManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Gets the list directories where @self looks for snippet files.
      *
@@ -73,7 +77,7 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
      */
     public open fun getSnippet(group: String? = null, languageId: String? = null, trigger: String): Snippet? =
         gtk_source_snippet_manager_get_snippet(gtksourceSnippetManagerPointer, group, languageId, trigger)?.run {
-            Snippet(this)
+            InstanceCache.get(this, true) { Snippet(reinterpret()) }!!
         }
 
     /**
@@ -151,12 +155,10 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
 
     public companion object : TypeCompanion<SnippetManager> {
         override val type: GeneratedClassKGType<SnippetManager> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_manager_get_type")!!) {
-                SnippetManager(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { SnippetManager(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -166,7 +168,7 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
          *   is owned by GtkSourceView library and must not be unref'd.
          */
         public fun getDefault(): SnippetManager = gtk_source_snippet_manager_get_default()!!.run {
-            SnippetManager(this)
+            InstanceCache.get(this, true) { SnippetManager(reinterpret()) }!!
         }
 
         /**
@@ -175,5 +177,16 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = gtk_source_snippet_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_snippet_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_snippet_manager_get_type")
     }
 }

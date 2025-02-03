@@ -10,16 +10,14 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDoubleIEEE754
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
-public class DoubleIeee754(public val glibDoubleIeee754Pointer: CPointer<GDoubleIEEE754>, cleaner: Cleaner? = null) :
+public class DoubleIeee754(public val glibDoubleIeee754Pointer: CPointer<GDoubleIEEE754>) :
     ProxyInstance(glibDoubleIeee754Pointer) {
     public var vDouble: gdouble
         get() = glibDoubleIeee754Pointer.pointed.v_double
@@ -67,21 +65,9 @@ public class DoubleIeee754(public val glibDoubleIeee754Pointer: CPointer<GDouble
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDoubleIEEE754>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DoubleIeee754 and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDoubleIEEE754>, Cleaner>,
-    ) : this(glibDoubleIeee754Pointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDoubleIEEE754>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DoubleIeee754 using the provided [AutofreeScope].

@@ -11,14 +11,12 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GInputVector
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.gsize
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure used for scatter/gather data input.
@@ -28,7 +26,7 @@ import kotlin.native.ref.createCleaner
  * @since 2.22
  */
 @GioVersion2_22
-public class InputVector(public val gioInputVectorPointer: CPointer<GInputVector>, cleaner: Cleaner? = null) :
+public class InputVector(public val gioInputVectorPointer: CPointer<GInputVector>) :
     ProxyInstance(gioInputVectorPointer) {
     /**
      * Pointer to a buffer where data will be written.
@@ -58,21 +56,9 @@ public class InputVector(public val gioInputVectorPointer: CPointer<GInputVector
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GInputVector>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to InputVector and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GInputVector>, Cleaner>,
-    ) : this(gioInputVectorPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GInputVector>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new InputVector using the provided [AutofreeScope].

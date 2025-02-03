@@ -17,13 +17,12 @@ import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -70,6 +69,10 @@ public abstract class InputMethodContext(
     public val webkitInputMethodContextPointer: CPointer<WebKitInputMethodContext>,
 ) : Object(webkitInputMethodContextPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The #WebKitInputHints of the input associated with this context.
      *
@@ -370,12 +373,10 @@ public abstract class InputMethodContext(
 
     public companion object : TypeCompanion<InputMethodContext> {
         override val type: GeneratedClassKGType<InputMethodContext> =
-            GeneratedClassKGType(getTypeOrNull("webkit_input_method_context_get_type")!!) {
-                InputMethodContextImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { InputMethodContextImpl(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
+            WebKitTypeProvider.register()
         }
 
         /**
@@ -384,6 +385,17 @@ public abstract class InputMethodContext(
          * @return the GType
          */
         public fun getType(): GType = webkit_input_method_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_input_method_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_input_method_context_get_type")
     }
 }
 

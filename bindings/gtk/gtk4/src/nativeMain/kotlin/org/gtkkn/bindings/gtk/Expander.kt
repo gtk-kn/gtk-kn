@@ -12,13 +12,13 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -145,6 +145,10 @@ import kotlin.Unit
 public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>) :
     Widget(gtkExpanderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -164,7 +168,7 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          * @return the child widget of @expander
          */
         get() = gtk_expander_get_child(gtkExpanderPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -234,7 +238,7 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          * @return the label widget
          */
         get() = gtk_expander_get_label_widget(gtkExpanderPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -311,7 +315,9 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
      * @param label the text of the label
      * @return a new `GtkExpander` widget.
      */
-    public constructor(label: String? = null) : this(gtk_expander_new(label)!!.reinterpret())
+    public constructor(label: String? = null) : this(gtk_expander_new(label)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Activates the `GtkExpander`.
@@ -338,19 +344,28 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
 
     public companion object : TypeCompanion<Expander> {
         override val type: GeneratedClassKGType<Expander> =
-            GeneratedClassKGType(getTypeOrNull("gtk_expander_get_type")!!) { Expander(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Expander(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
 
         /**
-         * Creates a new expander using @label as the text of the label.
+         * Get the GType of Expander
          *
-         * @param label the text of the label
-         * @return a new `GtkExpander` widget.
+         * @return the GType
          */
-        public fun new(label: String? = null): Expander = Expander(gtk_expander_new(label)!!.reinterpret())
+        public fun getType(): GType = gtk_expander_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_expander_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_expander_get_type")
 
         /**
          * Creates a new expander using @label as the text of the label.
@@ -366,15 +381,10 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          *   in front of the mnemonic character
          * @return a new `GtkExpander` widget.
          */
-        public fun newWithMnemonic(label: String? = null): Expander =
-            Expander(gtk_expander_new_with_mnemonic(label)!!.reinterpret())
-
-        /**
-         * Get the GType of Expander
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_expander_get_type()
+        public fun withMnemonic(label: String? = null): Expander =
+            Expander(gtk_expander_new_with_mnemonic(label)!!.reinterpret()).apply {
+                InstanceCache.put(this)
+            }
     }
 }
 

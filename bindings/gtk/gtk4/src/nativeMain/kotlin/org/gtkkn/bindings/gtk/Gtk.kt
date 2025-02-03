@@ -43,6 +43,8 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.cairo.cairo_t
 import org.gtkkn.native.gdk.GdkFrameClock
 import org.gtkkn.native.gdk.GdkRectangle
@@ -359,6 +361,10 @@ import kotlin.Unit
  * - record `WindowHandleClass`: glib type struct are ignored
  */
 public object Gtk {
+    init {
+        registerTypes()
+    }
+
     /**
      * An attribute for the background color, expressed as an RGB value
      * encoded in a string using the format: `{r8},{g8},{b8}`.
@@ -1306,7 +1312,7 @@ public object Gtk {
         pageSetup?.gtkPageSetupPointer,
         settings.gtkPrintSettingsPointer
     )!!.run {
-        PageSetup(this)
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
     }
 
     /**
@@ -1336,6 +1342,11 @@ public object Gtk {
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders an activity indicator (such as in `GtkSpinner`).
      * The state %GTK_STATE_FLAG_CHECKED determines whether there is
      * activity going on.
@@ -1357,6 +1368,11 @@ public object Gtk {
     ): Unit = gtk_render_activity(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders an arrow pointing to @angle.
      *
      * Typical arrow rendering at 0, 1⁄2 π;, π; and 3⁄2 π:
@@ -1380,6 +1396,11 @@ public object Gtk {
     ): Unit = gtk_render_arrow(context.gtkStyleContextPointer, cr.cairoContextPointer, angle, x, y, size)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders the background of an element.
      *
      * Typical background rendering, showing the effect of
@@ -1404,6 +1425,11 @@ public object Gtk {
     ): Unit = gtk_render_background(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a checkmark (as in a `GtkCheckButton`).
      *
      * The %GTK_STATE_FLAG_CHECKED state determines whether the check is
@@ -1431,6 +1457,11 @@ public object Gtk {
     ): Unit = gtk_render_check(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders an expander (as used in `GtkTreeView` and `GtkExpander`) in the area
      * defined by @x, @y, @width, @height. The state %GTK_STATE_FLAG_CHECKED
      * determines whether the expander is collapsed or expanded.
@@ -1456,6 +1487,11 @@ public object Gtk {
     ): Unit = gtk_render_expander(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a focus indicator on the rectangle determined by @x, @y, @width, @height.
      *
      * Typical focus rendering:
@@ -1479,6 +1515,11 @@ public object Gtk {
     ): Unit = gtk_render_focus(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a frame around the rectangle defined by @x, @y, @width, @height.
      *
      * Examples of frame rendering, showing the effect of `border-image`,
@@ -1503,6 +1544,11 @@ public object Gtk {
     ): Unit = gtk_render_frame(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a handle (as in `GtkPaned` and `GtkWindow`’s resize grip),
      * in the rectangle determined by @x, @y, @width, @height.
      *
@@ -1527,6 +1573,11 @@ public object Gtk {
     ): Unit = gtk_render_handle(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders the icon in @texture at the specified @x and @y coordinates.
      *
      * This function will render the icon in @texture at exactly its size,
@@ -1543,6 +1594,11 @@ public object Gtk {
         gtk_render_icon(context.gtkStyleContextPointer, cr.cairoContextPointer, texture.gdkTexturePointer, x, y)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders @layout on the coordinates @x, @y
      *
      * @param context a `GtkStyleContext`
@@ -1555,6 +1611,11 @@ public object Gtk {
         gtk_render_layout(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, layout.pangoLayoutPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a line from (x0, y0) to (x1, y1).
      *
      * @param context a `GtkStyleContext`
@@ -1574,6 +1635,11 @@ public object Gtk {
     ): Unit = gtk_render_line(context.gtkStyleContextPointer, cr.cairoContextPointer, x0, y0, x1, y1)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders an option mark (as in a radio button), the %GTK_STATE_FLAG_CHECKED
      * state will determine whether the option is on or off, and
      * %GTK_STATE_FLAG_INCONSISTENT whether it should be marked as undefined.
@@ -1606,6 +1672,14 @@ public object Gtk {
     public fun setDebugFlags(flags: DebugFlags): Unit = gtk_set_debug_flags(flags.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.FileLauncher.launch] or
+     *   [method@Gtk.UriLauncher.launch] instead
+     * ---
+     *
      * This function launches the default application for showing
      * a given uri, or shows an error dialog if that fails.
      *
@@ -1617,6 +1691,14 @@ public object Gtk {
         gtk_show_uri(parent?.gtkWindowPointer, uri, timestamp)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.FileLauncher.launch] or
+     *   [method@Gtk.UriLauncher.launch] instead
+     * ---
+     *
      * This function launches the default application for showing
      * a given uri.
      *
@@ -1650,6 +1732,14 @@ public object Gtk {
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.FileLauncher.launch_finish] or
+     *   [method@Gtk.UriLauncher.launch_finish] instead
+     * ---
+     *
      * Finishes the gtk_show_uri() call and returns the result
      * of the operation.
      *
@@ -1756,6 +1846,13 @@ public object Gtk {
     public fun testWidgetWaitForDraw(widget: Widget): Unit = gtk_test_widget_wait_for_draw(widget.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models instead
+     * ---
+     *
      * Creates a content provider for dragging @path from @tree_model.
      *
      * @param treeModel a `GtkTreeModel`
@@ -1764,7 +1861,7 @@ public object Gtk {
      */
     public fun treeCreateRowDragContent(treeModel: TreeModel, path: TreePath): ContentProvider =
         gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gtkTreePathPointer)!!.run {
-            ContentProvider(this)
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
         }
 
     /**
@@ -1850,6 +1947,851 @@ public object Gtk {
         }
         return ex ?: GLibException(error)
     }
+
+    private fun registerTypes() {
+        AtContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AtContext::class, gtype) { AtContext.AtContextImpl(it.reinterpret()) }
+        }
+        AboutDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AboutDialog::class, gtype) { AboutDialog(it.reinterpret()) }
+        }
+        ActionBar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ActionBar::class, gtype) { ActionBar(it.reinterpret()) }
+        }
+        ActivateAction.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ActivateAction::class, gtype) { ActivateAction(it.reinterpret()) }
+        }
+        Adjustment.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Adjustment::class, gtype) { Adjustment(it.reinterpret()) }
+        }
+        AlertDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AlertDialog::class, gtype) { AlertDialog(it.reinterpret()) }
+        }
+        AlternativeTrigger.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AlternativeTrigger::class, gtype) { AlternativeTrigger(it.reinterpret()) }
+        }
+        AnyFilter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AnyFilter::class, gtype) { AnyFilter(it.reinterpret()) }
+        }
+        AppChooserButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AppChooserButton::class, gtype) { AppChooserButton(it.reinterpret()) }
+        }
+        AppChooserDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AppChooserDialog::class, gtype) { AppChooserDialog(it.reinterpret()) }
+        }
+        AppChooserWidget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AppChooserWidget::class, gtype) { AppChooserWidget(it.reinterpret()) }
+        }
+        Application.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Application::class, gtype) { Application(it.reinterpret()) }
+        }
+        ApplicationWindow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ApplicationWindow::class, gtype) { ApplicationWindow(it.reinterpret()) }
+        }
+        AspectFrame.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AspectFrame::class, gtype) { AspectFrame(it.reinterpret()) }
+        }
+        Assistant.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Assistant::class, gtype) { Assistant(it.reinterpret()) }
+        }
+        AssistantPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AssistantPage::class, gtype) { AssistantPage(it.reinterpret()) }
+        }
+        BinLayout.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BinLayout::class, gtype) { BinLayout(it.reinterpret()) }
+        }
+        BookmarkList.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BookmarkList::class, gtype) { BookmarkList(it.reinterpret()) }
+        }
+        BoolFilter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BoolFilter::class, gtype) { BoolFilter(it.reinterpret()) }
+        }
+        Box.getTypeOrNull()?.let { gtype -> TypeCache.register(Box::class, gtype) { Box(it.reinterpret()) } }
+        BoxLayout.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BoxLayout::class, gtype) { BoxLayout(it.reinterpret()) }
+        }
+        Builder.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Builder::class, gtype) { Builder(it.reinterpret()) }
+        }
+        BuilderCScope.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BuilderCScope::class, gtype) { BuilderCScope(it.reinterpret()) }
+        }
+        BuilderListItemFactory.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BuilderListItemFactory::class, gtype) { BuilderListItemFactory(it.reinterpret()) }
+        }
+        Button.getTypeOrNull()?.let { gtype -> TypeCache.register(Button::class, gtype) { Button(it.reinterpret()) } }
+        CClosureExpression.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CClosureExpression::class, gtype) { CClosureExpression(it.reinterpret()) }
+        }
+        Calendar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Calendar::class, gtype) { Calendar(it.reinterpret()) }
+        }
+        CallbackAction.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CallbackAction::class, gtype) { CallbackAction(it.reinterpret()) }
+        }
+        CellArea.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellArea::class, gtype) { CellArea.CellAreaImpl(it.reinterpret()) }
+        }
+        CellAreaBox.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellAreaBox::class, gtype) { CellAreaBox(it.reinterpret()) }
+        }
+        CellAreaContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellAreaContext::class, gtype) { CellAreaContext(it.reinterpret()) }
+        }
+        CellRenderer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellRenderer::class, gtype) { CellRenderer.CellRendererImpl(it.reinterpret()) }
+        }
+        CellRendererAccel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellRendererAccel::class, gtype) { CellRendererAccel(it.reinterpret()) }
+        }
+        CellRendererCombo.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellRendererCombo::class, gtype) { CellRendererCombo(it.reinterpret()) }
+        }
+        CellRendererPixbuf.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellRendererPixbuf::class, gtype) { CellRendererPixbuf(it.reinterpret()) }
+        }
+        CellRendererProgress.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellRendererProgress::class, gtype) { CellRendererProgress(it.reinterpret()) }
+        }
+        CellRendererSpin.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellRendererSpin::class, gtype) { CellRendererSpin(it.reinterpret()) }
+        }
+        CellRendererSpinner.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellRendererSpinner::class, gtype) { CellRendererSpinner(it.reinterpret()) }
+        }
+        CellRendererText.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellRendererText::class, gtype) { CellRendererText(it.reinterpret()) }
+        }
+        CellRendererToggle.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellRendererToggle::class, gtype) { CellRendererToggle(it.reinterpret()) }
+        }
+        CellView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellView::class, gtype) { CellView(it.reinterpret()) }
+        }
+        CenterBox.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CenterBox::class, gtype) { CenterBox(it.reinterpret()) }
+        }
+        CenterLayout.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CenterLayout::class, gtype) { CenterLayout(it.reinterpret()) }
+        }
+        CheckButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CheckButton::class, gtype) { CheckButton(it.reinterpret()) }
+        }
+        ClosureExpression.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ClosureExpression::class, gtype) { ClosureExpression(it.reinterpret()) }
+        }
+        ColorButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColorButton::class, gtype) { ColorButton(it.reinterpret()) }
+        }
+        ColorChooserDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColorChooserDialog::class, gtype) { ColorChooserDialog(it.reinterpret()) }
+        }
+        ColorChooserWidget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColorChooserWidget::class, gtype) { ColorChooserWidget(it.reinterpret()) }
+        }
+        ColorDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColorDialog::class, gtype) { ColorDialog(it.reinterpret()) }
+        }
+        ColorDialogButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColorDialogButton::class, gtype) { ColorDialogButton(it.reinterpret()) }
+        }
+        ColumnView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColumnView::class, gtype) { ColumnView(it.reinterpret()) }
+        }
+        ColumnViewCell.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColumnViewCell::class, gtype) { ColumnViewCell(it.reinterpret()) }
+        }
+        ColumnViewColumn.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColumnViewColumn::class, gtype) { ColumnViewColumn(it.reinterpret()) }
+        }
+        ColumnViewRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColumnViewRow::class, gtype) { ColumnViewRow(it.reinterpret()) }
+        }
+        ColumnViewSorter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColumnViewSorter::class, gtype) { ColumnViewSorter(it.reinterpret()) }
+        }
+        ComboBox.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ComboBox::class, gtype) { ComboBox(it.reinterpret()) }
+        }
+        ComboBoxText.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ComboBoxText::class, gtype) { ComboBoxText(it.reinterpret()) }
+        }
+        ConstantExpression.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ConstantExpression::class, gtype) { ConstantExpression(it.reinterpret()) }
+        }
+        Constraint.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Constraint::class, gtype) { Constraint(it.reinterpret()) }
+        }
+        ConstraintGuide.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ConstraintGuide::class, gtype) { ConstraintGuide(it.reinterpret()) }
+        }
+        ConstraintLayout.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ConstraintLayout::class, gtype) { ConstraintLayout(it.reinterpret()) }
+        }
+        ConstraintLayoutChild.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ConstraintLayoutChild::class, gtype) { ConstraintLayoutChild(it.reinterpret()) }
+        }
+        CssProvider.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CssProvider::class, gtype) { CssProvider(it.reinterpret()) }
+        }
+        CustomFilter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CustomFilter::class, gtype) { CustomFilter(it.reinterpret()) }
+        }
+        CustomSorter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CustomSorter::class, gtype) { CustomSorter(it.reinterpret()) }
+        }
+        Dialog.getTypeOrNull()?.let { gtype -> TypeCache.register(Dialog::class, gtype) { Dialog(it.reinterpret()) } }
+        DirectoryList.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DirectoryList::class, gtype) { DirectoryList(it.reinterpret()) }
+        }
+        DragIcon.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DragIcon::class, gtype) { DragIcon(it.reinterpret()) }
+        }
+        DragSource.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DragSource::class, gtype) { DragSource(it.reinterpret()) }
+        }
+        DrawingArea.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DrawingArea::class, gtype) { DrawingArea(it.reinterpret()) }
+        }
+        DropControllerMotion.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DropControllerMotion::class, gtype) { DropControllerMotion(it.reinterpret()) }
+        }
+        DropDown.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DropDown::class, gtype) { DropDown(it.reinterpret()) }
+        }
+        DropTarget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DropTarget::class, gtype) { DropTarget(it.reinterpret()) }
+        }
+        DropTargetAsync.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DropTargetAsync::class, gtype) { DropTargetAsync(it.reinterpret()) }
+        }
+        EditableLabel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EditableLabel::class, gtype) { EditableLabel(it.reinterpret()) }
+        }
+        EmojiChooser.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EmojiChooser::class, gtype) { EmojiChooser(it.reinterpret()) }
+        }
+        Entry.getTypeOrNull()?.let { gtype -> TypeCache.register(Entry::class, gtype) { Entry(it.reinterpret()) } }
+        EntryBuffer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EntryBuffer::class, gtype) { EntryBuffer(it.reinterpret()) }
+        }
+        EntryCompletion.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EntryCompletion::class, gtype) { EntryCompletion(it.reinterpret()) }
+        }
+        EventController.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EventController::class, gtype) { EventController.EventControllerImpl(it.reinterpret()) }
+        }
+        EventControllerFocus.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EventControllerFocus::class, gtype) { EventControllerFocus(it.reinterpret()) }
+        }
+        EventControllerKey.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EventControllerKey::class, gtype) { EventControllerKey(it.reinterpret()) }
+        }
+        EventControllerLegacy.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EventControllerLegacy::class, gtype) { EventControllerLegacy(it.reinterpret()) }
+        }
+        EventControllerMotion.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EventControllerMotion::class, gtype) { EventControllerMotion(it.reinterpret()) }
+        }
+        EventControllerScroll.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EventControllerScroll::class, gtype) { EventControllerScroll(it.reinterpret()) }
+        }
+        EveryFilter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(EveryFilter::class, gtype) { EveryFilter(it.reinterpret()) }
+        }
+        Expander.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Expander::class, gtype) { Expander(it.reinterpret()) }
+        }
+        Expression.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Expression::class, gtype) { Expression.ExpressionImpl(it.reinterpret()) }
+        }
+        FileChooserDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileChooserDialog::class, gtype) { FileChooserDialog(it.reinterpret()) }
+        }
+        FileChooserNative.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileChooserNative::class, gtype) { FileChooserNative(it.reinterpret()) }
+        }
+        FileChooserWidget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileChooserWidget::class, gtype) { FileChooserWidget(it.reinterpret()) }
+        }
+        FileDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileDialog::class, gtype) { FileDialog(it.reinterpret()) }
+        }
+        FileFilter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileFilter::class, gtype) { FileFilter(it.reinterpret()) }
+        }
+        FileLauncher.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileLauncher::class, gtype) { FileLauncher(it.reinterpret()) }
+        }
+        Filter.getTypeOrNull()?.let { gtype -> TypeCache.register(Filter::class, gtype) { Filter(it.reinterpret()) } }
+        FilterListModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FilterListModel::class, gtype) { FilterListModel(it.reinterpret()) }
+        }
+        Fixed.getTypeOrNull()?.let { gtype -> TypeCache.register(Fixed::class, gtype) { Fixed(it.reinterpret()) } }
+        FixedLayout.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FixedLayout::class, gtype) { FixedLayout(it.reinterpret()) }
+        }
+        FixedLayoutChild.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FixedLayoutChild::class, gtype) { FixedLayoutChild(it.reinterpret()) }
+        }
+        FlattenListModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FlattenListModel::class, gtype) { FlattenListModel(it.reinterpret()) }
+        }
+        FlowBox.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FlowBox::class, gtype) { FlowBox(it.reinterpret()) }
+        }
+        FlowBoxChild.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FlowBoxChild::class, gtype) { FlowBoxChild(it.reinterpret()) }
+        }
+        FontButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontButton::class, gtype) { FontButton(it.reinterpret()) }
+        }
+        FontChooserDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontChooserDialog::class, gtype) { FontChooserDialog(it.reinterpret()) }
+        }
+        FontChooserWidget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontChooserWidget::class, gtype) { FontChooserWidget(it.reinterpret()) }
+        }
+        FontDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontDialog::class, gtype) { FontDialog(it.reinterpret()) }
+        }
+        FontDialogButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontDialogButton::class, gtype) { FontDialogButton(it.reinterpret()) }
+        }
+        Frame.getTypeOrNull()?.let { gtype -> TypeCache.register(Frame::class, gtype) { Frame(it.reinterpret()) } }
+        GlArea.getTypeOrNull()?.let { gtype -> TypeCache.register(GlArea::class, gtype) { GlArea(it.reinterpret()) } }
+        Gesture.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Gesture::class, gtype) { Gesture.GestureImpl(it.reinterpret()) }
+        }
+        GestureClick.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GestureClick::class, gtype) { GestureClick(it.reinterpret()) }
+        }
+        GestureDrag.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GestureDrag::class, gtype) { GestureDrag(it.reinterpret()) }
+        }
+        GestureLongPress.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GestureLongPress::class, gtype) { GestureLongPress(it.reinterpret()) }
+        }
+        GesturePan.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GesturePan::class, gtype) { GesturePan(it.reinterpret()) }
+        }
+        GestureRotate.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GestureRotate::class, gtype) { GestureRotate(it.reinterpret()) }
+        }
+        GestureSingle.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GestureSingle::class, gtype) { GestureSingle(it.reinterpret()) }
+        }
+        GestureStylus.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GestureStylus::class, gtype) { GestureStylus(it.reinterpret()) }
+        }
+        GestureSwipe.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GestureSwipe::class, gtype) { GestureSwipe(it.reinterpret()) }
+        }
+        GestureZoom.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GestureZoom::class, gtype) { GestureZoom(it.reinterpret()) }
+        }
+        GraphicsOffload.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GraphicsOffload::class, gtype) { GraphicsOffload(it.reinterpret()) }
+        }
+        Grid.getTypeOrNull()?.let { gtype -> TypeCache.register(Grid::class, gtype) { Grid(it.reinterpret()) } }
+        GridLayout.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GridLayout::class, gtype) { GridLayout(it.reinterpret()) }
+        }
+        GridLayoutChild.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GridLayoutChild::class, gtype) { GridLayoutChild(it.reinterpret()) }
+        }
+        GridView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GridView::class, gtype) { GridView(it.reinterpret()) }
+        }
+        HeaderBar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(HeaderBar::class, gtype) { HeaderBar(it.reinterpret()) }
+        }
+        ImContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ImContext::class, gtype) { ImContext.ImContextImpl(it.reinterpret()) }
+        }
+        ImContextSimple.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ImContextSimple::class, gtype) { ImContextSimple(it.reinterpret()) }
+        }
+        ImMulticontext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ImMulticontext::class, gtype) { ImMulticontext(it.reinterpret()) }
+        }
+        IconPaintable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(IconPaintable::class, gtype) { IconPaintable(it.reinterpret()) }
+        }
+        IconTheme.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(IconTheme::class, gtype) { IconTheme(it.reinterpret()) }
+        }
+        IconView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(IconView::class, gtype) { IconView(it.reinterpret()) }
+        }
+        Image.getTypeOrNull()?.let { gtype -> TypeCache.register(Image::class, gtype) { Image(it.reinterpret()) } }
+        InfoBar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(InfoBar::class, gtype) { InfoBar(it.reinterpret()) }
+        }
+        Inscription.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Inscription::class, gtype) { Inscription(it.reinterpret()) }
+        }
+        KeyvalTrigger.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(KeyvalTrigger::class, gtype) { KeyvalTrigger(it.reinterpret()) }
+        }
+        Label.getTypeOrNull()?.let { gtype -> TypeCache.register(Label::class, gtype) { Label(it.reinterpret()) } }
+        LayoutChild.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(LayoutChild::class, gtype) { LayoutChild.LayoutChildImpl(it.reinterpret()) }
+        }
+        LayoutManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(LayoutManager::class, gtype) { LayoutManager.LayoutManagerImpl(it.reinterpret()) }
+        }
+        LevelBar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(LevelBar::class, gtype) { LevelBar(it.reinterpret()) }
+        }
+        LinkButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(LinkButton::class, gtype) { LinkButton(it.reinterpret()) }
+        }
+        ListBase.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ListBase::class, gtype) { ListBase.ListBaseImpl(it.reinterpret()) }
+        }
+        ListBox.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ListBox::class, gtype) { ListBox(it.reinterpret()) }
+        }
+        ListBoxRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ListBoxRow::class, gtype) { ListBoxRow(it.reinterpret()) }
+        }
+        ListHeader.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ListHeader::class, gtype) { ListHeader(it.reinterpret()) }
+        }
+        ListItem.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ListItem::class, gtype) { ListItem(it.reinterpret()) }
+        }
+        ListItemFactory.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ListItemFactory::class, gtype) { ListItemFactory(it.reinterpret()) }
+        }
+        ListStore.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ListStore::class, gtype) { ListStore(it.reinterpret()) }
+        }
+        ListView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ListView::class, gtype) { ListView(it.reinterpret()) }
+        }
+        LockButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(LockButton::class, gtype) { LockButton(it.reinterpret()) }
+        }
+        MapListModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MapListModel::class, gtype) { MapListModel(it.reinterpret()) }
+        }
+        MediaControls.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MediaControls::class, gtype) { MediaControls(it.reinterpret()) }
+        }
+        MediaFile.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MediaFile::class, gtype) { MediaFile.MediaFileImpl(it.reinterpret()) }
+        }
+        MediaStream.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MediaStream::class, gtype) { MediaStream.MediaStreamImpl(it.reinterpret()) }
+        }
+        MenuButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MenuButton::class, gtype) { MenuButton(it.reinterpret()) }
+        }
+        MessageDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MessageDialog::class, gtype) { MessageDialog(it.reinterpret()) }
+        }
+        MnemonicAction.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MnemonicAction::class, gtype) { MnemonicAction(it.reinterpret()) }
+        }
+        MnemonicTrigger.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MnemonicTrigger::class, gtype) { MnemonicTrigger(it.reinterpret()) }
+        }
+        MountOperation.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MountOperation::class, gtype) { MountOperation(it.reinterpret()) }
+        }
+        MultiFilter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MultiFilter::class, gtype) { MultiFilter.MultiFilterImpl(it.reinterpret()) }
+        }
+        MultiSelection.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MultiSelection::class, gtype) { MultiSelection(it.reinterpret()) }
+        }
+        MultiSorter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MultiSorter::class, gtype) { MultiSorter(it.reinterpret()) }
+        }
+        NamedAction.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NamedAction::class, gtype) { NamedAction(it.reinterpret()) }
+        }
+        NativeDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NativeDialog::class, gtype) { NativeDialog.NativeDialogImpl(it.reinterpret()) }
+        }
+        NeverTrigger.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NeverTrigger::class, gtype) { NeverTrigger(it.reinterpret()) }
+        }
+        NoSelection.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NoSelection::class, gtype) { NoSelection(it.reinterpret()) }
+        }
+        Notebook.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Notebook::class, gtype) { Notebook(it.reinterpret()) }
+        }
+        NotebookPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NotebookPage::class, gtype) { NotebookPage(it.reinterpret()) }
+        }
+        NothingAction.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NothingAction::class, gtype) { NothingAction(it.reinterpret()) }
+        }
+        NumericSorter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NumericSorter::class, gtype) { NumericSorter(it.reinterpret()) }
+        }
+        ObjectExpression.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ObjectExpression::class, gtype) { ObjectExpression(it.reinterpret()) }
+        }
+        Overlay.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Overlay::class, gtype) { Overlay(it.reinterpret()) }
+        }
+        OverlayLayout.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(OverlayLayout::class, gtype) { OverlayLayout(it.reinterpret()) }
+        }
+        OverlayLayoutChild.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(OverlayLayoutChild::class, gtype) { OverlayLayoutChild(it.reinterpret()) }
+        }
+        PadController.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PadController::class, gtype) { PadController(it.reinterpret()) }
+        }
+        PageSetup.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PageSetup::class, gtype) { PageSetup(it.reinterpret()) }
+        }
+        PageSetupUnixDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PageSetupUnixDialog::class, gtype) { PageSetupUnixDialog(it.reinterpret()) }
+        }
+        Paned.getTypeOrNull()?.let { gtype -> TypeCache.register(Paned::class, gtype) { Paned(it.reinterpret()) } }
+        ParamSpecExpression.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ParamSpecExpression::class, gtype) { ParamSpecExpression(it.reinterpret()) }
+        }
+        PasswordEntry.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PasswordEntry::class, gtype) { PasswordEntry(it.reinterpret()) }
+        }
+        PasswordEntryBuffer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PasswordEntryBuffer::class, gtype) { PasswordEntryBuffer(it.reinterpret()) }
+        }
+        Picture.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Picture::class, gtype) { Picture(it.reinterpret()) }
+        }
+        Popover.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Popover::class, gtype) { Popover(it.reinterpret()) }
+        }
+        PopoverMenu.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PopoverMenu::class, gtype) { PopoverMenu(it.reinterpret()) }
+        }
+        PopoverMenuBar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PopoverMenuBar::class, gtype) { PopoverMenuBar(it.reinterpret()) }
+        }
+        PrintContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PrintContext::class, gtype) { PrintContext(it.reinterpret()) }
+        }
+        PrintDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PrintDialog::class, gtype) { PrintDialog(it.reinterpret()) }
+        }
+        PrintJob.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PrintJob::class, gtype) { PrintJob(it.reinterpret()) }
+        }
+        PrintOperation.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PrintOperation::class, gtype) { PrintOperation(it.reinterpret()) }
+        }
+        PrintSettings.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PrintSettings::class, gtype) { PrintSettings(it.reinterpret()) }
+        }
+        PrintUnixDialog.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PrintUnixDialog::class, gtype) { PrintUnixDialog(it.reinterpret()) }
+        }
+        Printer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Printer::class, gtype) { Printer(it.reinterpret()) }
+        }
+        ProgressBar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ProgressBar::class, gtype) { ProgressBar(it.reinterpret()) }
+        }
+        PropertyExpression.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PropertyExpression::class, gtype) { PropertyExpression(it.reinterpret()) }
+        }
+        Range.getTypeOrNull()?.let { gtype -> TypeCache.register(Range::class, gtype) { Range(it.reinterpret()) } }
+        RecentManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(RecentManager::class, gtype) { RecentManager(it.reinterpret()) }
+        }
+        Revealer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Revealer::class, gtype) { Revealer(it.reinterpret()) }
+        }
+        Scale.getTypeOrNull()?.let { gtype -> TypeCache.register(Scale::class, gtype) { Scale(it.reinterpret()) } }
+        ScaleButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ScaleButton::class, gtype) { ScaleButton(it.reinterpret()) }
+        }
+        Scrollbar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Scrollbar::class, gtype) { Scrollbar(it.reinterpret()) }
+        }
+        ScrolledWindow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ScrolledWindow::class, gtype) { ScrolledWindow(it.reinterpret()) }
+        }
+        SearchBar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SearchBar::class, gtype) { SearchBar(it.reinterpret()) }
+        }
+        SearchEntry.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SearchEntry::class, gtype) { SearchEntry(it.reinterpret()) }
+        }
+        SelectionFilterModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SelectionFilterModel::class, gtype) { SelectionFilterModel(it.reinterpret()) }
+        }
+        Separator.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Separator::class, gtype) { Separator(it.reinterpret()) }
+        }
+        Settings.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Settings::class, gtype) { Settings(it.reinterpret()) }
+        }
+        Shortcut.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Shortcut::class, gtype) { Shortcut(it.reinterpret()) }
+        }
+        ShortcutAction.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShortcutAction::class, gtype) { ShortcutAction.ShortcutActionImpl(it.reinterpret()) }
+        }
+        ShortcutController.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShortcutController::class, gtype) { ShortcutController(it.reinterpret()) }
+        }
+        ShortcutLabel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShortcutLabel::class, gtype) { ShortcutLabel(it.reinterpret()) }
+        }
+        ShortcutTrigger.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShortcutTrigger::class, gtype) { ShortcutTrigger.ShortcutTriggerImpl(it.reinterpret()) }
+        }
+        ShortcutsGroup.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShortcutsGroup::class, gtype) { ShortcutsGroup(it.reinterpret()) }
+        }
+        ShortcutsSection.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShortcutsSection::class, gtype) { ShortcutsSection(it.reinterpret()) }
+        }
+        ShortcutsShortcut.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShortcutsShortcut::class, gtype) { ShortcutsShortcut(it.reinterpret()) }
+        }
+        ShortcutsWindow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShortcutsWindow::class, gtype) { ShortcutsWindow(it.reinterpret()) }
+        }
+        SignalAction.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SignalAction::class, gtype) { SignalAction(it.reinterpret()) }
+        }
+        SignalListItemFactory.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SignalListItemFactory::class, gtype) { SignalListItemFactory(it.reinterpret()) }
+        }
+        SingleSelection.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SingleSelection::class, gtype) { SingleSelection(it.reinterpret()) }
+        }
+        SizeGroup.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SizeGroup::class, gtype) { SizeGroup(it.reinterpret()) }
+        }
+        SliceListModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SliceListModel::class, gtype) { SliceListModel(it.reinterpret()) }
+        }
+        Snapshot.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Snapshot::class, gtype) { Snapshot(it.reinterpret()) }
+        }
+        SortListModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SortListModel::class, gtype) { SortListModel(it.reinterpret()) }
+        }
+        Sorter.getTypeOrNull()?.let { gtype -> TypeCache.register(Sorter::class, gtype) { Sorter(it.reinterpret()) } }
+        SpinButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SpinButton::class, gtype) { SpinButton(it.reinterpret()) }
+        }
+        Spinner.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Spinner::class, gtype) { Spinner(it.reinterpret()) }
+        }
+        Stack.getTypeOrNull()?.let { gtype -> TypeCache.register(Stack::class, gtype) { Stack(it.reinterpret()) } }
+        StackPage.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StackPage::class, gtype) { StackPage(it.reinterpret()) }
+        }
+        StackSidebar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StackSidebar::class, gtype) { StackSidebar(it.reinterpret()) }
+        }
+        StackSwitcher.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StackSwitcher::class, gtype) { StackSwitcher(it.reinterpret()) }
+        }
+        Statusbar.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Statusbar::class, gtype) { Statusbar(it.reinterpret()) }
+        }
+        StringFilter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StringFilter::class, gtype) { StringFilter(it.reinterpret()) }
+        }
+        StringList.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StringList::class, gtype) { StringList(it.reinterpret()) }
+        }
+        StringObject.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StringObject::class, gtype) { StringObject(it.reinterpret()) }
+        }
+        StringSorter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StringSorter::class, gtype) { StringSorter(it.reinterpret()) }
+        }
+        StyleContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StyleContext::class, gtype) { StyleContext(it.reinterpret()) }
+        }
+        Switch.getTypeOrNull()?.let { gtype -> TypeCache.register(Switch::class, gtype) { Switch(it.reinterpret()) } }
+        Text.getTypeOrNull()?.let { gtype -> TypeCache.register(Text::class, gtype) { Text(it.reinterpret()) } }
+        TextBuffer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TextBuffer::class, gtype) { TextBuffer(it.reinterpret()) }
+        }
+        TextChildAnchor.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TextChildAnchor::class, gtype) { TextChildAnchor(it.reinterpret()) }
+        }
+        TextMark.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TextMark::class, gtype) { TextMark(it.reinterpret()) }
+        }
+        TextTag.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TextTag::class, gtype) { TextTag(it.reinterpret()) }
+        }
+        TextTagTable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TextTagTable::class, gtype) { TextTagTable(it.reinterpret()) }
+        }
+        TextView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TextView::class, gtype) { TextView(it.reinterpret()) }
+        }
+        ToggleButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ToggleButton::class, gtype) { ToggleButton(it.reinterpret()) }
+        }
+        Tooltip.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Tooltip::class, gtype) { Tooltip(it.reinterpret()) }
+        }
+        TreeExpander.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeExpander::class, gtype) { TreeExpander(it.reinterpret()) }
+        }
+        TreeListModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeListModel::class, gtype) { TreeListModel(it.reinterpret()) }
+        }
+        TreeListRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeListRow::class, gtype) { TreeListRow(it.reinterpret()) }
+        }
+        TreeListRowSorter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeListRowSorter::class, gtype) { TreeListRowSorter(it.reinterpret()) }
+        }
+        TreeModelFilter.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeModelFilter::class, gtype) { TreeModelFilter(it.reinterpret()) }
+        }
+        TreeModelSort.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeModelSort::class, gtype) { TreeModelSort(it.reinterpret()) }
+        }
+        TreeSelection.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeSelection::class, gtype) { TreeSelection(it.reinterpret()) }
+        }
+        TreeStore.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeStore::class, gtype) { TreeStore(it.reinterpret()) }
+        }
+        TreeView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeView::class, gtype) { TreeView(it.reinterpret()) }
+        }
+        TreeViewColumn.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeViewColumn::class, gtype) { TreeViewColumn(it.reinterpret()) }
+        }
+        UriLauncher.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(UriLauncher::class, gtype) { UriLauncher(it.reinterpret()) }
+        }
+        Video.getTypeOrNull()?.let { gtype -> TypeCache.register(Video::class, gtype) { Video(it.reinterpret()) } }
+        Viewport.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Viewport::class, gtype) { Viewport(it.reinterpret()) }
+        }
+        VolumeButton.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(VolumeButton::class, gtype) { VolumeButton(it.reinterpret()) }
+        }
+        Widget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Widget::class, gtype) { Widget.WidgetImpl(it.reinterpret()) }
+        }
+        WidgetPaintable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WidgetPaintable::class, gtype) { WidgetPaintable(it.reinterpret()) }
+        }
+        Window.getTypeOrNull()?.let { gtype -> TypeCache.register(Window::class, gtype) { Window(it.reinterpret()) } }
+        WindowControls.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WindowControls::class, gtype) { WindowControls(it.reinterpret()) }
+        }
+        WindowGroup.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WindowGroup::class, gtype) { WindowGroup(it.reinterpret()) }
+        }
+        WindowHandle.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WindowHandle::class, gtype) { WindowHandle(it.reinterpret()) }
+        }
+        Accessible.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Accessible::class, gtype) { Accessible.AccessibleImpl(it.reinterpret()) }
+        }
+        AccessibleRange.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AccessibleRange::class, gtype) { AccessibleRange.AccessibleRangeImpl(it.reinterpret()) }
+        }
+        AccessibleText.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AccessibleText::class, gtype) { AccessibleText.AccessibleTextImpl(it.reinterpret()) }
+        }
+        Actionable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Actionable::class, gtype) { Actionable.ActionableImpl(it.reinterpret()) }
+        }
+        AppChooser.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AppChooser::class, gtype) { AppChooser.AppChooserImpl(it.reinterpret()) }
+        }
+        Buildable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Buildable::class, gtype) { Buildable.BuildableImpl(it.reinterpret()) }
+        }
+        BuilderScope.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BuilderScope::class, gtype) { BuilderScope.BuilderScopeImpl(it.reinterpret()) }
+        }
+        CellEditable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellEditable::class, gtype) { CellEditable.CellEditableImpl(it.reinterpret()) }
+        }
+        CellLayout.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CellLayout::class, gtype) { CellLayout.CellLayoutImpl(it.reinterpret()) }
+        }
+        ColorChooser.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColorChooser::class, gtype) { ColorChooser.ColorChooserImpl(it.reinterpret()) }
+        }
+        ConstraintTarget.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ConstraintTarget::class, gtype) {
+                ConstraintTarget.ConstraintTargetImpl(it.reinterpret())
+            }
+        }
+        Editable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Editable::class, gtype) { Editable.EditableImpl(it.reinterpret()) }
+        }
+        FileChooser.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FileChooser::class, gtype) { FileChooser.FileChooserImpl(it.reinterpret()) }
+        }
+        FontChooser.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FontChooser::class, gtype) { FontChooser.FontChooserImpl(it.reinterpret()) }
+        }
+        Native.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Native::class, gtype) { Native.NativeImpl(it.reinterpret()) }
+        }
+        Orientable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Orientable::class, gtype) { Orientable.OrientableImpl(it.reinterpret()) }
+        }
+        PrintOperationPreview.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PrintOperationPreview::class, gtype) {
+                PrintOperationPreview.PrintOperationPreviewImpl(it.reinterpret())
+            }
+        }
+        Root.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Root::class, gtype) { Root.RootImpl(it.reinterpret()) }
+        }
+        Scrollable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Scrollable::class, gtype) { Scrollable.ScrollableImpl(it.reinterpret()) }
+        }
+        SectionModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SectionModel::class, gtype) { SectionModel.SectionModelImpl(it.reinterpret()) }
+        }
+        SelectionModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SelectionModel::class, gtype) { SelectionModel.SelectionModelImpl(it.reinterpret()) }
+        }
+        ShortcutManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShortcutManager::class, gtype) { ShortcutManager.ShortcutManagerImpl(it.reinterpret()) }
+        }
+        StyleProvider.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StyleProvider::class, gtype) { StyleProvider.StyleProviderImpl(it.reinterpret()) }
+        }
+        SymbolicPaintable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SymbolicPaintable::class, gtype) {
+                SymbolicPaintable.SymbolicPaintableImpl(it.reinterpret())
+            }
+        }
+        TreeDragDest.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeDragDest::class, gtype) { TreeDragDest.TreeDragDestImpl(it.reinterpret()) }
+        }
+        TreeDragSource.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeDragSource::class, gtype) { TreeDragSource.TreeDragSourceImpl(it.reinterpret()) }
+        }
+        TreeModel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeModel::class, gtype) { TreeModel.TreeModelImpl(it.reinterpret()) }
+        }
+        TreeSortable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TreeSortable::class, gtype) { TreeSortable.TreeSortableImpl(it.reinterpret()) }
+        }
+    }
 }
 
 public val AssistantPageFuncFunc: CPointer<CFunction<(gint) -> gint>> = staticCFunction {
@@ -1882,7 +2824,7 @@ public val CellAllocCallbackFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         renderer!!.run {
-            CellRenderer.CellRendererImpl(this)
+            InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
         },
         cellArea!!.run {
             Rectangle(this)
@@ -1901,7 +2843,7 @@ public val CellCallbackFunc: CPointer<CFunction<(CPointer<GtkCellRenderer>) -> g
         ->
         data!!.asStableRef<(renderer: CellRenderer) -> Boolean>().get().invoke(
             renderer!!.run {
-                CellRenderer.CellRendererImpl(this)
+                InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
             }
         ).asGBoolean()
     }
@@ -1935,7 +2877,7 @@ public val CellLayoutDataFuncFunc: CPointer<
             CellLayout.CellLayoutImpl(reinterpret())
         },
         cell!!.run {
-            CellRenderer.CellRendererImpl(this)
+            InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
         },
         treeModel!!.run {
             TreeModel.TreeModelImpl(reinterpret())
@@ -1954,7 +2896,7 @@ public val CustomFilterFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> gbool
         ->
         userData!!.asStableRef<(item: Object) -> Boolean>().get().invoke(
             item!!.run {
-                Object(reinterpret())
+                InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
             }
         ).asGBoolean()
     }
@@ -1985,7 +2927,7 @@ public val DrawingAreaDrawFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         drawingArea!!.run {
-            DrawingArea(this)
+            InstanceCache.get(this, false) { DrawingArea(reinterpret()) }!!
         },
         cr!!.run {
             Context(this)
@@ -2018,7 +2960,7 @@ public val EntryCompletionMatchFuncFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         completion!!.run {
-            EntryCompletion(this)
+            InstanceCache.get(this, false) { EntryCompletion(reinterpret()) }!!
         },
         key?.toKString() ?: error("Expected not null string"),
         iter!!.run {
@@ -2040,7 +2982,7 @@ public val FlowBoxCreateWidgetFuncFunc:
         ->
         userData!!.asStableRef<(item: Object) -> Widget>().get().invoke(
             item!!.run {
-                Object(reinterpret())
+                InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
             }
         ).gtkWidgetPointer
     }
@@ -2053,7 +2995,7 @@ public val FlowBoxFilterFuncFunc: CPointer<CFunction<(CPointer<GtkFlowBoxChild>)
         ->
         userData!!.asStableRef<(child: FlowBoxChild) -> Boolean>().get().invoke(
             child!!.run {
-                FlowBoxChild(this)
+                InstanceCache.get(this, false) { FlowBoxChild(reinterpret()) }!!
             }
         ).asGBoolean()
     }
@@ -2068,10 +3010,10 @@ public val FlowBoxForeachFuncFunc:
         ->
         userData!!.asStableRef<(box: FlowBox, child: FlowBoxChild) -> Unit>().get().invoke(
             box!!.run {
-                FlowBox(this)
+                InstanceCache.get(this, false) { FlowBox(reinterpret()) }!!
             },
             child!!.run {
-                FlowBoxChild(this)
+                InstanceCache.get(this, false) { FlowBoxChild(reinterpret()) }!!
             }
         )
     }
@@ -2086,10 +3028,10 @@ public val FlowBoxSortFuncFunc:
         ->
         userData!!.asStableRef<(child1: FlowBoxChild, child2: FlowBoxChild) -> gint>().get().invoke(
             child1!!.run {
-                FlowBoxChild(this)
+                InstanceCache.get(this, false) { FlowBoxChild(reinterpret()) }!!
             },
             child2!!.run {
-                FlowBoxChild(this)
+                InstanceCache.get(this, false) { FlowBoxChild(reinterpret()) }!!
             }
         )
     }
@@ -2104,10 +3046,10 @@ public val FontFilterFuncFunc:
         ->
         data!!.asStableRef<(family: FontFamily, face: FontFace) -> Boolean>().get().invoke(
             family!!.run {
-                FontFamily.FontFamilyImpl(this)
+                InstanceCache.get(this, false) { FontFamily.FontFamilyImpl(reinterpret()) }!!
             },
             face!!.run {
-                FontFace.FontFaceImpl(this)
+                InstanceCache.get(this, false) { FontFace.FontFaceImpl(reinterpret()) }!!
             }
         ).asGBoolean()
     }
@@ -2122,7 +3064,7 @@ public val IconViewForeachFuncFunc:
         ->
         data!!.asStableRef<(iconView: IconView, path: TreePath) -> Unit>().get().invoke(
             iconView!!.run {
-                IconView(this)
+                InstanceCache.get(this, false) { IconView(reinterpret()) }!!
             },
             path!!.run {
                 TreePath(this)
@@ -2138,7 +3080,7 @@ public val ListBoxCreateWidgetFuncFunc:
         ->
         userData!!.asStableRef<(item: Object) -> Widget>().get().invoke(
             item!!.run {
-                Object(reinterpret())
+                InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
             }
         ).gtkWidgetPointer
     }
@@ -2151,7 +3093,7 @@ public val ListBoxFilterFuncFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>) -
         ->
         userData!!.asStableRef<(row: ListBoxRow) -> Boolean>().get().invoke(
             row!!.run {
-                ListBoxRow(this)
+                InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
             }
         ).asGBoolean()
     }
@@ -2166,10 +3108,10 @@ public val ListBoxForeachFuncFunc:
         ->
         userData!!.asStableRef<(box: ListBox, row: ListBoxRow) -> Unit>().get().invoke(
             box!!.run {
-                ListBox(this)
+                InstanceCache.get(this, false) { ListBox(reinterpret()) }!!
             },
             row!!.run {
-                ListBoxRow(this)
+                InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
             }
         )
     }
@@ -2184,10 +3126,10 @@ public val ListBoxSortFuncFunc:
         ->
         userData!!.asStableRef<(row1: ListBoxRow, row2: ListBoxRow) -> gint>().get().invoke(
             row1!!.run {
-                ListBoxRow(this)
+                InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
             },
             row2!!.run {
-                ListBoxRow(this)
+                InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
             }
         )
     }
@@ -2202,10 +3144,10 @@ public val ListBoxUpdateHeaderFuncFunc:
         ->
         userData!!.asStableRef<(row: ListBoxRow, before: ListBoxRow?) -> Unit>().get().invoke(
             row!!.run {
-                ListBoxRow(this)
+                InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
             },
             before?.run {
-                ListBoxRow(this)
+                InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
             }
         )
     }
@@ -2218,7 +3160,7 @@ public val MapListModelMapFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> CP
         ->
         userData!!.asStableRef<(item: Object) -> Object>().get().invoke(
             item!!.run {
-                Object(reinterpret())
+                InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
             }
         ).gobjectObjectPointer
     }
@@ -2231,7 +3173,7 @@ public val MenuButtonCreatePopupFuncFunc: CPointer<CFunction<(CPointer<GtkMenuBu
         ->
         userData!!.asStableRef<(menuButton: MenuButton) -> Unit>().get().invoke(
             menuButton!!.run {
-                MenuButton(this)
+                InstanceCache.get(this, false) { MenuButton(reinterpret()) }!!
             }
         )
     }
@@ -2244,7 +3186,7 @@ public val PageSetupDoneFuncFunc: CPointer<CFunction<(CPointer<GtkPageSetup>) ->
         ->
         data!!.asStableRef<(pageSetup: PageSetup) -> Unit>().get().invoke(
             pageSetup!!.run {
-                PageSetup(this)
+                InstanceCache.get(this, false) { PageSetup(reinterpret()) }!!
             }
         )
     }
@@ -2259,7 +3201,7 @@ public val PrintJobCompleteFuncFunc:
         ->
         userData!!.asStableRef<(printJob: PrintJob, error: Error) -> Unit>().get().invoke(
             printJob!!.run {
-                PrintJob(this)
+                InstanceCache.get(this, false) { PrintJob(reinterpret()) }!!
             },
             error!!.run {
                 Error(this)
@@ -2288,7 +3230,7 @@ public val PrinterFuncFunc: CPointer<CFunction<(CPointer<GtkPrinter>) -> gboolea
         ->
         data!!.asStableRef<(printer: Printer) -> Boolean>().get().invoke(
             printer!!.run {
-                Printer(this)
+                InstanceCache.get(this, false) { Printer(reinterpret()) }!!
             }
         ).asGBoolean()
     }
@@ -2302,7 +3244,7 @@ public val ScaleFormatValueFuncFunc:
         ->
         userData!!.asStableRef<(scale: Scale, `value`: gdouble) -> String>().get().invoke(
             scale!!.run {
-                Scale(this)
+                InstanceCache.get(this, false) { Scale(reinterpret()) }!!
             },
             `value`
         ).let { g_strdup(it) }
@@ -2318,7 +3260,7 @@ public val ShortcutFuncFunc:
         ->
         userData!!.asStableRef<(widget: Widget, args: Variant?) -> Boolean>().get().invoke(
             widget!!.run {
-                Widget.WidgetImpl(this)
+                InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
             },
             args?.run {
                 Variant(this)
@@ -2342,7 +3284,7 @@ public val TextTagTableForeachFunc: CPointer<CFunction<(CPointer<GtkTextTag>) ->
         ->
         data!!.asStableRef<(tag: TextTag) -> Unit>().get().invoke(
             tag!!.run {
-                TextTag(this)
+                InstanceCache.get(this, false) { TextTag(reinterpret()) }!!
             }
         )
     }
@@ -2357,10 +3299,10 @@ public val TickCallbackFunc:
         ->
         userData!!.asStableRef<(widget: Widget, frameClock: FrameClock) -> Boolean>().get().invoke(
             widget!!.run {
-                Widget.WidgetImpl(this)
+                InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
             },
             frameClock!!.run {
-                FrameClock.FrameClockImpl(this)
+                InstanceCache.get(this, false) { FrameClock.FrameClockImpl(reinterpret()) }!!
             }
         ).asGBoolean()
     }
@@ -2391,10 +3333,10 @@ public val TreeCellDataFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         treeColumn!!.run {
-            TreeViewColumn(this)
+            InstanceCache.get(this, false) { TreeViewColumn(reinterpret()) }!!
         },
         cell!!.run {
-            CellRenderer.CellRendererImpl(this)
+            InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
         },
         treeModel!!.run {
             TreeModel.TreeModelImpl(reinterpret())
@@ -2447,7 +3389,7 @@ public val TreeListModelCreateModelFuncFunc:
         ->
         userData!!.asStableRef<(item: Object) -> ListModel?>().get().invoke(
             item!!.run {
-                Object(reinterpret())
+                InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
             }
         )?.gioListModelPointer
     }
@@ -2602,7 +3544,7 @@ public val TreeSelectionFuncFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         selection!!.run {
-            TreeSelection(this)
+            InstanceCache.get(this, false) { TreeSelection(reinterpret()) }!!
         },
         model!!.run {
             TreeModel.TreeModelImpl(reinterpret())
@@ -2640,16 +3582,16 @@ public val TreeViewColumnDropFuncFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         treeView!!.run {
-            TreeView(this)
+            InstanceCache.get(this, false) { TreeView(reinterpret()) }!!
         },
         column!!.run {
-            TreeViewColumn(this)
+            InstanceCache.get(this, false) { TreeViewColumn(reinterpret()) }!!
         },
         prevColumn!!.run {
-            TreeViewColumn(this)
+            InstanceCache.get(this, false) { TreeViewColumn(reinterpret()) }!!
         },
         nextColumn!!.run {
-            TreeViewColumn(this)
+            InstanceCache.get(this, false) { TreeViewColumn(reinterpret()) }!!
         }
     ).asGBoolean()
 }
@@ -2664,7 +3606,7 @@ public val TreeViewMappingFuncFunc:
         ->
         userData!!.asStableRef<(treeView: TreeView, path: TreePath) -> Unit>().get().invoke(
             treeView!!.run {
-                TreeView(this)
+                InstanceCache.get(this, false) { TreeView(reinterpret()) }!!
             },
             path!!.run {
                 TreePath(this)
@@ -2749,7 +3691,7 @@ public val WidgetActionActivateFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         widget!!.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
         },
         actionName?.toKString() ?: error("Expected not null string"),
         parameter?.run {

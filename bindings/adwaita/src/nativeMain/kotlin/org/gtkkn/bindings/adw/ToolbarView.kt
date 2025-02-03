@@ -7,12 +7,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwToolbarView
 import org.gtkkn.native.adw.adw_toolbar_view_add_bottom_bar
 import org.gtkkn.native.adw.adw_toolbar_view_add_top_bar
@@ -148,6 +148,10 @@ import kotlin.Unit
 public class ToolbarView(public val adwToolbarViewPointer: CPointer<AdwToolbarView>) :
     Widget(adwToolbarViewPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -268,7 +272,7 @@ public class ToolbarView(public val adwToolbarViewPointer: CPointer<AdwToolbarVi
          * @since 1.4
          */
         get() = adw_toolbar_view_get_content(adwToolbarViewPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -532,7 +536,9 @@ public class ToolbarView(public val adwToolbarViewPointer: CPointer<AdwToolbarVi
      * @return the newly created `AdwToolbarView`
      * @since 1.4
      */
-    public constructor() : this(adw_toolbar_view_new()!!.reinterpret())
+    public constructor() : this(adw_toolbar_view_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a bottom bar to @self.
@@ -565,7 +571,7 @@ public class ToolbarView(public val adwToolbarViewPointer: CPointer<AdwToolbarVi
 
     public companion object : TypeCompanion<ToolbarView> {
         override val type: GeneratedClassKGType<ToolbarView> =
-            GeneratedClassKGType(getTypeOrNull("adw_toolbar_view_get_type")!!) { ToolbarView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ToolbarView(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -577,5 +583,16 @@ public class ToolbarView(public val adwToolbarViewPointer: CPointer<AdwToolbarVi
          * @return the GType
          */
         public fun getType(): GType = adw_toolbar_view_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_toolbar_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_toolbar_view_get_type")
     }
 }

@@ -15,13 +15,13 @@ import org.gtkkn.bindings.gdk.Glapi
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkGLContext
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
@@ -171,6 +171,10 @@ import kotlin.Unit
 public open class GlArea(public val gtkGlAreaPointer: CPointer<GtkGLArea>) :
     Widget(gtkGlAreaPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -283,7 +287,7 @@ public open class GlArea(public val gtkGlAreaPointer: CPointer<GtkGLArea>) :
          * @return the `GdkGLContext`
          */
         get() = gtk_gl_area_get_context(gtkGlAreaPointer)?.run {
-            GlContext.GlContextImpl(this)
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!
         }
 
     /**
@@ -337,11 +341,25 @@ public open class GlArea(public val gtkGlAreaPointer: CPointer<GtkGLArea>) :
         set(hasStencilBuffer) = gtk_gl_area_set_has_stencil_buffer(gtkGlAreaPointer, hasStencilBuffer.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [property@Gtk.GLArea:allowed-apis]
+     * ---
+     *
      * If set to true the widget will try to create a `GdkGLContext` using
      * OpenGL ES instead of OpenGL.
      */
     public open var useEs: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.12.
+         *
+         * Use [method@Gtk.GLArea.get_api]
+         * ---
+         *
          * Returns whether the `GtkGLArea` should use OpenGL ES.
          *
          * See [method@Gtk.GLArea.set_use_es].
@@ -352,6 +370,13 @@ public open class GlArea(public val gtkGlAreaPointer: CPointer<GtkGLArea>) :
         get() = gtk_gl_area_get_use_es(gtkGlAreaPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.12.
+         *
+         * Use [method@Gtk.GLArea.set_allowed_apis]
+         * ---
+         *
          * Sets whether the @area should create an OpenGL or an OpenGL ES context.
          *
          * You should check the capabilities of the `GdkGLContext` before drawing
@@ -366,7 +391,9 @@ public open class GlArea(public val gtkGlAreaPointer: CPointer<GtkGLArea>) :
      *
      * @return a new `GtkGLArea`
      */
-    public constructor() : this(gtk_gl_area_new()!!.reinterpret())
+    public constructor() : this(gtk_gl_area_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Binds buffers to the framebuffer.
@@ -524,7 +551,7 @@ public open class GlArea(public val gtkGlAreaPointer: CPointer<GtkGLArea>) :
 
     public companion object : TypeCompanion<GlArea> {
         override val type: GeneratedClassKGType<GlArea> =
-            GeneratedClassKGType(getTypeOrNull("gtk_gl_area_get_type")!!) { GlArea(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { GlArea(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -536,6 +563,16 @@ public open class GlArea(public val gtkGlAreaPointer: CPointer<GtkGLArea>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_gl_area_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_gl_area_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_gl_area_get_type")
     }
 }
 
@@ -556,7 +593,7 @@ private val onRenderFunc: CPointer<CFunction<(CPointer<GdkGLContext>) -> gboolea
         ->
         userData.asStableRef<(context: GlContext) -> Boolean>().get().invoke(
             context!!.run {
-                GlContext.GlContextImpl(this)
+                InstanceCache.get(this, false) { GlContext.GlContextImpl(reinterpret()) }!!
             }
         ).asGBoolean()
     }

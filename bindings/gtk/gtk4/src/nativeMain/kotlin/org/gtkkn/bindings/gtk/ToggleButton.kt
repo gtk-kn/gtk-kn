@@ -11,13 +11,13 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -123,6 +123,10 @@ import kotlin.Unit
 public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkToggleButton>) :
     Button(gtkToggleButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -169,7 +173,9 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
      *
      * @return a new toggle button.
      */
-    public constructor() : this(gtk_toggle_button_new()!!.reinterpret())
+    public constructor() : this(gtk_toggle_button_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new toggle button with a text label.
@@ -177,7 +183,9 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
      * @param label a string containing the message to be placed in the toggle button.
      * @return a new toggle button.
      */
-    public constructor(label: String) : this(gtk_toggle_button_new_with_label(label)!!.reinterpret())
+    public constructor(label: String) : this(gtk_toggle_button_new_with_label(label)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @self to the group of @group.
@@ -199,6 +207,13 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
         gtk_toggle_button_set_group(gtkToggleButtonPointer, group?.gtkToggleButtonPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * There is no good reason for an application ever to call this function.
+     * ---
+     *
      * Emits the ::toggled signal on the `GtkToggleButton`.
      */
     public open fun toggled(): Unit = gtk_toggle_button_toggled(gtkToggleButtonPointer)
@@ -228,20 +243,29 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
 
     public companion object : TypeCompanion<ToggleButton> {
         override val type: GeneratedClassKGType<ToggleButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_toggle_button_get_type")!!) { ToggleButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ToggleButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
 
         /**
-         * Creates a new toggle button with a text label.
+         * Get the GType of ToggleButton
          *
-         * @param label a string containing the message to be placed in the toggle button.
-         * @return a new toggle button.
+         * @return the GType
          */
-        public fun newWithLabel(label: String): ToggleButton =
-            ToggleButton(gtk_toggle_button_new_with_label(label)!!.reinterpret())
+        public fun getType(): GType = gtk_toggle_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_toggle_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_toggle_button_get_type")
 
         /**
          * Creates a new `GtkToggleButton` containing a label.
@@ -253,15 +277,10 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
          *   mnemonic character
          * @return a new `GtkToggleButton`
          */
-        public fun newWithMnemonic(label: String): ToggleButton =
-            ToggleButton(gtk_toggle_button_new_with_mnemonic(label)!!.reinterpret())
-
-        /**
-         * Get the GType of ToggleButton
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_toggle_button_get_type()
+        public fun withMnemonic(label: String): ToggleButton =
+            ToggleButton(gtk_toggle_button_new_with_mnemonic(label)!!.reinterpret()).apply {
+                InstanceCache.put(this)
+            }
     }
 }
 

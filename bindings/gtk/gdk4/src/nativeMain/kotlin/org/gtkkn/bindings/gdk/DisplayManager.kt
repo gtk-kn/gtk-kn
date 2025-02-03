@@ -13,11 +13,11 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDisplay
 import org.gtkkn.native.gdk.GdkDisplayManager
 import org.gtkkn.native.gdk.gdk_display_manager_get
@@ -84,6 +84,10 @@ import kotlin.Unit
 public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<GdkDisplayManager>) :
     Object(gdkDisplayManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Gets the default `GdkDisplay`.
      *
@@ -91,7 +95,7 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
      */
     public open fun getDefaultDisplay(): Display? =
         gdk_display_manager_get_default_display(gdkDisplayManagerPointer)?.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -113,7 +117,7 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
      */
     public open fun openDisplay(name: String? = null): Display? =
         gdk_display_manager_open_display(gdkDisplayManagerPointer, name)?.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -153,9 +157,7 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
 
     public companion object : TypeCompanion<DisplayManager> {
         override val type: GeneratedClassKGType<DisplayManager> =
-            GeneratedClassKGType(getTypeOrNull("gdk_display_manager_get_type")!!) {
-                DisplayManager(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { DisplayManager(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -175,7 +177,7 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
          * @return The global `GdkDisplayManager` singleton
          */
         public fun `get`(): DisplayManager = gdk_display_manager_get()!!.run {
-            DisplayManager(this)
+            InstanceCache.get(this, true) { DisplayManager(reinterpret()) }!!
         }
 
         /**
@@ -184,6 +186,17 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gdk_display_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_display_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_display_manager_get_type")
     }
 }
 
@@ -195,7 +208,7 @@ private val onDisplayOpenedFunc: CPointer<CFunction<(CPointer<GdkDisplay>) -> Un
         ->
         userData.asStableRef<(display: Display) -> Unit>().get().invoke(
             display!!.run {
-                Display(this)
+                InstanceCache.get(this, false) { Display(reinterpret()) }!!
             }
         )
     }

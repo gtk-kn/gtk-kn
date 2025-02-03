@@ -8,10 +8,10 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Surface
 import org.gtkkn.bindings.gsk.Renderer
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.gtk_native_get_for_surface
@@ -54,7 +54,7 @@ public interface Native :
      * @return the renderer for @self
      */
     public fun getRenderer(): Renderer? = gtk_native_get_renderer(gtkNativePointer)?.run {
-        Renderer.RendererImpl(this)
+        InstanceCache.get(this, true) { Renderer.RendererImpl(reinterpret()) }!!
     }
 
     /**
@@ -63,7 +63,7 @@ public interface Native :
      * @return the surface of @self
      */
     public fun getSurface(): Surface? = gtk_native_get_surface(gtkNativePointer)?.run {
-        Surface.SurfaceImpl(this)
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
     }
 
     /**
@@ -85,13 +85,19 @@ public interface Native :
      *
      * @constructor Creates a new instance of Native for the provided [CPointer].
      */
-    public data class NativeImpl(override val gtkNativePointer: CPointer<GtkNative>) :
+    public class NativeImpl(gtkNativePointer: CPointer<GtkNative>) :
         Widget(gtkNativePointer.reinterpret()),
-        Native
+        Native {
+        init {
+            Gtk
+        }
+
+        override val gtkNativePointer: CPointer<GtkNative> = gtkNativePointer
+    }
 
     public companion object : TypeCompanion<Native> {
         override val type: GeneratedInterfaceKGType<Native> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_native_get_type")!!) { NativeImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { NativeImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -114,5 +120,15 @@ public interface Native :
          * @return the GType
          */
         public fun getType(): GType = gtk_native_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_native_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_native_get_type")
     }
 }

@@ -23,15 +23,15 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSettings
 import org.gtkkn.native.gio.g_settings_apply
 import org.gtkkn.native.gio.g_settings_bind
@@ -405,6 +405,10 @@ import kotlin.collections.List
 public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
     Object(gioSettingsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * If this property is true, the #GSettings object has outstanding
      * changes that will be applied when g_settings_apply() is called.
@@ -438,7 +442,9 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
      * @return a new #GSettings object
      * @since 2.26
      */
-    public constructor(schemaId: String) : this(g_settings_new(schemaId)!!.reinterpret())
+    public constructor(schemaId: String) : this(g_settings_new(schemaId)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSettings object with a given schema, backend and
@@ -475,9 +481,9 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
         schema: SettingsSchema,
         backend: SettingsBackend? = null,
         path: String? = null,
-    ) : this(
-        g_settings_new_full(schema.gioSettingsSchemaPointer, backend?.gioSettingsBackendPointer, path)!!.reinterpret()
-    )
+    ) : this(g_settings_new_full(schema.gioSettingsSchemaPointer, backend?.gioSettingsBackendPointer, path)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSettings object with the schema specified by
@@ -497,7 +503,9 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
     public constructor(
         schemaId: String,
         backend: SettingsBackend,
-    ) : this(g_settings_new_with_backend(schemaId, backend.gioSettingsBackendPointer)!!.reinterpret())
+    ) : this(g_settings_new_with_backend(schemaId, backend.gioSettingsBackendPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSettings object with the schema specified by
@@ -516,7 +524,9 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
         schemaId: String,
         backend: SettingsBackend,
         path: String,
-    ) : this(g_settings_new_with_backend_and_path(schemaId, backend.gioSettingsBackendPointer, path)!!.reinterpret())
+    ) : this(g_settings_new_with_backend_and_path(schemaId, backend.gioSettingsBackendPointer, path)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSettings object with the relocatable schema specified
@@ -538,7 +548,9 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
      * @return a new #GSettings object
      * @since 2.26
      */
-    public constructor(schemaId: String, path: String) : this(g_settings_new_with_path(schemaId, path)!!.reinterpret())
+    public constructor(schemaId: String, path: String) : this(g_settings_new_with_path(schemaId, path)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Applies any changes that have been made to the settings.  This
@@ -682,7 +694,7 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
      */
     @GioVersion2_26
     public open fun getChild(name: String): Settings = g_settings_get_child(gioSettingsPointer, name)!!.run {
-        Settings(this)
+        InstanceCache.get(this, true) { Settings(reinterpret()) }!!
     }
 
     /**
@@ -847,6 +859,13 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.40.
+     *
+     * Use g_settings_schema_key_get_range() instead.
+     * ---
+     *
      * Queries the range of a key.
      *
      * @param key the key to query the range of
@@ -995,6 +1014,13 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
         g_settings_list_children(gioSettingsPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use g_settings_schema_list_keys() instead.
+     * ---
+     *
      * Introspects the list of keys on @settings.
      *
      * You should probably not be calling this function from "normal" code
@@ -1011,6 +1037,13 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
         g_settings_list_keys(gioSettingsPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.40.
+     *
+     * Use g_settings_schema_key_range_check() instead.
+     * ---
+     *
      * Checks if the given @value is of the correct type and within the
      * permitted range for @key.
      *
@@ -1379,13 +1412,20 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-            GeneratedClassKGType(getTypeOrNull("g_settings_get_type")!!) { Settings(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Settings(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.40.
+         *
+         * Use g_settings_schema_source_list_schemas() instead
+         * ---
+         *
          * Deprecated.
          *
          * @return a list of
@@ -1398,6 +1438,16 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
             g_settings_list_relocatable_schemas()?.toKStringList() ?: error("Expected not null string array")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.40.
+         *
+         * Use g_settings_schema_source_list_schemas() instead.
+         * If you used g_settings_list_schemas() to check for the presence of
+         * a particular schema, use g_settings_schema_source_lookup() instead
+         * of your whole loop.
+         * ---
+         *
          * Deprecated.
          *
          * @return a list of
@@ -1444,6 +1494,16 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
          * @return the GType
          */
         public fun getType(): GType = g_settings_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_settings_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_settings_get_type")
     }
 }
 

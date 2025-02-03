@@ -13,12 +13,11 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -35,6 +34,14 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * There is no replacement for this interface. You should
+ *   use [class@Gtk.SortListModel] to wrap your list model instead
+ * ---
+ *
  * The interface for sortable models used by GtkTreeView
  *
  * `GtkTreeSortable` is an interface to be implemented by tree models which
@@ -55,6 +62,11 @@ public interface TreeSortable :
         get() = gtkTreeSortablePointer.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns true if the model has a default sort function. This is used
      * primarily by GtkTreeViewColumns in order to determine if a model can
      * go back to the default state, or not.
@@ -65,6 +77,11 @@ public interface TreeSortable :
         gtk_tree_sortable_has_default_sort_func(gtkTreeSortablePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the default comparison function used when sorting to be @sort_func.
      * If the current sort column id of @sortable is
      * %GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, then the model will sort using
@@ -85,6 +102,11 @@ public interface TreeSortable :
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the current sort column to be @sort_column_id. The @sortable will
      * resort itself to reflect this change, after emitting a
      * `GtkTreeSortable::sort-column-changed` signal. @sort_column_id may either be
@@ -102,6 +124,11 @@ public interface TreeSortable :
         gtk_tree_sortable_set_sort_column_id(gtkTreeSortablePointer, sortColumnId, order.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the comparison function used when sorting to be @sort_func. If the
      * current sort column id of @sortable is the same as @sort_column_id, then
      * the model will sort using this function.
@@ -118,6 +145,11 @@ public interface TreeSortable :
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits a `GtkTreeSortable::sort-column-changed` signal on @sortable.
      */
     public fun sortColumnChanged(): Unit = gtk_tree_sortable_sort_column_changed(gtkTreeSortablePointer)
@@ -145,15 +177,19 @@ public interface TreeSortable :
      *
      * @constructor Creates a new instance of TreeSortable for the provided [CPointer].
      */
-    public data class TreeSortableImpl(override val gtkTreeSortablePointer: CPointer<GtkTreeSortable>) :
+    public class TreeSortableImpl(gtkTreeSortablePointer: CPointer<GtkTreeSortable>) :
         Object(gtkTreeSortablePointer.reinterpret()),
-        TreeSortable
+        TreeSortable {
+        init {
+            Gtk
+        }
+
+        override val gtkTreeSortablePointer: CPointer<GtkTreeSortable> = gtkTreeSortablePointer
+    }
 
     public companion object : TypeCompanion<TreeSortable> {
         override val type: GeneratedInterfaceKGType<TreeSortable> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_sortable_get_type")!!) {
-                TreeSortableImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { TreeSortableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -165,6 +201,17 @@ public interface TreeSortable :
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_sortable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_sortable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_sortable_get_type")
     }
 }
 

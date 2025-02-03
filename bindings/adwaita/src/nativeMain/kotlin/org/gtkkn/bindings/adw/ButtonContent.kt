@@ -8,12 +8,12 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwButtonContent
 import org.gtkkn.native.adw.adw_button_content_get_can_shrink
 import org.gtkkn.native.adw.adw_button_content_get_icon_name
@@ -84,6 +84,10 @@ import kotlin.String
 public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButtonContent>) :
     Widget(adwButtonContentPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -197,11 +201,13 @@ public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButto
      *
      * @return the new created `AdwButtonContent`
      */
-    public constructor() : this(adw_button_content_new()!!.reinterpret())
+    public constructor() : this(adw_button_content_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ButtonContent> {
         override val type: GeneratedClassKGType<ButtonContent> =
-            GeneratedClassKGType(getTypeOrNull("adw_button_content_get_type")!!) { ButtonContent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ButtonContent(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -213,5 +219,16 @@ public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButto
          * @return the GType
          */
         public fun getType(): GType = adw_button_content_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_button_content_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_button_content_get_type")
     }
 }

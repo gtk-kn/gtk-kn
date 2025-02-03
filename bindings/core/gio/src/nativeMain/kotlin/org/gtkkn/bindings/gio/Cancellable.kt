@@ -24,12 +24,12 @@ import org.gtkkn.bindings.gobject.Callback
 import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GCancellable
 import org.gtkkn.native.gio.g_cancellable_cancel
 import org.gtkkn.native.gio.g_cancellable_connect
@@ -67,6 +67,10 @@ import kotlin.Unit
 public open class Cancellable(public val gioCancellablePointer: CPointer<GCancellable>) :
     Object(gioCancellablePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GCancellable object.
      *
@@ -79,7 +83,9 @@ public open class Cancellable(public val gioCancellablePointer: CPointer<GCancel
      *
      * @return a #GCancellable.
      */
-    public constructor() : this(g_cancellable_new()!!.reinterpret())
+    public constructor() : this(g_cancellable_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Will set @cancellable to cancelled, and will emit the
@@ -372,7 +378,7 @@ public open class Cancellable(public val gioCancellablePointer: CPointer<GCancel
 
     public companion object : TypeCompanion<Cancellable> {
         override val type: GeneratedClassKGType<Cancellable> =
-            GeneratedClassKGType(getTypeOrNull("g_cancellable_get_type")!!) { Cancellable(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Cancellable(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -385,7 +391,7 @@ public open class Cancellable(public val gioCancellablePointer: CPointer<GCancel
          * of the stack, or null if the stack is empty.
          */
         public fun getCurrent(): Cancellable? = g_cancellable_get_current()?.run {
-            Cancellable(this)
+            InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!
         }
 
         /**
@@ -394,6 +400,17 @@ public open class Cancellable(public val gioCancellablePointer: CPointer<GCancel
          * @return the GType
          */
         public fun getType(): GType = g_cancellable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_cancellable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_cancellable_get_type")
     }
 }
 

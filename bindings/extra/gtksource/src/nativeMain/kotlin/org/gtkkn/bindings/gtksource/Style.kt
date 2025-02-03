@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextTag
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceStyle
 import org.gtkkn.native.gtksource.gtk_source_style_apply
@@ -50,6 +50,10 @@ import kotlin.Unit
 public open class Style(public val gtksourceStylePointer: CPointer<GtkSourceStyle>) :
     Object(gtksourceStylePointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * This function modifies the [class@Gtk.TextTag] properties that are related to the
      * #GtkSourceStyle properties. Other [class@Gtk.TextTag] properties are left untouched.
@@ -71,15 +75,15 @@ public open class Style(public val gtksourceStylePointer: CPointer<GtkSourceStyl
      * when you are done with it.
      */
     public open fun copy(): Style = gtk_source_style_copy(gtksourceStylePointer)!!.run {
-        Style(this)
+        InstanceCache.get(this, true) { Style(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<Style> {
         override val type: GeneratedClassKGType<Style> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_style_get_type")!!) { Style(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Style(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -88,5 +92,16 @@ public open class Style(public val gtksourceStylePointer: CPointer<GtkSourceStyl
          * @return the GType
          */
         public fun getType(): GType = gtk_source_style_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_style_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_style_get_type")
     }
 }

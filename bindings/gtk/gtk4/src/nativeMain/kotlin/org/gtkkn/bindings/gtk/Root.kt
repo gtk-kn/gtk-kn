@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.GtkRoot
@@ -50,7 +50,7 @@ public interface Root :
      * @return the display of @root
      */
     public fun getRootDisplay(): Display = gtk_root_get_display(gtkRootPointer)!!.run {
-        Display(this)
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!
     }
 
     /**
@@ -64,7 +64,7 @@ public interface Root :
      * @return the currently focused widget
      */
     public fun getFocus(): Widget? = gtk_root_get_focus(gtkRootPointer)?.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -87,13 +87,19 @@ public interface Root :
      *
      * @constructor Creates a new instance of Root for the provided [CPointer].
      */
-    public data class RootImpl(override val gtkRootPointer: CPointer<GtkRoot>) :
+    public class RootImpl(gtkRootPointer: CPointer<GtkRoot>) :
         Widget(gtkRootPointer.reinterpret()),
-        Root
+        Root {
+        init {
+            Gtk
+        }
+
+        override val gtkRootPointer: CPointer<GtkRoot> = gtkRootPointer
+    }
 
     public companion object : TypeCompanion<Root> {
         override val type: GeneratedInterfaceKGType<Root> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_root_get_type")!!) { RootImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { RootImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -105,5 +111,15 @@ public interface Root :
          * @return the GType
          */
         public fun getType(): GType = gtk_root_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_root_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_root_get_type")
     }
 }

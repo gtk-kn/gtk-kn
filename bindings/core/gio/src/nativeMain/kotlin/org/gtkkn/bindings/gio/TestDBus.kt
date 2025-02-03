@@ -8,10 +8,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTestDBus
 import org.gtkkn.native.gio.g_test_dbus_add_service_dir
 import org.gtkkn.native.gio.g_test_dbus_down
@@ -112,6 +112,10 @@ import kotlin.Unit
 public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
     Object(gioTestDBusPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * #GTestDBusFlags specifying the behaviour of the D-Bus session.
      *
@@ -134,7 +138,9 @@ public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
      * @param flags a #GTestDBusFlags
      * @return a new #GTestDBus.
      */
-    public constructor(flags: TestDBusFlags) : this(g_test_dbus_new(flags.mask)!!.reinterpret())
+    public constructor(flags: TestDBusFlags) : this(g_test_dbus_new(flags.mask)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Add a path where dbus-daemon will look up .service files. This can't be
@@ -186,7 +192,7 @@ public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
 
     public companion object : TypeCompanion<TestDBus> {
         override val type: GeneratedClassKGType<TestDBus> =
-            GeneratedClassKGType(getTypeOrNull("g_test_dbus_get_type")!!) { TestDBus(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TestDBus(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -208,5 +214,15 @@ public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
          * @return the GType
          */
         public fun getType(): GType = g_test_dbus_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_test_dbus_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_test_dbus_get_type")
     }
 }

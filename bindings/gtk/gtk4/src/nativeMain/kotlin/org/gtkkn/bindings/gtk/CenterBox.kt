@@ -7,12 +7,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -73,6 +73,10 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
     Widget(gtkCenterBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 
@@ -124,7 +128,7 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @return the center widget.
          */
         get() = gtk_center_box_get_center_widget(gtkCenterBoxPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -153,7 +157,7 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @return the end widget.
          */
         get() = gtk_center_box_get_end_widget(gtkCenterBoxPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -222,7 +226,7 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @return the start widget.
          */
         get() = gtk_center_box_get_start_widget(gtkCenterBoxPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -239,11 +243,13 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
      *
      * @return the new `GtkCenterBox`.
      */
-    public constructor() : this(gtk_center_box_new()!!.reinterpret())
+    public constructor() : this(gtk_center_box_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<CenterBox> {
         override val type: GeneratedClassKGType<CenterBox> =
-            GeneratedClassKGType(getTypeOrNull("gtk_center_box_get_type")!!) { CenterBox(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { CenterBox(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -255,5 +261,16 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @return the GType
          */
         public fun getType(): GType = gtk_center_box_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_center_box_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_center_box_get_type")
     }
 }

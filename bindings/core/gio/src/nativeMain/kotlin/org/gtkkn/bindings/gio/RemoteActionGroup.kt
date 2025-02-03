@@ -9,10 +9,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GRemoteActionGroup
 import org.gtkkn.native.gio.g_remote_action_group_activate_action_full
@@ -111,15 +110,20 @@ public interface RemoteActionGroup :
      *
      * @constructor Creates a new instance of RemoteActionGroup for the provided [CPointer].
      */
-    public data class RemoteActionGroupImpl(override val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup>) :
+    public class RemoteActionGroupImpl(gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup>) :
         Object(gioRemoteActionGroupPointer.reinterpret()),
-        RemoteActionGroup
+        RemoteActionGroup {
+        init {
+            Gio
+        }
+
+        override val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup> =
+            gioRemoteActionGroupPointer
+    }
 
     public companion object : TypeCompanion<RemoteActionGroup> {
         override val type: GeneratedInterfaceKGType<RemoteActionGroup> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_remote_action_group_get_type")!!) {
-                RemoteActionGroupImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { RemoteActionGroupImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -131,5 +135,16 @@ public interface RemoteActionGroup :
          * @return the GType
          */
         public fun getType(): GType = g_remote_action_group_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_remote_action_group_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_remote_action_group_get_type")
     }
 }

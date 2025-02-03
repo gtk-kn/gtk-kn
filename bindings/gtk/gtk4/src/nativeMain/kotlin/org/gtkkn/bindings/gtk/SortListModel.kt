@@ -8,12 +8,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -70,6 +70,10 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
     ListModel,
     SectionModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 
@@ -175,7 +179,7 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
          * @since 4.12
          */
         get() = gtk_sort_list_model_get_section_sorter(gtkSortListModelPointer)?.run {
-            Sorter(this)
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!
         }
 
         /**
@@ -197,7 +201,7 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
          * @return the sorter of #self
          */
         get() = gtk_sort_list_model_get_sorter(gtkSortListModelPointer)?.run {
-            Sorter(this)
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!
         }
 
         /**
@@ -217,13 +221,13 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
     public constructor(
         model: ListModel? = null,
         sorter: Sorter? = null,
-    ) : this(gtk_sort_list_model_new(model?.gioListModelPointer, sorter?.gtkSorterPointer)!!.reinterpret())
+    ) : this(gtk_sort_list_model_new(model?.gioListModelPointer, sorter?.gtkSorterPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<SortListModel> {
         override val type: GeneratedClassKGType<SortListModel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_sort_list_model_get_type")!!) {
-                SortListModel(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { SortListModel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -235,5 +239,16 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_sort_list_model_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_sort_list_model_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_sort_list_model_get_type")
     }
 }

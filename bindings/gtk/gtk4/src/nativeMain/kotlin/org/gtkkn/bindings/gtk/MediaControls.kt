@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -29,6 +29,10 @@ import org.gtkkn.native.gtk.gtk_media_controls_set_media_stream
 public open class MediaControls(public val gtkMediaControlsPointer: CPointer<GtkMediaControls>) :
     Widget(gtkMediaControlsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -48,7 +52,7 @@ public open class MediaControls(public val gtkMediaControlsPointer: CPointer<Gtk
          * @return The media stream managed by @controls
          */
         get() = gtk_media_controls_get_media_stream(gtkMediaControlsPointer)?.run {
-            MediaStream.MediaStreamImpl(this)
+            InstanceCache.get(this, true) { MediaStream.MediaStreamImpl(reinterpret()) }!!
         }
 
         /**
@@ -66,11 +70,13 @@ public open class MediaControls(public val gtkMediaControlsPointer: CPointer<Gtk
      */
     public constructor(
         stream: MediaStream? = null,
-    ) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer)!!.reinterpret())
+    ) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<MediaControls> {
         override val type: GeneratedClassKGType<MediaControls> =
-            GeneratedClassKGType(getTypeOrNull("gtk_media_controls_get_type")!!) { MediaControls(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { MediaControls(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -82,5 +88,16 @@ public open class MediaControls(public val gtkMediaControlsPointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_media_controls_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_media_controls_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_media_controls_get_type")
     }
 }

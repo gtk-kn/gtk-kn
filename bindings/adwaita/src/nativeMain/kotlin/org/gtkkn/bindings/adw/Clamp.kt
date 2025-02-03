@@ -8,10 +8,10 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwClamp
 import org.gtkkn.native.adw.adw_clamp_get_child
 import org.gtkkn.native.adw.adw_clamp_get_maximum_size
@@ -61,6 +61,10 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
     Widget(adwClampPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 
@@ -83,7 +87,7 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
          * @return the child widget of @self
          */
         get() = adw_clamp_get_child(adwClampPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -194,11 +198,13 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
      *
      * @return the newly created `AdwClamp`
      */
-    public constructor() : this(adw_clamp_new()!!.reinterpret())
+    public constructor() : this(adw_clamp_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<Clamp> {
         override val type: GeneratedClassKGType<Clamp> =
-            GeneratedClassKGType(getTypeOrNull("adw_clamp_get_type")!!) { Clamp(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Clamp(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -210,5 +216,15 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
          * @return the GType
          */
         public fun getType(): GType = adw_clamp_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_clamp_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_clamp_get_type")
     }
 }

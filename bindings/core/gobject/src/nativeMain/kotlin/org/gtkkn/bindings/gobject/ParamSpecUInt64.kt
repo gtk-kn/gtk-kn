@@ -11,4 +11,8 @@ import org.gtkkn.native.gobject.GParamSpecUInt64
  * A #GParamSpec derived structure that contains the meta data for unsigned 64bit integer properties.
  */
 public open class ParamSpecUInt64(public val gobjectParamSpecUInt64Pointer: CPointer<GParamSpecUInt64>) :
-    ParamSpec(gobjectParamSpecUInt64Pointer.reinterpret())
+    ParamSpec(gobjectParamSpecUInt64Pointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

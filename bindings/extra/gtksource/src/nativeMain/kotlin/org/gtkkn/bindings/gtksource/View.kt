@@ -15,13 +15,13 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextView
 import org.gtkkn.bindings.gtk.TextWindowType
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
@@ -151,6 +151,10 @@ import kotlin.Unit
 public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>) :
     TextView(gtksourceViewPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -219,7 +223,7 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
          * @return the #GtkSourceCompletion associated with @view.
          */
         get() = gtk_source_view_get_completion(gtksourceViewPointer)!!.run {
-            Completion(this)
+            InstanceCache.get(this, true) { Completion(reinterpret()) }!!
         }
 
     /**
@@ -503,7 +507,7 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
          * @return the #GtkSourceSpaceDrawer associated with @view.
          */
         get() = gtk_source_view_get_space_drawer(gtksourceViewPointer)!!.run {
-            SpaceDrawer(this)
+            InstanceCache.get(this, true) { SpaceDrawer(reinterpret()) }!!
         }
 
     /**
@@ -539,7 +543,9 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
      *
      * @return a new #GtkSourceView.
      */
-    public constructor() : this(gtk_source_view_new()!!.reinterpret())
+    public constructor() : this(gtk_source_view_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GtkSourceView widget displaying the buffer @buffer.
@@ -551,7 +557,9 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
      */
     public constructor(
         buffer: Buffer,
-    ) : this(gtk_source_view_new_with_buffer(buffer.gtksourceBufferPointer)!!.reinterpret())
+    ) : this(gtk_source_view_new_with_buffer(buffer.gtksourceBufferPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the [class@Gutter] object associated with @window_type for @view.
@@ -565,7 +573,7 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
      */
     public open fun getGutterView(windowType: TextWindowType): Gutter =
         gtk_source_view_get_gutter(gtksourceViewPointer, windowType.nativeValue.value)!!.run {
-            Gutter(this)
+            InstanceCache.get(this, true) { Gutter(reinterpret()) }!!
         }
 
     /**
@@ -577,7 +585,7 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
      * @return a #GtkSourceHover associated with @view.
      */
     public open fun getHover(): Hover = gtk_source_view_get_hover(gtksourceViewPointer)!!.run {
-        Hover(this)
+        InstanceCache.get(this, true) { Hover(reinterpret()) }!!
     }
 
     /**
@@ -915,10 +923,10 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
 
     public companion object : TypeCompanion<View> {
         override val type: GeneratedClassKGType<View> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_view_get_type")!!) { View(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { View(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -927,6 +935,17 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
          * @return the GType
          */
         public fun getType(): GType = gtk_source_view_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_view_get_type")
     }
 }
 

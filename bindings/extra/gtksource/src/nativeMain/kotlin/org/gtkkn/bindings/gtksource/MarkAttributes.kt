@@ -19,12 +19,12 @@ import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -89,6 +89,10 @@ import kotlin.Unit
 public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPointer<GtkSourceMarkAttributes>) :
     Object(gtksourceMarkAttributesPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * A #GIcon that may be a base of a rendered icon.
      */
@@ -147,7 +151,7 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
          * should not be unreffed.
          */
         get() = gtk_source_mark_attributes_get_pixbuf(gtksourceMarkAttributesPointer)!!.run {
-            Pixbuf(this)
+            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
         }
 
         /**
@@ -162,7 +166,9 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
      *
      * @return a new source mark attributes.
      */
-    public constructor() : this(gtk_source_mark_attributes_new()!!.reinterpret())
+    public constructor() : this(gtk_source_mark_attributes_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Stores background color in @background.
@@ -274,12 +280,10 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
 
     public companion object : TypeCompanion<MarkAttributes> {
         override val type: GeneratedClassKGType<MarkAttributes> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_mark_attributes_get_type")!!) {
-                MarkAttributes(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { MarkAttributes(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -288,6 +292,17 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = gtk_source_mark_attributes_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_mark_attributes_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_mark_attributes_get_type")
     }
 }
 
@@ -299,7 +314,7 @@ private val onQueryTooltipMarkupFunc:
         ->
         userData.asStableRef<(mark: Mark) -> String>().get().invoke(
             mark!!.run {
-                Mark(this)
+                InstanceCache.get(this, false) { Mark(reinterpret()) }!!
             }
         ).let { g_strdup(it) }
     }
@@ -313,7 +328,7 @@ private val onQueryTooltipTextFunc:
         ->
         userData.asStableRef<(mark: Mark) -> String>().get().invoke(
             mark!!.run {
-                Mark(this)
+                InstanceCache.get(this, false) { Mark(reinterpret()) }!!
             }
         ).let { g_strdup(it) }
     }

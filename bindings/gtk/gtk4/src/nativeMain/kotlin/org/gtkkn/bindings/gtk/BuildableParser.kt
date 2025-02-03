@@ -8,11 +8,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gtk.GtkBuildableParser
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A sub-parser for `GtkBuildable` implementations.
@@ -24,31 +22,17 @@ import kotlin.native.ref.createCleaner
  * - field `text`: Fields with callbacks are not supported
  * - field `error`: Fields with callbacks are not supported
  */
-public class BuildableParser(
-    public val gtkBuildableParserPointer: CPointer<GtkBuildableParser>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gtkBuildableParserPointer) {
+public class BuildableParser(public val gtkBuildableParserPointer: CPointer<GtkBuildableParser>) :
+    ProxyInstance(gtkBuildableParserPointer) {
     /**
      * Allocate a new BuildableParser.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkBuildableParser>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to BuildableParser and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkBuildableParser>, Cleaner>,
-    ) : this(gtkBuildableParserPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkBuildableParser>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new BuildableParser using the provided [AutofreeScope].

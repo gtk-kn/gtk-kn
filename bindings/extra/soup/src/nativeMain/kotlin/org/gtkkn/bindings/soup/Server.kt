@@ -25,13 +25,13 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.Soup.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -169,6 +169,10 @@ import kotlin.collections.List
 public open class Server(public val soupServerPointer: CPointer<SoupServer>) :
     Object(soupServerPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * A [enum@Gio.TlsAuthenticationMode] for SSL/TLS client authentication.
      */
@@ -417,7 +421,7 @@ public open class Server(public val soupServerPointer: CPointer<SoupServer>) :
      * @return a #GTlsCertificate or null
      */
     public open fun getTlsCertificate(): TlsCertificate? = soup_server_get_tls_certificate(soupServerPointer)?.run {
-        TlsCertificate.TlsCertificateImpl(this)
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**
@@ -426,7 +430,7 @@ public open class Server(public val soupServerPointer: CPointer<SoupServer>) :
      * @return a #GTlsDatabase
      */
     public open fun getTlsDatabase(): TlsDatabase? = soup_server_get_tls_database(soupServerPointer)?.run {
-        TlsDatabase.TlsDatabaseImpl(this)
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
     }
 
     /**
@@ -585,6 +589,13 @@ public open class Server(public val soupServerPointer: CPointer<SoupServer>) :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 3.2.
+     *
+     * Use soup_server_message_pause() instead.
+     * ---
+     *
      * Pauses I/O on @msg.
      *
      * This can be used when you need to return from the server handler without
@@ -642,6 +653,13 @@ public open class Server(public val soupServerPointer: CPointer<SoupServer>) :
         soup_server_set_tls_database(soupServerPointer, tlsDatabase.gioTlsDatabasePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 3.2.
+     *
+     * Use soup_server_message_unpause() instead.
+     * ---
+     *
      * Resumes I/O on @msg.
      *
      * Use this to resume after calling [method@Server.pause_message], or after
@@ -798,7 +816,7 @@ public open class Server(public val soupServerPointer: CPointer<SoupServer>) :
 
     public companion object : TypeCompanion<Server> {
         override val type: GeneratedClassKGType<Server> =
-            GeneratedClassKGType(getTypeOrNull("soup_server_get_type")!!) { Server(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Server(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -810,6 +828,16 @@ public open class Server(public val soupServerPointer: CPointer<SoupServer>) :
          * @return the GType
          */
         public fun getType(): GType = soup_server_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_server_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_server_get_type")
     }
 }
 
@@ -821,7 +849,7 @@ private val onRequestAbortedFunc: CPointer<CFunction<(CPointer<SoupServerMessage
         ->
         userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(
             message!!.run {
-                ServerMessage(this)
+                InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
             }
         )
     }
@@ -835,7 +863,7 @@ private val onRequestFinishedFunc: CPointer<CFunction<(CPointer<SoupServerMessag
         ->
         userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(
             message!!.run {
-                ServerMessage(this)
+                InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
             }
         )
     }
@@ -849,7 +877,7 @@ private val onRequestReadFunc: CPointer<CFunction<(CPointer<SoupServerMessage>) 
         ->
         userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(
             message!!.run {
-                ServerMessage(this)
+                InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
             }
         )
     }
@@ -863,7 +891,7 @@ private val onRequestStartedFunc: CPointer<CFunction<(CPointer<SoupServerMessage
         ->
         userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(
             message!!.run {
-                ServerMessage(this)
+                InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
             }
         )
     }

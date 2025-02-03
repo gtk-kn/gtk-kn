@@ -14,13 +14,13 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -159,6 +159,10 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
     AccessibleRange,
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = handle.reinterpret()
 
@@ -291,7 +295,9 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
      *
      * @return a `GtkLevelBar`.
      */
-    public constructor() : this(gtk_level_bar_new()!!.reinterpret())
+    public constructor() : this(gtk_level_bar_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkLevelBar` for the specified interval.
@@ -303,7 +309,9 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
     public constructor(
         minValue: gdouble,
         maxValue: gdouble,
-    ) : this(gtk_level_bar_new_for_interval(minValue, maxValue)!!.reinterpret())
+    ) : this(gtk_level_bar_new_for_interval(minValue, maxValue)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a new offset marker on @self at the position specified by @value.
@@ -384,7 +392,7 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
 
     public companion object : TypeCompanion<LevelBar> {
         override val type: GeneratedClassKGType<LevelBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_level_bar_get_type")!!) { LevelBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { LevelBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -396,6 +404,17 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
          * @return the GType
          */
         public fun getType(): GType = gtk_level_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_level_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_level_bar_get_type")
     }
 }
 

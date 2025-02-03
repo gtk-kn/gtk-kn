@@ -12,6 +12,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusArgInfo
 import org.gtkkn.native.gio.g_dbus_arg_info_get_type
@@ -21,11 +22,8 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Information about an argument for a method or a signal.
@@ -37,7 +35,7 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusArgInfo(public val gioDBusArgInfoPointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = null) :
+public class DBusArgInfo(public val gioDBusArgInfoPointer: CPointer<GDBusArgInfo>) :
     ProxyInstance(gioDBusArgInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
@@ -80,21 +78,9 @@ public class DBusArgInfo(public val gioDBusArgInfoPointer: CPointer<GDBusArgInfo
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusArgInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DBusArgInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDBusArgInfo>, Cleaner>,
-    ) : this(gioDBusArgInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDBusArgInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DBusArgInfo using the provided [AutofreeScope].

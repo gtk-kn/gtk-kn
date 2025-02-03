@@ -13,12 +13,12 @@ import org.gtkkn.bindings.gdk.Gdk.resolveException
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkGLContext
 import org.gtkkn.native.gdk.gdk_gl_context_clear_current
 import org.gtkkn.native.gdk.gdk_gl_context_get_allowed_apis
@@ -106,6 +106,10 @@ import kotlin.Unit
 public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLContext>) :
     DrawContext(gdkGlContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The allowed APIs.
      *
@@ -158,6 +162,14 @@ public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLCo
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [method@Gdk.GLContext.is_shared] to check if contexts
+     *   can be shared.
+     * ---
+     *
      * Always null
      *
      * As many contexts can share data now and no single shared context exists
@@ -165,6 +177,14 @@ public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLCo
      */
     public open val sharedContext: GlContext?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.4.
+         *
+         * Use [method@Gdk.GLContext.is_shared] to check if contexts
+         *   can be shared.
+         * ---
+         *
          * Used to retrieves the `GdkGLContext` that this @context share data with.
          *
          * As many contexts can share data now and no single shared context exists
@@ -173,7 +193,7 @@ public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLCo
          * @return null
          */
         get() = gdk_gl_context_get_shared_context(gdkGlContextPointer)?.run {
-            GlContextImpl(this)
+            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!
         }
 
     /**
@@ -186,7 +206,7 @@ public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLCo
          * @return a `GdkDisplay`
          */
         get() = gdk_gl_context_get_display(gdkGlContextPointer)?.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -199,7 +219,7 @@ public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLCo
          * @return a `GdkSurface`
          */
         get() = gdk_gl_context_get_surface(gdkGlContextPointer)?.run {
-            Surface.SurfaceImpl(this)
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
         }
 
     /**
@@ -372,7 +392,7 @@ public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLCo
 
     public companion object : TypeCompanion<GlContext> {
         override val type: GeneratedClassKGType<GlContext> =
-            GeneratedClassKGType(getTypeOrNull("gdk_gl_context_get_type")!!) { GlContextImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { GlContextImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -392,7 +412,7 @@ public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLCo
          * @return the current `GdkGLContext`
          */
         public fun getCurrent(): GlContext? = gdk_gl_context_get_current()?.run {
-            GlContextImpl(this)
+            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!
         }
 
         /**
@@ -401,5 +421,16 @@ public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLCo
          * @return the GType
          */
         public fun getType(): GType = gdk_gl_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_gl_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_gl_context_get_type")
     }
 }

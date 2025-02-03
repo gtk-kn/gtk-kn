@@ -16,11 +16,11 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Parameter
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAsyncInitable
 import org.gtkkn.native.gio.g_async_initable_get_type
 import org.gtkkn.native.gio.g_async_initable_init_async
@@ -243,7 +243,7 @@ public interface AsyncInitable :
     public fun newFinish(res: AsyncResult): Result<Object> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_async_initable_new_finish(gioAsyncInitablePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            Object(this)
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -258,21 +258,33 @@ public interface AsyncInitable :
      *
      * @constructor Creates a new instance of AsyncInitable for the provided [CPointer].
      */
-    public data class AsyncInitableImpl(override val gioAsyncInitablePointer: CPointer<GAsyncInitable>) :
+    public class AsyncInitableImpl(gioAsyncInitablePointer: CPointer<GAsyncInitable>) :
         Object(gioAsyncInitablePointer.reinterpret()),
-        AsyncInitable
+        AsyncInitable {
+        init {
+            Gio
+        }
+
+        override val gioAsyncInitablePointer: CPointer<GAsyncInitable> = gioAsyncInitablePointer
+    }
 
     public companion object : TypeCompanion<AsyncInitable> {
         override val type: GeneratedInterfaceKGType<AsyncInitable> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_async_initable_get_type")!!) {
-                AsyncInitableImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { AsyncInitableImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.54.
+         *
+         * Use g_object_new_with_properties() and
+         * g_async_initable_init_async() instead. See #GParameter for more information.
+         * ---
+         *
          * Helper function for constructing #GAsyncInitable object. This is
          * similar to g_object_newv() but also initializes the object asynchronously.
          *
@@ -315,5 +327,16 @@ public interface AsyncInitable :
          * @return the GType
          */
         public fun getType(): GType = g_async_initable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_async_initable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_async_initable_get_type")
     }
 }

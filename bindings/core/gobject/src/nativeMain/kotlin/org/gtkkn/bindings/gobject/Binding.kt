@@ -9,10 +9,10 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GBinding
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_binding_dup_source
@@ -109,6 +109,10 @@ import kotlin.Unit
 public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) :
     Object(gobjectBindingPointer.reinterpret()),
     KGTyped {
+    init {
+        GObject
+    }
+
     /**
      * Flags to be used to control the #GBinding
      *
@@ -134,6 +138,14 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
     @GObjectVersion2_26
     public open val source: Object?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.68.
+         *
+         * Use g_binding_dup_source() for a safer version of this
+         * function.
+         * ---
+         *
          * Retrieves the #GObject instance used as the source of the binding.
          *
          * A #GBinding can outlive the source #GObject as the binding does not hold a
@@ -149,7 +161,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
          * @since 2.26
          */
         get() = g_binding_get_source(gobjectBindingPointer)?.run {
-            Object(this)
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
     /**
@@ -180,6 +192,14 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
     @GObjectVersion2_26
     public open val target: Object?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.68.
+         *
+         * Use g_binding_dup_target() for a safer version of this
+         * function.
+         * ---
+         *
          * Retrieves the #GObject instance used as the target of the binding.
          *
          * A #GBinding can outlive the target #GObject as the binding does not hold a
@@ -195,7 +215,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
          * @since 2.26
          */
         get() = g_binding_get_target(gobjectBindingPointer)?.run {
-            Object(this)
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
     /**
@@ -231,7 +251,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
      */
     @GObjectVersion2_68
     public open fun dupSource(): Object? = g_binding_dup_source(gobjectBindingPointer)?.run {
-        Object(this)
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -247,7 +267,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
      */
     @GObjectVersion2_68
     public open fun dupTarget(): Object? = g_binding_dup_target(gobjectBindingPointer)?.run {
-        Object(this)
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -270,10 +290,10 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
 
     public companion object : TypeCompanion<Binding> {
         override val type: GeneratedClassKGType<Binding> =
-            GeneratedClassKGType(getTypeOrNull("g_binding_get_type")!!) { Binding(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Binding(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
+            GObjectTypeProvider.register()
         }
 
         /**
@@ -282,5 +302,15 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
          * @return the GType
          */
         public fun getType(): GType = g_binding_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_binding_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_binding_get_type")
     }
 }

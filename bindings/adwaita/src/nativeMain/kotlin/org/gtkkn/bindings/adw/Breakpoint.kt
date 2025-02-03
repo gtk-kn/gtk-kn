@@ -15,11 +15,11 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Buildable
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwBreakpoint
 import org.gtkkn.native.adw.adw_breakpoint_add_setter
 import org.gtkkn.native.adw.adw_breakpoint_get_condition
@@ -94,6 +94,10 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
     Object(adwBreakpointPointer.reinterpret()),
     Buildable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 
@@ -132,7 +136,9 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
      */
     public constructor(
         condition: BreakpointCondition,
-    ) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer)!!.reinterpret())
+    ) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a setter to @self.
@@ -247,7 +253,7 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
 
     public companion object : TypeCompanion<Breakpoint> {
         override val type: GeneratedClassKGType<Breakpoint> =
-            GeneratedClassKGType(getTypeOrNull("adw_breakpoint_get_type")!!) { Breakpoint(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Breakpoint(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -259,6 +265,17 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
          * @return the GType
          */
         public fun getType(): GType = adw_breakpoint_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_breakpoint_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_breakpoint_get_type")
     }
 }
 

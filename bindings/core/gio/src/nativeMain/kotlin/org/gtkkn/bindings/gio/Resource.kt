@@ -8,12 +8,17 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gio.GResource
 import org.gtkkn.native.gio.g_resource_enumerate_children
 import org.gtkkn.native.gio.g_resource_get_type
@@ -29,6 +34,7 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import kotlin.Result
 import kotlin.String
+import kotlin.Throws
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -204,6 +210,39 @@ import kotlin.collections.List
 @GioVersion2_32
 public class Resource(public val gioResourcePointer: CPointer<GResource>) : ProxyInstance(gioResourcePointer) {
     /**
+     * Creates a GResource from a reference to the binary resource bundle.
+     * This will keep a reference to @data while the resource lives, so
+     * the data should not be modified or freed.
+     *
+     * If you want to use this resource in the global resource namespace you need
+     * to register it with g_resources_register().
+     *
+     * Note: @data must be backed by memory that is at least pointer aligned.
+     * Otherwise this function will internally create a copy of the memory since
+     * GLib 2.56, or in older versions fail and exit the process.
+     *
+     * If @data is empty or corrupt, %G_RESOURCE_ERROR_INTERNAL will be returned.
+     *
+     * @param data A #GBytes
+     * @return a new #GResource, or null on error
+     * @since 2.32
+     */
+    @Throws(GLibException::class)
+    public constructor(`data`: Bytes) : this(
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = g_resource_new_from_data(`data`.glibBytesPointer, gError.ptr)
+            if (gError.pointed != null) {
+                throw resolveException(Error(gError.pointed!!.ptr))
+            }
+            gResult!!
+        }
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
      * Registers the resource with the process-global set of resources.
      * Once a resource is registered the files in it can be accessed
      * with the global resource lookup functions like g_resources_lookup_data().
@@ -304,7 +343,7 @@ public class Resource(public val gioResourcePointer: CPointer<GResource>) : Prox
     public fun openStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resource_open_stream(gioResourcePointer, path, lookupFlags.mask, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -338,36 +377,6 @@ public class Resource(public val gioResourcePointer: CPointer<GResource>) : Prox
     public fun unref(): Unit = g_resource_unref(gioResourcePointer)
 
     public companion object {
-        /**
-         * Creates a GResource from a reference to the binary resource bundle.
-         * This will keep a reference to @data while the resource lives, so
-         * the data should not be modified or freed.
-         *
-         * If you want to use this resource in the global resource namespace you need
-         * to register it with g_resources_register().
-         *
-         * Note: @data must be backed by memory that is at least pointer aligned.
-         * Otherwise this function will internally create a copy of the memory since
-         * GLib 2.56, or in older versions fail and exit the process.
-         *
-         * If @data is empty or corrupt, %G_RESOURCE_ERROR_INTERNAL will be returned.
-         *
-         * @param data A #GBytes
-         * @return a new #GResource, or null on error
-         * @since 2.32
-         */
-        public fun newFromData(`data`: Bytes): Result<Resource> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_resource_new_from_data(`data`.glibBytesPointer, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(Resource(checkNotNull(gResult)))
-                }
-            }
-        }
-
         /**
          * Loads a binary resource bundle and creates a #GResource representation of it, allowing
          * you to query it for data.

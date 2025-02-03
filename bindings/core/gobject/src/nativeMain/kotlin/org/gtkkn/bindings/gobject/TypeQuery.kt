@@ -11,23 +11,21 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeQuery
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure holding information for a specific type.
  *
  * See also: g_type_query()
  */
-public class TypeQuery(public val gobjectTypeQueryPointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) :
+public class TypeQuery(public val gobjectTypeQueryPointer: CPointer<GTypeQuery>) :
     ProxyInstance(gobjectTypeQueryPointer) {
     /**
      * the #GType value of the type
@@ -80,21 +78,9 @@ public class TypeQuery(public val gobjectTypeQueryPointer: CPointer<GTypeQuery>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeQuery>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TypeQuery and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTypeQuery>, Cleaner>,
-    ) : this(gobjectTypeQueryPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTypeQuery>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TypeQuery using the provided [AutofreeScope].

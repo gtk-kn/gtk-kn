@@ -12,12 +12,12 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDrag
 import org.gtkkn.native.gdk.GdkDragCancelReason
 import org.gtkkn.native.gdk.gdk_drag_begin
@@ -56,6 +56,10 @@ import kotlin.Unit
 public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
     Object(gdkDragPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The possible actions of this drag.
      */
@@ -79,7 +83,7 @@ public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
          * @return The `GdkContentProvider` associated to @drag.
          */
         get() = gdk_drag_get_content(gdkDragPointer)!!.run {
-            ContentProvider(this)
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
         }
 
     /**
@@ -92,7 +96,7 @@ public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
          * @return The `GdkDevice` associated to @drag.
          */
         get() = gdk_drag_get_device(gdkDragPointer)!!.run {
-            Device.DeviceImpl(this)
+            InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
         }
 
     /**
@@ -105,7 +109,7 @@ public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
          * @return a `GdkDisplay`
          */
         get() = gdk_drag_get_display(gdkDragPointer)!!.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -144,7 +148,7 @@ public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
          * @return The `GdkSurface` where the drag originates
          */
         get() = gdk_drag_get_surface(gdkDragPointer)!!.run {
-            Surface.SurfaceImpl(this)
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
         }
 
     /**
@@ -176,7 +180,7 @@ public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
      * @return the drag surface
      */
     public open fun getDragSurface(): Surface? = gdk_drag_get_drag_surface(gdkDragPointer)?.run {
-        Surface.SurfaceImpl(this)
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
     }
 
     /**
@@ -274,7 +278,7 @@ public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
 
     public companion object : TypeCompanion<Drag> {
         override val type: GeneratedClassKGType<Drag> =
-            GeneratedClassKGType(getTypeOrNull("gdk_drag_get_type")!!) { DragImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DragImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -319,7 +323,7 @@ public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
             dx,
             dy
         )?.run {
-            DragImpl(this)
+            InstanceCache.get(this, true) { DragImpl(reinterpret()) }!!
         }
 
         /**
@@ -328,6 +332,16 @@ public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
          * @return the GType
          */
         public fun getType(): GType = gdk_drag_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_drag_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_drag_get_type")
     }
 }
 

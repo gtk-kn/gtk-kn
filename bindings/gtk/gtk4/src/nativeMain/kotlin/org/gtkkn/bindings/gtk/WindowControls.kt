@@ -6,11 +6,11 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -81,6 +81,10 @@ import kotlin.String
 public open class WindowControls(public val gtkWindowControlsPointer: CPointer<GtkWindowControls>) :
     Widget(gtkWindowControlsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -166,13 +170,13 @@ public open class WindowControls(public val gtkWindowControlsPointer: CPointer<G
      * @param side the side
      * @return a new `GtkWindowControls`.
      */
-    public constructor(side: PackType) : this(gtk_window_controls_new(side.nativeValue)!!.reinterpret())
+    public constructor(side: PackType) : this(gtk_window_controls_new(side.nativeValue)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<WindowControls> {
         override val type: GeneratedClassKGType<WindowControls> =
-            GeneratedClassKGType(getTypeOrNull("gtk_window_controls_get_type")!!) {
-                WindowControls(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { WindowControls(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -184,5 +188,16 @@ public open class WindowControls(public val gtkWindowControlsPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = gtk_window_controls_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_window_controls_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_window_controls_get_type")
     }
 }

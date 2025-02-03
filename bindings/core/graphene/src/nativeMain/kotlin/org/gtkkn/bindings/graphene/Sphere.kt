@@ -3,12 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
@@ -26,10 +23,7 @@ import org.gtkkn.native.graphene.graphene_sphere_is_empty
 import org.gtkkn.native.graphene.graphene_sphere_t
 import org.gtkkn.native.graphene.graphene_sphere_translate
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A sphere, represented by its center and radius.
@@ -42,38 +36,20 @@ import kotlin.native.ref.createCleaner
  * @since 1.2
  */
 @GrapheneVersion1_2
-public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = null) :
+public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t>) :
     ProxyInstance(grapheneSpherePointer) {
     /**
-     * Allocate a new Sphere.
+     * Allocates a new #graphene_sphere_t.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the newly allocated structure are undefined.
+     *
+     * @return the newly allocated #graphene_sphere_t. Use
+     *   graphene_sphere_free() to free the resources allocated by this function
+     * @since 1.2
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_sphere_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Sphere and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_sphere_t>, Cleaner>,
-    ) : this(grapheneSpherePointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Sphere using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_sphere_t>().ptr)
+    public constructor() : this(graphene_sphere_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Checks whether the given @point is contained in the volume
@@ -184,17 +160,6 @@ public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t
         graphene_sphere_translate(grapheneSpherePointer, point.graphenePoint3dPointer, res.grapheneSpherePointer)
 
     public companion object {
-        /**
-         * Allocates a new #graphene_sphere_t.
-         *
-         * The contents of the newly allocated structure are undefined.
-         *
-         * @return the newly allocated #graphene_sphere_t. Use
-         *   graphene_sphere_free() to free the resources allocated by this function
-         * @since 1.2
-         */
-        public fun alloc(): Sphere = Sphere(graphene_sphere_alloc()!!)
-
         /**
          * Get the GType of Sphere
          *

@@ -10,14 +10,15 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
@@ -66,6 +67,10 @@ import kotlin.Unit
 public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSourceSnippet>) :
     Object(gtksourceSnippetPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open var description: String
         /**
          * Gets the description for the snippet.
@@ -134,7 +139,9 @@ public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSource
     public constructor(
         trigger: String? = null,
         languageId: String? = null,
-    ) : this(gtk_source_snippet_new(trigger, languageId)!!.reinterpret())
+    ) : this(gtk_source_snippet_new(trigger, languageId)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses the snippet formatted @text into a series of chunks and adds them
@@ -149,13 +156,16 @@ public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSource
     public constructor(text: String) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = gtk_source_snippet_new_parsed(text, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends @chunk to the @snippet.
@@ -173,7 +183,7 @@ public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSource
      * @return A new #GtkSourceSnippet
      */
     public open fun copy(): Snippet = gtk_source_snippet_copy(gtksourceSnippetPointer)!!.run {
-        Snippet(this)
+        InstanceCache.get(this, true) { Snippet(reinterpret()) }!!
     }
 
     /**
@@ -182,7 +192,7 @@ public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSource
      * @return an #GtkSourceSnippetContext
      */
     public open fun getContext(): SnippetContext? = gtk_source_snippet_get_context(gtksourceSnippetPointer)?.run {
-        SnippetContext(this)
+        InstanceCache.get(this, true) { SnippetContext(reinterpret()) }!!
     }
 
     /**
@@ -202,7 +212,7 @@ public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSource
      */
     public open fun getNthChunk(nth: guint): SnippetChunk =
         gtk_source_snippet_get_nth_chunk(gtksourceSnippetPointer, nth)!!.run {
-            SnippetChunk(this)
+            InstanceCache.get(this, true) { SnippetChunk(reinterpret()) }!!
         }
 
     /**
@@ -224,10 +234,10 @@ public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSource
 
     public companion object : TypeCompanion<Snippet> {
         override val type: GeneratedClassKGType<Snippet> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_get_type")!!) { Snippet(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Snippet(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -236,5 +246,16 @@ public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSource
          * @return the GType
          */
         public fun getType(): GType = gtk_source_snippet_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_snippet_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_snippet_get_type")
     }
 }

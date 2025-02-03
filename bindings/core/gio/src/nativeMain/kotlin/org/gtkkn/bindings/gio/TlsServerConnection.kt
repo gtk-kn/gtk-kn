@@ -13,10 +13,9 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTlsServerConnection
 import org.gtkkn.native.gio.g_tls_server_connection_get_type
 import org.gtkkn.native.gio.g_tls_server_connection_new
@@ -45,16 +44,20 @@ public interface TlsServerConnection :
      *
      * @constructor Creates a new instance of TlsServerConnection for the provided [CPointer].
      */
-    public data class TlsServerConnectionImpl(
-        override val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection>,
-    ) : TlsConnection(gioTlsServerConnectionPointer.reinterpret()),
-        TlsServerConnection
+    public class TlsServerConnectionImpl(gioTlsServerConnectionPointer: CPointer<GTlsServerConnection>) :
+        TlsConnection(gioTlsServerConnectionPointer.reinterpret()),
+        TlsServerConnection {
+        init {
+            Gio
+        }
+
+        override val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection> =
+            gioTlsServerConnectionPointer
+    }
 
     public companion object : TypeCompanion<TlsServerConnection> {
         override val type: GeneratedInterfaceKGType<TlsServerConnection> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_tls_server_connection_get_type")!!) {
-                TlsServerConnectionImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { TlsServerConnectionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -99,5 +102,16 @@ public interface TlsServerConnection :
          * @return the GType
          */
         public fun getType(): GType = g_tls_server_connection_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_tls_server_connection_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_tls_server_connection_get_type")
     }
 }

@@ -13,6 +13,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GScanner
@@ -40,11 +41,8 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * `GScanner` provides a general-purpose lexical scanner.
@@ -71,8 +69,7 @@ import kotlin.native.ref.createCleaner
  * - field `next_value`: Field with not-pointer record/union GTokenValue is not supported
  * - field `msg_handler`: ScannerMsgFunc
  */
-public class Scanner(public val glibScannerPointer: CPointer<GScanner>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibScannerPointer) {
+public class Scanner(public val glibScannerPointer: CPointer<GScanner>) : ProxyInstance(glibScannerPointer) {
     /**
      * unused
      */
@@ -220,21 +217,9 @@ public class Scanner(public val glibScannerPointer: CPointer<GScanner>, cleaner:
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GScanner>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Scanner and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GScanner>, Cleaner>,
-    ) : this(glibScannerPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GScanner>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Scanner using the provided [AutofreeScope].

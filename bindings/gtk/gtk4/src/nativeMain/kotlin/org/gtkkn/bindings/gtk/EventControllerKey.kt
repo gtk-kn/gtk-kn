@@ -12,13 +12,13 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.guint
@@ -43,12 +43,18 @@ import kotlin.Unit
 public open class EventControllerKey(public val gtkEventControllerKeyPointer: CPointer<GtkEventControllerKey>) :
     EventController(gtkEventControllerKeyPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new event controller that will handle key events.
      *
      * @return a new `GtkEventControllerKey`
      */
-    public constructor() : this(gtk_event_controller_key_new()!!.reinterpret())
+    public constructor() : this(gtk_event_controller_key_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Forwards the current event of this @controller to a @widget.
@@ -80,7 +86,7 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
      */
     public open fun getImContext(): ImContext? =
         gtk_event_controller_key_get_im_context(gtkEventControllerKeyPointer)?.run {
-            ImContext.ImContextImpl(this)
+            InstanceCache.get(this, true) { ImContext.ImContextImpl(reinterpret()) }!!
         }
 
     /**
@@ -194,9 +200,7 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
 
     public companion object : TypeCompanion<EventControllerKey> {
         override val type: GeneratedClassKGType<EventControllerKey> =
-            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_key_get_type")!!) {
-                EventControllerKey(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { EventControllerKey(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -208,6 +212,17 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
          * @return the GType
          */
         public fun getType(): GType = gtk_event_controller_key_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_event_controller_key_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_event_controller_key_get_type")
     }
 }
 

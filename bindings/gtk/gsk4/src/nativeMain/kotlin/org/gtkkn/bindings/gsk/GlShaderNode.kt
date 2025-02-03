@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskGLShaderNode
@@ -29,6 +29,10 @@ import org.gtkkn.native.gsk.gsk_gl_shader_node_get_type
 public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGLShaderNode>) :
     RenderNode(gskGlShaderNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Gets args for the node.
      *
@@ -62,12 +66,12 @@ public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGL
      * @return the `GskGLShader` shader
      */
     public open fun getShader(): GlShader = gsk_gl_shader_node_get_shader(gskGlShaderNodePointer.reinterpret())!!.run {
-        GlShader(this)
+        InstanceCache.get(this, true) { GlShader(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<GlShaderNode> {
         override val type: GeneratedClassKGType<GlShaderNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_gl_shader_node_get_type")!!) { GlShaderNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { GlShaderNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -79,5 +83,16 @@ public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGL
          * @return the GType
          */
         public fun getType(): GType = gsk_gl_shader_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_gl_shader_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_gl_shader_node_get_type")
     }
 }

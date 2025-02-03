@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GFileIcon
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
@@ -29,6 +29,10 @@ public open class FileIcon(public val gioFileIconPointer: CPointer<GFileIcon>) :
     Icon,
     LoadableIcon,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioIconPointer: CPointer<GIcon>
         get() = handle.reinterpret()
 
@@ -55,11 +59,13 @@ public open class FileIcon(public val gioFileIconPointer: CPointer<GFileIcon>) :
      * @return a #GIcon for the given
      *   @file, or null on error.
      */
-    public constructor(`file`: File) : this(g_file_icon_new(`file`.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File) : this(g_file_icon_new(`file`.gioFilePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<FileIcon> {
         override val type: GeneratedClassKGType<FileIcon> =
-            GeneratedClassKGType(getTypeOrNull("g_file_icon_get_type")!!) { FileIcon(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FileIcon(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -71,5 +77,15 @@ public open class FileIcon(public val gioFileIconPointer: CPointer<GFileIcon>) :
          * @return the GType
          */
         public fun getType(): GType = g_file_icon_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_file_icon_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_file_icon_get_type")
     }
 }

@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GTree
@@ -55,6 +56,19 @@ import kotlin.Unit
  * - parameter `key_destroy_func`: DestroyNotify
  */
 public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(glibTreePointer) {
+    /**
+     * Creates a new #GTree with a comparison function that accepts user data.
+     * See g_tree_new() for more details.
+     *
+     * @param keyCompareFunc qsort()-style comparison function
+     * @return a newly allocated #GTree
+     */
+    public constructor(
+        keyCompareFunc: CompareDataFunc,
+    ) : this(g_tree_new_with_data(CompareDataFuncFunc.reinterpret(), StableRef.create(keyCompareFunc).asCPointer())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Removes all keys and values from the #GTree and decreases its
      * reference count by one. If keys and/or values are dynamically
@@ -391,20 +405,6 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
     }
 
     public companion object {
-        /**
-         * Creates a new #GTree with a comparison function that accepts user data.
-         * See g_tree_new() for more details.
-         *
-         * @param keyCompareFunc qsort()-style comparison function
-         * @return a newly allocated #GTree
-         */
-        public fun newWithData(keyCompareFunc: CompareDataFunc): Tree = Tree(
-            g_tree_new_with_data(
-                CompareDataFuncFunc.reinterpret(),
-                StableRef.create(keyCompareFunc).asCPointer()
-            )!!.reinterpret()
-        )
-
         /**
          * Get the GType of Tree
          *

@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceStyleSchemeChooser
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_chooser_get_style_scheme
@@ -44,7 +44,7 @@ public interface StyleSchemeChooser :
          * @return the currently-selected scheme.
          */
         get() = gtk_source_style_scheme_chooser_get_style_scheme(gtksourceStyleSchemeChooserPointer)!!.run {
-            StyleScheme(this)
+            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!
         }
 
         /**
@@ -66,7 +66,7 @@ public interface StyleSchemeChooser :
      */
     public fun getStyleScheme(): StyleScheme =
         gtk_source_style_scheme_chooser_get_style_scheme(gtksourceStyleSchemeChooserPointer)!!.run {
-            StyleScheme(this)
+            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!
         }
 
     /**
@@ -84,19 +84,23 @@ public interface StyleSchemeChooser :
      *
      * @constructor Creates a new instance of StyleSchemeChooser for the provided [CPointer].
      */
-    public data class StyleSchemeChooserImpl(
-        override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>,
-    ) : Object(gtksourceStyleSchemeChooserPointer.reinterpret()),
-        StyleSchemeChooser
+    public class StyleSchemeChooserImpl(gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>) :
+        Object(gtksourceStyleSchemeChooserPointer.reinterpret()),
+        StyleSchemeChooser {
+        init {
+            GtkSource
+        }
+
+        override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser> =
+            gtksourceStyleSchemeChooserPointer
+    }
 
     public companion object : TypeCompanion<StyleSchemeChooser> {
         override val type: GeneratedInterfaceKGType<StyleSchemeChooser> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_style_scheme_chooser_get_type")!!) {
-                StyleSchemeChooserImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { StyleSchemeChooserImpl(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -105,5 +109,16 @@ public interface StyleSchemeChooser :
          * @return the GType
          */
         public fun getType(): GType = gtk_source_style_scheme_chooser_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_style_scheme_chooser_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_style_scheme_chooser_get_type")
     }
 }

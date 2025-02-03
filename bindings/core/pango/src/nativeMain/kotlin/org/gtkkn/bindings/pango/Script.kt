@@ -740,6 +740,13 @@ public enum class Script(public val nativeValue: PangoScript) {
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.44..
+         *
+         * Use g_unichar_get_script()
+         * ---
+         *
          * Looks up the script for a particular character.
          *
          * The script of a character is defined by

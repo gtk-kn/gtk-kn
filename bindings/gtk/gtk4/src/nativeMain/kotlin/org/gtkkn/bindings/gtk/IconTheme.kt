@@ -17,14 +17,14 @@ import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -95,6 +95,10 @@ import kotlin.collections.List
 public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconTheme>) :
     Object(gtkIconThemePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The display that this icon theme object is attached to.
      */
@@ -106,7 +110,7 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
          * @return the display of @icon_theme
          */
         get() = gtk_icon_theme_get_display(gtkIconThemePointer)?.run {
-            Display(this)
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -216,7 +220,9 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
      *
      * @return the newly created `GtkIconTheme` object.
      */
-    public constructor() : this(gtk_icon_theme_new()!!.reinterpret())
+    public constructor() : this(gtk_icon_theme_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a resource path that will be looked at when looking
@@ -299,7 +305,7 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
         direction.nativeValue,
         flags.mask
     )!!.run {
-        IconPaintable(this)
+        InstanceCache.get(this, true) { IconPaintable(reinterpret()) }!!
     }
 
     /**
@@ -346,7 +352,7 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
             direction.nativeValue,
             flags.mask
         )!!.run {
-            IconPaintable(this)
+            InstanceCache.get(this, true) { IconPaintable(reinterpret()) }!!
         }
     }
 
@@ -392,7 +398,7 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
 
     public companion object : TypeCompanion<IconTheme> {
         override val type: GeneratedClassKGType<IconTheme> =
-            GeneratedClassKGType(getTypeOrNull("gtk_icon_theme_get_type")!!) { IconTheme(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { IconTheme(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -415,7 +421,7 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
          */
         public fun getForDisplay(display: Display): IconTheme =
             gtk_icon_theme_get_for_display(display.gdkDisplayPointer)!!.run {
-                IconTheme(this)
+                InstanceCache.get(this, true) { IconTheme(reinterpret()) }!!
             }
 
         /**
@@ -424,6 +430,17 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
          * @return the GType
          */
         public fun getType(): GType = gtk_icon_theme_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_icon_theme_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_icon_theme_get_type")
     }
 }
 

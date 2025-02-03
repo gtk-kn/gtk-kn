@@ -7,12 +7,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeDragSource
@@ -32,6 +31,13 @@ import kotlin.Boolean
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FilterListModel] instead.
+ * ---
+ *
  * A `GtkTreeModel` which hides parts of an underlying tree model
  *
  * A `GtkTreeModelFilter` is a tree model which wraps another tree model,
@@ -111,6 +117,10 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
     TreeDragSource,
     TreeModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>
         get() = handle.reinterpret()
 
@@ -118,6 +128,11 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * This function should almost never be called. It clears the @filter
      * of any cached iterators that haven’t been reffed with
      * gtk_tree_model_ref_node(). This might be useful if the child model
@@ -128,6 +143,11 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
     public open fun clearCache(): Unit = gtk_tree_model_filter_clear_cache(gtkTreeModelFilterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @filter_iter to point to the row in @filter that corresponds to the
      * row pointed at by @child_iter.  If @filter_iter was not set, false is
      * returned.
@@ -145,6 +165,11 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
         ).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Converts @child_path to a path relative to @filter. That is, @child_path
      * points to a path in the child model. The rerturned path will point to the
      * same row in the filtered model. If @child_path isn’t a valid path on the
@@ -160,6 +185,11 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @child_iter to point to the row pointed to by @filter_iter.
      *
      * @param childIter An uninitialized `GtkTreeIter`
@@ -173,6 +203,11 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Converts @filter_path to a path on the child model of @filter. That is,
      * @filter_path points to a location in @filter. The returned path will
      * point to the same location in the model not being filtered. If @filter_path
@@ -190,6 +225,11 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns a pointer to the child model of @filter.
      *
      * @return A pointer to a `GtkTreeModel`
@@ -199,12 +239,22 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits ::row_changed for each row in the child model, which causes
      * the filter to re-evaluate whether a row is visible or not.
      */
     public open fun refilter(): Unit = gtk_tree_model_filter_refilter(gtkTreeModelFilterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @column of the child_model to be the column where @filter should
      * look for visibility information. @columns should be a column of type
      * %G_TYPE_BOOLEAN, where true means that a row is visible, and false
@@ -220,6 +270,11 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
         gtk_tree_model_filter_set_visible_column(gtkTreeModelFilterPointer, column)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the visible function used when filtering the @filter to be @func.
      * The function should return true if the given row should be visible and
      * false otherwise.
@@ -267,9 +322,7 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
 
     public companion object : TypeCompanion<TreeModelFilter> {
         override val type: GeneratedClassKGType<TreeModelFilter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_tree_model_filter_get_type")!!) {
-                TreeModelFilter(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { TreeModelFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -281,5 +334,16 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_model_filter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_model_filter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_model_filter_get_type")
     }
 }

@@ -14,13 +14,13 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwActionRow
 import org.gtkkn.native.adw.adw_action_row_activate
 import org.gtkkn.native.adw.adw_action_row_add_prefix
@@ -96,6 +96,10 @@ import kotlin.Unit
 public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRow>) :
     PreferencesRow(adwActionRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -126,7 +130,7 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
          * @return the activatable widget for @self
          */
         get() = adw_action_row_get_activatable_widget(adwActionRowPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -144,10 +148,24 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
         set(widget) = adw_action_row_set_activatable_widget(adwActionRowPointer, widget?.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.3.
+     *
+     * Use [method@ActionRow.add_prefix] to add an icon.
+     * ---
+     *
      * The icon name for this row.
      */
     public open var iconName: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.3.
+         *
+         * Use [method@ActionRow.add_prefix] to add an icon.
+         * ---
+         *
          * Gets the icon name for @self.
          *
          * @return the icon name for @self
@@ -155,6 +173,13 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
         get() = adw_action_row_get_icon_name(adwActionRowPointer)?.toKString()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.3.
+         *
+         * Use [method@ActionRow.add_prefix] to add an icon.
+         * ---
+         *
          * Sets the icon name for @self.
          *
          * @param iconName the icon name
@@ -247,7 +272,9 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
      *
      * @return the newly created `AdwActionRow`
      */
-    public constructor() : this(adw_action_row_new()!!.reinterpret())
+    public constructor() : this(adw_action_row_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Activates @self.
@@ -319,7 +346,7 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
 
     public companion object : TypeCompanion<ActionRow> {
         override val type: GeneratedClassKGType<ActionRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_action_row_get_type")!!) { ActionRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ActionRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -331,6 +358,17 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
          * @return the GType
          */
         public fun getType(): GType = adw_action_row_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_action_row_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_action_row_get_type")
     }
 }
 

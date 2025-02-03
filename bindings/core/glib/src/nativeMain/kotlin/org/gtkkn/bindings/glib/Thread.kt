@@ -3,17 +3,22 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.alloc
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_20
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -61,6 +66,66 @@ import kotlin.Unit
  */
 public class Thread(public val glibThreadPointer: CPointer<GThread>) : ProxyInstance(glibThreadPointer) {
     /**
+     * This function creates a new thread. The new thread starts by invoking
+     * @func with the argument data. The thread will run until @func returns
+     * or until g_thread_exit() is called from the new thread. The return value
+     * of @func becomes the return value of the thread, which can be obtained
+     * with g_thread_join().
+     *
+     * The @name can be useful for discriminating threads in a debugger.
+     * It is not used for other purposes and does not have to be unique.
+     * Some systems restrict the length of @name to 16 bytes.
+     *
+     * If the thread can not be created the program aborts. See
+     * g_thread_try_new() if you want to attempt to deal with failures.
+     *
+     * If you are using threads to offload (potentially many) short-lived tasks,
+     * #GThreadPool may be more appropriate than manually spawning and tracking
+     * multiple #GThreads.
+     *
+     * To free the struct returned by this function, use g_thread_unref().
+     * Note that g_thread_join() implicitly unrefs the #GThread as well.
+     *
+     * New threads by default inherit their scheduler policy (POSIX) or thread
+     * priority (Windows) of the thread creating the new thread.
+     *
+     * This behaviour changed in GLib 2.64: before threads on Windows were not
+     * inheriting the thread priority but were spawned with the default priority.
+     * Starting with GLib 2.64 the behaviour is now consistent between Windows and
+     * POSIX and all threads inherit their parent thread's priority.
+     *
+     * @param name an (optional) name for the new thread
+     * @param func a function to execute in the new thread
+     * @return the new #GThread
+     * @since 2.32
+     */
+    public constructor(
+        name: String? = null,
+        func: ThreadFunc,
+    ) : this(g_thread_new(name, ThreadFuncFunc.reinterpret(), StableRef.create(func).asCPointer())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Allocate a new Thread.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GThread>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
+
+    /**
+     * Allocate a new Thread using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GThread>().ptr)
+
+    /**
      * Waits until @thread finishes, i.e. the function @func, as
      * given to g_thread_new(), returns or g_thread_exit() is called.
      * If @thread has already terminated, then g_thread_join()
@@ -94,6 +159,13 @@ public class Thread(public val glibThreadPointer: CPointer<GThread>) : ProxyInst
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Thread priorities no longer have any effect.
+     * ---
+     *
      * This function does nothing.
      *
      * @param priority ignored
@@ -116,44 +188,6 @@ public class Thread(public val glibThreadPointer: CPointer<GThread>) : ProxyInst
 
     public companion object {
         /**
-         * This function creates a new thread. The new thread starts by invoking
-         * @func with the argument data. The thread will run until @func returns
-         * or until g_thread_exit() is called from the new thread. The return value
-         * of @func becomes the return value of the thread, which can be obtained
-         * with g_thread_join().
-         *
-         * The @name can be useful for discriminating threads in a debugger.
-         * It is not used for other purposes and does not have to be unique.
-         * Some systems restrict the length of @name to 16 bytes.
-         *
-         * If the thread can not be created the program aborts. See
-         * g_thread_try_new() if you want to attempt to deal with failures.
-         *
-         * If you are using threads to offload (potentially many) short-lived tasks,
-         * #GThreadPool may be more appropriate than manually spawning and tracking
-         * multiple #GThreads.
-         *
-         * To free the struct returned by this function, use g_thread_unref().
-         * Note that g_thread_join() implicitly unrefs the #GThread as well.
-         *
-         * New threads by default inherit their scheduler policy (POSIX) or thread
-         * priority (Windows) of the thread creating the new thread.
-         *
-         * This behaviour changed in GLib 2.64: before threads on Windows were not
-         * inheriting the thread priority but were spawned with the default priority.
-         * Starting with GLib 2.64 the behaviour is now consistent between Windows and
-         * POSIX and all threads inherit their parent thread's priority.
-         *
-         * @param name an (optional) name for the new thread
-         * @param func a function to execute in the new thread
-         * @return the new #GThread
-         * @since 2.32
-         */
-        public fun new(name: String? = null, func: ThreadFunc): Thread = Thread(
-            g_thread_new(name, ThreadFuncFunc.reinterpret(), StableRef.create(func).asCPointer())!!.reinterpret()
-        )
-
-        /**
          * This function is the same as g_thread_new() except that
          * it allows for the possibility of failure.
          *
@@ -168,6 +202,7 @@ public class Thread(public val glibThreadPointer: CPointer<GThread>) : ProxyInst
         public fun tryNew(name: String? = null, func: ThreadFunc): Result<Thread> {
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult =
                     g_thread_try_new(
                         name,
@@ -178,12 +213,21 @@ public class Thread(public val glibThreadPointer: CPointer<GThread>) : ProxyInst
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
-                    Result.success(Thread(checkNotNull(gResult)))
+                    val instance = Thread(checkNotNull(gResult))
+                    MemoryCleaner.setBoxedType(instance, getType(), owned = true)
+                    Result.success(instance)
                 }
             }
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * Use g_thread_new() instead
+         * ---
+         *
          * This function creates a new thread.
          *
          * The new thread executes the function @func with the argument @data.
@@ -220,6 +264,14 @@ public class Thread(public val glibThreadPointer: CPointer<GThread>) : ProxyInst
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * The @bound and @priority arguments are now ignored.
+         * Use g_thread_new().
+         * ---
+         *
          * This function creates a new thread.
          *
          * @param func a function to execute in the new thread.
@@ -278,6 +330,15 @@ public class Thread(public val glibThreadPointer: CPointer<GThread>) : ProxyInst
         public fun exit(retval: gpointer? = null): Unit = g_thread_exit(retval)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * There aren't many things you can do with a #GThread,
+         *     except comparing it with one that was returned from g_thread_create().
+         *     There are better ways to find out if your thread is still alive.
+         * ---
+         *
          * Call @thread_func on all #GThreads that have been
          * created with g_thread_create().
          *
@@ -307,6 +368,15 @@ public class Thread(public val glibThreadPointer: CPointer<GThread>) : ProxyInst
         public fun getInitialized(): Boolean = g_thread_get_initialized().asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * This function is no longer necessary. The GLib
+         *     threading system is automatically initialized at the start
+         *     of your program.
+         * ---
+         *
          * If you use GLib from more than one thread, you must initialize the
          * thread system by calling g_thread_init().
          *

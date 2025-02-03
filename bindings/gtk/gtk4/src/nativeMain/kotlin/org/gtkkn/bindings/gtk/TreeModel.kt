@@ -15,12 +15,11 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
@@ -59,6 +58,13 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [iface@Gio.ListModel] instead
+ * ---
+ *
  * The tree interface used by GtkTreeView
  *
  * The `GtkTreeModel` interface defines a generic tree interface for
@@ -268,6 +274,11 @@ public interface TreeModel :
     public val gtkTreeModelPointer: CPointer<GtkTreeModel>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkTreeModel`, with @child_model as the child_model
      * and @root as the virtual root.
      *
@@ -280,6 +291,11 @@ public interface TreeModel :
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Calls @func on each node in model in a depth-first fashion.
      *
      * If @func returns true, then the tree ceases to be walked,
@@ -294,6 +310,11 @@ public interface TreeModel :
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the type of the column.
      *
      * @param index the column index
@@ -302,6 +323,11 @@ public interface TreeModel :
     public fun getColumnType(index: gint): GType = gtk_tree_model_get_column_type(gtkTreeModelPointer, index)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns a set of flags supported by this interface.
      *
      * The flags are a bitwise combination of `GtkTreeModel`Flags.
@@ -315,6 +341,11 @@ public interface TreeModel :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to a valid iterator pointing to @path.
      *
      * If @path does not exist, @iter is set to an invalid
@@ -328,6 +359,11 @@ public interface TreeModel :
         gtk_tree_model_get_iter(gtkTreeModelPointer, iter.gtkTreeIterPointer, path.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Initializes @iter with the first iterator in the tree
      * (the one at the path "0").
      *
@@ -340,6 +376,11 @@ public interface TreeModel :
         gtk_tree_model_get_iter_first(gtkTreeModelPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to a valid iterator pointing to @path_string, if it
      * exists.
      *
@@ -353,6 +394,11 @@ public interface TreeModel :
         gtk_tree_model_get_iter_from_string(gtkTreeModelPointer, iter.gtkTreeIterPointer, pathString).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the number of columns supported by @tree_model.
      *
      * @return the number of columns
@@ -360,6 +406,11 @@ public interface TreeModel :
     public fun getNColumns(): gint = gtk_tree_model_get_n_columns(gtkTreeModelPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns a newly-created `GtkTreePath` referenced by @iter.
      *
      * This path should be freed with gtk_tree_path_free().
@@ -373,6 +424,11 @@ public interface TreeModel :
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Generates a string representation of the iter.
      *
      * This string is a “:” separated list of numbers.
@@ -386,6 +442,11 @@ public interface TreeModel :
         gtk_tree_model_get_string_from_iter(gtkTreeModelPointer, iter.gtkTreeIterPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Initializes and sets @value to that at @column.
      *
      * When done with @value, g_value_unset() needs to be called
@@ -399,6 +460,11 @@ public interface TreeModel :
         gtk_tree_model_get_value(gtkTreeModelPointer, iter.gtkTreeIterPointer, column, `value`.gobjectValuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to point to the first child of @parent.
      *
      * If @parent has no children, false is returned and @iter is
@@ -419,6 +485,11 @@ public interface TreeModel :
     ).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns true if @iter has children, false otherwise.
      *
      * @param iter the `GtkTreeIter` to test for children
@@ -428,6 +499,11 @@ public interface TreeModel :
         gtk_tree_model_iter_has_child(gtkTreeModelPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the number of children that @iter has.
      *
      * As a special case, if @iter is null, then the number
@@ -440,6 +516,11 @@ public interface TreeModel :
         gtk_tree_model_iter_n_children(gtkTreeModelPointer, iter?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to point to the node following it at the current level.
      *
      * If there is no next @iter, false is returned and @iter is set
@@ -452,6 +533,11 @@ public interface TreeModel :
         gtk_tree_model_iter_next(gtkTreeModelPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to be the child of @parent, using the given index.
      *
      * The first index is 0. If @n is too big, or @parent has no children,
@@ -473,6 +559,11 @@ public interface TreeModel :
     ).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to be the parent of @child.
      *
      * If @child is at the toplevel, and doesn’t have a parent, then
@@ -491,6 +582,11 @@ public interface TreeModel :
         gtk_tree_model_iter_parent(gtkTreeModelPointer, iter.gtkTreeIterPointer, child.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to point to the previous node at the current level.
      *
      * If there is no previous @iter, false is returned and @iter is
@@ -503,6 +599,11 @@ public interface TreeModel :
         gtk_tree_model_iter_previous(gtkTreeModelPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Lets the tree ref the node.
      *
      * This is an optional method for models to implement.
@@ -526,6 +627,11 @@ public interface TreeModel :
     public fun refNode(iter: TreeIter): Unit = gtk_tree_model_ref_node(gtkTreeModelPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the ::row-changed signal on @tree_model.
      *
      * See [signal@Gtk.TreeModel::row-changed].
@@ -537,6 +643,11 @@ public interface TreeModel :
         gtk_tree_model_row_changed(gtkTreeModelPointer, path.gtkTreePathPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the ::row-deleted signal on @tree_model.
      *
      * See [signal@Gtk.TreeModel::row-deleted].
@@ -555,6 +666,11 @@ public interface TreeModel :
         gtk_tree_model_row_deleted(gtkTreeModelPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the ::row-has-child-toggled signal on @tree_model.
      *
      * See [signal@Gtk.TreeModel::row-has-child-toggled].
@@ -569,6 +685,11 @@ public interface TreeModel :
         gtk_tree_model_row_has_child_toggled(gtkTreeModelPointer, path.gtkTreePathPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the ::row-inserted signal on @tree_model.
      *
      * See [signal@Gtk.TreeModel::row-inserted].
@@ -580,6 +701,11 @@ public interface TreeModel :
         gtk_tree_model_row_inserted(gtkTreeModelPointer, path.gtkTreePathPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Lets the tree unref the node.
      *
      * This is an optional method for models to implement.
@@ -712,13 +838,19 @@ public interface TreeModel :
      *
      * @constructor Creates a new instance of TreeModel for the provided [CPointer].
      */
-    public data class TreeModelImpl(override val gtkTreeModelPointer: CPointer<GtkTreeModel>) :
+    public class TreeModelImpl(gtkTreeModelPointer: CPointer<GtkTreeModel>) :
         Object(gtkTreeModelPointer.reinterpret()),
-        TreeModel
+        TreeModel {
+        init {
+            Gtk
+        }
+
+        override val gtkTreeModelPointer: CPointer<GtkTreeModel> = gtkTreeModelPointer
+    }
 
     public companion object : TypeCompanion<TreeModel> {
         override val type: GeneratedInterfaceKGType<TreeModel> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_model_get_type")!!) { TreeModelImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { TreeModelImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -730,6 +862,17 @@ public interface TreeModel :
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_model_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_model_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_model_get_type")
     }
 }
 

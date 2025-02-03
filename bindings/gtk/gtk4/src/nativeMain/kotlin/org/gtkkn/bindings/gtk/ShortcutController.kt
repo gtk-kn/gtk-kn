@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gio.ListModel
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
@@ -80,6 +80,10 @@ public open class ShortcutController(public val gtkShortcutControllerPointer: CP
     ListModel,
     Buildable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 
@@ -121,7 +125,9 @@ public open class ShortcutController(public val gtkShortcutControllerPointer: CP
      *
      * @return a newly created shortcut controller
      */
-    public constructor() : this(gtk_shortcut_controller_new()!!.reinterpret())
+    public constructor() : this(gtk_shortcut_controller_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new shortcut controller that takes its shortcuts from
@@ -136,7 +142,9 @@ public open class ShortcutController(public val gtkShortcutControllerPointer: CP
      */
     public constructor(
         model: ListModel,
-    ) : this(gtk_shortcut_controller_new_for_model(model.gioListModelPointer)!!.reinterpret())
+    ) : this(gtk_shortcut_controller_new_for_model(model.gioListModelPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @shortcut to the list of shortcuts handled by @self.
@@ -192,9 +200,7 @@ public open class ShortcutController(public val gtkShortcutControllerPointer: CP
 
     public companion object : TypeCompanion<ShortcutController> {
         override val type: GeneratedClassKGType<ShortcutController> =
-            GeneratedClassKGType(getTypeOrNull("gtk_shortcut_controller_get_type")!!) {
-                ShortcutController(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ShortcutController(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -206,5 +212,16 @@ public open class ShortcutController(public val gtkShortcutControllerPointer: CP
          * @return the GType
          */
         public fun getType(): GType = gtk_shortcut_controller_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_shortcut_controller_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_shortcut_controller_get_type")
     }
 }

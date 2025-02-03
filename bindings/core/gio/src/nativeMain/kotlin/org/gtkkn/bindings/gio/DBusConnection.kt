@@ -29,13 +29,13 @@ import org.gtkkn.bindings.gobject.Closure
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAsyncInitable
 import org.gtkkn.native.gio.GDBusConnection
 import org.gtkkn.native.gio.GInitable
@@ -168,6 +168,10 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     AsyncInitable,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioAsyncInitablePointer: CPointer<GAsyncInitable>
         get() = handle.reinterpret()
 
@@ -314,7 +318,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
          * @since 2.26
          */
         get() = g_dbus_connection_get_stream(gioDBusConnectionPointer)!!.run {
-            IoStream.IoStreamImpl(this)
+            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!
         }
 
     /**
@@ -350,13 +354,16 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     public constructor(res: AsyncResult) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult = g_dbus_connection_new_finish(res.gioAsyncResultPointer, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Synchronously connects and sets up a D-Bus client connection for
@@ -394,6 +401,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult =
                 g_dbus_connection_new_for_address_sync(
                     address,
@@ -405,9 +413,11 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Synchronously sets up a D-Bus connection for exchanging D-Bus messages
@@ -445,6 +455,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult =
                 g_dbus_connection_new_sync(
                     stream.gioIoStreamPointer,
@@ -457,9 +468,11 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a message filter. Filters are handlers that are run on all
@@ -1079,7 +1092,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     @GioVersion2_26
     public open fun getPeerCredentials(): Credentials? =
         g_dbus_connection_get_peer_credentials(gioDBusConnectionPointer)?.run {
-            Credentials(this)
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!
         }
 
     /**
@@ -1172,7 +1185,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
             res.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            DBusMessage(this)
+            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -1410,50 +1423,10 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
 
     public companion object : TypeCompanion<DBusConnection> {
         override val type: GeneratedClassKGType<DBusConnection> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_connection_get_type")!!) { DBusConnection(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DBusConnection(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
-        }
-
-        /**
-         * Finishes an operation started with g_dbus_connection_new().
-         *
-         * @param res a #GAsyncResult obtained from the #GAsyncReadyCallback
-         *     passed to g_dbus_connection_new().
-         * @return a #GDBusConnection or null if @error is set. Free
-         *     with g_object_unref().
-         * @since 2.26
-         */
-        public fun newFinish(res: AsyncResult): Result<DBusConnection> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = g_dbus_connection_new_finish(res.gioAsyncResultPointer, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(DBusConnection(checkNotNull(gResult).reinterpret()))
-            }
-        }
-
-        /**
-         * Finishes an operation started with g_dbus_connection_new_for_address().
-         *
-         * @param res a #GAsyncResult obtained from the #GAsyncReadyCallback passed
-         *     to g_dbus_connection_new()
-         * @return a #GDBusConnection or null if @error is set.
-         *     Free with g_object_unref().
-         * @since 2.26
-         */
-        public fun newForAddressFinish(res: AsyncResult): Result<DBusConnection> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = g_dbus_connection_new_for_address_finish(res.gioAsyncResultPointer, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(DBusConnection(checkNotNull(gResult).reinterpret()))
-            }
         }
 
         /**
@@ -1561,6 +1534,41 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
          * @return the GType
          */
         public fun getType(): GType = g_dbus_connection_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_connection_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_connection_get_type")
+
+        /**
+         * Finishes an operation started with g_dbus_connection_new_for_address().
+         *
+         * @param res a #GAsyncResult obtained from the #GAsyncReadyCallback passed
+         *     to g_dbus_connection_new()
+         * @return a #GDBusConnection or null if @error is set.
+         *     Free with g_object_unref().
+         * @since 2.26
+         */
+        public fun forAddressFinish(res: AsyncResult): Result<DBusConnection> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = g_dbus_connection_new_for_address_finish(res.gioAsyncResultPointer, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = DBusConnection(checkNotNull(gResult))
+                    InstanceCache.put(instance)
+                    Result.success(instance)
+                }
+            }
+        }
     }
 }
 

@@ -14,13 +14,13 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwAnimation
 import org.gtkkn.native.adw.adw_animation_get_follow_enable_animations_setting
 import org.gtkkn.native.adw.adw_animation_get_state
@@ -93,6 +93,10 @@ import kotlin.Unit
 public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnimation>) :
     Object(adwAnimationPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * Whether to skip the animation when animations are globally disabled.
      *
@@ -162,7 +166,7 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
          * @return the animation target
          */
         get() = adw_animation_get_target(adwAnimationPointer)!!.run {
-            AnimationTarget.AnimationTargetImpl(this)
+            InstanceCache.get(this, true) { AnimationTarget.AnimationTargetImpl(reinterpret()) }!!
         }
 
         /**
@@ -207,7 +211,7 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
          * @return the animation widget
          */
         get() = adw_animation_get_widget(adwAnimationPointer)!!.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -299,7 +303,7 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
 
     public companion object : TypeCompanion<Animation> {
         override val type: GeneratedClassKGType<Animation> =
-            GeneratedClassKGType(getTypeOrNull("adw_animation_get_type")!!) { AnimationImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { AnimationImpl(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -311,6 +315,17 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
          * @return the GType
          */
         public fun getType(): GType = adw_animation_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_animation_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_animation_get_type")
     }
 }
 

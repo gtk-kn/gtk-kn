@@ -21,12 +21,12 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintDialog
@@ -68,6 +68,10 @@ import kotlin.Unit
 public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrintDialog>) :
     Object(gtkPrintDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * A label that may be shown on the accept button of a print dialog
      * that is presented by [method@Gtk.PrintDialog.setup].
@@ -139,7 +143,7 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
          * @since 4.14
          */
         get() = gtk_print_dialog_get_page_setup(gtkPrintDialogPointer)!!.run {
-            PageSetup(this)
+            InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
         }
 
         /**
@@ -165,7 +169,7 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
          * @since 4.14
          */
         get() = gtk_print_dialog_get_print_settings(gtkPrintDialogPointer)!!.run {
-            PrintSettings(this)
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
         }
 
         /**
@@ -211,7 +215,9 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
      * @return the new `GtkPrintDialog`
      * @since 4.14
      */
-    public constructor() : this(gtk_print_dialog_new()!!.reinterpret())
+    public constructor() : this(gtk_print_dialog_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * This function prints content from a stream.
@@ -329,7 +335,7 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            OutputStream.OutputStreamImpl(this)
+            InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -406,7 +412,7 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
 
     public companion object : TypeCompanion<PrintDialog> {
         override val type: GeneratedClassKGType<PrintDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_print_dialog_get_type")!!) { PrintDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { PrintDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -418,5 +424,16 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
          * @return the GType
          */
         public fun getType(): GType = gtk_print_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_print_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_print_dialog_get_type")
     }
 }

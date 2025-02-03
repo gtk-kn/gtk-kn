@@ -20,6 +20,8 @@ import org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_24
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
@@ -66,6 +68,10 @@ import kotlin.collections.List
  * - record `WeakValueClass`: glib type struct are ignored
  */
 public object JavaScriptCore {
+    init {
+        registerTypes()
+    }
+
     /**
      * Like jsc_get_major_version(), but from the headers used at
      * application compile time, rather than from the library linked
@@ -275,6 +281,23 @@ public object JavaScriptCore {
     @JavaScriptCoreVersion2_24
     public fun optionsSetUint(option: String, `value`: guint): Boolean =
         jsc_options_set_uint(option, `value`).asBoolean()
+
+    private fun registerTypes() {
+        Class.getTypeOrNull()?.let { gtype -> TypeCache.register(Class::class, gtype) { Class(it.reinterpret()) } }
+        Context.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Context::class, gtype) { Context(it.reinterpret()) }
+        }
+        Exception.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Exception::class, gtype) { Exception(it.reinterpret()) }
+        }
+        Value.getTypeOrNull()?.let { gtype -> TypeCache.register(Value::class, gtype) { Value(it.reinterpret()) } }
+        VirtualMachine.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(VirtualMachine::class, gtype) { VirtualMachine(it.reinterpret()) }
+        }
+        WeakValue.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(WeakValue::class, gtype) { WeakValue(it.reinterpret()) }
+        }
+    }
 }
 
 public val ClassDeletePropertyFunctionFunc: CPointer<
@@ -302,10 +325,10 @@ public val ClassDeletePropertyFunctionFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         jscClass!!.run {
-            Class(this)
+            InstanceCache.get(this, false) { Class(reinterpret()) }!!
         },
         context!!.run {
-            Context(this)
+            InstanceCache.get(this, false) { Context(reinterpret()) }!!
         },
         instance,
         name?.toKString() ?: error("Expected not null string")
@@ -336,10 +359,10 @@ public val ClassEnumeratePropertiesFunctionFunc: CPointer<
             ) -> List<String>?
             >().get().invoke(
             jscClass!!.run {
-                Class(this)
+                InstanceCache.get(this, false) { Class(reinterpret()) }!!
             },
             context!!.run {
-                Context(this)
+                InstanceCache.get(this, false) { Context(reinterpret()) }!!
             },
             instance
         )?.toCStringList(this)
@@ -372,10 +395,10 @@ public val ClassGetPropertyFunctionFunc: CPointer<
         ) -> Value?
         >().get().invoke(
         jscClass!!.run {
-            Class(this)
+            InstanceCache.get(this, false) { Class(reinterpret()) }!!
         },
         context!!.run {
-            Context(this)
+            InstanceCache.get(this, false) { Context(reinterpret()) }!!
         },
         instance,
         name?.toKString() ?: error("Expected not null string")
@@ -408,10 +431,10 @@ public val ClassHasPropertyFunctionFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         jscClass!!.run {
-            Class(this)
+            InstanceCache.get(this, false) { Class(reinterpret()) }!!
         },
         context!!.run {
-            Context(this)
+            InstanceCache.get(this, false) { Context(reinterpret()) }!!
         },
         instance,
         name?.toKString() ?: error("Expected not null string")
@@ -447,15 +470,15 @@ public val ClassSetPropertyFunctionFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         jscClass!!.run {
-            Class(this)
+            InstanceCache.get(this, false) { Class(reinterpret()) }!!
         },
         context!!.run {
-            Context(this)
+            InstanceCache.get(this, false) { Context(reinterpret()) }!!
         },
         instance,
         name?.toKString() ?: error("Expected not null string"),
         `value`!!.run {
-            Value(this)
+            InstanceCache.get(this, false) { Value(reinterpret()) }!!
         }
     ).asGBoolean()
 }
@@ -470,10 +493,10 @@ public val ExceptionHandlerFunc:
         ->
         userData!!.asStableRef<(context: Context, exception: Exception) -> Unit>().get().invoke(
             context!!.run {
-                Context(this)
+                InstanceCache.get(this, false) { Context(reinterpret()) }!!
             },
             exception!!.run {
-                Exception(this)
+                InstanceCache.get(this, false) { Exception(reinterpret()) }!!
             }
         )
     }

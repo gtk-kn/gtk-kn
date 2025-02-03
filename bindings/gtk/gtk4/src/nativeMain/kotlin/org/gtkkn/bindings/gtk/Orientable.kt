@@ -7,10 +7,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.gtk_orientable_get_orientation
@@ -78,15 +77,19 @@ public interface Orientable :
      *
      * @constructor Creates a new instance of Orientable for the provided [CPointer].
      */
-    public data class OrientableImpl(override val gtkOrientablePointer: CPointer<GtkOrientable>) :
+    public class OrientableImpl(gtkOrientablePointer: CPointer<GtkOrientable>) :
         Object(gtkOrientablePointer.reinterpret()),
-        Orientable
+        Orientable {
+        init {
+            Gtk
+        }
+
+        override val gtkOrientablePointer: CPointer<GtkOrientable> = gtkOrientablePointer
+    }
 
     public companion object : TypeCompanion<Orientable> {
         override val type: GeneratedInterfaceKGType<Orientable> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_orientable_get_type")!!) {
-                OrientableImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { OrientableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -98,5 +101,16 @@ public interface Orientable :
          * @return the GType
          */
         public fun getType(): GType = gtk_orientable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_orientable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_orientable_get_type")
     }
 }

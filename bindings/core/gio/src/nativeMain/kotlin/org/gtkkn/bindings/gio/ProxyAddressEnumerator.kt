@@ -5,10 +5,9 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GProxyAddressEnumerator
 import org.gtkkn.native.gio.g_proxy_address_enumerator_get_type
 import org.gtkkn.native.gobject.GType
@@ -36,11 +35,13 @@ public open class ProxyAddressEnumerator(
     public val gioProxyAddressEnumeratorPointer: CPointer<GProxyAddressEnumerator>,
 ) : SocketAddressEnumerator(gioProxyAddressEnumeratorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     public companion object : TypeCompanion<ProxyAddressEnumerator> {
         override val type: GeneratedClassKGType<ProxyAddressEnumerator> =
-            GeneratedClassKGType(getTypeOrNull("g_proxy_address_enumerator_get_type")!!) {
-                ProxyAddressEnumerator(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ProxyAddressEnumerator(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -52,5 +53,16 @@ public open class ProxyAddressEnumerator(
          * @return the GType
          */
         public fun getType(): GType = g_proxy_address_enumerator_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_proxy_address_enumerator_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_proxy_address_enumerator_get_type")
     }
 }

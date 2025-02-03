@@ -3,14 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
@@ -42,10 +39,7 @@ import org.gtkkn.native.graphene.graphene_vec2_x_axis
 import org.gtkkn.native.graphene.graphene_vec2_y_axis
 import org.gtkkn.native.graphene.graphene_vec2_zero
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure capable of holding a vector with two dimensions, x and y.
@@ -58,38 +52,22 @@ import kotlin.native.ref.createCleaner
  * - parameter `src`: Array parameter of type gfloat is not supported
  * - parameter `dest`: dest: Out parameter is not supported
  */
-public class Vec2(public val grapheneVec2Pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(grapheneVec2Pointer) {
+public class Vec2(public val grapheneVec2Pointer: CPointer<graphene_vec2_t>) : ProxyInstance(grapheneVec2Pointer) {
     /**
-     * Allocate a new Vec2.
+     * Allocates a new #graphene_vec2_t structure.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the returned structure are undefined.
+     *
+     * Use graphene_vec2_init() to initialize the vector.
+     *
+     * @return the newly allocated #graphene_vec2_t
+     *   structure. Use graphene_vec2_free() to free the resources allocated
+     *   by this function.
+     * @since 1.0
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_vec2_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Vec2 and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_vec2_t>, Cleaner>,
-    ) : this(grapheneVec2Pointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Vec2 using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_vec2_t>().ptr)
+    public constructor() : this(graphene_vec2_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Adds each component of the two passed vectors and places
@@ -304,20 +282,6 @@ public class Vec2(public val grapheneVec2Pointer: CPointer<graphene_vec2_t>, cle
         graphene_vec2_subtract(grapheneVec2Pointer, b.grapheneVec2Pointer, res.grapheneVec2Pointer)
 
     public companion object {
-        /**
-         * Allocates a new #graphene_vec2_t structure.
-         *
-         * The contents of the returned structure are undefined.
-         *
-         * Use graphene_vec2_init() to initialize the vector.
-         *
-         * @return the newly allocated #graphene_vec2_t
-         *   structure. Use graphene_vec2_free() to free the resources allocated
-         *   by this function.
-         * @since 1.0
-         */
-        public fun alloc(): Vec2 = Vec2(graphene_vec2_alloc()!!)
-
         /**
          * Retrieves a constant vector with (1, 1) components.
          *

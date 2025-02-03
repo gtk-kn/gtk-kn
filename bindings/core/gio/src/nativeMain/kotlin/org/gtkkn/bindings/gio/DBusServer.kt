@@ -15,19 +15,20 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusConnection
 import org.gtkkn.native.gio.GDBusServer
 import org.gtkkn.native.gio.GInitable
@@ -84,6 +85,10 @@ public open class DBusServer(public val gioDBusServerPointer: CPointer<GDBusServ
     Object(gioDBusServerPointer.reinterpret()),
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioInitablePointer: CPointer<GInitable>
         get() = handle.reinterpret()
 
@@ -182,6 +187,7 @@ public open class DBusServer(public val gioDBusServerPointer: CPointer<GDBusServ
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
+            gError.`value` = null
             val gResult =
                 g_dbus_server_new_sync(
                     address,
@@ -194,9 +200,11 @@ public open class DBusServer(public val gioDBusServerPointer: CPointer<GDBusServ
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
-            gResult!!.reinterpret()
+            gResult!!
         }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets whether @server is active.
@@ -266,7 +274,7 @@ public open class DBusServer(public val gioDBusServerPointer: CPointer<GDBusServ
 
     public companion object : TypeCompanion<DBusServer> {
         override val type: GeneratedClassKGType<DBusServer> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_server_get_type")!!) { DBusServer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DBusServer(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -278,6 +286,17 @@ public open class DBusServer(public val gioDBusServerPointer: CPointer<GDBusServ
          * @return the GType
          */
         public fun getType(): GType = g_dbus_server_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_server_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_server_get_type")
     }
 }
 
@@ -289,7 +308,7 @@ private val onNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnection>) 
         ->
         userData.asStableRef<(connection: DBusConnection) -> Boolean>().get().invoke(
             connection!!.run {
-                DBusConnection(this)
+                InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
             }
         ).asGBoolean()
     }

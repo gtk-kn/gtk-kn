@@ -10,6 +10,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -61,6 +62,27 @@ import kotlin.Unit
  */
 public class MainContext(public val glibMainContextPointer: CPointer<GMainContext>) :
     ProxyInstance(glibMainContextPointer) {
+    /**
+     * Creates a new #GMainContext structure.
+     *
+     * @return the new #GMainContext
+     */
+    public constructor() : this(g_main_context_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new #GMainContext structure.
+     *
+     * @param flags a bitwise-OR combination of #GMainContextFlags flags that can only be
+     *         set at creation time.
+     * @return the new #GMainContext
+     * @since 2.72
+     */
+    public constructor(flags: MainContextFlags) : this(g_main_context_new_with_flags(flags.mask)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Tries to become the owner of the specified context.
      * If some other thread is the owner of the context,
@@ -344,6 +366,13 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
     public fun unref(): Unit = g_main_context_unref(glibMainContextPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.58.
+     *
+     * Use g_main_context_is_owner() and separate locking instead.
+     * ---
+     *
      * Tries to become the owner of the specified context,
      * as with g_main_context_acquire(). But if another thread
      * is the owner, atomically drop @mutex and wait on @cond until
@@ -391,24 +420,6 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
     public fun wakeup(): Unit = g_main_context_wakeup(glibMainContextPointer)
 
     public companion object {
-        /**
-         * Creates a new #GMainContext structure.
-         *
-         * @return the new #GMainContext
-         */
-        public fun new(): MainContext = MainContext(g_main_context_new()!!)
-
-        /**
-         * Creates a new #GMainContext structure.
-         *
-         * @param flags a bitwise-OR combination of #GMainContextFlags flags that can only be
-         *         set at creation time.
-         * @return the new #GMainContext
-         * @since 2.72
-         */
-        public fun newWithFlags(flags: MainContextFlags): MainContext =
-            MainContext(g_main_context_new_with_flags(flags.mask)!!.reinterpret())
-
         /**
          * Returns the global-default main context. This is the main context
          * used for main loop functions when a main loop is not explicitly

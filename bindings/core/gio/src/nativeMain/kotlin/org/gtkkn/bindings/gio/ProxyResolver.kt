@@ -15,12 +15,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GProxyResolver
 import org.gtkkn.native.gio.g_proxy_resolver_get_default
 import org.gtkkn.native.gio.g_proxy_resolver_get_type
@@ -156,15 +155,19 @@ public interface ProxyResolver :
      *
      * @constructor Creates a new instance of ProxyResolver for the provided [CPointer].
      */
-    public data class ProxyResolverImpl(override val gioProxyResolverPointer: CPointer<GProxyResolver>) :
+    public class ProxyResolverImpl(gioProxyResolverPointer: CPointer<GProxyResolver>) :
         Object(gioProxyResolverPointer.reinterpret()),
-        ProxyResolver
+        ProxyResolver {
+        init {
+            Gio
+        }
+
+        override val gioProxyResolverPointer: CPointer<GProxyResolver> = gioProxyResolverPointer
+    }
 
     public companion object : TypeCompanion<ProxyResolver> {
         override val type: GeneratedInterfaceKGType<ProxyResolver> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_proxy_resolver_get_type")!!) {
-                ProxyResolverImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { ProxyResolverImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -188,5 +191,16 @@ public interface ProxyResolver :
          * @return the GType
          */
         public fun getType(): GType = g_proxy_resolver_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_proxy_resolver_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_proxy_resolver_get_type")
     }
 }

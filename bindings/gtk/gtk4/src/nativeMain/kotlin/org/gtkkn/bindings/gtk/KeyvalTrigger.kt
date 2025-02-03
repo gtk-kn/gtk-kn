@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.ModifierType
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkKeyvalTrigger
@@ -24,6 +24,10 @@ import org.gtkkn.native.gtk.gtk_keyval_trigger_new
 public open class KeyvalTrigger(public val gtkKeyvalTriggerPointer: CPointer<GtkKeyvalTrigger>) :
     ShortcutTrigger(gtkKeyvalTriggerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The key value for the trigger.
      */
@@ -61,11 +65,13 @@ public open class KeyvalTrigger(public val gtkKeyvalTriggerPointer: CPointer<Gtk
     public constructor(
         keyval: guint,
         modifiers: ModifierType,
-    ) : this(gtk_keyval_trigger_new(keyval, modifiers.mask)!!.reinterpret())
+    ) : this(gtk_keyval_trigger_new(keyval, modifiers.mask)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<KeyvalTrigger> {
         override val type: GeneratedClassKGType<KeyvalTrigger> =
-            GeneratedClassKGType(getTypeOrNull("gtk_keyval_trigger_get_type")!!) { KeyvalTrigger(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { KeyvalTrigger(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -77,5 +83,16 @@ public open class KeyvalTrigger(public val gtkKeyvalTriggerPointer: CPointer<Gtk
          * @return the GType
          */
         public fun getType(): GType = gtk_keyval_trigger_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_keyval_trigger_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_keyval_trigger_get_type")
     }
 }

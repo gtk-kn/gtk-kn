@@ -19,12 +19,12 @@ import org.gtkkn.bindings.gio.FileProgressCallbackFunc
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -66,6 +66,10 @@ import kotlin.Unit
 public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSourceFileSaver>) :
     Object(gtksourceFileSaverPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * The #GtkSourceBuffer to save. The #GtkSourceFileSaver object has a
      * weak reference to the buffer.
@@ -77,7 +81,7 @@ public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSo
          * @return the #GtkSourceBuffer to save.
          */
         get() = gtk_source_file_saver_get_buffer(gtksourceFileSaverPointer)!!.run {
-            Buffer(this)
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
         }
 
     /**
@@ -114,7 +118,7 @@ public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSo
          * @return the #GtkSourceFile.
          */
         get() = gtk_source_file_saver_get_file(gtksourceFileSaverPointer)!!.run {
-            File(this)
+            InstanceCache.get(this, true) { File(reinterpret()) }!!
         }
 
     /**
@@ -186,7 +190,9 @@ public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSo
     public constructor(
         buffer: Buffer,
         `file`: File,
-    ) : this(gtk_source_file_saver_new(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer)!!.reinterpret())
+    ) : this(gtk_source_file_saver_new(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GtkSourceFileSaver object with a target location.
@@ -212,8 +218,10 @@ public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSo
             buffer.gtksourceBufferPointer,
             `file`.gtksourceFilePointer,
             targetLocation.gioFilePointer
-        )!!.reinterpret()
-    )
+        )!!
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      *
@@ -300,10 +308,10 @@ public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSo
 
     public companion object : TypeCompanion<FileSaver> {
         override val type: GeneratedClassKGType<FileSaver> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_file_saver_get_type")!!) { FileSaver(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FileSaver(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
+            GtkSourceTypeProvider.register()
         }
 
         /**
@@ -312,5 +320,16 @@ public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSo
          * @return the GType
          */
         public fun getType(): GType = gtk_source_file_saver_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_file_saver_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_file_saver_get_type")
     }
 }

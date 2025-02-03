@@ -9,12 +9,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCellLayout
@@ -33,6 +33,14 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+ *   See [class@Gtk.LayoutManager] for layout manager delegate objects
+ * ---
+ *
  * An interface for packing cells
  *
  * `GtkCellLayout` is an interface to be implemented by all objects which
@@ -152,6 +160,11 @@ public interface CellLayout :
     public val gtkCellLayoutPointer: CPointer<GtkCellLayout>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds an attribute mapping to the list in @cell_layout.
      *
      * The @column is the column of the model to get a value from, and the
@@ -168,12 +181,22 @@ public interface CellLayout :
         gtk_cell_layout_add_attribute(gtkCellLayoutPointer, cell.gtkCellRendererPointer, attribute, column)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Unsets all the mappings on all renderers on @cell_layout and
      * removes all renderers from @cell_layout.
      */
     public fun clear(): Unit = gtk_cell_layout_clear(gtkCellLayoutPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Clears all existing attributes previously set with
      * gtk_cell_layout_set_attributes().
      *
@@ -183,6 +206,11 @@ public interface CellLayout :
         gtk_cell_layout_clear_attributes(gtkCellLayoutPointer, cell.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the underlying `GtkCellArea` which might be @cell_layout
      * if called on a `GtkCellArea` or might be null if no `GtkCellArea`
      * is used by @cell_layout.
@@ -190,10 +218,15 @@ public interface CellLayout :
      * @return the cell area used by @cell_layout
      */
     public fun getArea(): CellArea? = gtk_cell_layout_get_area(gtkCellLayoutPointer)?.run {
-        CellArea.CellAreaImpl(this)
+        InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the cell renderers which have been added to @cell_layout.
      *
      * @return a list of cell renderers. The list, but not the renderers has
@@ -205,6 +238,11 @@ public interface CellLayout :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds the @cell to the end of @cell_layout. If @expand is false, then the
      * @cell is allocated no more space than it needs. Any unused space is
      * divided evenly between cells for which @expand is true.
@@ -218,6 +256,11 @@ public interface CellLayout :
         gtk_cell_layout_pack_end(gtkCellLayoutPointer, cell.gtkCellRendererPointer, expand.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Packs the @cell into the beginning of @cell_layout. If @expand is false,
      * then the @cell is allocated no more space than it needs. Any unused space
      * is divided evenly between cells for which @expand is true.
@@ -231,6 +274,11 @@ public interface CellLayout :
         gtk_cell_layout_pack_start(gtkCellLayoutPointer, cell.gtkCellRendererPointer, expand.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Re-inserts @cell at @position.
      *
      * Note that @cell has already to be packed into @cell_layout
@@ -243,6 +291,11 @@ public interface CellLayout :
         gtk_cell_layout_reorder(gtkCellLayoutPointer, cell.gtkCellRendererPointer, position)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the `GtkCellLayout`DataFunc to use for @cell_layout.
      *
      * This function is used instead of the standard attributes mapping
@@ -270,15 +323,19 @@ public interface CellLayout :
      *
      * @constructor Creates a new instance of CellLayout for the provided [CPointer].
      */
-    public data class CellLayoutImpl(override val gtkCellLayoutPointer: CPointer<GtkCellLayout>) :
+    public class CellLayoutImpl(gtkCellLayoutPointer: CPointer<GtkCellLayout>) :
         Object(gtkCellLayoutPointer.reinterpret()),
-        CellLayout
+        CellLayout {
+        init {
+            Gtk
+        }
+
+        override val gtkCellLayoutPointer: CPointer<GtkCellLayout> = gtkCellLayoutPointer
+    }
 
     public companion object : TypeCompanion<CellLayout> {
         override val type: GeneratedInterfaceKGType<CellLayout> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_cell_layout_get_type")!!) {
-                CellLayoutImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { CellLayoutImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -290,5 +347,16 @@ public interface CellLayout :
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_layout_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_layout_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_layout_get_type")
     }
 }

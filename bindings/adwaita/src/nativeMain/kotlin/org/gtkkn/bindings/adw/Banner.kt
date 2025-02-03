@@ -15,13 +15,13 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwBanner
 import org.gtkkn.native.adw.adw_banner_get_button_label
 import org.gtkkn.native.adw.adw_banner_get_revealed
@@ -75,6 +75,10 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
     Widget(adwBannerPointer.reinterpret()),
     Actionable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkActionablePointer: CPointer<GtkActionable>
         get() = handle.reinterpret()
 
@@ -208,7 +212,9 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
      * @return the newly created `AdwBanner`
      * @since 1.3
      */
-    public constructor(title: String) : this(adw_banner_new(title)!!.reinterpret())
+    public constructor(title: String) : this(adw_banner_new(title)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * This signal is emitted after the action button has been clicked.
@@ -242,7 +248,7 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
 
     public companion object : TypeCompanion<Banner> {
         override val type: GeneratedClassKGType<Banner> =
-            GeneratedClassKGType(getTypeOrNull("adw_banner_get_type")!!) { Banner(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Banner(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -254,6 +260,16 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
          * @return the GType
          */
         public fun getType(): GType = adw_banner_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_banner_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_banner_get_type")
     }
 }
 

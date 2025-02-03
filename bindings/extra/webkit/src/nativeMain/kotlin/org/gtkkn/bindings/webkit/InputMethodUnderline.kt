@@ -4,9 +4,9 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -25,6 +25,21 @@ import kotlin.Unit
 @WebKitVersion2_28
 public class InputMethodUnderline(public val webkitInputMethodUnderlinePointer: CPointer<WebKitInputMethodUnderline>) :
     ProxyInstance(webkitInputMethodUnderlinePointer) {
+    /**
+     * Create a new #WebKitInputMethodUnderline for the given range in preedit string
+     *
+     * @param startOffset the start offset in preedit string
+     * @param endOffset the end offset in preedit string
+     * @return A newly created #WebKitInputMethodUnderline
+     * @since 2.28
+     */
+    public constructor(
+        startOffset: guint,
+        endOffset: guint,
+    ) : this(webkit_input_method_underline_new(startOffset, endOffset)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Make a copy of the #WebKitInputMethodUnderline.
      *
@@ -59,17 +74,6 @@ public class InputMethodUnderline(public val webkitInputMethodUnderlinePointer: 
         webkit_input_method_underline_set_color(webkitInputMethodUnderlinePointer, rgba?.gdkRgbaPointer)
 
     public companion object {
-        /**
-         * Create a new #WebKitInputMethodUnderline for the given range in preedit string
-         *
-         * @param startOffset the start offset in preedit string
-         * @param endOffset the end offset in preedit string
-         * @return A newly created #WebKitInputMethodUnderline
-         * @since 2.28
-         */
-        public fun new(startOffset: guint, endOffset: guint): InputMethodUnderline =
-            InputMethodUnderline(webkit_input_method_underline_new(startOffset, endOffset)!!.reinterpret())
-
         /**
          * Get the GType of InputMethodUnderline
          *

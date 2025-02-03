@@ -23,13 +23,13 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusInterface
 import org.gtkkn.native.gio.GDBusInterfaceSkeleton
 import org.gtkkn.native.gio.GDBusMethodInvocation
@@ -72,6 +72,10 @@ public abstract class DBusInterfaceSkeleton(
 ) : Object(gioDBusInterfaceSkeletonPointer.reinterpret()),
     DBusInterface,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDBusInterfacePointer: CPointer<GDBusInterface>
         get() = handle.reinterpret()
 
@@ -131,7 +135,7 @@ public abstract class DBusInterfaceSkeleton(
     @GioVersion2_30
     public open fun getConnection(): DBusConnection? =
         g_dbus_interface_skeleton_get_connection(gioDBusInterfaceSkeletonPointer)?.run {
-            DBusConnection(this)
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
         }
 
     /**
@@ -325,9 +329,7 @@ public abstract class DBusInterfaceSkeleton(
 
     public companion object : TypeCompanion<DBusInterfaceSkeleton> {
         override val type: GeneratedClassKGType<DBusInterfaceSkeleton> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_interface_skeleton_get_type")!!) {
-                DBusInterfaceSkeletonImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { DBusInterfaceSkeletonImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -339,6 +341,17 @@ public abstract class DBusInterfaceSkeleton(
          * @return the GType
          */
         public fun getType(): GType = g_dbus_interface_skeleton_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_interface_skeleton_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_interface_skeleton_get_type")
     }
 }
 
@@ -350,7 +363,7 @@ private val onGAuthorizeMethodFunc:
         ->
         userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(
             invocation!!.run {
-                DBusMethodInvocation(this)
+                InstanceCache.get(this, false) { DBusMethodInvocation(reinterpret()) }!!
             }
         ).asGBoolean()
     }

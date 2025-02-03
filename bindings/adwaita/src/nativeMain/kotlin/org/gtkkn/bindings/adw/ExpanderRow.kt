@@ -9,12 +9,12 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwExpanderRow
 import org.gtkkn.native.adw.adw_expander_row_add_action
 import org.gtkkn.native.adw.adw_expander_row_add_prefix
@@ -85,6 +85,10 @@ import kotlin.Unit
 public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpanderRow>) :
     PreferencesRow(adwExpanderRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -136,10 +140,24 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
         set(expanded) = adw_expander_row_set_expanded(adwExpanderRowPointer, expanded.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.3.
+     *
+     * Use [method@ExpanderRow.add_prefix] to add an icon.
+     * ---
+     *
      * The icon name for this row.
      */
     public open var iconName: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.3.
+         *
+         * Use [method@ExpanderRow.add_prefix] to add an icon.
+         * ---
+         *
          * Gets the icon name for @self.
          *
          * @return the icon name for @self
@@ -147,6 +165,13 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
         get() = adw_expander_row_get_icon_name(adwExpanderRowPointer)?.toKString()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.3.
+         *
+         * Use [method@ExpanderRow.add_prefix] to add an icon.
+         * ---
+         *
          * Sets the icon name for @self.
          *
          * @param iconName the icon name
@@ -202,9 +227,18 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
      *
      * @return the newly created `AdwExpanderRow`
      */
-    public constructor() : this(adw_expander_row_new()!!.reinterpret())
+    public constructor() : this(adw_expander_row_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use [method@ExpanderRow.add_suffix] to add a suffix.
+     * ---
+     *
      * Adds an action widget to @self.
      *
      * @param widget a widget
@@ -292,7 +326,7 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
 
     public companion object : TypeCompanion<ExpanderRow> {
         override val type: GeneratedClassKGType<ExpanderRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_expander_row_get_type")!!) { ExpanderRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ExpanderRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -304,5 +338,16 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
          * @return the GType
          */
         public fun getType(): GType = adw_expander_row_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_expander_row_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_expander_row_get_type")
     }
 }

@@ -8,9 +8,12 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.gio.GSettingsSchemaSource
@@ -23,8 +26,8 @@ import org.gtkkn.native.gio.g_settings_schema_source_unref
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
-import kotlin.Result
 import kotlin.String
+import kotlin.Throws
 import kotlin.Unit
 
 /**
@@ -39,6 +42,69 @@ import kotlin.Unit
 @GioVersion2_32
 public class SettingsSchemaSource(public val gioSettingsSchemaSourcePointer: CPointer<GSettingsSchemaSource>) :
     ProxyInstance(gioSettingsSchemaSourcePointer) {
+    /**
+     * Attempts to create a new schema source corresponding to the contents
+     * of the given directory.
+     *
+     * This function is not required for normal uses of #GSettings but it
+     * may be useful to authors of plugin management systems.
+     *
+     * The directory should contain a file called `gschemas.compiled` as
+     * produced by the [glib-compile-schemas][glib-compile-schemas] tool.
+     *
+     * If @trusted is true then `gschemas.compiled` is trusted not to be
+     * corrupted. This assumption has a performance advantage, but can result
+     * in crashes or inconsistent behaviour in the case of a corrupted file.
+     * Generally, you should set @trusted to true for files installed by the
+     * system and to false for files in the home directory.
+     *
+     * In either case, an empty file or some types of corruption in the file will
+     * result in %G_FILE_ERROR_INVAL being returned.
+     *
+     * If @parent is non-null then there are two effects.
+     *
+     * First, if g_settings_schema_source_lookup() is called with the
+     * @recursive flag set to true and the schema can not be found in the
+     * source, the lookup will recurse to the parent.
+     *
+     * Second, any references to other schemas specified within this
+     * source (ie: `child` or `extends`) references may be resolved
+     * from the @parent.
+     *
+     * For this second reason, except in very unusual situations, the
+     * @parent should probably be given as the default schema source, as
+     * returned by g_settings_schema_source_get_default().
+     *
+     * @param directory the filename of a directory
+     * @param parent a #GSettingsSchemaSource, or null
+     * @param trusted true, if the directory is trusted
+     * @since 2.32
+     */
+    @Throws(GLibException::class)
+    public constructor(
+        directory: String,
+        parent: SettingsSchemaSource? = null,
+        trusted: Boolean,
+    ) : this(
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult =
+                g_settings_schema_source_new_from_directory(
+                    directory,
+                    parent?.gioSettingsSchemaSourcePointer,
+                    trusted.asGBoolean(),
+                    gError.ptr
+                )
+            if (gError.pointed != null) {
+                throw resolveException(Error(gError.pointed!!.ptr))
+            }
+            gResult!!
+        }
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Looks up a schema with the identifier @schema_id in @source.
      *
@@ -82,66 +148,6 @@ public class SettingsSchemaSource(public val gioSettingsSchemaSourcePointer: CPo
     public fun unref(): Unit = g_settings_schema_source_unref(gioSettingsSchemaSourcePointer)
 
     public companion object {
-        /**
-         * Attempts to create a new schema source corresponding to the contents
-         * of the given directory.
-         *
-         * This function is not required for normal uses of #GSettings but it
-         * may be useful to authors of plugin management systems.
-         *
-         * The directory should contain a file called `gschemas.compiled` as
-         * produced by the [glib-compile-schemas][glib-compile-schemas] tool.
-         *
-         * If @trusted is true then `gschemas.compiled` is trusted not to be
-         * corrupted. This assumption has a performance advantage, but can result
-         * in crashes or inconsistent behaviour in the case of a corrupted file.
-         * Generally, you should set @trusted to true for files installed by the
-         * system and to false for files in the home directory.
-         *
-         * In either case, an empty file or some types of corruption in the file will
-         * result in %G_FILE_ERROR_INVAL being returned.
-         *
-         * If @parent is non-null then there are two effects.
-         *
-         * First, if g_settings_schema_source_lookup() is called with the
-         * @recursive flag set to true and the schema can not be found in the
-         * source, the lookup will recurse to the parent.
-         *
-         * Second, any references to other schemas specified within this
-         * source (ie: `child` or `extends`) references may be resolved
-         * from the @parent.
-         *
-         * For this second reason, except in very unusual situations, the
-         * @parent should probably be given as the default schema source, as
-         * returned by g_settings_schema_source_get_default().
-         *
-         * @param directory the filename of a directory
-         * @param parent a #GSettingsSchemaSource, or null
-         * @param trusted true, if the directory is trusted
-         * @since 2.32
-         */
-        public fun newFromDirectory(
-            directory: String,
-            parent: SettingsSchemaSource? = null,
-            trusted: Boolean,
-        ): Result<SettingsSchemaSource> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_settings_schema_source_new_from_directory(
-                        directory,
-                        parent?.gioSettingsSchemaSourcePointer,
-                        trusted.asGBoolean(),
-                        gError.ptr
-                    )
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(SettingsSchemaSource(checkNotNull(gResult)))
-                }
-            }
-        }
-
         /**
          * Gets the default system schema source.
          *

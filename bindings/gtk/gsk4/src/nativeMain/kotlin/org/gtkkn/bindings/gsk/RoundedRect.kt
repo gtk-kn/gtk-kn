@@ -11,6 +11,7 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.graphene.Size
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gfloat
@@ -26,9 +27,6 @@ import org.gtkkn.native.gsk.gsk_rounded_rect_normalize
 import org.gtkkn.native.gsk.gsk_rounded_rect_offset
 import org.gtkkn.native.gsk.gsk_rounded_rect_shrink
 import kotlin.Boolean
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A rectangular region with rounded corners.
@@ -50,7 +48,7 @@ import kotlin.native.ref.createCleaner
  * - field `bounds`: Field with not-pointer record/union graphene_rect_t is not supported
  * - field `corner`: Array parameter of type Graphene.Size is not supported
  */
-public class RoundedRect(public val gskRoundedRectPointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = null) :
+public class RoundedRect(public val gskRoundedRectPointer: CPointer<GskRoundedRect>) :
     ProxyInstance(gskRoundedRectPointer) {
     /**
      * Allocate a new RoundedRect.
@@ -58,21 +56,9 @@ public class RoundedRect(public val gskRoundedRectPointer: CPointer<GskRoundedRe
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GskRoundedRect>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to RoundedRect and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GskRoundedRect>, Cleaner>,
-    ) : this(gskRoundedRectPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GskRoundedRect>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new RoundedRect using the provided [AutofreeScope].

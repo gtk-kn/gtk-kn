@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.cairo.cairo_format_stride_for_width
 import org.gtkkn.native.cairo.cairo_gobject_surface_get_type
 import org.gtkkn.native.cairo.cairo_image_surface_create
@@ -20,6 +20,7 @@ import org.gtkkn.native.cairo.cairo_image_surface_get_format
 import org.gtkkn.native.cairo.cairo_image_surface_get_height
 import org.gtkkn.native.cairo.cairo_image_surface_get_stride
 import org.gtkkn.native.cairo.cairo_image_surface_get_width
+import org.gtkkn.native.cairo.cairo_surface_destroy
 import org.gtkkn.native.cairo.cairo_surface_t
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
@@ -29,6 +30,22 @@ import kotlin.String
 public open class ImageSurface(public val cairoImageSurfacePointer: CPointer<cairo_surface_t>) :
     Surface(cairoImageSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
+    public constructor(
+        format: Format,
+        width: gint,
+        height: gint,
+    ) : this(cairo_image_surface_create(format.nativeValue, width, height)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_surface_destroy(it.reinterpret()) }
+    }
+
+    public constructor(filename: String) : this(cairo_image_surface_create_from_png(filename)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_surface_destroy(it.reinterpret()) }
+    }
+
     /**
      *
      *
@@ -61,21 +78,10 @@ public open class ImageSurface(public val cairoImageSurfacePointer: CPointer<cai
 
     public companion object : TypeCompanion<ImageSurface> {
         override val type: GeneratedClassKGType<ImageSurface> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) {
-                ImageSurface(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { ImageSurface(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()
-        }
-
-        public fun create(format: Format, width: gint, height: gint): ImageSurface =
-            cairo_image_surface_create(format.nativeValue, width, height)!!.run {
-                ImageSurface(reinterpret())
-            }
-
-        public fun createFromPng(filename: String): ImageSurface = cairo_image_surface_create_from_png(filename)!!.run {
-            ImageSurface(reinterpret())
         }
 
         /**
@@ -95,5 +101,16 @@ public open class ImageSurface(public val cairoImageSurfacePointer: CPointer<cai
          * @return the GType
          */
         public fun getType(): GType = cairo_gobject_surface_get_type()
+
+        /**
+         * Gets the GType of from the symbol `cairo_gobject_surface_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("cairo_gobject_surface_get_type")
     }
 }

@@ -16,11 +16,10 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.Gsk.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRenderNode
@@ -56,6 +55,10 @@ import kotlin.Unit
 public abstract class RenderNode(public val gskRenderNodePointer: CPointer<GskRenderNode>) :
     TypeInstance(gskRenderNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Draw the contents of @node to the given cairo context.
      *
@@ -154,7 +157,7 @@ public abstract class RenderNode(public val gskRenderNodePointer: CPointer<GskRe
 
     public companion object : TypeCompanion<RenderNode> {
         override val type: GeneratedClassKGType<RenderNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_render_node_get_type")!!) { RenderNodeImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { RenderNodeImpl(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -185,5 +188,16 @@ public abstract class RenderNode(public val gskRenderNodePointer: CPointer<GskRe
          * @return the GType
          */
         public fun getType(): GType = gsk_render_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_render_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_render_node_get_type")
     }
 }

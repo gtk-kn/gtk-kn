@@ -5,12 +5,12 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GFilterOutputStream
 import org.gtkkn.native.gio.g_filter_output_stream_get_base_stream
 import org.gtkkn.native.gio.g_filter_output_stream_get_close_base_stream
@@ -29,6 +29,10 @@ import kotlin.Unit
 public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer: CPointer<GFilterOutputStream>) :
     OutputStream(gioFilterOutputStreamPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     public open val baseStream: OutputStream
         /**
          * Gets the base stream for the filter stream.
@@ -36,7 +40,7 @@ public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer
          * @return a #GOutputStream.
          */
         get() = g_filter_output_stream_get_base_stream(gioFilterOutputStreamPointer)!!.run {
-            OutputStream.OutputStreamImpl(this)
+            InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!
         }
 
     /**
@@ -68,9 +72,7 @@ public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer
 
     public companion object : TypeCompanion<FilterOutputStream> {
         override val type: GeneratedClassKGType<FilterOutputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_filter_output_stream_get_type")!!) {
-                FilterOutputStreamImpl(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { FilterOutputStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -82,5 +84,16 @@ public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer
          * @return the GType
          */
         public fun getType(): GType = g_filter_output_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_filter_output_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_filter_output_stream_get_type")
     }
 }

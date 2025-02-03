@@ -33,14 +33,14 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.Soup.resolveException
 import org.gtkkn.bindings.soup.annotations.SoupVersion3_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
@@ -146,6 +146,10 @@ import kotlin.collections.List
 public open class Session(public val soupSessionPointer: CPointer<SoupSession>) :
     Object(soupSessionPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * If true, #SoupSession will automatically set the string
      * for the "Accept-Language" header on every [class@Message]
@@ -221,7 +225,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return a #GInetSocketAddress
          */
         get() = soup_session_get_local_address(soupSessionPointer)?.run {
-            InetSocketAddress(this)
+            InstanceCache.get(this, true) { InetSocketAddress(reinterpret()) }!!
         }
 
     /**
@@ -345,7 +349,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return a #GTlsDatabase
          */
         get() = soup_session_get_tls_database(soupSessionPointer)?.run {
-            TlsDatabase.TlsDatabaseImpl(this)
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
         }
 
         /**
@@ -371,7 +375,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return a #GTlsInteraction
          */
         get() = soup_session_get_tls_interaction(soupSessionPointer)?.run {
-            TlsInteraction(this)
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
         }
 
         /**
@@ -393,7 +397,9 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      *
      * @return the new session.
      */
-    public constructor() : this(soup_session_new()!!.reinterpret())
+    public constructor() : this(soup_session_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Cancels all pending requests in @session and closes all idle
@@ -451,7 +457,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      */
     public open fun getAsyncResultMessage(result: AsyncResult): Message? =
         soup_session_get_async_result_message(soupSessionPointer, result.gioAsyncResultPointer)?.run {
-            Message(this)
+            InstanceCache.get(this, true) { Message(reinterpret()) }!!
         }
 
     /**
@@ -602,7 +608,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            InputStream.InputStreamImpl(this)
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -834,7 +840,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
     public open fun sendFinish(result: AsyncResult): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -936,7 +942,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            WebsocketConnection(this)
+            InstanceCache.get(this, true) { WebsocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -1031,7 +1037,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
 
     public companion object : TypeCompanion<Session> {
         override val type: GeneratedClassKGType<Session> =
-            GeneratedClassKGType(getTypeOrNull("soup_session_get_type")!!) { Session(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Session(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
@@ -1043,6 +1049,16 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return the GType
          */
         public fun getType(): GType = soup_session_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_session_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_session_get_type")
     }
 }
 
@@ -1054,7 +1070,7 @@ private val onRequestQueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) -> U
         ->
         userData.asStableRef<(msg: Message) -> Unit>().get().invoke(
             msg!!.run {
-                Message(this)
+                InstanceCache.get(this, false) { Message(reinterpret()) }!!
             }
         )
     }
@@ -1068,7 +1084,7 @@ private val onRequestUnqueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) ->
         ->
         userData.asStableRef<(msg: Message) -> Unit>().get().invoke(
             msg!!.run {
-                Message(this)
+                InstanceCache.get(this, false) { Message(reinterpret()) }!!
             }
         )
     }

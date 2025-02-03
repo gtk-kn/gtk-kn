@@ -12,13 +12,13 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -144,6 +144,10 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
     Native,
     ShortcutManager,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkNativePointer: CPointer<GtkNative>
         get() = handle.reinterpret()
 
@@ -221,7 +225,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
          * @return the child widget of @popover
          */
         get() = gtk_popover_get_child(gtkPopoverPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -302,7 +306,9 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
      *
      * @return the new `GtkPopover`
      */
-    public constructor() : this(gtk_popover_new()!!.reinterpret())
+    public constructor() : this(gtk_popover_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the rectangle that the popover points to.
@@ -428,7 +434,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
 
     public companion object : TypeCompanion<Popover> {
         override val type: GeneratedClassKGType<Popover> =
-            GeneratedClassKGType(getTypeOrNull("gtk_popover_get_type")!!) { Popover(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Popover(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -440,6 +446,16 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_popover_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_popover_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_popover_get_type")
     }
 }
 

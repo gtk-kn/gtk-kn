@@ -4,8 +4,10 @@
 package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintSetup
 import org.gtkkn.native.gtk.gtk_print_setup_get_page_setup
@@ -42,7 +44,7 @@ public class PrintSetup(public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>
      */
     @GtkVersion4_14
     public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gtkPrintSetupPointer)?.run {
-        PageSetup(this)
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
     }
 
     /**
@@ -56,7 +58,7 @@ public class PrintSetup(public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>
      */
     @GtkVersion4_14
     public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gtkPrintSetupPointer)?.run {
-        PrintSettings(this)
+        InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
     }
 
     /**

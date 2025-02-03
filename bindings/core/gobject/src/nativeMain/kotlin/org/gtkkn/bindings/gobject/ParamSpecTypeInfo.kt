@@ -10,14 +10,12 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GParamSpecTypeInfo
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * This structure is used to provide the type system with the information
@@ -37,10 +35,8 @@ import kotlin.native.ref.createCleaner
  * - field `value_validate`: Fields with callbacks are not supported
  * - field `values_cmp`: Fields with callbacks are not supported
  */
-public class ParamSpecTypeInfo(
-    public val gobjectParamSpecTypeInfoPointer: CPointer<GParamSpecTypeInfo>,
-    cleaner: Cleaner? = null,
-) : ProxyInstance(gobjectParamSpecTypeInfoPointer) {
+public class ParamSpecTypeInfo(public val gobjectParamSpecTypeInfoPointer: CPointer<GParamSpecTypeInfo>) :
+    ProxyInstance(gobjectParamSpecTypeInfoPointer) {
     /**
      * Size of the instance (object) structure.
      */
@@ -80,21 +76,9 @@ public class ParamSpecTypeInfo(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GParamSpecTypeInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to ParamSpecTypeInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GParamSpecTypeInfo>, Cleaner>,
-    ) : this(gobjectParamSpecTypeInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GParamSpecTypeInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new ParamSpecTypeInfo using the provided [AutofreeScope].

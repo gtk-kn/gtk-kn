@@ -8,13 +8,17 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_38
+import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -41,8 +45,8 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_regex_get_type
 import kotlin.Boolean
-import kotlin.Result
 import kotlin.String
+import kotlin.Throws
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -117,6 +121,36 @@ import kotlin.collections.List
  */
 @GLibVersion2_14
 public class Regex(public val glibRegexPointer: CPointer<GRegex>) : ProxyInstance(glibRegexPointer) {
+    /**
+     * Compiles the regular expression to an internal form, and does
+     * the initial setup of the #GRegex structure.
+     *
+     * @param pattern the regular expression
+     * @param compileOptions compile options for the regular expression, or 0
+     * @param matchOptions match options for the regular expression, or 0
+     * @return a #GRegex structure or null if an error occurred. Call
+     *   g_regex_unref() when you are done with it
+     * @since 2.14
+     */
+    @Throws(GLibException::class)
+    public constructor(
+        pattern: String,
+        compileOptions: RegexCompileFlags,
+        matchOptions: RegexMatchFlags,
+    ) : this(
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            gError.`value` = null
+            val gResult = g_regex_new(pattern, compileOptions.mask, matchOptions.mask, gError.ptr)
+            if (gError.pointed != null) {
+                throw resolveException(Error(gError.pointed!!.ptr))
+            }
+            gResult!!.reinterpret()
+        }
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Returns the number of capturing subpatterns in the pattern.
      *
@@ -256,33 +290,6 @@ public class Regex(public val glibRegexPointer: CPointer<GRegex>) : ProxyInstanc
     public fun unref(): Unit = g_regex_unref(glibRegexPointer)
 
     public companion object {
-        /**
-         * Compiles the regular expression to an internal form, and does
-         * the initial setup of the #GRegex structure.
-         *
-         * @param pattern the regular expression
-         * @param compileOptions compile options for the regular expression, or 0
-         * @param matchOptions match options for the regular expression, or 0
-         * @return a #GRegex structure or null if an error occurred. Call
-         *   g_regex_unref() when you are done with it
-         * @since 2.14
-         */
-        public fun new(
-            pattern: String,
-            compileOptions: RegexCompileFlags,
-            matchOptions: RegexMatchFlags,
-        ): Result<Regex?> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_regex_new(pattern, compileOptions.mask, matchOptions.mask, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(Regex(checkNotNull(gResult)))
-                }
-            }
-        }
-
         public fun errorQuark(): Quark = g_regex_error_quark()
 
         /**

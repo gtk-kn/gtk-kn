@@ -5,12 +5,12 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -83,6 +83,10 @@ import kotlin.Unit
 public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBar>) :
     Widget(gtkSearchBarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -102,7 +106,7 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
          * @return the child widget of @bar
          */
         get() = gtk_search_bar_get_child(gtkSearchBarPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -122,7 +126,7 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
          * @return The key capture widget.
          */
         get() = gtk_search_bar_get_key_capture_widget(gtkSearchBarPointer)?.run {
-            Widget.WidgetImpl(this)
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
         /**
@@ -173,7 +177,9 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
      *
      * @return a new `GtkSearchBar`
      */
-    public constructor() : this(gtk_search_bar_new()!!.reinterpret())
+    public constructor() : this(gtk_search_bar_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Connects the `GtkEditable` widget passed as the one to be used in
@@ -205,7 +211,7 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
 
     public companion object : TypeCompanion<SearchBar> {
         override val type: GeneratedClassKGType<SearchBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_search_bar_get_type")!!) { SearchBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { SearchBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -217,5 +223,16 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
          * @return the GType
          */
         public fun getType(): GType = gtk_search_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_search_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_search_bar_get_type")
     }
 }

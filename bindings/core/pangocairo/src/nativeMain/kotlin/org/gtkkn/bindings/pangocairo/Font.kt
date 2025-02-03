@@ -8,10 +8,9 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.ScaledFont
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pangocairo.PangoCairoFont
 import org.gtkkn.native.pangocairo.pango_cairo_font_get_scaled_font
@@ -50,16 +49,22 @@ public interface Font :
      *
      * @constructor Creates a new instance of Font for the provided [CPointer].
      */
-    public data class FontImpl(override val pangocairoFontPointer: CPointer<PangoCairoFont>) :
+    public class FontImpl(pangocairoFontPointer: CPointer<PangoCairoFont>) :
         org.gtkkn.bindings.pango.Font(pangocairoFontPointer.reinterpret()),
-        Font
+        Font {
+        init {
+            PangoCairo
+        }
+
+        override val pangocairoFontPointer: CPointer<PangoCairoFont> = pangocairoFontPointer
+    }
 
     public companion object : TypeCompanion<Font> {
         override val type: GeneratedInterfaceKGType<Font> =
-            GeneratedInterfaceKGType(getTypeOrNull("pango_cairo_font_get_type")!!) { FontImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { FontImpl(it.reinterpret()) }
 
         init {
-            PangocairoTypeProvider.register()
+            PangoCairoTypeProvider.register()
         }
 
         /**
@@ -68,5 +73,16 @@ public interface Font :
          * @return the GType
          */
         public fun getType(): GType = pango_cairo_font_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_cairo_font_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_cairo_font_get_type")
     }
 }

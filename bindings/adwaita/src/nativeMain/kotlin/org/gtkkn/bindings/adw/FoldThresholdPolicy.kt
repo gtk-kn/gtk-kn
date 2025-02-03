@@ -8,15 +8,36 @@ import org.gtkkn.native.adw.adw_fold_threshold_policy_get_type
 import org.gtkkn.native.gobject.GType
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * Stop using `AdwLeaflet` and `AdwFlap`
+ * ---
+ *
  * Determines when [class@Flap] and [class@Leaflet] will fold.
  */
 public enum class FoldThresholdPolicy(public val nativeValue: AdwFoldThresholdPolicy) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Stop using `AdwLeaflet` and `AdwFlap`
+     * ---
+     *
      * Folding is based on the minimum size
      */
     MINIMUM(AdwFoldThresholdPolicy.ADW_FOLD_THRESHOLD_POLICY_MINIMUM),
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Stop using `AdwLeaflet` and `AdwFlap`
+     * ---
+     *
      * Folding is based on the natural size
      */
     NATURAL(AdwFoldThresholdPolicy.ADW_FOLD_THRESHOLD_POLICY_NATURAL),

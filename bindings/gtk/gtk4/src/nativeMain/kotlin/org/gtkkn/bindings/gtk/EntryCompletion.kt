@@ -14,13 +14,13 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -62,6 +62,11 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ * ---
+ *
  * `GtkEntryCompletion` is an auxiliary object to provide completion functionality
  * for `GtkEntry`.
  *
@@ -110,6 +115,10 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
     Buildable,
     CellLayout,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 
@@ -125,6 +134,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
      */
     public open var inlineCompletion: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Returns whether the common prefix of the possible completions should
          * be automatically inserted in the entry.
          *
@@ -133,6 +149,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         get() = gtk_entry_completion_get_inline_completion(gtkEntryCompletionPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Sets whether the common prefix of the possible completions should
          * be automatically inserted in the entry.
          *
@@ -148,6 +171,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
      */
     public open var inlineSelection: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Returns true if inline-selection mode is turned on.
          *
          * @return true if inline-selection mode is on
@@ -155,6 +185,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         get() = gtk_entry_completion_get_inline_selection(gtkEntryCompletionPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Sets whether it is possible to cycle through the possible completions
          * inside the entry.
          *
@@ -166,6 +203,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
 
     public open var minimumKeyLength: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Returns the minimum key length as set for @completion.
          *
          * @return The currently used minimum key length
@@ -173,6 +217,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         get() = gtk_entry_completion_get_minimum_key_length(gtkEntryCompletionPointer)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Requires the length of the search key for @completion to be at least
          * @length.
          *
@@ -186,6 +237,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
 
     public open var model: TreeModel?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Returns the model the `GtkEntryCompletion` is using as data source.
          *
          * Returns null if the model is unset.
@@ -197,6 +255,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Sets the model for a `GtkEntryCompletion`.
          *
          * If @completion already has a model set, it will remove it
@@ -213,6 +278,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
      */
     public open var popupCompletion: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Returns whether the completions should be presented in a popup window.
          *
          * @return true if popup completion is turned on
@@ -220,6 +292,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         get() = gtk_entry_completion_get_popup_completion(gtkEntryCompletionPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Sets whether the completions should be presented in a popup window.
          *
          * @param popupCompletion true to do popup completion
@@ -234,6 +313,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
      */
     public open var popupSetWidth: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Returns whether the completion popup window will be resized to the
          * width of the entry.
          *
@@ -243,6 +329,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         get() = gtk_entry_completion_get_popup_set_width(gtkEntryCompletionPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Sets whether the completion popup window will be resized to be the same
          * width as the entry.
          *
@@ -261,6 +354,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
      */
     public open var popupSingleMatch: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Returns whether the completion popup window will appear even if there is
          * only a single match.
          *
@@ -270,6 +370,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         get() = gtk_entry_completion_get_popup_single_match(gtkEntryCompletionPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Sets whether the completion popup window will appear even if there is
          * only a single match.
          *
@@ -289,6 +396,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
      */
     public open var textColumn: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Returns the column in the model of @completion to get strings from.
          *
          * @return the column containing the strings
@@ -296,6 +410,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         get() = gtk_entry_completion_get_text_column(gtkEntryCompletionPointer)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Convenience function for setting up the most used case of this code: a
          * completion list with just strings.
          *
@@ -313,13 +434,29 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         set(column) = gtk_entry_completion_set_text_column(gtkEntryCompletionPointer, column)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * GtkEntryCompletion will be removed in GTK 5.
+     * ---
+     *
      * Creates a new `GtkEntryCompletion` object.
      *
      * @return A newly created `GtkEntryCompletion` object
      */
-    public constructor() : this(gtk_entry_completion_new()!!.reinterpret())
+    public constructor() : this(gtk_entry_completion_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * GtkEntryCompletion will be removed in GTK 5.
+     * ---
+     *
      * Creates a new `GtkEntryCompletion` object using the
      * specified @area.
      *
@@ -329,11 +466,18 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
      * @param area the `GtkCellArea` used to layout cells
      * @return A newly created `GtkEntryCompletion` object
      */
-    public constructor(
-        area: CellArea,
-    ) : this(gtk_entry_completion_new_with_area(area.gtkCellAreaPointer)!!.reinterpret())
+    public constructor(area: CellArea) : this(gtk_entry_completion_new_with_area(area.gtkCellAreaPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * GtkEntryCompletion will be removed in GTK 5.
+     * ---
+     *
      * Requests a completion operation, or in other words a refiltering of the
      * current list with completions, using the current key.
      *
@@ -342,6 +486,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
     public open fun complete(): Unit = gtk_entry_completion_complete(gtkEntryCompletionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * GtkEntryCompletion will be removed in GTK 5.
+     * ---
+     *
      * Computes the common prefix that is shared by all rows in @completion
      * that start with @key.
      *
@@ -357,6 +508,13 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         gtk_entry_completion_compute_prefix(gtkEntryCompletionPointer, key)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * GtkEntryCompletion will be removed in GTK 5.
+     * ---
+     *
      * Get the original text entered by the user that triggered
      * the completion or null if there’s no completion ongoing.
      *
@@ -366,20 +524,41 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
         gtk_entry_completion_get_completion_prefix(gtkEntryCompletionPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * GtkEntryCompletion will be removed in GTK 5.
+     * ---
+     *
      * Gets the entry @completion has been attached to.
      *
      * @return The entry @completion has been attached to
      */
     public open fun getEntry(): Widget = gtk_entry_completion_get_entry(gtkEntryCompletionPointer)!!.run {
-        Widget.WidgetImpl(this)
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * GtkEntryCompletion will be removed in GTK 5.
+     * ---
+     *
      * Requests a prefix insertion.
      */
     public open fun insertPrefix(): Unit = gtk_entry_completion_insert_prefix(gtkEntryCompletionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * GtkEntryCompletion will be removed in GTK 5.
+     * ---
+     *
      * Sets the match function for @completion to be @func.
      *
      * The match function is used to determine if a row should or
@@ -498,9 +677,7 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
 
     public companion object : TypeCompanion<EntryCompletion> {
         override val type: GeneratedClassKGType<EntryCompletion> =
-            GeneratedClassKGType(getTypeOrNull("gtk_entry_completion_get_type")!!) {
-                EntryCompletion(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { EntryCompletion(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -512,6 +689,17 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = gtk_entry_completion_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_entry_completion_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_entry_completion_get_type")
     }
 }
 

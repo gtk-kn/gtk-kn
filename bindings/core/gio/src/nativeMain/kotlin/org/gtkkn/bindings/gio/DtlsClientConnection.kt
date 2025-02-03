@@ -15,10 +15,9 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDatagramBased
 import org.gtkkn.native.gio.GDtlsClientConnection
 import org.gtkkn.native.gio.GDtlsConnection
@@ -134,6 +133,13 @@ public interface DtlsClientConnection :
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.74.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * What steps to perform when validating a certificate received from
      * a server. Server certificates that fail to validate in any of the
      * ways indicated here will be rejected unless the application
@@ -156,6 +162,13 @@ public interface DtlsClientConnection :
     @GioVersion2_48
     public var validationFlags: TlsCertificateFlags
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.74.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Gets @conn's validation flags
          *
          * This function does not work as originally designed and is impossible
@@ -170,6 +183,13 @@ public interface DtlsClientConnection :
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.74.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Sets @conn's validation flags, to override the default set of
          * checks performed when validating a server certificate. By default,
          * %G_TLS_CERTIFICATE_VALIDATE_ALL is used.
@@ -219,6 +239,13 @@ public interface DtlsClientConnection :
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.74.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * Gets @conn's validation flags
      *
      * This function does not work as originally designed and is impossible
@@ -250,6 +277,13 @@ public interface DtlsClientConnection :
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.74.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * Sets @conn's validation flags, to override the default set of
      * checks performed when validating a server certificate. By default,
      * %G_TLS_CERTIFICATE_VALIDATE_ALL is used.
@@ -270,16 +304,20 @@ public interface DtlsClientConnection :
      *
      * @constructor Creates a new instance of DtlsClientConnection for the provided [CPointer].
      */
-    public data class DtlsClientConnectionImpl(
-        override val gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection>,
-    ) : Object(gioDtlsClientConnectionPointer.reinterpret()),
-        DtlsClientConnection
+    public class DtlsClientConnectionImpl(gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection>) :
+        Object(gioDtlsClientConnectionPointer.reinterpret()),
+        DtlsClientConnection {
+        init {
+            Gio
+        }
+
+        override val gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection> =
+            gioDtlsClientConnectionPointer
+    }
 
     public companion object : TypeCompanion<DtlsClientConnection> {
         override val type: GeneratedInterfaceKGType<DtlsClientConnection> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_dtls_client_connection_get_type")!!) {
-                DtlsClientConnectionImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { DtlsClientConnectionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -322,5 +360,16 @@ public interface DtlsClientConnection :
          * @return the GType
          */
         public fun getType(): GType = g_dtls_client_connection_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dtls_client_connection_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dtls_client_connection_get_type")
     }
 }

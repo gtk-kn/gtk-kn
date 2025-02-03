@@ -6,12 +6,12 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_20
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GFileDescriptorBased
 import org.gtkkn.native.gio.GPollableInputStream
 import org.gtkkn.native.gio.GUnixInputStream
@@ -40,6 +40,10 @@ public open class UnixInputStream(public val gioUnixInputStreamPointer: CPointer
     FileDescriptorBased,
     PollableInputStream,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>
         get() = handle.reinterpret()
 
@@ -100,13 +104,13 @@ public open class UnixInputStream(public val gioUnixInputStreamPointer: CPointer
     public constructor(
         fd: gint,
         closeFd: Boolean,
-    ) : this(g_unix_input_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
+    ) : this(g_unix_input_stream_new(fd, closeFd.asGBoolean())!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<UnixInputStream> {
         override val type: GeneratedClassKGType<UnixInputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_unix_input_stream_get_type")!!) {
-                UnixInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { UnixInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -118,5 +122,16 @@ public open class UnixInputStream(public val gioUnixInputStreamPointer: CPointer
          * @return the GType
          */
         public fun getType(): GType = g_unix_input_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_unix_input_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_unix_input_stream_get_type")
     }
 }

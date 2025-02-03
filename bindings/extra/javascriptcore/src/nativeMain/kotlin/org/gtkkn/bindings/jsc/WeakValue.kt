@@ -12,11 +12,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -39,13 +39,19 @@ import kotlin.Unit
 public class WeakValue(public val jscWeakValuePointer: CPointer<JSCWeakValue>) :
     Object(jscWeakValuePointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * Create a new #JSCWeakValue for the JavaScript value referenced by @value.
      *
      * @param value a #JSCValue
      * @return a new #JSCWeakValue
      */
-    public constructor(`value`: Value) : this(jsc_weak_value_new(`value`.jscValuePointer)!!.reinterpret())
+    public constructor(`value`: Value) : this(jsc_weak_value_new(`value`.jscValuePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Get a #JSCValue referencing the JavaScript value of @weak_value.
@@ -53,7 +59,7 @@ public class WeakValue(public val jscWeakValuePointer: CPointer<JSCWeakValue>) :
      * @return a new #JSCValue or null if @weak_value was cleared.
      */
     public fun getValue(): Value = jsc_weak_value_get_value(jscWeakValuePointer)!!.run {
-        Value(this)
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!
     }
 
     /**
@@ -81,10 +87,10 @@ public class WeakValue(public val jscWeakValuePointer: CPointer<JSCWeakValue>) :
 
     public companion object : TypeCompanion<WeakValue> {
         override val type: GeneratedClassKGType<WeakValue> =
-            GeneratedClassKGType(getTypeOrNull("jsc_weak_value_get_type")!!) { WeakValue(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { WeakValue(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
+            JavaScriptCoreTypeProvider.register()
         }
 
         /**
@@ -93,6 +99,17 @@ public class WeakValue(public val jscWeakValuePointer: CPointer<JSCWeakValue>) :
          * @return the GType
          */
         public fun getType(): GType = jsc_weak_value_get_type()
+
+        /**
+         * Gets the GType of from the symbol `jsc_weak_value_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("jsc_weak_value_get_type")
     }
 }
 

@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GNativeSocketAddress
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_native_socket_address_get_type
@@ -29,6 +29,10 @@ import org.gtkkn.native.gobject.GType
 public open class NativeSocketAddress(public val gioNativeSocketAddressPointer: CPointer<GNativeSocketAddress>) :
     SocketAddress(gioNativeSocketAddressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
 
@@ -43,13 +47,13 @@ public open class NativeSocketAddress(public val gioNativeSocketAddressPointer: 
     public constructor(
         native: gpointer? = null,
         len: gsize,
-    ) : this(g_native_socket_address_new(native, len)!!.reinterpret())
+    ) : this(g_native_socket_address_new(native, len)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<NativeSocketAddress> {
         override val type: GeneratedClassKGType<NativeSocketAddress> =
-            GeneratedClassKGType(getTypeOrNull("g_native_socket_address_get_type")!!) {
-                NativeSocketAddress(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { NativeSocketAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -61,5 +65,16 @@ public open class NativeSocketAddress(public val gioNativeSocketAddressPointer: 
          * @return the GType
          */
         public fun getType(): GType = g_native_socket_address_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_native_socket_address_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_native_socket_address_get_type")
     }
 }

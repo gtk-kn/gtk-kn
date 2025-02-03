@@ -34,15 +34,15 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
@@ -637,6 +637,10 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     Buildable,
     ConstraintTarget,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -754,7 +758,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          *   currently in use or null if the cursor is inherited
          */
         get() = gtk_widget_get_cursor(gtkWidgetPointer)?.run {
-            Cursor(this)
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!
         }
 
         /**
@@ -993,7 +997,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return a `GtkLayoutManager`
          */
         get() = gtk_widget_get_layout_manager(gtkWidgetPointer)?.run {
-            LayoutManager.LayoutManagerImpl(this)
+            InstanceCache.get(this, true) { LayoutManager.LayoutManagerImpl(reinterpret()) }!!
         }
 
         /**
@@ -1211,7 +1215,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the parent widget of @widget
          */
         get() = gtk_widget_get_parent(gtkWidgetPointer)?.run {
-            WidgetImpl(this)
+            InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -1771,7 +1775,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the new `PangoContext`
      */
     public open fun createPangoContext(): Context = gtk_widget_create_pango_context(gtkWidgetPointer)!!.run {
-        Context(this)
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!
     }
 
     /**
@@ -1789,7 +1793,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      */
     public open fun createPangoLayout(text: String? = null): Layout =
         gtk_widget_create_pango_layout(gtkWidgetPointer, text)!!.run {
-            Layout(this)
+            InstanceCache.get(this, true) { Layout(reinterpret()) }!!
         }
 
     /**
@@ -1850,6 +1854,13 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     public open fun errorBell(): Unit = gtk_widget_error_bell(gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [method@Gtk.Widget.get_baseline] instead
+     * ---
+     *
      * Returns the baseline that has currently been allocated to @widget.
      *
      * This function is intended to be used when implementing handlers
@@ -1861,6 +1872,13 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     public open fun getAllocatedBaseline(): gint = gtk_widget_get_allocated_baseline(gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [method@Gtk.Widget.get_height] instead
+     * ---
+     *
      * Returns the height that has currently been allocated to @widget.
      *
      * To learn more about widget sizes, see the coordinate
@@ -1871,6 +1889,13 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     public open fun getAllocatedHeight(): gint = gtk_widget_get_allocated_height(gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [method@Gtk.Widget.get_width] instead
+     * ---
+     *
      * Returns the width that has currently been allocated to @widget.
      *
      * To learn more about widget sizes, see the coordinate
@@ -1881,6 +1906,14 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     public open fun getAllocatedWidth(): gint = gtk_widget_get_allocated_width(gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [method@Gtk.Widget.compute_bounds],
+     * [method@Gtk.Widget.get_width] or [method@Gtk.Widget.get_height] instead.
+     * ---
+     *
      * Retrieves the widget’s allocation.
      *
      * Note, when implementing a layout container: a widget’s allocation
@@ -1918,7 +1951,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      */
     public open fun getAncestor(widgetType: GType): Widget? =
         gtk_widget_get_ancestor(gtkWidgetPointer, widgetType)?.run {
-            WidgetImpl(this)
+            InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -1959,7 +1992,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the appropriate clipboard object
      */
     public open fun getClipboard(): Clipboard = gtk_widget_get_clipboard(gtkWidgetPointer)!!.run {
-        Clipboard(this)
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!
     }
 
     /**
@@ -2002,7 +2035,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   for this widget.
      */
     public open fun getDisplay(): Display = gtk_widget_get_display(gtkWidgetPointer)!!.run {
-        Display(this)
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!
     }
 
     /**
@@ -2013,7 +2046,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The widget's first child
      */
     public open fun getFirstChild(): Widget? = gtk_widget_get_first_child(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2023,7 +2056,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   child of @widget
      */
     public open fun getFocusChild(): Widget? = gtk_widget_get_focus_child(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2034,7 +2067,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return A `PangoFontMap`
      */
     public open fun getFontMap(): FontMap? = gtk_widget_get_font_map(gtkWidgetPointer)?.run {
-        FontMap.FontMapImpl(this)
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!
     }
 
     /**
@@ -2076,7 +2109,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return a `GdkFrameClock`
      */
     public open fun getFrameClock(): FrameClock? = gtk_widget_get_frame_clock(gtkWidgetPointer)?.run {
-        FrameClock.FrameClockImpl(this)
+        InstanceCache.get(this, true) { FrameClock.FrameClockImpl(reinterpret()) }!!
     }
 
     /**
@@ -2103,7 +2136,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The widget's last child
      */
     public open fun getLastChild(): Widget? = gtk_widget_get_last_child(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2135,7 +2168,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The widget's next sibling
      */
     public open fun getNextSibling(): Widget? = gtk_widget_get_next_sibling(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2152,7 +2185,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the `PangoContext` for the widget.
      */
     public open fun getPangoContext(): Context = gtk_widget_get_pango_context(gtkWidgetPointer)!!.run {
-        Context(this)
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!
     }
 
     /**
@@ -2189,7 +2222,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The widget's previous sibling
      */
     public open fun getPrevSibling(): Widget? = gtk_widget_get_prev_sibling(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -2204,7 +2237,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the appropriate clipboard object
      */
     public open fun getPrimaryClipboard(): Clipboard = gtk_widget_get_primary_clipboard(gtkWidgetPointer)!!.run {
-        Clipboard(this)
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!
     }
 
     /**
@@ -2240,7 +2273,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the relevant `GtkSettings` object
      */
     public open fun getSettings(): Settings = gtk_widget_get_settings(gtkWidgetPointer)!!.run {
-        Settings(this)
+        InstanceCache.get(this, true) { Settings(reinterpret()) }!!
     }
 
     /**
@@ -2281,6 +2314,13 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Style contexts will be removed in GTK 5
+     * ---
+     *
      * Returns the style context associated to @widget.
      *
      * The returned object is guaranteed to be the same
@@ -2289,7 +2329,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the widget’s `GtkStyleContext`
      */
     public open fun getStyleContext(): StyleContext = gtk_widget_get_style_context(gtkWidgetPointer)!!.run {
-        StyleContext(this)
+        InstanceCache.get(this, true) { StyleContext(reinterpret()) }!!
     }
 
     /**
@@ -2311,7 +2351,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      */
     public open fun getTemplateChild(widgetType: GType, name: String): Object =
         gtk_widget_get_template_child(gtkWidgetPointer, widgetType, name)!!.run {
-            Object(this)
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
     /**
@@ -2392,6 +2432,13 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     public open fun hasVisibleFocus(): Boolean = gtk_widget_has_visible_focus(gtkWidgetPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.Widget.set_visible] instead
+     * ---
+     *
      * Reverses the effects of gtk_widget_show().
      *
      * This is causing the widget to be hidden (invisible to the user).
@@ -2686,7 +2733,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      */
     public open fun pick(x: gdouble, y: gdouble, flags: PickFlags): Widget? =
         gtk_widget_pick(gtkWidgetPointer, x, y, flags.mask)?.run {
-            WidgetImpl(this)
+            InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!
         }
 
     /**
@@ -2984,6 +3031,13 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     public open fun shouldLayout(): Boolean = gtk_widget_should_layout(gtkWidgetPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.Widget.set_visible] instead
+     * ---
+     *
      * Flags a widget to be displayed.
      *
      * Any widget that isn’t shown will not appear on the screen.
@@ -3438,7 +3492,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
 
     public companion object : TypeCompanion<Widget> {
         override val type: GeneratedClassKGType<Widget> =
-            GeneratedClassKGType(getTypeOrNull("gtk_widget_get_type")!!) { WidgetImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { WidgetImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -3470,6 +3524,16 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the GType
          */
         public fun getType(): GType = gtk_widget_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_widget_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_widget_get_type")
     }
 }
 
@@ -3576,7 +3640,7 @@ private val onQueryTooltipFunc: CPointer<
         y,
         keyboardMode.asBoolean(),
         tooltip!!.run {
-            Tooltip(this)
+            InstanceCache.get(this, false) { Tooltip(reinterpret()) }!!
         }
     ).asGBoolean()
 }

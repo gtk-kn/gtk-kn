@@ -10,6 +10,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
@@ -18,21 +19,22 @@ import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.gtk_tree_iter_copy
 import org.gtkkn.native.gtk.gtk_tree_iter_free
 import org.gtkkn.native.gtk.gtk_tree_iter_get_type
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ * ---
+ *
  * The `GtkTreeIter` is the primary structure
  * for accessing a `GtkTreeModel`. Models are expected to put a unique
  * integer in the @stamp member, and put
  * model-specific data in the three @user_data
  * members.
  */
-public class TreeIter(public val gtkTreeIterPointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) :
-    ProxyInstance(gtkTreeIterPointer) {
+public class TreeIter(public val gtkTreeIterPointer: CPointer<GtkTreeIter>) : ProxyInstance(gtkTreeIterPointer) {
     /**
      * a unique stamp to catch invalid iterators
      */
@@ -83,21 +85,9 @@ public class TreeIter(public val gtkTreeIterPointer: CPointer<GtkTreeIter>, clea
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkTreeIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TreeIter and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkTreeIter>, Cleaner>,
-    ) : this(gtkTreeIterPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkTreeIter>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TreeIter using the provided [AutofreeScope].
@@ -156,6 +146,11 @@ public class TreeIter(public val gtkTreeIterPointer: CPointer<GtkTreeIter>, clea
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a dynamically allocated tree iterator as a copy of @iter.
      *
      * This function is not intended for use in applications,
@@ -170,6 +165,11 @@ public class TreeIter(public val gtkTreeIterPointer: CPointer<GtkTreeIter>, clea
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Frees an iterator that has been allocated by gtk_tree_iter_copy().
      *
      * This function is mainly used for language bindings.

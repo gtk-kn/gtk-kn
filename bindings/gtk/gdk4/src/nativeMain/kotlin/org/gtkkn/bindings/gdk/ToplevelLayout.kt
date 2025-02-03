@@ -4,9 +4,12 @@
 package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gdk.GdkToplevelLayout
 import org.gtkkn.native.gdk.gdk_toplevel_layout_copy
 import org.gtkkn.native.gdk.gdk_toplevel_layout_equal
@@ -42,6 +45,21 @@ import kotlin.Unit
 public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkToplevelLayout>) :
     ProxyInstance(gdkToplevelLayoutPointer) {
     /**
+     * Create a toplevel layout description.
+     *
+     * Used together with gdk_toplevel_present() to describe
+     * how a toplevel surface should be placed and behave on-screen.
+     *
+     * The size is in ”application pixels”, not
+     * ”device pixels” (see gdk_surface_get_scale_factor()).
+     *
+     * @return newly created instance of `GdkToplevelLayout`
+     */
+    public constructor() : this(gdk_toplevel_layout_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
      * Create a new `GdkToplevelLayout` and copy the contents of @layout into it.
      *
      * @return a copy of @layout.
@@ -68,7 +86,7 @@ public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkTop
      */
     public fun getFullscreenMonitor(): Monitor? =
         gdk_toplevel_layout_get_fullscreen_monitor(gdkToplevelLayoutPointer)?.run {
-            Monitor(this)
+            InstanceCache.get(this, true) { Monitor(reinterpret()) }!!
         }
 
     /**
@@ -125,19 +143,6 @@ public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkTop
     public fun unref(): Unit = gdk_toplevel_layout_unref(gdkToplevelLayoutPointer)
 
     public companion object {
-        /**
-         * Create a toplevel layout description.
-         *
-         * Used together with gdk_toplevel_present() to describe
-         * how a toplevel surface should be placed and behave on-screen.
-         *
-         * The size is in ”application pixels”, not
-         * ”device pixels” (see gdk_surface_get_scale_factor()).
-         *
-         * @return newly created instance of `GdkToplevelLayout`
-         */
-        public fun new(): ToplevelLayout = ToplevelLayout(gdk_toplevel_layout_new()!!)
-
         /**
          * Get the GType of ToplevelLayout
          *

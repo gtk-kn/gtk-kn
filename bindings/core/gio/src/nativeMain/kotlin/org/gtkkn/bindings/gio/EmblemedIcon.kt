@@ -9,10 +9,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GEmblemedIcon
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.g_emblemed_icon_add_emblem
@@ -40,6 +40,10 @@ public open class EmblemedIcon(public val gioEmblemedIconPointer: CPointer<GEmbl
     Object(gioEmblemedIconPointer.reinterpret()),
     Icon,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioIconPointer: CPointer<GIcon>
         get() = handle.reinterpret()
 
@@ -54,7 +58,9 @@ public open class EmblemedIcon(public val gioEmblemedIconPointer: CPointer<GEmbl
     public constructor(
         icon: Icon,
         emblem: Emblem? = null,
-    ) : this(g_emblemed_icon_new(icon.gioIconPointer, emblem?.gioEmblemPointer)!!.reinterpret())
+    ) : this(g_emblemed_icon_new(icon.gioIconPointer, emblem?.gioEmblemPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @emblem to the #GList of #GEmblems.
@@ -99,7 +105,7 @@ public open class EmblemedIcon(public val gioEmblemedIconPointer: CPointer<GEmbl
 
     public companion object : TypeCompanion<EmblemedIcon> {
         override val type: GeneratedClassKGType<EmblemedIcon> =
-            GeneratedClassKGType(getTypeOrNull("g_emblemed_icon_get_type")!!) { EmblemedIcon(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { EmblemedIcon(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -111,5 +117,16 @@ public open class EmblemedIcon(public val gioEmblemedIconPointer: CPointer<GEmbl
          * @return the GType
          */
         public fun getType(): GType = g_emblemed_icon_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_emblemed_icon_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_emblemed_icon_get_type")
     }
 }

@@ -13,10 +13,10 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusMethodInvocation
 import org.gtkkn.native.gio.g_dbus_method_invocation_get_connection
 import org.gtkkn.native.gio.g_dbus_method_invocation_get_interface_name
@@ -62,6 +62,10 @@ import kotlin.Unit
 public open class DBusMethodInvocation(public val gioDBusMethodInvocationPointer: CPointer<GDBusMethodInvocation>) :
     Object(gioDBusMethodInvocationPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Gets the #GDBusConnection the method was invoked on.
      *
@@ -71,7 +75,7 @@ public open class DBusMethodInvocation(public val gioDBusMethodInvocationPointer
     @GioVersion2_26
     public open fun getConnection(): DBusConnection =
         g_dbus_method_invocation_get_connection(gioDBusMethodInvocationPointer)!!.run {
-            DBusConnection(this)
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
         }
 
     /**
@@ -106,7 +110,7 @@ public open class DBusMethodInvocation(public val gioDBusMethodInvocationPointer
     @GioVersion2_26
     public open fun getMessage(): DBusMessage =
         g_dbus_method_invocation_get_message(gioDBusMethodInvocationPointer)!!.run {
-            DBusMessage(this)
+            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
         }
 
     /**
@@ -328,9 +332,7 @@ public open class DBusMethodInvocation(public val gioDBusMethodInvocationPointer
 
     public companion object : TypeCompanion<DBusMethodInvocation> {
         override val type: GeneratedClassKGType<DBusMethodInvocation> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_method_invocation_get_type")!!) {
-                DBusMethodInvocation(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { DBusMethodInvocation(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -342,5 +344,16 @@ public open class DBusMethodInvocation(public val gioDBusMethodInvocationPointer
          * @return the GType
          */
         public fun getType(): GType = g_dbus_method_invocation_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_method_invocation_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_method_invocation_get_type")
     }
 }

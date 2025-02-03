@@ -6,11 +6,11 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.TypeInstance
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkEvent
 import org.gtkkn.native.gdk.gdk_event_get_device
 import org.gtkkn.native.gdk.gdk_event_get_device_tool
@@ -52,13 +52,17 @@ import kotlin.Unit
 public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
     TypeInstance(gdkEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Returns the device of an event.
      *
      * @return a `GdkDevice`
      */
     public open fun getDevice(): Device? = gdk_event_get_device(gdkEventPointer)?.run {
-        Device.DeviceImpl(this)
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
     }
 
     /**
@@ -76,7 +80,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return The current device tool
      */
     public open fun getDeviceTool(): DeviceTool? = gdk_event_get_device_tool(gdkEventPointer)?.run {
-        DeviceTool(this)
+        InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!
     }
 
     /**
@@ -85,7 +89,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return a `GdkDisplay`
      */
     public open fun getDisplay(): Display? = gdk_event_get_display(gdkEventPointer)?.run {
-        Display(this)
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!
     }
 
     /**
@@ -133,7 +137,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return a `GdkSeat`.
      */
     public open fun getSeat(): Seat? = gdk_event_get_seat(gdkEventPointer)?.run {
-        Seat.SeatImpl(this)
+        InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!
     }
 
     /**
@@ -142,7 +146,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return The `GdkSurface` associated with the event
      */
     public open fun getSurface(): Surface? = gdk_event_get_surface(gdkEventPointer)?.run {
-        Surface.SurfaceImpl(this)
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
     }
 
     /**
@@ -193,7 +197,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
 
     public companion object : TypeCompanion<Event> {
         override val type: GeneratedClassKGType<Event> =
-            GeneratedClassKGType(getTypeOrNull("gdk_event_get_type")!!) { EventImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { EventImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -205,5 +209,15 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
          * @return the GType
          */
         public fun getType(): GType = gdk_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_event_get_type")
     }
 }

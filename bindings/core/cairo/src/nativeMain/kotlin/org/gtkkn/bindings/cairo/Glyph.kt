@@ -10,17 +10,14 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.cairo.cairo_glyph_t
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gulong
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
-public class Glyph(public val cairoGlyphPointer: CPointer<cairo_glyph_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(cairoGlyphPointer) {
+public class Glyph(public val cairoGlyphPointer: CPointer<cairo_glyph_t>) : ProxyInstance(cairoGlyphPointer) {
     public var index: gulong
         get() = cairoGlyphPointer.pointed.index
 
@@ -51,21 +48,9 @@ public class Glyph(public val cairoGlyphPointer: CPointer<cairo_glyph_t>, cleane
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<cairo_glyph_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Glyph and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<cairo_glyph_t>, Cleaner>,
-    ) : this(cairoGlyphPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<cairo_glyph_t>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Glyph using the provided [AutofreeScope].

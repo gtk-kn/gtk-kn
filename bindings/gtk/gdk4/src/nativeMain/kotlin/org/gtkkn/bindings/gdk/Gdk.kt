@@ -28,6 +28,8 @@ import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gdk.GdkContentDeserializer
 import org.gtkkn.native.gdk.GdkContentSerializer
 import org.gtkkn.native.gdk.gdk_cairo_draw_from_gl
@@ -94,6 +96,10 @@ import kotlin.Unit
  * - record `ToplevelInterface`: glib type struct are ignored
  */
 public object Gdk {
+    init {
+        registerTypes()
+    }
+
     /**
      * Defines all possible DND actions.
      *
@@ -4704,6 +4710,17 @@ public object Gdk {
     public const val PRIORITY_REDRAW: gint = 120
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.6.
+     *
+     * The function is overly complex and produces broken output
+     *   in various combinations of arguments. If you want to draw with GL textures
+     *   in GTK, use [ctor@Gdk.GLTexture.new]; if you want to use that texture in
+     *   Cairo, use [method@Gdk.Texture.download] to download the data into a Cairo
+     *   image surface.
+     * ---
+     *
      * The main way to not draw GL content in GTK.
      *
      * It takes a render buffer ID (@source_type == GL_RENDERBUFFER) or a texture
@@ -5035,6 +5052,14 @@ public object Gdk {
     public fun keyvalToUpper(keyval: guint): guint = gdk_keyval_to_upper(keyval)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [class@Gdk.Texture] and subclasses instead
+     *   cairo surfaces and pixbufs
+     * ---
+     *
      * Transfers image data from a `cairo_surface_t` and converts it
      * to a `GdkPixbuf`.
      *
@@ -5058,10 +5083,18 @@ public object Gdk {
         width: gint,
         height: gint,
     ): Pixbuf? = gdk_pixbuf_get_from_surface(surface.cairoSurfacePointer, srcX, srcY, width, height)?.run {
-        Pixbuf(this)
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [class@Gdk.Texture] and subclasses instead
+     *   cairo surfaces and pixbufs
+     * ---
+     *
      * Creates a new pixbuf from @texture.
      *
      * This should generally not be used in newly written code as later
@@ -5073,7 +5106,7 @@ public object Gdk {
      */
     public fun pixbufGetFromTexture(texture: Texture): Pixbuf? =
         gdk_pixbuf_get_from_texture(texture.gdkTexturePointer)?.run {
-            Pixbuf(this)
+            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
         }
 
     /**
@@ -5148,6 +5181,145 @@ public object Gdk {
         }
         return ex ?: GLibException(error)
     }
+
+    private fun registerTypes() {
+        AppLaunchContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(AppLaunchContext::class, gtype) { AppLaunchContext(it.reinterpret()) }
+        }
+        ButtonEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ButtonEvent::class, gtype) { ButtonEvent(it.reinterpret()) }
+        }
+        CairoContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CairoContext::class, gtype) { CairoContext.CairoContextImpl(it.reinterpret()) }
+        }
+        Clipboard.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Clipboard::class, gtype) { Clipboard(it.reinterpret()) }
+        }
+        ContentDeserializer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ContentDeserializer::class, gtype) { ContentDeserializer(it.reinterpret()) }
+        }
+        ContentProvider.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ContentProvider::class, gtype) { ContentProvider(it.reinterpret()) }
+        }
+        ContentSerializer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ContentSerializer::class, gtype) { ContentSerializer(it.reinterpret()) }
+        }
+        CrossingEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CrossingEvent::class, gtype) { CrossingEvent(it.reinterpret()) }
+        }
+        Cursor.getTypeOrNull()?.let { gtype -> TypeCache.register(Cursor::class, gtype) { Cursor(it.reinterpret()) } }
+        DndEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DndEvent::class, gtype) { DndEvent(it.reinterpret()) }
+        }
+        DeleteEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DeleteEvent::class, gtype) { DeleteEvent(it.reinterpret()) }
+        }
+        Device.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Device::class, gtype) { Device.DeviceImpl(it.reinterpret()) }
+        }
+        DeviceTool.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DeviceTool::class, gtype) { DeviceTool(it.reinterpret()) }
+        }
+        Display.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Display::class, gtype) { Display(it.reinterpret()) }
+        }
+        DisplayManager.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DisplayManager::class, gtype) { DisplayManager(it.reinterpret()) }
+        }
+        DmabufTexture.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DmabufTexture::class, gtype) { DmabufTexture(it.reinterpret()) }
+        }
+        DmabufTextureBuilder.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DmabufTextureBuilder::class, gtype) { DmabufTextureBuilder(it.reinterpret()) }
+        }
+        Drag.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Drag::class, gtype) { Drag.DragImpl(it.reinterpret()) }
+        }
+        DrawContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DrawContext::class, gtype) { DrawContext.DrawContextImpl(it.reinterpret()) }
+        }
+        Drop.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Drop::class, gtype) { Drop.DropImpl(it.reinterpret()) }
+        }
+        Event.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Event::class, gtype) { Event.EventImpl(it.reinterpret()) }
+        }
+        FocusEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FocusEvent::class, gtype) { FocusEvent(it.reinterpret()) }
+        }
+        FrameClock.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FrameClock::class, gtype) { FrameClock.FrameClockImpl(it.reinterpret()) }
+        }
+        GlContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GlContext::class, gtype) { GlContext.GlContextImpl(it.reinterpret()) }
+        }
+        GlTexture.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GlTexture::class, gtype) { GlTexture(it.reinterpret()) }
+        }
+        GlTextureBuilder.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GlTextureBuilder::class, gtype) { GlTextureBuilder(it.reinterpret()) }
+        }
+        GrabBrokenEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GrabBrokenEvent::class, gtype) { GrabBrokenEvent(it.reinterpret()) }
+        }
+        KeyEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(KeyEvent::class, gtype) { KeyEvent(it.reinterpret()) }
+        }
+        MemoryTexture.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MemoryTexture::class, gtype) { MemoryTexture(it.reinterpret()) }
+        }
+        Monitor.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Monitor::class, gtype) { Monitor(it.reinterpret()) }
+        }
+        MotionEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MotionEvent::class, gtype) { MotionEvent(it.reinterpret()) }
+        }
+        PadEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(PadEvent::class, gtype) { PadEvent(it.reinterpret()) }
+        }
+        ProximityEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ProximityEvent::class, gtype) { ProximityEvent(it.reinterpret()) }
+        }
+        ScrollEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ScrollEvent::class, gtype) { ScrollEvent(it.reinterpret()) }
+        }
+        Seat.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Seat::class, gtype) { Seat.SeatImpl(it.reinterpret()) }
+        }
+        Snapshot.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Snapshot::class, gtype) { Snapshot.SnapshotImpl(it.reinterpret()) }
+        }
+        Surface.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Surface::class, gtype) { Surface.SurfaceImpl(it.reinterpret()) }
+        }
+        Texture.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Texture::class, gtype) { Texture.TextureImpl(it.reinterpret()) }
+        }
+        TouchEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TouchEvent::class, gtype) { TouchEvent(it.reinterpret()) }
+        }
+        TouchpadEvent.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TouchpadEvent::class, gtype) { TouchpadEvent(it.reinterpret()) }
+        }
+        VulkanContext.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(VulkanContext::class, gtype) { VulkanContext.VulkanContextImpl(it.reinterpret()) }
+        }
+        DevicePad.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DevicePad::class, gtype) { DevicePad.DevicePadImpl(it.reinterpret()) }
+        }
+        DragSurface.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DragSurface::class, gtype) { DragSurface.DragSurfaceImpl(it.reinterpret()) }
+        }
+        Paintable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Paintable::class, gtype) { Paintable.PaintableImpl(it.reinterpret()) }
+        }
+        Popup.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Popup::class, gtype) { Popup.PopupImpl(it.reinterpret()) }
+        }
+        Toplevel.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Toplevel::class, gtype) { Toplevel.ToplevelImpl(it.reinterpret()) }
+        }
+    }
 }
 
 public val ContentDeserializeFuncFunc:
@@ -5157,7 +5329,7 @@ public val ContentDeserializeFuncFunc:
         ->
         userData.asStableRef<(deserializer: ContentDeserializer) -> Unit>().get().invoke(
             deserializer!!.run {
-                ContentDeserializer(this)
+                InstanceCache.get(this, false) { ContentDeserializer(reinterpret()) }!!
             }
         )
     }
@@ -5170,7 +5342,7 @@ public val ContentSerializeFuncFunc: CPointer<CFunction<(CPointer<GdkContentSeri
         ->
         userData.asStableRef<(serializer: ContentSerializer) -> Unit>().get().invoke(
             serializer!!.run {
-                ContentSerializer(this)
+                InstanceCache.get(this, false) { ContentSerializer(reinterpret()) }!!
             }
         )
     }

@@ -8,10 +8,9 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GConverter
 import org.gtkkn.native.gio.g_converter_get_type
 import org.gtkkn.native.gio.g_converter_reset
@@ -56,13 +55,19 @@ public interface Converter :
      *
      * @constructor Creates a new instance of Converter for the provided [CPointer].
      */
-    public data class ConverterImpl(override val gioConverterPointer: CPointer<GConverter>) :
+    public class ConverterImpl(gioConverterPointer: CPointer<GConverter>) :
         Object(gioConverterPointer.reinterpret()),
-        Converter
+        Converter {
+        init {
+            Gio
+        }
+
+        override val gioConverterPointer: CPointer<GConverter> = gioConverterPointer
+    }
 
     public companion object : TypeCompanion<Converter> {
         override val type: GeneratedInterfaceKGType<Converter> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_converter_get_type")!!) { ConverterImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { ConverterImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -74,5 +79,15 @@ public interface Converter :
          * @return the GType
          */
         public fun getType(): GType = g_converter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_converter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_converter_get_type")
     }
 }

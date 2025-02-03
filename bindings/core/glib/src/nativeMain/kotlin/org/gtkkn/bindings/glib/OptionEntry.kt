@@ -11,6 +11,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GOptionEntry
 import org.gtkkn.native.glib.g_free
@@ -18,17 +19,14 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import kotlin.Char
-import kotlin.Pair
 import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A GOptionEntry struct defines a single option. To have an effect, they
  * must be added to a #GOptionGroup with g_option_context_add_main_entries()
  * or g_option_group_add_entries().
  */
-public class OptionEntry(public val glibOptionEntryPointer: CPointer<GOptionEntry>, cleaner: Cleaner? = null) :
+public class OptionEntry(public val glibOptionEntryPointer: CPointer<GOptionEntry>) :
     ProxyInstance(glibOptionEntryPointer) {
     /**
      * The long name of an option can be used to specify it
@@ -146,21 +144,9 @@ public class OptionEntry(public val glibOptionEntryPointer: CPointer<GOptionEntr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GOptionEntry>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to OptionEntry and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GOptionEntry>, Cleaner>,
-    ) : this(glibOptionEntryPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GOptionEntry>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new OptionEntry using the provided [AutofreeScope].

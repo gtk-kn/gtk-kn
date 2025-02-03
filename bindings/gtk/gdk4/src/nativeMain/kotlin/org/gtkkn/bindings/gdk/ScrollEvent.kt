@@ -6,11 +6,10 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkScrollEvent
 import org.gtkkn.native.gdk.gdk_scroll_event_get_direction
 import org.gtkkn.native.gdk.gdk_scroll_event_get_type
@@ -29,6 +28,10 @@ import kotlin.Boolean
 public open class ScrollEvent(public val gdkScrollEventPointer: CPointer<GdkScrollEvent>) :
     Event(gdkScrollEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts the direction of a scroll event.
      *
@@ -70,7 +73,7 @@ public open class ScrollEvent(public val gdkScrollEventPointer: CPointer<GdkScro
 
     public companion object : TypeCompanion<ScrollEvent> {
         override val type: GeneratedClassKGType<ScrollEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_scroll_event_get_type")!!) { ScrollEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ScrollEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -82,5 +85,16 @@ public open class ScrollEvent(public val gdkScrollEventPointer: CPointer<GdkScro
          * @return the GType
          */
         public fun getType(): GType = gdk_scroll_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_scroll_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_scroll_event_get_type")
     }
 }

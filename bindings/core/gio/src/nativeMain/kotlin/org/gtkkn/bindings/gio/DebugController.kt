@@ -8,12 +8,11 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_72
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDebugController
 import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.g_debug_controller_get_debug_enabled
@@ -101,15 +100,20 @@ public interface DebugController :
      *
      * @constructor Creates a new instance of DebugController for the provided [CPointer].
      */
-    public data class DebugControllerImpl(override val gioDebugControllerPointer: CPointer<GDebugController>) :
+    public class DebugControllerImpl(gioDebugControllerPointer: CPointer<GDebugController>) :
         Object(gioDebugControllerPointer.reinterpret()),
-        DebugController
+        DebugController {
+        init {
+            Gio
+        }
+
+        override val gioDebugControllerPointer: CPointer<GDebugController> =
+            gioDebugControllerPointer
+    }
 
     public companion object : TypeCompanion<DebugController> {
         override val type: GeneratedInterfaceKGType<DebugController> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_debug_controller_get_type")!!) {
-                DebugControllerImpl(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(getTypeOrNull()!!) { DebugControllerImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -121,5 +125,16 @@ public interface DebugController :
          * @return the GType
          */
         public fun getType(): GType = g_debug_controller_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_debug_controller_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_debug_controller_get_type")
     }
 }

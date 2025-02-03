@@ -12,6 +12,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusMethodInfo
 import org.gtkkn.native.gio.g_dbus_method_info_get_type
@@ -21,11 +22,8 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Information about a method on an D-Bus interface.
@@ -39,7 +37,7 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusMethodInfo(public val gioDBusMethodInfoPointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner? = null) :
+public class DBusMethodInfo(public val gioDBusMethodInfoPointer: CPointer<GDBusMethodInfo>) :
     ProxyInstance(gioDBusMethodInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
@@ -70,21 +68,9 @@ public class DBusMethodInfo(public val gioDBusMethodInfoPointer: CPointer<GDBusM
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusMethodInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DBusMethodInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDBusMethodInfo>, Cleaner>,
-    ) : this(gioDBusMethodInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDBusMethodInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DBusMethodInfo using the provided [AutofreeScope].

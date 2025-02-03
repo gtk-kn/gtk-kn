@@ -6,10 +6,10 @@ package org.gtkkn.bindings.pango
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoCoverage
@@ -41,6 +41,10 @@ import kotlin.Unit
 public open class Coverage(public val pangoCoveragePointer: CPointer<PangoCoverage>) :
     Object(pangoCoveragePointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Create a new `PangoCoverage`
      *
@@ -48,7 +52,9 @@ public open class Coverage(public val pangoCoveragePointer: CPointer<PangoCovera
      *   to %PANGO_COVERAGE_NONE with a reference count of one, which
      *   should be freed with [method@Pango.Coverage.unref].
      */
-    public constructor() : this(pango_coverage_new()!!.reinterpret())
+    public constructor() : this(pango_coverage_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Copy an existing `PangoCoverage`.
@@ -58,7 +64,7 @@ public open class Coverage(public val pangoCoveragePointer: CPointer<PangoCovera
      *   [method@Pango.Coverage.unref].
      */
     public open fun copy(): Coverage = pango_coverage_copy(pangoCoveragePointer)!!.run {
-        Coverage(this)
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!
     }
 
     /**
@@ -72,6 +78,13 @@ public open class Coverage(public val pangoCoveragePointer: CPointer<PangoCovera
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * This function does nothing
+     * ---
+     *
      * Set the coverage for each index in @coverage to be the max (better)
      * value of the current coverage for the index and the coverage for
      * the corresponding index in @other.
@@ -81,12 +94,19 @@ public open class Coverage(public val pangoCoveragePointer: CPointer<PangoCovera
     public open fun max(other: Coverage): Unit = pango_coverage_max(pangoCoveragePointer, other.pangoCoveragePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.52.
+     *
+     * Use g_object_ref instead
+     * ---
+     *
      * Increase the reference count on the `PangoCoverage` by one.
      *
      * @return @coverage
      */
     override fun ref(): Coverage = pango_coverage_ref(pangoCoveragePointer)!!.run {
-        Coverage(this)
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!
     }
 
     /**
@@ -99,6 +119,13 @@ public open class Coverage(public val pangoCoveragePointer: CPointer<PangoCovera
         pango_coverage_set(pangoCoveragePointer, index, level.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.52.
+     *
+     * Use g_object_unref instead
+     * ---
+     *
      * Decrease the reference count on the `PangoCoverage` by one.
      *
      * If the result is zero, free the coverage and all associated memory.
@@ -107,7 +134,7 @@ public open class Coverage(public val pangoCoveragePointer: CPointer<PangoCovera
 
     public companion object : TypeCompanion<Coverage> {
         override val type: GeneratedClassKGType<Coverage> =
-            GeneratedClassKGType(getTypeOrNull("pango_coverage_get_type")!!) { Coverage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Coverage(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()
@@ -119,5 +146,16 @@ public open class Coverage(public val pangoCoveragePointer: CPointer<PangoCovera
          * @return the GType
          */
         public fun getType(): GType = pango_coverage_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_coverage_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_coverage_get_type")
     }
 }

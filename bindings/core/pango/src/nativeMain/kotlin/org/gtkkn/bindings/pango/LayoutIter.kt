@@ -4,11 +4,13 @@
 package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoLayoutIter
@@ -132,7 +134,7 @@ public class LayoutIter(public val pangoLayoutIterPointer: CPointer<PangoLayoutI
      */
     @PangoVersion1_20
     public fun getLayout(): Layout? = pango_layout_iter_get_layout(pangoLayoutIterPointer)?.run {
-        Layout(this)
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**

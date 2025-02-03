@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusMenuModel
 import org.gtkkn.native.gio.g_dbus_menu_model_get
 import org.gtkkn.native.gio.g_dbus_menu_model_get_type
@@ -24,9 +24,13 @@ import kotlin.String
 public open class DBusMenuModel(public val gioDBusMenuModelPointer: CPointer<GDBusMenuModel>) :
     MenuModel(gioDBusMenuModelPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     public companion object : TypeCompanion<DBusMenuModel> {
         override val type: GeneratedClassKGType<DBusMenuModel> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_menu_model_get_type")!!) { DBusMenuModel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { DBusMenuModel(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -53,7 +57,7 @@ public open class DBusMenuModel(public val gioDBusMenuModelPointer: CPointer<GDB
         @GioVersion2_32
         public fun `get`(connection: DBusConnection, busName: String? = null, objectPath: String): DBusMenuModel =
             g_dbus_menu_model_get(connection.gioDBusConnectionPointer, busName, objectPath)!!.run {
-                DBusMenuModel(this)
+                InstanceCache.get(this, true) { DBusMenuModel(reinterpret()) }!!
             }
 
         /**
@@ -62,5 +66,16 @@ public open class DBusMenuModel(public val gioDBusMenuModelPointer: CPointer<GDB
          * @return the GType
          */
         public fun getType(): GType = g_dbus_menu_model_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_menu_model_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_menu_model_get_type")
     }
 }

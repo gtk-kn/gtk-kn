@@ -4,10 +4,10 @@
 package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.Uri
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -72,6 +72,46 @@ import kotlin.Unit
  * cross-site scripting attacks.
  */
 public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyInstance(soupCookiePointer) {
+    /**
+     * Creates a new #SoupCookie with the given attributes.
+     *
+     * Use [method@Cookie.set_secure] and [method@Cookie.set_http_only] if you
+     * need to set those attributes on the returned cookie.
+     *
+     * If @domain starts with ".", that indicates a domain (which matches
+     * the string after the ".", or any hostname that has @domain as a
+     * suffix). Otherwise, it is a hostname and must match exactly.
+     *
+     * @max_age is used to set the "expires" attribute on the cookie; pass
+     * -1 to not include the attribute (indicating that the cookie expires
+     * with the current session), 0 for an already-expired cookie, or a
+     * lifetime in seconds. You can use the constants
+     * %SOUP_COOKIE_MAX_AGE_ONE_HOUR, %SOUP_COOKIE_MAX_AGE_ONE_DAY,
+     * %SOUP_COOKIE_MAX_AGE_ONE_WEEK and %SOUP_COOKIE_MAX_AGE_ONE_YEAR (or
+     * multiples thereof) to calculate this value. (If you really care
+     * about setting the exact time that the cookie will expire, use
+     * [method@Cookie.set_expires].)
+     *
+     * As of version 3.4.0 the default value of a cookie's same-site-policy
+     * is %SOUP_SAME_SITE_POLICY_LAX.
+     *
+     * @param name cookie name
+     * @param value cookie value
+     * @param domain cookie domain or hostname
+     * @param path cookie path, or null
+     * @param maxAge max age of the cookie, or -1 for a session cookie
+     * @return a new #SoupCookie.
+     */
+    public constructor(
+        name: String,
+        `value`: String,
+        domain: String,
+        path: String,
+        maxAge: gint,
+    ) : this(soup_cookie_new(name, `value`, domain, path, maxAge)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Tests if @cookie should be sent to @uri.
      *
@@ -296,39 +336,6 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
         soup_cookie_to_set_cookie_header(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
-        /**
-         * Creates a new #SoupCookie with the given attributes.
-         *
-         * Use [method@Cookie.set_secure] and [method@Cookie.set_http_only] if you
-         * need to set those attributes on the returned cookie.
-         *
-         * If @domain starts with ".", that indicates a domain (which matches
-         * the string after the ".", or any hostname that has @domain as a
-         * suffix). Otherwise, it is a hostname and must match exactly.
-         *
-         * @max_age is used to set the "expires" attribute on the cookie; pass
-         * -1 to not include the attribute (indicating that the cookie expires
-         * with the current session), 0 for an already-expired cookie, or a
-         * lifetime in seconds. You can use the constants
-         * %SOUP_COOKIE_MAX_AGE_ONE_HOUR, %SOUP_COOKIE_MAX_AGE_ONE_DAY,
-         * %SOUP_COOKIE_MAX_AGE_ONE_WEEK and %SOUP_COOKIE_MAX_AGE_ONE_YEAR (or
-         * multiples thereof) to calculate this value. (If you really care
-         * about setting the exact time that the cookie will expire, use
-         * [method@Cookie.set_expires].)
-         *
-         * As of version 3.4.0 the default value of a cookie's same-site-policy
-         * is %SOUP_SAME_SITE_POLICY_LAX.
-         *
-         * @param name cookie name
-         * @param value cookie value
-         * @param domain cookie domain or hostname
-         * @param path cookie path, or null
-         * @param maxAge max age of the cookie, or -1 for a session cookie
-         * @return a new #SoupCookie.
-         */
-        public fun new(name: String, `value`: String, domain: String, path: String, maxAge: gint): Cookie =
-            Cookie(soup_cookie_new(name, `value`, domain, path, maxAge)!!.reinterpret())
-
         /**
          * Parses @header and returns a #SoupCookie.
          *

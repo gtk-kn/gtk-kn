@@ -15,11 +15,11 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -33,6 +33,15 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Applications editing keyboard accelerators should
+ *   provide their own implementation according to platform design
+ *   guidelines
+ * ---
+ *
  * Renders a keyboard accelerator in a cell
  *
  * `GtkCellRendererAccel` displays a keyboard accelerator (i.e. a key
@@ -49,12 +58,23 @@ import kotlin.Unit
 public open class CellRendererAccel(public val gtkCellRendererAccelPointer: CPointer<GtkCellRendererAccel>) :
     CellRendererText(gtkCellRendererAccelPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererAccel`.
      *
      * @return the new cell renderer
      */
-    public constructor() : this(gtk_cell_renderer_accel_new()!!.reinterpret())
+    public constructor() : this(gtk_cell_renderer_accel_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets emitted when the user has removed the accelerator.
@@ -127,9 +147,7 @@ public open class CellRendererAccel(public val gtkCellRendererAccelPointer: CPoi
 
     public companion object : TypeCompanion<CellRendererAccel> {
         override val type: GeneratedClassKGType<CellRendererAccel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_accel_get_type")!!) {
-                CellRendererAccel(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { CellRendererAccel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -141,6 +159,17 @@ public open class CellRendererAccel(public val gtkCellRendererAccelPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_renderer_accel_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_renderer_accel_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_renderer_accel_get_type")
     }
 }
 

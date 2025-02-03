@@ -12,13 +12,13 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -152,6 +152,10 @@ import kotlin.Unit
 public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>) :
     ListBase(gtkListViewPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -195,7 +199,7 @@ public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>)
          * @return The factory in use
          */
         get() = gtk_list_view_get_factory(gtkListViewPointer)?.run {
-            ListItemFactory(this)
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
 
         /**
@@ -219,7 +223,7 @@ public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>)
          * @since 4.12
          */
         get() = gtk_list_view_get_header_factory(gtkListViewPointer)?.run {
-            ListItemFactory(this)
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
 
         /**
@@ -342,7 +346,9 @@ public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>)
     public constructor(
         model: SelectionModel? = null,
         factory: ListItemFactory? = null,
-    ) : this(gtk_list_view_new(model?.gtkSelectionModelPointer, factory?.gtkListItemFactoryPointer)!!.reinterpret())
+    ) : this(gtk_list_view_new(model?.gtkSelectionModelPointer, factory?.gtkListItemFactoryPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Scrolls to the item at the given position and performs the actions
@@ -393,7 +399,7 @@ public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>)
 
     public companion object : TypeCompanion<ListView> {
         override val type: GeneratedClassKGType<ListView> =
-            GeneratedClassKGType(getTypeOrNull("gtk_list_view_get_type")!!) { ListView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { ListView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -405,6 +411,17 @@ public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>)
          * @return the GType
          */
         public fun getType(): GType = gtk_list_view_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_list_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_list_view_get_type")
     }
 }
 

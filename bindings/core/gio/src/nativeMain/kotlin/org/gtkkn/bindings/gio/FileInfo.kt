@@ -16,14 +16,14 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.TimeVal
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GFileInfo
 import org.gtkkn.native.gio.g_file_info_clear_status
 import org.gtkkn.native.gio.g_file_info_copy_into
@@ -152,12 +152,18 @@ import kotlin.collections.List
 public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
     Object(gioFileInfoPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new file info structure.
      *
      * @return a #GFileInfo.
      */
-    public constructor() : this(g_file_info_new()!!.reinterpret())
+    public constructor() : this(g_file_info_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Clears the status information from @info.
@@ -179,7 +185,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return a duplicate #GFileInfo of @other.
      */
     public open fun dup(): FileInfo = g_file_info_dup(gioFileInfoPointer)!!.run {
-        FileInfo(this)
+        InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!
     }
 
     /**
@@ -285,7 +291,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      */
     public open fun getAttributeObject(attribute: String): Object? =
         g_file_info_get_attribute_object(gioFileInfoPointer, attribute)?.run {
-            Object(this)
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
     /**
@@ -512,6 +518,14 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * Use g_file_info_get_modification_date_time() instead, as
+     *    #GTimeVal is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Gets the modification time of the current @info and sets it
      * in @result.
      *
@@ -873,6 +887,14 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
         g_file_info_set_modification_date_time(gioFileInfoPointer, mtime.glibDateTimePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * Use g_file_info_set_modification_date_time() instead, as
+     *    #GTimeVal is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
      * %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
      * given time value.
@@ -936,7 +958,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
 
     public companion object : TypeCompanion<FileInfo> {
         override val type: GeneratedClassKGType<FileInfo> =
-            GeneratedClassKGType(getTypeOrNull("g_file_info_get_type")!!) { FileInfo(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { FileInfo(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -948,5 +970,15 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
          * @return the GType
          */
         public fun getType(): GType = g_file_info_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_file_info_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_file_info_get_type")
     }
 }

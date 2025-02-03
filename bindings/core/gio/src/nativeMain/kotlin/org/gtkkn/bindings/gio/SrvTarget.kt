@@ -4,10 +4,10 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.List
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GSrvTarget
 import org.gtkkn.native.gio.g_srv_target_copy
@@ -43,6 +43,28 @@ import kotlin.Unit
  * `GSrvTarget` at all.
  */
 public class SrvTarget(public val gioSrvTargetPointer: CPointer<GSrvTarget>) : ProxyInstance(gioSrvTargetPointer) {
+    /**
+     * Creates a new #GSrvTarget with the given parameters.
+     *
+     * You should not need to use this; normally #GSrvTargets are
+     * created by #GResolver.
+     *
+     * @param hostname the host that the service is running on
+     * @param port the port that the service is running on
+     * @param priority the target's priority
+     * @param weight the target's weight
+     * @return a new #GSrvTarget.
+     * @since 2.22
+     */
+    public constructor(
+        hostname: String,
+        port: guint16,
+        priority: guint16,
+        weight: guint16,
+    ) : this(g_srv_target_new(hostname, port, priority, weight)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies @target
      *
@@ -107,22 +129,6 @@ public class SrvTarget(public val gioSrvTargetPointer: CPointer<GSrvTarget>) : P
     public fun getWeight(): guint16 = g_srv_target_get_weight(gioSrvTargetPointer)
 
     public companion object {
-        /**
-         * Creates a new #GSrvTarget with the given parameters.
-         *
-         * You should not need to use this; normally #GSrvTargets are
-         * created by #GResolver.
-         *
-         * @param hostname the host that the service is running on
-         * @param port the port that the service is running on
-         * @param priority the target's priority
-         * @param weight the target's weight
-         * @return a new #GSrvTarget.
-         * @since 2.22
-         */
-        public fun new(hostname: String, port: guint16, priority: guint16, weight: guint16): SrvTarget =
-            SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
-
         /**
          * Sorts @targets in place according to the algorithm in RFC 2782.
          *

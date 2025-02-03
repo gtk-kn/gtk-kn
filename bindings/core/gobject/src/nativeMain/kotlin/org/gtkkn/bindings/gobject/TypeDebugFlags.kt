@@ -12,6 +12,13 @@ import org.gtkkn.native.gobject.G_TYPE_DEBUG_OBJECTS
 import org.gtkkn.native.gobject.G_TYPE_DEBUG_SIGNALS
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.36.
+ *
+ * g_type_init() is now done automatically
+ * ---
+ *
  * These flags used to be passed to g_type_init_with_debug_flags() which
  * is now deprecated.
  *
@@ -23,26 +30,61 @@ public class TypeDebugFlags(public val mask: GTypeDebugFlags) : Bitfield<TypeDeb
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.36.
+         *
+         * g_type_init() is now done automatically
+         * ---
+         *
          * Print no messages
          */
         public val NONE: TypeDebugFlags = TypeDebugFlags(G_TYPE_DEBUG_NONE)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.36.
+         *
+         * g_type_init() is now done automatically
+         * ---
+         *
          * Print messages about object bookkeeping
          */
         public val OBJECTS: TypeDebugFlags = TypeDebugFlags(G_TYPE_DEBUG_OBJECTS)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.36.
+         *
+         * g_type_init() is now done automatically
+         * ---
+         *
          * Print messages about signal emissions
          */
         public val SIGNALS: TypeDebugFlags = TypeDebugFlags(G_TYPE_DEBUG_SIGNALS)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.36.
+         *
+         * g_type_init() is now done automatically
+         * ---
+         *
          * Keep a count of instances of each type
          */
         public val INSTANCE_COUNT: TypeDebugFlags = TypeDebugFlags(G_TYPE_DEBUG_INSTANCE_COUNT)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.36.
+         *
+         * g_type_init() is now done automatically
+         * ---
+         *
          * Mask covering all debug flags
          */
         public val MASK: TypeDebugFlags = TypeDebugFlags(G_TYPE_DEBUG_MASK)

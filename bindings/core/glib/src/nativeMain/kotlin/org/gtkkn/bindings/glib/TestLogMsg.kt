@@ -10,15 +10,13 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTestLogMsg
 import org.gtkkn.native.glib.g_test_log_msg_free
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * ## Skipped during bindings generation
@@ -26,7 +24,7 @@ import kotlin.native.ref.createCleaner
  * - field `strings`: Unsupported string with cType gchar**
  * - field `nums`: Unsupported pointer to primitive type
  */
-public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null) :
+public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>) :
     ProxyInstance(glibTestLogMsgPointer) {
     public var logType: TestLogType
         get() = glibTestLogMsgPointer.pointed.log_type.run {
@@ -60,21 +58,9 @@ public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTestLogMsg>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TestLogMsg and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTestLogMsg>, Cleaner>,
-    ) : this(glibTestLogMsgPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTestLogMsg>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TestLogMsg using the provided [AutofreeScope].

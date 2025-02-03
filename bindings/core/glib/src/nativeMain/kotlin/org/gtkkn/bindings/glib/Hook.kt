@@ -12,6 +12,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -37,11 +38,8 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.gulong
 import kotlin.Boolean
-import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GHook struct represents a single hook function in a #GHookList.
@@ -51,8 +49,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `func`: HookCompareFunc
  * - field `destroy`: DestroyNotify
  */
-public class Hook(public val glibHookPointer: CPointer<GHook>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibHookPointer) {
+public class Hook(public val glibHookPointer: CPointer<GHook>) : ProxyInstance(glibHookPointer) {
     /**
      * data which is passed to func when this hook is invoked
      */
@@ -142,21 +139,9 @@ public class Hook(public val glibHookPointer: CPointer<GHook>, cleaner: Cleaner?
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GHook>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Hook and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GHook>, Cleaner>,
-    ) : this(glibHookPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GHook>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Hook using the provided [AutofreeScope].

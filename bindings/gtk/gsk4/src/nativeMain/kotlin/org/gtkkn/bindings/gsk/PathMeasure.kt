@@ -4,8 +4,8 @@
 package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gfloat
@@ -39,6 +39,33 @@ import kotlin.Unit
 @GskVersion4_14
 public class PathMeasure(public val gskPathMeasurePointer: CPointer<GskPathMeasure>) :
     ProxyInstance(gskPathMeasurePointer) {
+    /**
+     * Creates a measure object for the given @path with the
+     * default tolerance.
+     *
+     * @param path the path to measure
+     * @return a new `GskPathMeasure` representing @path
+     * @since 4.14
+     */
+    public constructor(path: Path) : this(gsk_path_measure_new(path.gskPathPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a measure object for the given @path and @tolerance.
+     *
+     * @param path the path to measure
+     * @param tolerance the tolerance for measuring operations
+     * @return a new `GskPathMeasure` representing @path
+     * @since 4.14
+     */
+    public constructor(
+        path: Path,
+        tolerance: gfloat,
+    ) : this(gsk_path_measure_new_with_tolerance(path.gskPathPointer, tolerance)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Gets the length of the path being measured.
      *
@@ -106,27 +133,6 @@ public class PathMeasure(public val gskPathMeasurePointer: CPointer<GskPathMeasu
     public fun unref(): Unit = gsk_path_measure_unref(gskPathMeasurePointer)
 
     public companion object {
-        /**
-         * Creates a measure object for the given @path with the
-         * default tolerance.
-         *
-         * @param path the path to measure
-         * @return a new `GskPathMeasure` representing @path
-         * @since 4.14
-         */
-        public fun new(path: Path): PathMeasure = PathMeasure(gsk_path_measure_new(path.gskPathPointer)!!.reinterpret())
-
-        /**
-         * Creates a measure object for the given @path and @tolerance.
-         *
-         * @param path the path to measure
-         * @param tolerance the tolerance for measuring operations
-         * @return a new `GskPathMeasure` representing @path
-         * @since 4.14
-         */
-        public fun newWithTolerance(path: Path, tolerance: gfloat): PathMeasure =
-            PathMeasure(gsk_path_measure_new_with_tolerance(path.gskPathPointer, tolerance)!!.reinterpret())
-
         /**
          * Get the GType of PathMeasure
          *

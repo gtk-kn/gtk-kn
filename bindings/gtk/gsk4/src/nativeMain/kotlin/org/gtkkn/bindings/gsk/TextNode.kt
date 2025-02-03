@@ -10,14 +10,16 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
 import org.gtkkn.bindings.pango.Font
 import org.gtkkn.bindings.pango.GlyphString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTextNode
+import org.gtkkn.native.gsk.gsk_render_node_unref
 import org.gtkkn.native.gsk.gsk_text_node_get_color
 import org.gtkkn.native.gsk.gsk_text_node_get_font
 import org.gtkkn.native.gsk.gsk_text_node_get_num_glyphs
@@ -37,6 +39,10 @@ import kotlin.Boolean
 public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>) :
     RenderNode(gskTextNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a render node that renders the given glyphs.
      *
@@ -61,7 +67,9 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
             color.gdkRgbaPointer,
             offset.graphenePointPointer
         )!!.reinterpret()
-    )
+    ) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the color used by the text @node.
@@ -78,7 +86,7 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
      * @return the font
      */
     public open fun getFont(): Font = gsk_text_node_get_font(gskTextNodePointer.reinterpret())!!.run {
-        Font.FontImpl(this)
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
     }
 
     /**
@@ -109,7 +117,7 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
 
     public companion object : TypeCompanion<TextNode> {
         override val type: GeneratedClassKGType<TextNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_text_node_get_type")!!) { TextNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { TextNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -121,5 +129,16 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
          * @return the GType
          */
         public fun getType(): GType = gsk_text_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_text_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_text_node_get_type")
     }
 }

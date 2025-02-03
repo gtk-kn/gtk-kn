@@ -14,6 +14,7 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gfloat
@@ -40,6 +41,10 @@ import kotlin.Unit
  * - record `VulkanRendererClass`: glib type struct are ignored
  */
 public object Gsk {
+    init {
+        registerTypes()
+    }
+
     /**
      * Retrieves the `GskRenderNode` stored inside the given `value`, and acquires
      * a reference to it.
@@ -102,6 +107,127 @@ public object Gsk {
             else -> null
         }
         return ex ?: GLibException(error)
+    }
+
+    private fun registerTypes() {
+        BlendNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BlendNode::class, gtype) { BlendNode(it.reinterpret()) }
+        }
+        BlurNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BlurNode::class, gtype) { BlurNode(it.reinterpret()) }
+        }
+        BorderNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BorderNode::class, gtype) { BorderNode(it.reinterpret()) }
+        }
+        BroadwayRenderer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BroadwayRenderer::class, gtype) { BroadwayRenderer(it.reinterpret()) }
+        }
+        CairoNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CairoNode::class, gtype) { CairoNode(it.reinterpret()) }
+        }
+        CairoRenderer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CairoRenderer::class, gtype) { CairoRenderer(it.reinterpret()) }
+        }
+        ClipNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ClipNode::class, gtype) { ClipNode(it.reinterpret()) }
+        }
+        ColorMatrixNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColorMatrixNode::class, gtype) { ColorMatrixNode(it.reinterpret()) }
+        }
+        ColorNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ColorNode::class, gtype) { ColorNode(it.reinterpret()) }
+        }
+        ConicGradientNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ConicGradientNode::class, gtype) { ConicGradientNode(it.reinterpret()) }
+        }
+        ContainerNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ContainerNode::class, gtype) { ContainerNode(it.reinterpret()) }
+        }
+        CrossFadeNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CrossFadeNode::class, gtype) { CrossFadeNode(it.reinterpret()) }
+        }
+        DebugNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(DebugNode::class, gtype) { DebugNode(it.reinterpret()) }
+        }
+        FillNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(FillNode::class, gtype) { FillNode(it.reinterpret()) }
+        }
+        GlRenderer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GlRenderer::class, gtype) { GlRenderer(it.reinterpret()) }
+        }
+        GlShader.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GlShader::class, gtype) { GlShader(it.reinterpret()) }
+        }
+        GlShaderNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(GlShaderNode::class, gtype) { GlShaderNode(it.reinterpret()) }
+        }
+        InsetShadowNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(InsetShadowNode::class, gtype) { InsetShadowNode(it.reinterpret()) }
+        }
+        LinearGradientNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(LinearGradientNode::class, gtype) { LinearGradientNode(it.reinterpret()) }
+        }
+        MaskNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MaskNode::class, gtype) { MaskNode(it.reinterpret()) }
+        }
+        NglRenderer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(NglRenderer::class, gtype) { NglRenderer(it.reinterpret()) }
+        }
+        OpacityNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(OpacityNode::class, gtype) { OpacityNode(it.reinterpret()) }
+        }
+        OutsetShadowNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(OutsetShadowNode::class, gtype) { OutsetShadowNode(it.reinterpret()) }
+        }
+        RadialGradientNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(RadialGradientNode::class, gtype) { RadialGradientNode(it.reinterpret()) }
+        }
+        RenderNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(RenderNode::class, gtype) { RenderNode.RenderNodeImpl(it.reinterpret()) }
+        }
+        Renderer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Renderer::class, gtype) { Renderer.RendererImpl(it.reinterpret()) }
+        }
+        RepeatNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(RepeatNode::class, gtype) { RepeatNode(it.reinterpret()) }
+        }
+        RepeatingLinearGradientNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(RepeatingLinearGradientNode::class, gtype) {
+                RepeatingLinearGradientNode(it.reinterpret())
+            }
+        }
+        RepeatingRadialGradientNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(RepeatingRadialGradientNode::class, gtype) {
+                RepeatingRadialGradientNode(it.reinterpret())
+            }
+        }
+        RoundedClipNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(RoundedClipNode::class, gtype) { RoundedClipNode(it.reinterpret()) }
+        }
+        ShadowNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ShadowNode::class, gtype) { ShadowNode(it.reinterpret()) }
+        }
+        StrokeNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(StrokeNode::class, gtype) { StrokeNode(it.reinterpret()) }
+        }
+        SubsurfaceNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SubsurfaceNode::class, gtype) { SubsurfaceNode(it.reinterpret()) }
+        }
+        TextNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TextNode::class, gtype) { TextNode(it.reinterpret()) }
+        }
+        TextureNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TextureNode::class, gtype) { TextureNode(it.reinterpret()) }
+        }
+        TextureScaleNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TextureScaleNode::class, gtype) { TextureScaleNode(it.reinterpret()) }
+        }
+        TransformNode.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(TransformNode::class, gtype) { TransformNode(it.reinterpret()) }
+        }
+        VulkanRenderer.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(VulkanRenderer::class, gtype) { VulkanRenderer(it.reinterpret()) }
+        }
     }
 }
 

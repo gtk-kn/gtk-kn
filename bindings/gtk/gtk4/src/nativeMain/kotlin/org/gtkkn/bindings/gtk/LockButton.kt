@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Permission
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -22,6 +22,13 @@ import org.gtkkn.native.gtk.gtk_lock_button_new
 import org.gtkkn.native.gtk.gtk_lock_button_set_permission
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This widget will be removed in GTK 5
+ * ---
+ *
  * `GtkLockButton` is a widget to obtain and revoke authorizations
  * needed to operate the controls.
  *
@@ -71,6 +78,10 @@ import org.gtkkn.native.gtk.gtk_lock_button_set_permission
 public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockButton>) :
     Button(gtkLockButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -84,19 +95,40 @@ public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockBu
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * The `GPermission object controlling this button.
      */
     public open var permission: Permission?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Obtains the `GPermission` object that controls @button.
          *
          * @return the `GPermission` of @button
          */
         get() = gtk_lock_button_get_permission(gtkLockButtonPointer)?.run {
-            Permission.PermissionImpl(this)
+            InstanceCache.get(this, true) { Permission.PermissionImpl(reinterpret()) }!!
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets the `GPermission` object that controls @button.
          *
          * @param permission a `GPermission` object
@@ -104,6 +136,13 @@ public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockBu
         set(permission) = gtk_lock_button_set_permission(gtkLockButtonPointer, permission?.gioPermissionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new lock button which reflects the @permission.
      *
      * @param permission a `GPermission`
@@ -111,11 +150,13 @@ public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockBu
      */
     public constructor(
         permission: Permission? = null,
-    ) : this(gtk_lock_button_new(permission?.gioPermissionPointer)!!.reinterpret())
+    ) : this(gtk_lock_button_new(permission?.gioPermissionPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<LockButton> {
         override val type: GeneratedClassKGType<LockButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_lock_button_get_type")!!) { LockButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { LockButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -127,5 +168,16 @@ public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockBu
          * @return the GType
          */
         public fun getType(): GType = gtk_lock_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_lock_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_lock_button_get_type")
     }
 }

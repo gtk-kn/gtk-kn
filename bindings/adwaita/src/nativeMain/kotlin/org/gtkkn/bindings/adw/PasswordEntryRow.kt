@@ -6,10 +6,10 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwPasswordEntryRow
 import org.gtkkn.native.adw.adw_password_entry_row_get_type
 import org.gtkkn.native.adw.adw_password_entry_row_new
@@ -46,6 +46,10 @@ import org.gtkkn.native.gtk.GtkEditable
 public class PasswordEntryRow(public val adwPasswordEntryRowPointer: CPointer<AdwPasswordEntryRow>) :
     EntryRow(adwPasswordEntryRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -67,13 +71,13 @@ public class PasswordEntryRow(public val adwPasswordEntryRowPointer: CPointer<Ad
      * @return the newly created `AdwPasswordEntryRow`
      * @since 1.2
      */
-    public constructor() : this(adw_password_entry_row_new()!!.reinterpret())
+    public constructor() : this(adw_password_entry_row_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<PasswordEntryRow> {
         override val type: GeneratedClassKGType<PasswordEntryRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_password_entry_row_get_type")!!) {
-                PasswordEntryRow(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { PasswordEntryRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -85,5 +89,16 @@ public class PasswordEntryRow(public val adwPasswordEntryRowPointer: CPointer<Ad
          * @return the GType
          */
         public fun getType(): GType = adw_password_entry_row_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_password_entry_row_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_password_entry_row_get_type")
     }
 }

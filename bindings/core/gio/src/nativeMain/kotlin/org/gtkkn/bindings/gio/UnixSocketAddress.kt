@@ -7,11 +7,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.GUnixSocketAddress
 import org.gtkkn.native.gio.g_unix_socket_address_abstract_names_supported
@@ -57,6 +57,10 @@ import kotlin.String
 public open class UnixSocketAddress(public val gioUnixSocketAddressPointer: CPointer<GUnixSocketAddress>) :
     SocketAddress(gioUnixSocketAddressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
 
@@ -108,9 +112,18 @@ public open class UnixSocketAddress(public val gioUnixSocketAddressPointer: CPoi
      * @return a new #GUnixSocketAddress
      * @since 2.22
      */
-    public constructor(path: String) : this(g_unix_socket_address_new(path)!!.reinterpret())
+    public constructor(path: String) : this(g_unix_socket_address_new(path)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated.
+     *
+     * Use g_unix_socket_address_get_address_type()
+     * ---
+     *
      * Tests if @address is abstract.
      *
      * @return true if the address is abstract, false otherwise
@@ -133,9 +146,7 @@ public open class UnixSocketAddress(public val gioUnixSocketAddressPointer: CPoi
 
     public companion object : TypeCompanion<UnixSocketAddress> {
         override val type: GeneratedClassKGType<UnixSocketAddress> =
-            GeneratedClassKGType(getTypeOrNull("g_unix_socket_address_get_type")!!) {
-                UnixSocketAddress(it.reinterpret())
-            }
+            GeneratedClassKGType(getTypeOrNull()!!) { UnixSocketAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -156,5 +167,16 @@ public open class UnixSocketAddress(public val gioUnixSocketAddressPointer: CPoi
          * @return the GType
          */
         public fun getType(): GType = g_unix_socket_address_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_unix_socket_address_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_unix_socket_address_get_type")
     }
 }

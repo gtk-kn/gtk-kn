@@ -9,11 +9,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GInetAddress
 import org.gtkkn.native.gio.g_inet_address_equal
 import org.gtkkn.native.gio.g_inet_address_get_family
@@ -60,6 +60,10 @@ import kotlin.Suppress
 public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAddress>) :
     Object(gioInetAddressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The address family (IPv4 or IPv6).
      *
@@ -252,7 +256,9 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
      *     Free the returned object with g_object_unref().
      * @since 2.22
      */
-    public constructor(family: SocketFamily) : this(g_inet_address_new_any(family.nativeValue)!!.reinterpret())
+    public constructor(family: SocketFamily) : this(g_inet_address_new_any(family.nativeValue)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses @string as an IP address and creates a new #GInetAddress.
@@ -263,7 +269,9 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
      *     Free the returned object with g_object_unref().
      * @since 2.22
      */
-    public constructor(string: String) : this(g_inet_address_new_from_string(string)!!.reinterpret())
+    public constructor(string: String) : this(g_inet_address_new_from_string(string)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Checks if two #GInetAddress instances are equal, e.g. the same address.
@@ -300,24 +308,29 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
 
     public companion object : TypeCompanion<InetAddress> {
         override val type: GeneratedClassKGType<InetAddress> =
-            GeneratedClassKGType(getTypeOrNull("g_inet_address_get_type")!!) { InetAddress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { InetAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
 
         /**
-         * Creates a #GInetAddress for the "any" address (unassigned/"don't
-         * care") for @family.
+         * Get the GType of InetAddress
          *
-         * @param family the address family
-         * @return a new #GInetAddress corresponding to the "any" address
-         * for @family.
-         *     Free the returned object with g_object_unref().
-         * @since 2.22
+         * @return the GType
          */
-        public fun newAny(family: SocketFamily): InetAddress =
-            InetAddress(g_inet_address_new_any(family.nativeValue)!!.reinterpret())
+        public fun getType(): GType = g_inet_address_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_inet_address_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? =
+            org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_inet_address_get_type")
 
         /**
          * Creates a #GInetAddress for the loopback address for @family.
@@ -328,14 +341,9 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
          *     Free the returned object with g_object_unref().
          * @since 2.22
          */
-        public fun newLoopback(family: SocketFamily): InetAddress =
-            InetAddress(g_inet_address_new_loopback(family.nativeValue)!!.reinterpret())
-
-        /**
-         * Get the GType of InetAddress
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = g_inet_address_get_type()
+        public fun loopback(family: SocketFamily): InetAddress =
+            InetAddress(g_inet_address_new_loopback(family.nativeValue)!!).apply {
+                InstanceCache.put(this)
+            }
     }
 }

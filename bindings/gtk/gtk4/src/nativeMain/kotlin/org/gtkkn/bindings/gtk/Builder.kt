@@ -17,12 +17,12 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Gtk.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuilder
@@ -406,6 +406,10 @@ import kotlin.collections.List
 public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
     Object(gtkBuilderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The object the builder is evaluating for.
      */
@@ -416,7 +420,7 @@ public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
          * @return the current object
          */
         get() = gtk_builder_get_current_object(gtkBuilderPointer)?.run {
-            Object(this)
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
         /**
@@ -466,7 +470,9 @@ public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
      *
      * @return a new (empty) `GtkBuilder` object
      */
-    public constructor() : this(gtk_builder_new()!!.reinterpret())
+    public constructor() : this(gtk_builder_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses the UI definition in the file @filename.
@@ -478,7 +484,9 @@ public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
      * @param filename filename of user interface description file
      * @return a `GtkBuilder` containing the described interface
      */
-    public constructor(filename: String) : this(gtk_builder_new_from_file(filename)!!.reinterpret())
+    public constructor(filename: String) : this(gtk_builder_new_from_file(filename)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses the UI definition in @string.
@@ -494,7 +502,9 @@ public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
      * @param length the length of @string, or -1
      * @return a `GtkBuilder` containing the interface described by @string
      */
-    public constructor(string: String, length: Long) : this(gtk_builder_new_from_string(string, length)!!.reinterpret())
+    public constructor(string: String, length: Long) : this(gtk_builder_new_from_string(string, length)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses a file containing a UI definition and merges it with
@@ -785,7 +795,7 @@ public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
      * @return the object named @name
      */
     public open fun getObject(name: String): Object? = gtk_builder_get_object(gtkBuilderPointer, name)?.run {
-        Object(this)
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -905,23 +915,28 @@ public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
 
     public companion object : TypeCompanion<Builder> {
         override val type: GeneratedClassKGType<Builder> =
-            GeneratedClassKGType(getTypeOrNull("gtk_builder_get_type")!!) { Builder(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull()!!) { Builder(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
 
         /**
-         * Parses the UI definition in the file @filename.
+         * Get the GType of Builder
          *
-         * If there is an error opening the file or parsing the description then
-         * the program will be aborted. You should only ever attempt to parse
-         * user interface descriptions that are shipped as part of your program.
-         *
-         * @param filename filename of user interface description file
-         * @return a `GtkBuilder` containing the described interface
+         * @return the GType
          */
-        public fun newFromFile(filename: String): Builder = Builder(gtk_builder_new_from_file(filename)!!.reinterpret())
+        public fun getType(): GType = gtk_builder_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_builder_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_builder_get_type")
 
         /**
          * Parses the UI definition at @resource_path.
@@ -932,14 +947,9 @@ public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
          * @param resourcePath a `GResource` resource path
          * @return a `GtkBuilder` containing the described interface
          */
-        public fun newFromResource(resourcePath: String): Builder =
-            Builder(gtk_builder_new_from_resource(resourcePath)!!.reinterpret())
-
-        /**
-         * Get the GType of Builder
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_builder_get_type()
+        public fun fromResource(resourcePath: String): Builder =
+            Builder(gtk_builder_new_from_resource(resourcePath)!!).apply {
+                InstanceCache.put(this)
+            }
     }
 }
