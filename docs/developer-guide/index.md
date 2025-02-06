@@ -3,7 +3,13 @@ title: Developer Guide
 description: Learn how to develop GTK applications using Kotlin/Native with gtk-kn.
 ---
 
-The **`gtk-kn` project** provides Kotlin/Native [bindings](bindings/index.md) for GTK and related libraries, enabling developers to build
+!!! warning "Project in Development"
+
+    The `gtk-kn` project is currently in active development and is **not yet production-ready**.
+    Expect potential API changes, missing features, and incomplete documentation.
+
+The `gtk-kn` project provides Kotlin/Native [bindings](bindings/index.md) for GTK and related libraries, enabling
+developers to build
 **native GTK applications** using Kotlin.
 
 ## Who Should Use This Guide?
@@ -28,7 +34,8 @@ with `gtk-kn`. You can:
 We focus on **practical examples** to demonstrate GTK concepts in real-world applications. In some cases, you may
 encounter **simplified examples** designed to clarify complex topics.
 
-For additional code samples, refer to the [gtk-kn repository](https://gitlab.com/gtk-kn/gtk-kn/-/tree/master/samples?ref_type=heads).
+For additional code samples, refer to
+the [gtk-kn repository](https://gitlab.com/gtk-kn/gtk-kn/-/tree/master/samples?ref_type=heads).
 
 ## Modifying or Generating Bindings?
 

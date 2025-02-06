@@ -11,7 +11,7 @@ full [Contribution Guidelines](https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/CO
 
 ### Hardware Requirements
 
-Building **gtk-kn** requires a significant amount of system resources. **We recommend at least 16GB of RAM** (more is
+Building `gtk-kn` requires a significant amount of system resources. **We recommend at least 16GB of RAM** (more is
 better) and a fast CPU.
 
 ### Software Requirements

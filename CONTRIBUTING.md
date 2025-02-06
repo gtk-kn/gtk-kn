@@ -1,4 +1,4 @@
-# Contributing to gtk-kn
+# Contributing to `gtk-kn`
 
 Thank you for considering a contribution to `gtk-kn`! We welcome contributions that help improve the project, whether
 fixing a bug, adding a feature, or enhancing documentation.

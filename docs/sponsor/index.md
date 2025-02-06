@@ -3,7 +3,7 @@ title: Sponsor gtk-kn
 description: Support the gtk-kn project by making a donation to help cover infrastructure costs, hosting, and build optimizations.
 ---
 
-The gtk-kn project relies on community support to cover maintenance costs, such as domain registrations,
+The `gtk-kn` project relies on community support to cover maintenance costs, such as domain registrations,
 hosting, and infrastructure. While [:material-gitlab: GitLab](https://about.gitlab.com/solutions/open-source/join/)
 provides free hosting for our website and build servers, we aim to set up
 a [Gradle Build Cache Node](https://docs.gradle.com/build-cache-node/) on a dedicated VPS to speed up builds and
