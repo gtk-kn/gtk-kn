@@ -35,7 +35,7 @@ Kotlin/Native bindings for the GTK framework and other GObject-Introspection-bas
 
     ---
 
-    Develop gtk-kn apps on :simple-linux: Linux and :simple-apple: macOS.
+    Develop `gtk-kn` apps on :simple-linux: Linux and :simple-apple: macOS.
 
 </div>
 <br>

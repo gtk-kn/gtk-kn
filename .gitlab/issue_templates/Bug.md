@@ -9,11 +9,11 @@ Put an x inside the [] like this: [x] to mark the checkbox.
 ### Step 1: Are you in the right place?
 
 - [ ] I have verified there are no duplicate active or recent bugs, questions, or requests
-- [ ] I have verified that I am using the latest version of gtk-kn
+- [ ] I have verified that I am using the latest version of `gtk-kn`
 
 ### Step 2: Describe your environment
 
-- gtk-kn version: `?`
+- `gtk-kn` version: `?`
 - Installed from source/other (specify): `?`
 - Operating system name and version (e.g. Ubuntu 24.04): `?`
 - Desktop Environment (e.g. Gnome 42.8): `?`

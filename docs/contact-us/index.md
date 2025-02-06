@@ -3,7 +3,7 @@ title: Contact us
 description: Find the best way to contact the gtk-kn team for support, bug reports, feature requests, contributions, and donations.
 ---
 
-Need help or want to get involved with **gtk-kn**? Here’s the best way to reach us based on your needs.
+Need help or want to get involved with `gtk-kn`? Here’s the best way to reach us based on your needs.
 
 ## General Support & Discussions
 
@@ -22,4 +22,4 @@ Check out our [Contributor Guide](../contributor-guide/index.md) to get started.
 
 ## Support the Project
 
-💖 If you’d like to financially support gtk-kn, please visit our [Sponsor page](../sponsor/index.md).
+💖 If you’d like to financially support `gtk-kn`, please visit our [Sponsor page](../sponsor/index.md).

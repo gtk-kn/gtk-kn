@@ -2,7 +2,7 @@
 description: Learn how the `org.gtkkn.application` Gradle plugin simplifies building and deploying GTK applications in Kotlin/Native.
 ...
 
-# Gradle Plugin for gtk-kn
+# Gradle Plugin for `gtk-kn`
 
 The `org.gtkkn.application` Gradle plugin simplifies the process of building and deploying applications with `gtk-kn`.
 It automates the configuration of entry point definition, GObject library versions and resource embedding, reducing
@@ -87,7 +87,7 @@ maintenance effort.
 
 ## Ignoring Unresolved Symbols in Object Files
 
-When including a gtk-kn dependency in your project, you may encounter linker errors such as:
+When including a `gtk-kn` dependency in your project, you may encounter linker errors such as:
 
 ```
 ld.lld: error: undefined symbol: <some native symbol>

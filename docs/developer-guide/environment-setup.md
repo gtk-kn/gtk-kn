@@ -13,7 +13,7 @@ Most Linux distributions require only three essential packages to build and run 
 - **gobject-introspection** (or **libgirepository**)
 - **libadwaita**
 
-However, if you're missing additional dependencies or want to **build the gtk-kn itself**,
+However, if you're missing additional dependencies or want to **build the `gtk-kn` itself**,
 you can use the installation scripts provided below.
 
 ## Requirements by OS
@@ -37,7 +37,7 @@ sudo pacman -S pkgconf gobject-introspection libadwaita  # Arch Linux
 sudo zypper install pkgconf gobject-introspection-devel libadwaita-devel  # openSUSE
 ```
 
-If you're **missing dependencies** or need to **build the gtk-kn itself**, use these scripts:
+If you're **missing dependencies** or need to **build the `gtk-kn` itself**, use these scripts:
 
 #### Arch Linux
 
@@ -93,7 +93,7 @@ While any editor that supports Kotlin can be used, we recommend using
 
 ## Next Steps
 
-Once your development environment is set up, you're ready to create your first gtk-kn application.
+Once your development environment is set up, you're ready to create your first `gtk-kn` application.
 
 👉 Follow the [Get Started guide](../get-started/index.md) for step-by-step instructions on setting up a Hello World GTK
 project using Kotlin/Native.
