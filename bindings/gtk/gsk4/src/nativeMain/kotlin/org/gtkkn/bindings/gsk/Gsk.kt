@@ -33,7 +33,6 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
- * - record `BroadwayRendererClass`: glib type struct are ignored
  * - record `CairoRendererClass`: glib type struct are ignored
  * - record `GLRendererClass`: glib type struct are ignored
  * - record `GLShaderClass`: glib type struct are ignored
@@ -118,9 +117,6 @@ public object Gsk {
         }
         BorderNode.getTypeOrNull()?.let { gtype ->
             TypeCache.register(BorderNode::class, gtype) { BorderNode(it.reinterpret()) }
-        }
-        BroadwayRenderer.getTypeOrNull()?.let { gtype ->
-            TypeCache.register(BroadwayRenderer::class, gtype) { BroadwayRenderer(it.reinterpret()) }
         }
         CairoNode.getTypeOrNull()?.let { gtype ->
             TypeCache.register(CairoNode::class, gtype) { CairoNode(it.reinterpret()) }

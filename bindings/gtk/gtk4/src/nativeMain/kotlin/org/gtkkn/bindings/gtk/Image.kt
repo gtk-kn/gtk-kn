@@ -89,6 +89,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `file`: Property has no getter nor setter
+ * - method `gicon`: Property TypeInfo of getter and setter do not match
  * - method `resource`: Property has no getter nor setter
  * - method `use-fallback`: Property has no getter nor setter
  */
@@ -109,32 +110,11 @@ public open class Image(public val gtkImagePointer: CPointer<GtkImage>) :
         get() = handle.reinterpret()
 
     /**
-     * The `GIcon` displayed in the GtkImage.
-     *
-     * For themed icons, If the icon theme is changed, the image will be updated
-     * automatically.
-     */
-    public open val gicon: Icon?
-        /**
-         * Gets the `GIcon` being displayed by the `GtkImage`.
-         *
-         * The storage type of the image must be %GTK_IMAGE_EMPTY or
-         * %GTK_IMAGE_GICON (see [method@Gtk.Image.get_storage_type]).
-         * The caller of this function does not own a reference to the
-         * returned `GIcon`.
-         *
-         * @return a `GIcon`
-         */
-        get() = gtk_image_get_gicon(gtkImagePointer)?.run {
-            Icon.IconImpl(reinterpret())
-        }
-
-    /**
      * The name of the icon in the icon theme.
      *
      * If the icon theme is changed, the image will be updated automatically.
      */
-    public open val iconName: String?
+    public open var iconName: String?
         /**
          * Gets the icon name and size being displayed by the `GtkImage`.
          *
@@ -146,6 +126,15 @@ public open class Image(public val gtkImagePointer: CPointer<GtkImage>) :
          * @return the icon name
          */
         get() = gtk_image_get_icon_name(gtkImagePointer)?.toKString()
+
+        /**
+         * Sets a `GtkImage` to show a named icon.
+         *
+         * See [ctor@Gtk.Image.new_from_icon_name] for details.
+         *
+         * @param iconName an icon name
+         */
+        set(iconName) = gtk_image_set_from_icon_name(gtkImagePointer, iconName)
 
     /**
      * The symbolic size to display icons at.
@@ -170,7 +159,7 @@ public open class Image(public val gtkImagePointer: CPointer<GtkImage>) :
     /**
      * The `GdkPaintable` to display.
      */
-    public open val paintable: Paintable?
+    public open var paintable: Paintable?
         /**
          * Gets the image `GdkPaintable` being displayed by the `GtkImage`.
          *
@@ -184,6 +173,15 @@ public open class Image(public val gtkImagePointer: CPointer<GtkImage>) :
         get() = gtk_image_get_paintable(gtkImagePointer)?.run {
             Paintable.PaintableImpl(reinterpret())
         }
+
+        /**
+         * Sets a `GtkImage` to show a `GdkPaintable`.
+         *
+         * See [ctor@Gtk.Image.new_from_paintable] for details.
+         *
+         * @param paintable a `GdkPaintable`
+         */
+        set(paintable) = gtk_image_set_from_paintable(gtkImagePointer, paintable?.gdkPaintablePointer)
 
     /**
      * The size in pixels to display icons at.
@@ -342,6 +340,20 @@ public open class Image(public val gtkImagePointer: CPointer<GtkImage>) :
     public open fun clear(): Unit = gtk_image_clear(gtkImagePointer)
 
     /**
+     * Gets the `GIcon` being displayed by the `GtkImage`.
+     *
+     * The storage type of the image must be %GTK_IMAGE_EMPTY or
+     * %GTK_IMAGE_GICON (see [method@Gtk.Image.get_storage_type]).
+     * The caller of this function does not own a reference to the
+     * returned `GIcon`.
+     *
+     * @return a `GIcon`
+     */
+    public open fun getGicon(): Icon? = gtk_image_get_gicon(gtkImagePointer)?.run {
+        Icon.IconImpl(reinterpret())
+    }
+
+    /**
      * Sets a `GtkImage` to show a file.
      *
      * See [ctor@Gtk.Image.new_from_file] for details.
@@ -358,26 +370,6 @@ public open class Image(public val gtkImagePointer: CPointer<GtkImage>) :
      * @param icon an icon
      */
     public open fun setFromGicon(icon: Icon): Unit = gtk_image_set_from_gicon(gtkImagePointer, icon.gioIconPointer)
-
-    /**
-     * Sets a `GtkImage` to show a named icon.
-     *
-     * See [ctor@Gtk.Image.new_from_icon_name] for details.
-     *
-     * @param iconName an icon name
-     */
-    public open fun setFromIconName(iconName: String? = null): Unit =
-        gtk_image_set_from_icon_name(gtkImagePointer, iconName)
-
-    /**
-     * Sets a `GtkImage` to show a `GdkPaintable`.
-     *
-     * See [ctor@Gtk.Image.new_from_paintable] for details.
-     *
-     * @param paintable a `GdkPaintable`
-     */
-    public open fun setFromPaintable(paintable: Paintable? = null): Unit =
-        gtk_image_set_from_paintable(gtkImagePointer, paintable?.gdkPaintablePointer)
 
     /**
      * # ⚠️ Deprecated ⚠️

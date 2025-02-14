@@ -30,20 +30,17 @@ public open class CallbackAction(public val gtkCallbackActionPointer: CPointer<G
      * Create a custom action that calls the given @callback when
      * activated.
      *
-     * @param callback the callback to call
+     * @param callback the callback
+     *   to call when the action is activated
      * @return A new shortcut action
      */
     public constructor(
-        callback: ShortcutFunc?,
+        callback: ShortcutFunc,
     ) : this(
         gtk_callback_action_new(
-            callback?.let {
-                ShortcutFuncFunc.reinterpret()
-            },
-            callback?.let {
-                StableRef.create(callback).asCPointer()
-            },
-            callback?.let { staticStableRefDestroy.reinterpret() }
+            ShortcutFuncFunc.reinterpret(),
+            StableRef.create(callback).asCPointer(),
+            staticStableRefDestroy.reinterpret()
         )!!.reinterpret()
     ) {
         InstanceCache.put(this)

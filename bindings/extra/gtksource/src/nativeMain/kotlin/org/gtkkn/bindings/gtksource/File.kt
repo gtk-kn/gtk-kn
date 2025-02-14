@@ -186,8 +186,8 @@ public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>)
      * If a mount operation factory isn't set, [ctor@Gio.MountOperation.new] will be
      * called.
      *
-     * @param callback a #GtkSourceMountOperationFactory to call when a
-     *   #GMountOperation is needed.
+     * @param callback a
+     *   #GtkSourceMountOperationFactory to call when a #GMountOperation is needed.
      */
     public open fun setMountOperationFactory(callback: MountOperationFactory): Unit =
         gtk_source_file_set_mount_operation_factory(

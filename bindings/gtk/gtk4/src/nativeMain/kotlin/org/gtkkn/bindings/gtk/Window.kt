@@ -121,6 +121,28 @@ import kotlin.Unit
  * setting a child as the titlebar by specifying “titlebar” as the “type”
  * attribute of a `<child>` element.
  *
+ * # Shortcuts and Gestures
+ *
+ * `GtkWindow` supports the following keyboard shortcuts:
+ *
+ * - <kbd>F10</kbd> activates the menubar, if present.
+ * - <kbd>Alt</kbd> makes the mnemonics visible while pressed.
+ *
+ * The following signals have default keybindings:
+ *
+ * - [signal@Gtk.Window::activate-default]
+ * - [signal@Gtk.Window::activate-focus]
+ * - [signal@Gtk.Window::enable-debugging]
+ *
+ * # Actions
+ *
+ * `GtkWindow` defines a set of built-in actions:
+ *
+ * - `default.activate` activates the default widget.
+ * - `window.minimize` minimizes the window.
+ * - `window.toggle-maximized` maximizes or restores the window.
+ * - `window.close` closes the window.
+ *
  * # CSS nodes
  *
  * ```
@@ -157,21 +179,12 @@ import kotlin.Unit
  *
  * Since GTK 4.12, `GtkWindow` uses the `GTK_ACCESSIBLE_ROLE_APPLICATION` role.
  *
- * # Actions
- *
- * `GtkWindow` defines a set of built-in actions:
- * - `default.activate`: Activate the default widget.
- * - `window.minimize`: Minimize the window.
- * - `window.toggle-maximized`: Maximize or restore the window.
- * - `window.close`: Close the window.
- *
  * ## Skipped during bindings generation
  *
  * - parameter `width`: width: Out parameter is not supported
  * - method `default-height`: Property has no getter nor setter
  * - method `default-width`: Property has no getter nor setter
  * - method `display`: Property has no getter
- * - method `focus-widget`: Property has no getter nor setter
  * - method `fullscreened`: Property has no getter nor setter
  * - method `is-active`: Property has no getter nor setter
  * - method `maximized`: Property has no getter nor setter
@@ -395,6 +408,38 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
          * @param setting the new value
          */
         set(setting) = gtk_window_set_focus_visible(gtkWindowPointer, setting.asGBoolean())
+
+    /**
+     * The focus widget.
+     */
+    public open var focusWidget: Widget?
+        /**
+         * Retrieves the current focused widget within the window.
+         *
+         * Note that this is the widget that would have the focus
+         * if the toplevel window focused; if the toplevel window
+         * is not focused then `gtk_widget_has_focus (widget)` will
+         * not be true for the widget.
+         *
+         * @return the currently focused widget
+         */
+        get() = gtk_window_get_focus(gtkWindowPointer)?.run {
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        }
+
+        /**
+         * Sets the focus widget.
+         *
+         * If @focus is not the current focus widget, and is focusable,
+         * sets it as the focus widget for the window. If @focus is null,
+         * unsets the focus widget for this window. To set the focus to a
+         * particular widget in the toplevel, it is usually more convenient
+         * to use [method@Gtk.Widget.grab_focus] instead of this function.
+         *
+         * @param focus widget to be the new focus widget, or null to unset
+         *   any focus widget for the toplevel window.
+         */
+        set(focus) = gtk_window_set_focus(gtkWindowPointer, focus?.gtkWidgetPointer)
 
     /**
      * Whether the window frame should handle F10 for activating
@@ -696,20 +741,6 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
         gtk_window_fullscreen_on_monitor(gtkWindowPointer, monitor.gdkMonitorPointer)
 
     /**
-     * Retrieves the current focused widget within the window.
-     *
-     * Note that this is the widget that would have the focus
-     * if the toplevel window focused; if the toplevel window
-     * is not focused then `gtk_widget_has_focus (widget)` will
-     * not be true for the widget.
-     *
-     * @return the currently focused widget
-     */
-    override fun getFocus(): Widget? = gtk_window_get_focus(gtkWindowPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
-    }
-
-    /**
      * Returns the group for @window.
      *
      * If the window has no group, then the default group is returned.
@@ -904,20 +935,6 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
         gtk_window_set_display(gtkWindowPointer, display.gdkDisplayPointer)
 
     /**
-     * Sets the focus widget.
-     *
-     * If @focus is not the current focus widget, and is focusable,
-     * sets it as the focus widget for the window. If @focus is null,
-     * unsets the focus widget for this window. To set the focus to a
-     * particular widget in the toplevel, it is usually more convenient
-     * to use [method@Gtk.Widget.grab_focus] instead of this function.
-     *
-     * @param focus widget to be the new focus widget, or null to unset
-     *   any focus widget for the toplevel window.
-     */
-    override fun setFocus(focus: Widget?): Unit = gtk_window_set_focus(gtkWindowPointer, focus?.gtkWidgetPointer)
-
-    /**
      * Sets the startup notification ID.
      *
      * Startup notification identifiers are used by desktop environment
@@ -988,6 +1005,8 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
      *
      * This is a [keybinding signal](class.SignalAction.html).
      *
+     * The keybindings for this signal are all forms of the <kbd>Enter</kbd> key.
+     *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
@@ -1013,6 +1032,8 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
      * widget of @window.
      *
      * This is a [keybinding signal](class.SignalAction.html).
+     *
+     * The default binding for this signal is <kbd>␣</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1059,8 +1080,9 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
      *
      * This is a [keybinding signal](class.SignalAction.html).
      *
-     * The default bindings for this signal are Ctrl-Shift-I
-     * and Ctrl-Shift-D.
+     * The default bindings for this signal are
+     * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> and
+     * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `toggle` toggle the debugger. Returns true if the key binding was handled
@@ -1201,6 +1223,14 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
          *
          * The debugger offers access to the widget hierarchy of the application
          * and to useful debugging tools.
+         *
+         * This function allows applications that already use
+         * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd>
+         * (or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>)
+         * for their own key shortcuts to add a different shortcut to open the Inspector.
+         *
+         * If you are not overriding the default key shortcuts for the Inspector,
+         * you should not use this function.
          *
          * @param enable true to enable interactive debugging
          */

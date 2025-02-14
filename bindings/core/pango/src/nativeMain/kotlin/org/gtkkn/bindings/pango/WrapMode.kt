@@ -32,6 +32,12 @@ public enum class WrapMode(public val nativeValue: PangoWrapMode) {
      *   character boundaries if there is not enough space for a full word.
      */
     WORD_CHAR(PangoWrapMode.PANGO_WRAP_WORD_CHAR),
+
+    /**
+     * do not wrap.
+     * @since 1.56
+     */
+    NONE(PangoWrapMode.PANGO_WRAP_NONE),
     ;
 
     public companion object {
@@ -39,6 +45,7 @@ public enum class WrapMode(public val nativeValue: PangoWrapMode) {
             PangoWrapMode.PANGO_WRAP_WORD -> WORD
             PangoWrapMode.PANGO_WRAP_CHAR -> CHAR
             PangoWrapMode.PANGO_WRAP_WORD_CHAR -> WORD_CHAR
+            PangoWrapMode.PANGO_WRAP_NONE -> NONE
             else -> error("invalid nativeValue")
         }
 

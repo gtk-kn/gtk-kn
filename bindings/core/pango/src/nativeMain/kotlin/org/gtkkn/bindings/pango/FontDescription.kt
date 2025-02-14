@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_42
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_56
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -24,6 +25,7 @@ import org.gtkkn.native.pango.pango_font_description_equal
 import org.gtkkn.native.pango.pango_font_description_free
 import org.gtkkn.native.pango.pango_font_description_from_string
 import org.gtkkn.native.pango.pango_font_description_get_family
+import org.gtkkn.native.pango.pango_font_description_get_features
 import org.gtkkn.native.pango.pango_font_description_get_gravity
 import org.gtkkn.native.pango.pango_font_description_get_set_fields
 import org.gtkkn.native.pango.pango_font_description_get_size
@@ -41,6 +43,8 @@ import org.gtkkn.native.pango.pango_font_description_new
 import org.gtkkn.native.pango.pango_font_description_set_absolute_size
 import org.gtkkn.native.pango.pango_font_description_set_family
 import org.gtkkn.native.pango.pango_font_description_set_family_static
+import org.gtkkn.native.pango.pango_font_description_set_features
+import org.gtkkn.native.pango.pango_font_description_set_features_static
 import org.gtkkn.native.pango.pango_font_description_set_gravity
 import org.gtkkn.native.pango.pango_font_description_set_size
 import org.gtkkn.native.pango.pango_font_description_set_stretch
@@ -158,6 +162,19 @@ public class FontDescription(public val pangoFontDescriptionPointer: CPointer<Pa
      *   life-time as the font description itself and should not be freed.
      */
     public fun getFamily(): String? = pango_font_description_get_family(pangoFontDescriptionPointer)?.toKString()
+
+    /**
+     * Gets the features field of a font description.
+     *
+     * See [method@Pango.FontDescription.set_features].
+     *
+     * @return the features field for the font
+     *   description, or null if not previously set. This has the same
+     *   life-time as the font description itself and should not be freed.
+     * @since 1.56
+     */
+    @PangoVersion1_56
+    public fun getFeatures(): String? = pango_font_description_get_features(pangoFontDescriptionPointer)?.toKString()
 
     /**
      * Gets the gravity field of a font description.
@@ -379,6 +396,56 @@ public class FontDescription(public val pangoFontDescriptionPointer: CPointer<Pa
         pango_font_description_set_family_static(pangoFontDescriptionPointer, family)
 
     /**
+     * Sets the features field of a font description.
+     *
+     * OpenType font features allow to enable or disable certain optional
+     * features of a font, such as tabular numbers.
+     *
+     * The format of the features string is comma-separated list of
+     * feature assignments, with each assignment being one of these forms:
+     *
+     *     FEATURE=n
+     *
+     * where FEATURE must be a 4 character tag that identifies and OpenType
+     * feature, and n an integer (depending on the feature, the allowed
+     * values may be 0, 1 or bigger numbers). Unknown features are ignored.
+     *
+     * Note that font features set in this way are enabled for the entire text
+     * that is using the font, which is not appropriate for all OpenType features.
+     * The intended use case is to select character variations (features cv01 - c99),
+     * style sets (ss01 - ss20) and the like.
+     *
+     * Pango does not currently have a way to find supported OpenType features
+     * of a font. Both harfbuzz and freetype have API for this. See for example
+     * [hb_ot_layout_table_get_feature_tags](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-table-get-feature-tags).
+     *
+     * Features that are not supported by the font are silently ignored.
+     *
+     * @param features a string representing the features
+     * @since 1.56
+     */
+    @PangoVersion1_56
+    public fun setFeatures(features: String? = null): Unit =
+        pango_font_description_set_features(pangoFontDescriptionPointer, features)
+
+    /**
+     * Sets the features field of a font description.
+     *
+     * This is like [method@Pango.FontDescription.set_features], except
+     * that no copy of @featuresis made. The caller must make sure that
+     * the string passed in stays around until @desc has been freed
+     * or the name is set again. This function can be used if
+     * @features is a static string such as a C string literal,
+     * or if @desc is only needed temporarily.
+     *
+     * @param features a string representing the features
+     * @since 1.56
+     */
+    @PangoVersion1_56
+    public fun setFeaturesStatic(features: String): Unit =
+        pango_font_description_set_features_static(pangoFontDescriptionPointer, features)
+
+    /**
      * Sets the gravity field of a font description.
      *
      * The gravity field
@@ -548,15 +615,13 @@ public class FontDescription(public val pangoFontDescriptionPointer: CPointer<Pa
          *
          * The string must have the form
          *
-         *     "\[FAMILY-LIST] \[STYLE-OPTIONS] \[SIZE] \[VARIATIONS]",
+         *     [FAMILY-LIST] [STYLE-OPTIONS] [SIZE] [VARIATIONS] [FEATURES]
          *
          * where FAMILY-LIST is a comma-separated list of families optionally
          * terminated by a comma, STYLE_OPTIONS is a whitespace-separated list
          * of words where each word describes one of style, variant, weight,
          * stretch, or gravity, and SIZE is a decimal number (size in points)
          * or optionally followed by the unit modifier "px" for absolute size.
-         * VARIATIONS is a comma-separated list of font variation
-         * specifications of the form "\@axis=value" (the = sign is optional).
          *
          * The following words are understood as styles:
          * "Normal", "Roman", "Oblique", "Italic".
@@ -579,6 +644,12 @@ public class FontDescription(public val pangoFontDescriptionPointer: CPointer<Pa
          * "Not-Rotated", "South", "Upside-Down", "North", "Rotated-Left",
          * "East", "Rotated-Right", "West".
          *
+         * VARIATIONS is a comma-separated list of font variations
+         * of the form @‍axis1=value,axis2=value,...
+         *
+         * FEATURES is a comma-separated list of font features of the form
+         * \#‍feature1=value,feature2=value,...
+         *
          * Any one of the options may be absent. If FAMILY-LIST is absent, then
          * the family_name field of the resulting font description will be
          * initialized to null. If STYLE-OPTIONS is missing, then all style
@@ -587,7 +658,7 @@ public class FontDescription(public val pangoFontDescriptionPointer: CPointer<Pa
          *
          * A typical example:
          *
-         *     "Cantarell Italic Light 15 \@wght=200"
+         *     Cantarell Italic Light 15 @‍wght=200 #‍tnum=1
          *
          * @param str string representation of a font description.
          * @return a new `PangoFontDescription`.

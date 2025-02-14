@@ -69,6 +69,12 @@ import kotlin.Unit
  * `GtkRange` provides properties and methods for setting a
  * “fill level” on range widgets. See [method@Gtk.Range.set_fill_level].
  *
+ * # Shortcuts and Gestures
+ *
+ * The `GtkRange` slider is draggable. Holding the <kbd>Shift</kbd> key while
+ * dragging, or initiating the drag with a long-press will enable the
+ * fine-tuning mode.
+ *
  * ## Skipped during bindings generation
  *
  * - parameter `slider_start`: slider_start: Out parameter is not supported

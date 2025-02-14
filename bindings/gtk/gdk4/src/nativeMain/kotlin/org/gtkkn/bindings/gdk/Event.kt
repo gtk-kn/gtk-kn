@@ -173,9 +173,13 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * according to platform conventions.
      *
      * The right mouse button typically triggers context menus.
+     * On macOS, Control+left mouse button also triggers.
      *
      * This function should always be used instead of simply checking for
-     * event->button == %GDK_BUTTON_SECONDARY.
+     *
+     * ```c
+     * event->button == GDK_BUTTON_SECONDARY
+     * ```
      *
      * @return true if the event should trigger a context menu.
      */

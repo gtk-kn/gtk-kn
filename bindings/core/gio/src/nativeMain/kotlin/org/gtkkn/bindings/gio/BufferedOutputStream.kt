@@ -57,8 +57,8 @@ public open class BufferedOutputStream(public val gioBufferedOutputStreamPointer
         /**
          * Checks if the buffer automatically grows as data is added.
          *
-         * @return true if the @stream's buffer automatically grows,
-         * false otherwise.
+         * @return `TRUE` if the @stream's buffer automatically grows,
+         * `FALSE` otherwise.
          */
         get() = g_buffered_output_stream_get_auto_grow(gioBufferedOutputStreamPointer).asBoolean()
 
@@ -93,8 +93,8 @@ public open class BufferedOutputStream(public val gioBufferedOutputStreamPointer
     /**
      * Creates a new buffered output stream for a base stream.
      *
-     * @param baseStream a #GOutputStream.
-     * @return a #GOutputStream for the given @base_stream.
+     * @param baseStream a [class@Gio.OutputStream].
+     * @return a [class@Gio.OutputStream] for the given @base_stream.
      */
     public constructor(
         baseStream: OutputStream,
@@ -105,9 +105,9 @@ public open class BufferedOutputStream(public val gioBufferedOutputStreamPointer
     /**
      * Creates a new buffered output stream with a given buffer size.
      *
-     * @param baseStream a #GOutputStream.
+     * @param baseStream a [class@Gio.OutputStream].
      * @param size a #gsize.
-     * @return a #GOutputStream with an internal buffer set to @size.
+     * @return a [class@Gio.OutputStream] with an internal buffer set to @size.
      */
     public constructor(
         baseStream: OutputStream,

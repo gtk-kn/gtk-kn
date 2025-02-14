@@ -7,5 +7,8 @@ import kotlinx.cinterop.CPointer
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gtk.GtkCssStyleChange
 
+/**
+ * A CSS style change.
+ */
 public class CssStyleChange(public val gtkCssStyleChangePointer: CPointer<GtkCssStyleChange>) :
     ProxyInstance(gtkCssStyleChangePointer)

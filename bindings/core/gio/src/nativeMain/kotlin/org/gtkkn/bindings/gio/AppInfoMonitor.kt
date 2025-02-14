@@ -118,7 +118,7 @@ public open class AppInfoMonitor(public val gioAppInfoMonitorPointer: CPointer<G
          * Gets the #GAppInfoMonitor for the current thread-default main
          * context.
          *
-         * The #GAppInfoMonitor will emit a "changed" signal in the
+         * The #GAppInfoMonitor will emit a “changed” signal in the
          * thread-default main context whenever the list of installed
          * applications (as reported by g_app_info_get_all()) may have changed.
          *

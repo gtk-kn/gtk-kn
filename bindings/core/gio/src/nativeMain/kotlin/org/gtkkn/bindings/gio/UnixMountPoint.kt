@@ -34,7 +34,7 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * Defines a Unix mount point (e.g. <filename>/dev</filename>).
+ * Defines a Unix mount point (e.g. `/dev`).
  * This corresponds roughly to a fstab entry.
  *
  * ## Skipped during bindings generation

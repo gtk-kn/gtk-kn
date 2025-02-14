@@ -48,6 +48,11 @@ public enum class TextureError(public val nativeValue: GdkTextureError) {
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Registers an error quark for [class@Gdk.Texture] errors.
+         *
+         * @return the error quark
+         */
         public fun quark(): Quark = gdk_texture_error_quark()
 
         /**

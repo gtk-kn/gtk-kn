@@ -68,8 +68,8 @@ public enum class AccessibleRelation(public val nativeValue: GtkAccessibleRelati
     DETAILS(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_DETAILS),
 
     /**
-     * Identifies the element that provides
-     *    an error message for an object. Value type: reference
+     * Identifies the element (or elements) that
+     *    provide an error message for an object. Value type: reference
      */
     ERROR_MESSAGE(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ERROR_MESSAGE),
 
@@ -156,6 +156,15 @@ public enum class AccessibleRelation(public val nativeValue: GtkAccessibleRelati
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Initializes @value with the appropriate type for the @relation.
+         *
+         * This function is mostly meant for language bindings, in conjunction
+         * with gtk_accessible_update_relation_value().
+         *
+         * @param relation a `GtkAccessibleRelation`
+         * @param value an uninitialized `GValue`
+         */
         public fun initValue(relation: AccessibleRelation, `value`: Value): Unit =
             gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer)
 

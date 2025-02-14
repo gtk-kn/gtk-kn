@@ -249,7 +249,7 @@ public class PixbufFormat(public val gdkPixbufFormatPointer: CPointer<GdkPixbufF
      * @since 2.22
      */
     @GdkPixbufVersion2_22
-    public fun copy(): PixbufFormat = gdk_pixbuf_format_copy(gdkPixbufFormatPointer)!!.run {
+    public fun copy(): PixbufFormat? = gdk_pixbuf_format_copy(gdkPixbufFormatPointer)?.run {
         PixbufFormat(this)
     }
 
@@ -269,8 +269,7 @@ public class PixbufFormat(public val gdkPixbufFormatPointer: CPointer<GdkPixbufF
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public fun getDescription(): String =
-        gdk_pixbuf_format_get_description(gdkPixbufFormatPointer)?.toKString() ?: error("Expected not null string")
+    public fun getDescription(): String? = gdk_pixbuf_format_get_description(gdkPixbufFormatPointer)?.toKString()
 
     /**
      * Returns the filename extensions typically used for files in the
@@ -281,8 +280,8 @@ public class PixbufFormat(public val gdkPixbufFormatPointer: CPointer<GdkPixbufF
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public fun getExtensions(): List<String> = gdk_pixbuf_format_get_extensions(gdkPixbufFormatPointer)?.toKStringList()
-        ?: error("Expected not null string array")
+    public fun getExtensions(): List<String>? =
+        gdk_pixbuf_format_get_extensions(gdkPixbufFormatPointer)?.toKStringList()
 
     /**
      * Returns information about the license of the image loader for the format.
@@ -294,8 +293,7 @@ public class PixbufFormat(public val gdkPixbufFormatPointer: CPointer<GdkPixbufF
      * @since 2.6
      */
     @GdkPixbufVersion2_6
-    public fun getLicense(): String =
-        gdk_pixbuf_format_get_license(gdkPixbufFormatPointer)?.toKString() ?: error("Expected not null string")
+    public fun getLicense(): String? = gdk_pixbuf_format_get_license(gdkPixbufFormatPointer)?.toKString()
 
     /**
      * Returns the mime types supported by the format.
@@ -304,8 +302,7 @@ public class PixbufFormat(public val gdkPixbufFormatPointer: CPointer<GdkPixbufF
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public fun getMimeTypes(): List<String> = gdk_pixbuf_format_get_mime_types(gdkPixbufFormatPointer)?.toKStringList()
-        ?: error("Expected not null string array")
+    public fun getMimeTypes(): List<String>? = gdk_pixbuf_format_get_mime_types(gdkPixbufFormatPointer)?.toKStringList()
 
     /**
      * Returns the name of the format.
@@ -314,8 +311,7 @@ public class PixbufFormat(public val gdkPixbufFormatPointer: CPointer<GdkPixbufF
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public fun getName(): String =
-        gdk_pixbuf_format_get_name(gdkPixbufFormatPointer)?.toKString() ?: error("Expected not null string")
+    public fun getName(): String? = gdk_pixbuf_format_get_name(gdkPixbufFormatPointer)?.toKString()
 
     /**
      * Returns whether this image format is disabled.

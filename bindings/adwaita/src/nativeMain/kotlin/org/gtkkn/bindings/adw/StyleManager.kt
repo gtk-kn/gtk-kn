@@ -5,7 +5,9 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_6
 import org.gtkkn.bindings.gdk.Display
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.InstanceCache
@@ -13,12 +15,15 @@ import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwStyleManager
+import org.gtkkn.native.adw.adw_style_manager_get_accent_color
+import org.gtkkn.native.adw.adw_style_manager_get_accent_color_rgba
 import org.gtkkn.native.adw.adw_style_manager_get_color_scheme
 import org.gtkkn.native.adw.adw_style_manager_get_dark
 import org.gtkkn.native.adw.adw_style_manager_get_default
 import org.gtkkn.native.adw.adw_style_manager_get_display
 import org.gtkkn.native.adw.adw_style_manager_get_for_display
 import org.gtkkn.native.adw.adw_style_manager_get_high_contrast
+import org.gtkkn.native.adw.adw_style_manager_get_system_supports_accent_colors
 import org.gtkkn.native.adw.adw_style_manager_get_system_supports_color_schemes
 import org.gtkkn.native.adw.adw_style_manager_get_type
 import org.gtkkn.native.adw.adw_style_manager_set_color_scheme
@@ -29,15 +34,13 @@ import kotlin.Boolean
  * A class for managing application-wide styling.
  *
  * `AdwStyleManager` provides a way to query and influence the application
- * styles, such as whether to use dark or high contrast appearance.
+ * styles, such as whether to use dark style, the system accent color or high
+ * contrast appearance.
  *
  * It allows to set the color scheme via the
  * [property@StyleManager:color-scheme] property, and to query the current
- * appearance, as well as whether a system-wide color scheme preference exists.
- *
- * ## Skipped during bindings generation
- *
- * - method `yaru-accent`: Property has no getter nor setter
+ * appearance, as well as whether a system-wide color scheme and accent color
+ * preferences exists.
  */
 public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleManager>) :
     Object(adwStyleManagerPointer.reinterpret()),
@@ -45,6 +48,54 @@ public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleMa
     init {
         Adw
     }
+
+    /**
+     * The current system accent color.
+     *
+     * See also [property@StyleManager:accent-color-rgba].
+     *
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public val accentColor: AccentColor
+        /**
+         * Gets the current system accent color.
+         *
+         * See also [property@StyleManager:accent-color-rgba].
+         *
+         * @return the current system accent color
+         * @since 1.6
+         */
+        get() = adw_style_manager_get_accent_color(adwStyleManagerPointer).run {
+            AccentColor.fromNativeValue(this)
+        }
+
+    /**
+     * The current system accent color as a `GdkRGBA`.
+     *
+     * Equivalent to calling [func@AccentColor.to_rgba] on the value of
+     * [property@StyleManager:accent-color].
+     *
+     * This is a background color. The matching foreground color is white.
+     *
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public val accentColorRgba: Rgba
+        /**
+         * Gets the current system accent color as a `GdkRGBA`.
+         *
+         * Equivalent to calling [func@AccentColor.to_rgba] on the value of
+         * [property@StyleManager:accent-color].
+         *
+         * This is a background color. The matching foreground color is white.
+         *
+         * @return the current system accent color
+         * @since 1.6
+         */
+        get() = adw_style_manager_get_accent_color_rgba(adwStyleManagerPointer)!!.run {
+            Rgba(this)
+        }
 
     /**
      * The requested application color scheme.
@@ -176,6 +227,33 @@ public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleMa
          * @return whether the application is using high contrast appearance
          */
         get() = adw_style_manager_get_high_contrast(adwStyleManagerPointer).asBoolean()
+
+    /**
+     * Whether the system supports accent colors.
+     *
+     * This property can be used to check if the current environment provides an
+     * accent color preference. For example, applications might want to show a
+     * preference for choosing accent color if it's set to `FALSE`.
+     *
+     * See [property@StyleManager:accent-color].
+     *
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public val systemSupportsAccentColors: Boolean
+        /**
+         * Gets whether the system supports accent colors.
+         *
+         * This can be used to check if the current environment provides an accent color
+         * preference. For example, applications might want to show a preference for
+         * choosing accent color if it's set to `FALSE`.
+         *
+         * See [property@StyleManager:accent-color].
+         *
+         * @return whether the system supports accent colors
+         * @since 1.6
+         */
+        get() = adw_style_manager_get_system_supports_accent_colors(adwStyleManagerPointer).asBoolean()
 
     /**
      * Whether the system supports color schemes.

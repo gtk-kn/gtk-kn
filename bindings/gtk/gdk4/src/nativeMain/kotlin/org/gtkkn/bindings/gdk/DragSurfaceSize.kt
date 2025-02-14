@@ -7,8 +7,10 @@ import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkDragSurfaceSize
+import org.gtkkn.native.gdk.gdk_drag_surface_size_get_type
 import org.gtkkn.native.gdk.gdk_drag_surface_size_set_size
 import org.gtkkn.native.glib.gint
+import org.gtkkn.native.gobject.GType
 import kotlin.Unit
 
 /**
@@ -29,4 +31,13 @@ public class DragSurfaceSize(public val gdkDragSurfaceSizePointer: CPointer<GdkD
     @GdkVersion4_12
     public fun setSize(width: gint, height: gint): Unit =
         gdk_drag_surface_size_set_size(gdkDragSurfaceSizePointer, width, height)
+
+    public companion object {
+        /**
+         * Get the GType of DragSurfaceSize
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_drag_surface_size_get_type()
+    }
 }

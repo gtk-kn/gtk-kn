@@ -36,10 +36,10 @@ import org.gtkkn.native.glib.GSourceFuncs
  *
  * ## Skipped during bindings generation
  *
- * - field `prepare`: Fields with callbacks are not supported
- * - field `check`: Fields with callbacks are not supported
- * - field `dispatch`: Fields with callbacks are not supported
- * - field `finalize`: Fields with callbacks are not supported
+ * - field `prepare`: SourceFuncsPrepareFunc
+ * - field `check`: SourceFuncsCheckFunc
+ * - field `dispatch`: SourceFuncsDispatchFunc
+ * - field `finalize`: SourceFuncsFinalizeFunc
  */
 public class SourceFuncs(public val glibSourceFuncsPointer: CPointer<GSourceFuncs>) :
     ProxyInstance(glibSourceFuncsPointer) {

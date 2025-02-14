@@ -205,9 +205,9 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
         /**
          * Creates a new #GParamSpec instance.
          *
-         * See [canonical parameter names][canonical-parameter-names] for details of
-         * the rules for @name. Names which violate these rules lead to undefined
-         * behaviour.
+         * See [canonical parameter names][class@GObject.ParamSpec#parameter-names]
+         * for details of the rules for @name. Names which violate these rules lead
+         * to undefined behaviour.
          *
          * Beyond the name, #GParamSpecs have two more descriptive strings, the
          * @nick and @blurb, which may be used as a localized label and description.
@@ -239,8 +239,8 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
          * dynamically-generated properties which need to be validated at run-time
          * before actually trying to create them.
          *
-         * See [canonical parameter names][canonical-parameter-names] for details of
-         * the rules for valid names.
+         * See [canonical parameter names][class@GObject.ParamSpec#parameter-names]
+         * for details of the rules for valid names.
          *
          * @param name the canonical name of the property
          * @return true if @name is a valid property name, false otherwise.

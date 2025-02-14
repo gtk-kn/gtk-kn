@@ -124,17 +124,17 @@ public interface AsyncResult :
     public val gioAsyncResultPointer: CPointer<GAsyncResult>
 
     /**
-     * Gets the source object from a #GAsyncResult.
+     * Gets the source object from a [iface@Gio.AsyncResult].
      *
      * @return a new reference to the source
-     *    object for the @res, or null if there is none.
+     *    object for the @res, or `NULL` if there is none.
      */
     public fun getSourceObject(): Object? = g_async_result_get_source_object(gioAsyncResultPointer)?.run {
         InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**
-     * Gets the user data from a #GAsyncResult.
+     * Gets the user data from a [iface@Gio.AsyncResult].
      *
      * @return the user data for @res.
      */
@@ -145,7 +145,7 @@ public interface AsyncResult :
      * pointer indicating the function @res was created by).
      *
      * @param sourceTag an application-defined tag
-     * @return true if @res has the indicated @source_tag, false if
+     * @return `TRUE` if @res has the indicated @source_tag, `FALSE` if
      *   not.
      * @since 2.34
      */
@@ -154,19 +154,19 @@ public interface AsyncResult :
         g_async_result_is_tagged(gioAsyncResultPointer, sourceTag).asBoolean()
 
     /**
-     * If @res is a #GSimpleAsyncResult, this is equivalent to
-     * g_simple_async_result_propagate_error(). Otherwise it returns
-     * false.
+     * If @res is a [class@Gio.SimpleAsyncResult], this is equivalent to
+     * [method@Gio.SimpleAsyncResult.propagate_error]. Otherwise it returns
+     * `FALSE`.
      *
-     * This can be used for legacy error handling in async *_finish()
-     * wrapper functions that traditionally handled #GSimpleAsyncResult
+     * This can be used for legacy error handling in async `*_finish()`
+     * wrapper functions that traditionally handled [class@Gio.SimpleAsyncResult]
      * error returns themselves rather than calling into the virtual method.
-     * This should not be used in new code; #GAsyncResult errors that are
+     * This should not be used in new code; [iface@Gio.AsyncResult] errors that are
      * set by virtual methods should also be extracted by virtual methods,
      * to enable subclasses to chain up correctly.
      *
-     * @return true if @error is has been filled in with an error from
-     *   @res, false if not.
+     * @return `TRUE` if @error is has been filled in with an error from
+     *   @res, `FALSE` if not.
      * @since 2.34
      */
     @GioVersion2_34

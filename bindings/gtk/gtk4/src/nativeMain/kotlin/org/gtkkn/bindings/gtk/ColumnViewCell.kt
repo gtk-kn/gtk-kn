@@ -162,7 +162,7 @@ public open class ColumnViewCell(public val gtkColumnViewCellPointer: CPointer<G
         /**
          * Checks if the item is displayed as selected.
          *
-         * The selected state is maintained by the liste widget and its model
+         * The selected state is maintained by the list widget and its model
          * and cannot be set otherwise.
          *
          * @return true if the item is selected.

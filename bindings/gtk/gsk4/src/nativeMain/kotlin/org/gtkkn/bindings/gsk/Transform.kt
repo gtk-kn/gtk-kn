@@ -64,6 +64,14 @@ import org.gtkkn.bindings.glib.String as GlibString
  * - parameter `out_transform`: out_transform: Out parameter is not supported
  */
 public class Transform(public val gskTransformPointer: CPointer<GskTransform>) : ProxyInstance(gskTransformPointer) {
+    /**
+     * Creates a new identity transform.
+     *
+     * This function is meant to be used by language
+     * bindings. For C code, this is equivalent to using null.
+     *
+     * @return A new identity transform
+     */
     public constructor() : this(gsk_transform_new()!!) {
         MemoryCleaner.setBoxedType(this, getType(), owned = true)
     }
@@ -95,6 +103,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
      * between those cases, you should check @self is not null
      * before calling this function.
      *
+     * This function consumes @self. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
+     *
      * @return The inverted transform
      */
     public fun invert(): Transform? = gsk_transform_invert(gskTransformPointer)?.run {
@@ -103,6 +114,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
 
     /**
      * Multiplies @next with the given @matrix.
+     *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
      *
      * @param matrix the matrix to multiply @next with
      * @return The new transform
@@ -119,6 +133,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
      * scaling points with positive Z values away from the origin, and
      * those with negative Z values towards the origin. Points
      * on the z=0 plane are unchanged.
+     *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
      *
      * @param depth distance of the z=0 plane. Lower values give a more
      *   flattened pyramid and therefore a more pronounced
@@ -153,6 +170,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
      * Rotates @next @angle degrees in 2D - or in 3D-speak, around the Z axis.
      * The rotation happens around the origin point of (0, 0).
      *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
+     *
      * @param angle the rotation angle, in degrees (clockwise)
      * @return The new transform
      */
@@ -164,6 +184,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
      * Rotates @next @angle degrees around @axis.
      *
      * For a rotation in 2D space, use [method@Gsk.Transform.rotate]
+     *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
      *
      * @param angle the rotation angle, in degrees (clockwise)
      * @param axis The rotation axis
@@ -179,6 +202,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
      *
      * Use [method@Gsk.Transform.scale_3d] to scale in all 3 dimensions.
      *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
+     *
      * @param factorX scaling factor on the X axis
      * @param factorY scaling factor on the Y axis
      * @return The new transform
@@ -190,6 +216,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
 
     /**
      * Scales @next by the given factors.
+     *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
      *
      * @param factorX scaling factor on the X axis
      * @param factorY scaling factor on the Y axis
@@ -203,6 +232,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
 
     /**
      * Applies a skew transform.
+     *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
      *
      * @param skewX skew factor, in degrees, on the X axis
      * @param skewY skew factor, in degrees, on the Y axis
@@ -240,6 +272,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
     /**
      * Applies all the operations from @other to @next.
      *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
+     *
      * @param other Transform to apply
      * @return The new transform
      */
@@ -273,6 +308,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
     /**
      * Translates @next in 2-dimensional space by @point.
      *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
+     *
      * @param point the point to translate the transform by
      * @return The new transform
      */
@@ -283,6 +321,9 @@ public class Transform(public val gskTransformPointer: CPointer<GskTransform>) :
 
     /**
      * Translates @next by @point.
+     *
+     * This function consumes @next. Use [method@Gsk.Transform.ref] first
+     * if you want to keep it around.
      *
      * @param point the point to translate the transform by
      * @return The new transform

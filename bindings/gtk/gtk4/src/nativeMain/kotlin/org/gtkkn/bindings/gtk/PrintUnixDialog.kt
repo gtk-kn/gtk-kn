@@ -103,7 +103,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `print-settings`: Property has no getter nor setter
+ * - method `print-settings`: Property has no getter
  */
 public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer<GtkPrintUnixDialog>) :
     Dialog(gtkPrintUnixDialogPointer.reinterpret()),

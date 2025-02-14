@@ -76,6 +76,9 @@ public open class InsetShadowNode(public val gskInsetShadowNodePointer: CPointer
     /**
      * Retrieves the color of the inset shadow.
      *
+     * The value returned by this function will not be correct
+     * if the render node was created for a non-sRGB color.
+     *
      * @return the color of the shadow
      */
     public open fun getColor(): Rgba = gsk_inset_shadow_node_get_color(gskInsetShadowNodePointer.reinterpret())!!.run {

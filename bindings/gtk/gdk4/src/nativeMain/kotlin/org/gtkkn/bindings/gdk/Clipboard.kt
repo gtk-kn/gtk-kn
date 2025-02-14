@@ -155,9 +155,6 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      * Asynchronously requests an input stream to read the @clipboard's
      * contents from.
      *
-     * When the operation is finished @callback will be called. You must then
-     * call [method@Gdk.Clipboard.read_finish] to get the result of the operation.
-     *
      * The clipboard will choose the most suitable mime type from the given list
      * to fulfill the request, preferring the ones listed first.
      *
@@ -186,9 +183,6 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
 
     /**
      * Asynchronously request the @clipboard contents converted to a string.
-     *
-     * When the operation is finished @callback will be called. You must then
-     * call [method@Gdk.Clipboard.read_text_finish] to get the result.
      *
      * This is a simple wrapper around [method@Gdk.Clipboard.read_value_async].
      * Use that function or [method@Gdk.Clipboard.read_async] directly if you
@@ -231,9 +225,6 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
 
     /**
      * Asynchronously request the @clipboard contents converted to a `GdkPixbuf`.
-     *
-     * When the operation is finished @callback will be called. You must then
-     * call [method@Gdk.Clipboard.read_texture_finish] to get the result.
      *
      * This is a simple wrapper around [method@Gdk.Clipboard.read_value_async].
      * Use that function or [method@Gdk.Clipboard.read_async] directly if you
@@ -280,9 +271,6 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
     /**
      * Asynchronously request the @clipboard contents converted to the given
      * @type.
-     *
-     * When the operation is finished @callback will be called. You must then call
-     * [method@Gdk.Clipboard.read_value_finish] to get the resulting `GValue`.
      *
      * For local clipboard contents that are available in the given `GType`,
      * the value will be copied directly. Otherwise, GDK will try to use
@@ -382,8 +370,6 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      * Asynchronously instructs the @clipboard to store its contents remotely.
      *
      * If the clipboard is not local, this function does nothing but report success.
-     *
-     * The @callback must call [method@Gdk.Clipboard.store_finish].
      *
      * The purpose of this call is to preserve clipboard contents beyond the
      * lifetime of an application, so this function is typically called on

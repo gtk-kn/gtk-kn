@@ -98,6 +98,10 @@ import org.gtkkn.bindings.glib.List as GlibList
  * displays the shortcuts window, associate the item with the action
  * `win.show-help-overlay`.
  *
+ * `GtkApplication` will also automatically set the application id as the
+ * default window icon. Use [func@Gtk.Window.set_default_icon_name] or
+ * [property@Gtk.Window:icon-name] to override that behavior.
+ *
  * ## A simple application
  *
  * [A simple example](https://gitlab.gnome.org/GNOME/gtk/tree/main/examples/bp/bloatpad.c)
@@ -118,8 +122,8 @@ import org.gtkkn.bindings.glib.List as GlibList
  *
  * ## See Also
  *
- * [HowDoI: Using GtkApplication](https://wiki.gnome.org/HowDoI/GtkApplication),
- * [Getting Started with GTK: Basics](getting_started.html#basics)
+ * - [Using GtkApplication](https://developer.gnome.org/documentation/tutorials/application.html)
+ * - [Getting Started with GTK: Basics](getting_started.html#basics)
  *
  * ## Skipped during bindings generation
  *

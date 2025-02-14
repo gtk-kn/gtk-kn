@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkScrollable
@@ -59,6 +60,9 @@ public open class Map(public val gtksourceMapPointer: CPointer<GtkSourceMap>) :
     }
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
+        get() = handle.reinterpret()
+
+    override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>

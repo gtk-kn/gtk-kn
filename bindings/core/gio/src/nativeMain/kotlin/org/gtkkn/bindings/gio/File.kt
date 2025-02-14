@@ -25,8 +25,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_68
 import org.gtkkn.bindings.gio.annotations.GioVersion2_72
 import org.gtkkn.bindings.gio.annotations.GioVersion2_74
 import org.gtkkn.bindings.gio.annotations.GioVersion2_78
+import org.gtkkn.bindings.gio.annotations.GioVersion2_82
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.gobject.Closure
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -42,7 +44,7 @@ import org.gtkkn.native.gio.g_file_append_to_async
 import org.gtkkn.native.gio.g_file_append_to_finish
 import org.gtkkn.native.gio.g_file_build_attribute_list_for_copy
 import org.gtkkn.native.gio.g_file_copy
-import org.gtkkn.native.gio.g_file_copy_async
+import org.gtkkn.native.gio.g_file_copy_async_with_closures
 import org.gtkkn.native.gio.g_file_copy_attributes
 import org.gtkkn.native.gio.g_file_copy_finish
 import org.gtkkn.native.gio.g_file_create
@@ -99,7 +101,7 @@ import org.gtkkn.native.gio.g_file_mount_enclosing_volume_finish
 import org.gtkkn.native.gio.g_file_mount_mountable
 import org.gtkkn.native.gio.g_file_mount_mountable_finish
 import org.gtkkn.native.gio.g_file_move
-import org.gtkkn.native.gio.g_file_move_async
+import org.gtkkn.native.gio.g_file_move_async_with_closures
 import org.gtkkn.native.gio.g_file_move_finish
 import org.gtkkn.native.gio.g_file_new_build_filenamev
 import org.gtkkn.native.gio.g_file_new_for_commandline_arg
@@ -348,7 +350,7 @@ public interface File :
      * of the operation.
      *
      * @param flags a set of #GFileCreateFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -503,46 +505,35 @@ public interface File :
     }
 
     /**
-     * Copies the file @source to the location specified by @destination
-     * asynchronously. For details of the behaviour, see g_file_copy().
+     * Version of [method@Gio.File.copy_async] using closures instead of callbacks for
+     * easier binding in other languages.
      *
-     * If @progress_callback is not null, then that function that will be called
-     * just like in g_file_copy(). The callback will run in the default main context
-     * of the thread calling g_file_copy_async() — the same context as @callback is
-     * run in.
-     *
-     * When the operation is finished, @callback will be called. You can then call
-     * g_file_copy_finish() to get the result of the operation.
-     *
-     * @param destination destination #GFile
-     * @param flags set of #GFileCopyFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
-     * @param cancellable optional #GCancellable object,
-     *   null to ignore
-     * @param progressCallback function to callback with progress information, or null if
-     *   progress information is not needed
-     * @param callback a #GAsyncReadyCallback
-     *   to call when the request is satisfied
+     * @param destination destination [type@Gio.File]
+     * @param flags set of [flags@Gio.FileCopyFlags]
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+     * @param cancellable optional [class@Gio.Cancellable] object,
+     *   `NULL` to ignore
+     * @param progressCallbackClosure [type@GObject.Closure] to invoke with progress
+     *   information, or `NULL` if progress information is not needed
+     * @param readyCallbackClosure [type@GObject.Closure] to invoke when the request is satisfied
+     * @since 2.82
      */
+    @GioVersion2_82
     public fun copyAsync(
         destination: File,
         flags: FileCopyFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        progressCallback: FileProgressCallback?,
-        callback: AsyncReadyCallback?,
-    ): Unit = g_file_copy_async(
-        gioFilePointer, destination.gioFilePointer, flags.mask, ioPriority, cancellable?.gioCancellablePointer,
-        progressCallback?.let {
-            FileProgressCallbackFunc.reinterpret()
-        },
-        progressCallback?.let {
-            StableRef.create(progressCallback).asCPointer()
-        },
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
+        progressCallbackClosure: Closure? = null,
+        readyCallbackClosure: Closure,
+    ): Unit = g_file_copy_async_with_closures(
+        gioFilePointer,
+        destination.gioFilePointer,
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer,
+        progressCallbackClosure?.gobjectClosurePointer,
+        readyCallbackClosure.gobjectClosurePointer
     )
 
     /**
@@ -651,7 +642,7 @@ public interface File :
      * of the operation.
      *
      * @param flags a set of #GFileCreateFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -759,7 +750,7 @@ public interface File :
      * the result of the operation.
      *
      * @param flags a set of #GFileCreateFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -848,7 +839,7 @@ public interface File :
      * only be deleted if it is empty.  This has the same semantics as
      * g_unlink().
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback to call
@@ -1102,7 +1093,7 @@ public interface File :
      *
      * @param attributes an attribute query string
      * @param flags a set of #GFileQueryInfoFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -1202,7 +1193,7 @@ public interface File :
      * You can then call g_file_find_enclosing_mount_finish() to
      * get the result of the operation.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -1572,7 +1563,7 @@ public interface File :
     /**
      * Asynchronously creates a directory.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback to call
@@ -1684,7 +1675,7 @@ public interface File :
      *
      * @param symlinkValue a string with the path for the target
      *   of the new symlink
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback to call
@@ -1738,7 +1729,7 @@ public interface File :
      * there for more information.
      *
      * @param flags #GFileMeasureFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable
      * @param progressCallback a #GFileMeasureProgressCallback
      * @param callback a #GAsyncReadyCallback to call when complete
@@ -2065,46 +2056,35 @@ public interface File :
     }
 
     /**
-     * Asynchronously moves a file @source to the location of @destination. For details of the behaviour, see g_file_move().
+     * Version of [method@Gio.File.move_async] using closures instead of callbacks for
+     * easier binding in other languages.
      *
-     * If @progress_callback is not null, then that function that will be called
-     * just like in g_file_move(). The callback will run in the default main context
-     * of the thread calling g_file_move_async() — the same context as @callback is
-     * run in.
-     *
-     * When the operation is finished, @callback will be called. You can then call
-     * g_file_move_finish() to get the result of the operation.
-     *
-     * @param destination #GFile pointing to the destination location
-     * @param flags set of #GFileCopyFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
-     * @param cancellable optional #GCancellable object,
-     *   null to ignore
-     * @param progressCallback #GFileProgressCallback function for updates
-     * @param callback a #GAsyncReadyCallback
-     *   to call when the request is satisfied
-     * @since 2.72
+     * @param destination destination [type@Gio.File]
+     * @param flags set of [flags@Gio.FileCopyFlags]
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
+     * @param cancellable optional [class@Gio.Cancellable] object,
+     *   `NULL` to ignore
+     * @param progressCallbackClosure [type@GObject.Closure] to invoke with progress
+     *   information, or `NULL` if progress information is not needed
+     * @param readyCallbackClosure [type@GObject.Closure] to invoke when the request is satisfied
+     * @since 2.82
      */
-    @GioVersion2_72
+    @GioVersion2_82
     public fun moveAsync(
         destination: File,
         flags: FileCopyFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        progressCallback: FileProgressCallback?,
-        callback: AsyncReadyCallback?,
-    ): Unit = g_file_move_async(
-        gioFilePointer, destination.gioFilePointer, flags.mask, ioPriority, cancellable?.gioCancellablePointer,
-        progressCallback?.let {
-            FileProgressCallbackFunc.reinterpret()
-        },
-        progressCallback?.let {
-            StableRef.create(progressCallback).asCPointer()
-        },
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
+        progressCallbackClosure: Closure? = null,
+        readyCallbackClosure: Closure,
+    ): Unit = g_file_move_async_with_closures(
+        gioFilePointer,
+        destination.gioFilePointer,
+        flags.mask,
+        ioPriority,
+        cancellable?.gioCancellablePointer,
+        progressCallbackClosure?.gobjectClosurePointer,
+        readyCallbackClosure.gobjectClosurePointer
     )
 
     /**
@@ -2173,7 +2153,7 @@ public interface File :
      * You can then call g_file_open_readwrite_finish() to get
      * the result of the operation.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -2316,7 +2296,7 @@ public interface File :
     /**
      * Async version of g_file_query_default_handler().
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object, null to ignore
      * @param callback a #GAsyncReadyCallback to call when the request is done
      * @since 2.60
@@ -2480,7 +2460,7 @@ public interface File :
      * operation.
      *
      * @param attributes an attribute query string
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -2599,7 +2579,7 @@ public interface File :
      *
      * @param attributes an attribute query string
      * @param flags a set of #GFileQueryInfoFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -2752,7 +2732,7 @@ public interface File :
      * You can then call g_file_read_finish() to get the result
      * of the operation.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -2882,7 +2862,7 @@ public interface File :
      *   or null to ignore
      * @param makeBackup true if a backup should be created
      * @param flags a set of #GFileCreateFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -3032,7 +3012,7 @@ public interface File :
      *   or null to ignore
      * @param makeBackup true if a backup should be created
      * @param flags a set of #GFileCreateFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -3381,7 +3361,7 @@ public interface File :
      *
      * @param info a #GFileInfo
      * @param flags a #GFileQueryInfoFlags
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -3498,7 +3478,7 @@ public interface File :
      * the result of the operation.
      *
      * @param displayName a string
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
@@ -3677,10 +3657,13 @@ public interface File :
     /**
      * Sends @file to the "Trashcan", if possible. This is similar to
      * deleting it, but the user can recover it before emptying the trashcan.
-     * Not all file systems support trashing, so this call can return the
+     * Trashing is disabled for system mounts by default (see
+     * g_unix_mount_is_system_internal()), so this call can return the
      * %G_IO_ERROR_NOT_SUPPORTED error. Since GLib 2.66, the `x-gvfs-notrash` unix
-     * mount option can be used to disable g_file_trash() support for certain
+     * mount option can be used to disable g_file_trash() support for particular
      * mounts, the %G_IO_ERROR_NOT_SUPPORTED error will be returned in that case.
+     * Since 2.82, the `x-gvfs-trash` unix mount option can be used to enable
+     * g_file_trash() support for particular system mounts.
      *
      * If @cancellable is not null, then the operation can be cancelled by
      * triggering the cancellable object from another thread. If the operation
@@ -3703,7 +3686,7 @@ public interface File :
     /**
      * Asynchronously sends @file to the Trash location, if possible.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback to call
@@ -4003,7 +3986,7 @@ public interface File :
          *
          * @param tmpl Template for the file
          *   name, as in g_file_open_tmp(), or null for a default template
-         * @param ioPriority the [I/O priority][io-priority] of the request
+         * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
          * @param cancellable optional #GCancellable object, null to ignore
          * @param callback a #GAsyncReadyCallback to call when the request is done
          * @since 2.74
@@ -4034,7 +4017,7 @@ public interface File :
          *
          * @param tmpl Template for the file
          *   name, as in g_dir_make_tmp(), or null for a default template
-         * @param ioPriority the [I/O priority][io-priority] of the request
+         * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
          * @param cancellable optional #GCancellable object, null to ignore
          * @param callback a #GAsyncReadyCallback to call when the request is done
          * @since 2.74

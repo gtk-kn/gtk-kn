@@ -153,6 +153,9 @@ public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<Gtk
     override val gtkTreeSortablePointer: CPointer<GtkTreeSortable>
         get() = handle.reinterpret()
 
+    /**
+     * The model of the tree model sort.
+     */
     public open val model: TreeModel
         /**
          * Returns the model the `GtkTreeModelSort` is sorting.

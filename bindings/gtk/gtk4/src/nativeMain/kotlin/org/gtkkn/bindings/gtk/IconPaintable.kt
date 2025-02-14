@@ -92,7 +92,7 @@ public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<Gtk
      * The icon can then be rendered by using it as a `GdkPaintable`.
      *
      * @param file a `GFile`
-     * @param size desired icon size
+     * @param size desired icon size, in application pixels
      * @param scale the desired scale
      * @return a `GtkIconPaintable` containing
      *   for the icon. Unref with g_object_unref()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.pango
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_54
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -15,6 +16,7 @@ import org.gtkkn.native.pango.PangoItem
 import org.gtkkn.native.pango.pango_item_apply_attrs
 import org.gtkkn.native.pango.pango_item_copy
 import org.gtkkn.native.pango.pango_item_free
+import org.gtkkn.native.pango.pango_item_get_char_offset
 import org.gtkkn.native.pango.pango_item_get_type
 import org.gtkkn.native.pango.pango_item_new
 import org.gtkkn.native.pango.pango_item_split
@@ -108,6 +110,21 @@ public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInsta
      * Free a `PangoItem` and all associated memory.
      */
     public fun free(): Unit = pango_item_free(pangoItemPointer)
+
+    /**
+     * Returns the character offset of the item from the beginning
+     * of the itemized text.
+     *
+     * If the item has not been obtained from Pango's itemization
+     * machinery, then the character offset is not available. In
+     * that case, this function returns -1.
+     *
+     * @return the character offset of the item from the beginning
+     *   of the itemized text, or -1
+     * @since 1.54
+     */
+    @PangoVersion1_54
+    public fun getCharOffset(): gint = pango_item_get_char_offset(pangoItemPointer)
 
     /**
      * Modifies @orig to cover only the text after @split_index, and

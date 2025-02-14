@@ -23,15 +23,15 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * A `GPatternSpec` struct is the 'compiled' form of a glob-style pattern.
+ * A `GPatternSpec` struct is the ‘compiled’ form of a glob-style pattern.
  *
  * The [func@GLib.pattern_match_simple] and [method@GLib.PatternSpec.match] functions
- * match a string against a pattern containing '*' and '?' wildcards with similar
- * semantics as the standard `glob()` function: '*' matches an arbitrary,
- * possibly empty, string, '?' matches an arbitrary character.
+ * match a string against a pattern containing `*` and `?` wildcards with similar
+ * semantics as the standard `glob()` function: `*` matches an arbitrary,
+ * possibly empty, string, `?` matches an arbitrary character.
  *
- * Note that in contrast to `glob()`, the '/' character can be matched by
- * the wildcards, there are no '[]' character ranges and '*' and '?'
+ * Note that in contrast to [`glob()`](man:glob(3)), the `/` character can be
+ * matched by the wildcards, there are no `[…]` character ranges and `*` and `?`
  * can not be escaped to include them literally in a pattern.
  *
  * When multiple strings must be matched against the same pattern, it is better
@@ -43,17 +43,17 @@ import kotlin.Unit
 public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpec>) :
     ProxyInstance(glibPatternSpecPointer) {
     /**
-     * Compiles a pattern to a #GPatternSpec.
+     * Compiles a pattern to a [type@GLib.PatternSpec].
      *
      * @param pattern a zero-terminated UTF-8 encoded string
-     * @return a newly-allocated #GPatternSpec
+     * @return a newly-allocated [type@GLib.PatternSpec]
      */
     public constructor(pattern: String) : this(g_pattern_spec_new(pattern)!!) {
         MemoryCleaner.setBoxedType(this, getType(), owned = true)
     }
 
     /**
-     * Copies @pspec in a new #GPatternSpec.
+     * Copies @pspec in a new [type@GLib.PatternSpec].
      *
      * @return a copy of @pspec.
      * @since 2.70
@@ -74,33 +74,35 @@ public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpe
         g_pattern_spec_equal(glibPatternSpecPointer, pspec2.glibPatternSpecPointer).asBoolean()
 
     /**
-     * Frees the memory allocated for the #GPatternSpec.
+     * Frees the memory allocated for the [type@GLib.PatternSpec].
      */
     public fun free(): Unit = g_pattern_spec_free(glibPatternSpecPointer)
 
     /**
-     * Matches a string against a compiled pattern. Passing the correct
+     * Matches a string against a compiled pattern.
+     *
+     * Passing the correct
      * length of the string given is mandatory. The reversed string can be
-     * omitted by passing null, this is more efficient if the reversed
+     * omitted by passing `NULL`, this is more efficient if the reversed
      * version of the string to be matched is not at hand, as
-     * g_pattern_match() will only construct it if the compiled pattern
+     * [method@GLib.PatternSpec.match] will only construct it if the compiled pattern
      * requires reverse matches.
      *
      * Note that, if the user code will (possibly) match a string against a
      * multitude of patterns containing wildcards, chances are high that
-     * some patterns will require a reversed string. In this case, it's
+     * some patterns will require a reversed string. In this case, it’s
      * more efficient to provide the reversed string to avoid multiple
-     * constructions thereof in the various calls to g_pattern_match().
+     * constructions thereof in the various calls to [method@GLib.PatternSpec.match].
      *
      * Note also that the reverse of a UTF-8 encoded string can in general
-     * not be obtained by g_strreverse(). This works only if the string
+     * not be obtained by [func@GLib.strreverse]. This works only if the string
      * does not contain any multibyte characters. GLib offers the
-     * g_utf8_strreverse() function to reverse UTF-8 encoded strings.
+     * [func@GLib.utf8_strreverse] function to reverse UTF-8 encoded strings.
      *
-     * @param stringLength the length of @string (in bytes, i.e. strlen(),
-     *     not g_utf8_strlen())
+     * @param stringLength the length of @string (in bytes, i.e. `strlen()`,
+     *    not [func@GLib.utf8_strlen])
      * @param string the UTF-8 encoded string to match
-     * @param stringReversed the reverse of @string or null
+     * @param stringReversed the reverse of @string
      * @return true if @string matches @pspec
      * @since 2.70
      */
@@ -109,9 +111,11 @@ public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpe
         g_pattern_spec_match(glibPatternSpecPointer, stringLength, string, stringReversed).asBoolean()
 
     /**
-     * Matches a string against a compiled pattern. If the string is to be
+     * Matches a string against a compiled pattern.
+     *
+     * If the string is to be
      * matched against more than one pattern, consider using
-     * g_pattern_match() instead while supplying the reversed string.
+     * [method@GLib.PatternSpec.match] instead while supplying the reversed string.
      *
      * @param string the UTF-8 encoded string to match
      * @return true if @string matches @pspec

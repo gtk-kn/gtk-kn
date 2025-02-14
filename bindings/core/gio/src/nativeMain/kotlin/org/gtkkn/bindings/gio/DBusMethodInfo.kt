@@ -26,7 +26,7 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * Information about a method on an D-Bus interface.
+ * Information about a method on a D-Bus interface.
  *
  * ## Skipped during bindings generation
  *

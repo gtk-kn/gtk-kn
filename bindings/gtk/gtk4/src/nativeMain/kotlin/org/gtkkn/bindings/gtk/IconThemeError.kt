@@ -32,6 +32,11 @@ public enum class IconThemeError(public val nativeValue: GtkIconThemeError) {
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Registers an error quark for [class@Gtk.IconTheme] errors.
+         *
+         * @return the error quark
+         */
         public fun quark(): Quark = gtk_icon_theme_error_quark()
 
         /**

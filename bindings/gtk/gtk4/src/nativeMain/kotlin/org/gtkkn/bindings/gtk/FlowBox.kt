@@ -102,6 +102,15 @@ import kotlin.Unit
  *
  * Also see [class@Gtk.ListBox].
  *
+ * # Shortcuts and Gestures
+ *
+ * The following signals have default keybindings:
+ *
+ * - [signal@Gtk.FlowBox::move-cursor]
+ * - [signal@Gtk.FlowBox::select-all]
+ * - [signal@Gtk.FlowBox::toggle-cursor-child]
+ * - [signal@Gtk.FlowBox::unselect-all]
+ *
  * # CSS nodes
  *
  * ```
@@ -334,7 +343,8 @@ public open class FlowBox(public val gtkFlowBoxPointer: CPointer<GtkFlowBox>) :
      * should be implemented by the model.
      *
      * @param model the `GListModel` to be bound to @box
-     * @param createWidgetFunc a function that creates widgets for items
+     * @param createWidgetFunc a function
+     *   that creates widgets for items
      */
     public open fun bindModel(model: ListModel? = null, createWidgetFunc: FlowBoxCreateWidgetFunc): Unit =
         gtk_flow_box_bind_model(
@@ -493,8 +503,8 @@ public open class FlowBox(public val gtkFlowBoxPointer: CPointer<GtkFlowBox>) :
      * Note that using a filter function is incompatible with using a model
      * (see [method@Gtk.FlowBox.bind_model]).
      *
-     * @param filterFunc callback that
-     *   lets you filter which children to show
+     * @param filterFunc callback
+     *   that lets you filter which children to show
      */
     public open fun setFilterFunc(filterFunc: FlowBoxFilterFunc?): Unit = gtk_flow_box_set_filter_func(
         gtkFlowBoxPointer,
@@ -658,7 +668,7 @@ public open class FlowBox(public val gtkFlowBoxPointer: CPointer<GtkFlowBox>) :
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extend` whether to extend the selection; `modify` whether to modify the selection. Returns true to stop other handlers from being invoked for the event.
-     * false to propagate the event further.
+     *   false to propagate the event further.
      */
     public fun onMoveCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),

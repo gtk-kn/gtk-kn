@@ -69,6 +69,14 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * Drawing directly to the surface is no longer recommended.
+     *   Use `GskRenderNode` and `GskRenderer`.
+     * ---
+     *
      * Indicates that you are beginning the process of redrawing @region
      * on the @context's surface.
      *
@@ -100,6 +108,14 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
         gdk_draw_context_begin_frame(gdkDrawContextPointer, region.cairoRegionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * Drawing directly to the surface is no longer recommended.
+     *   Use `GskRenderNode` and `GskRenderer`.
+     * ---
+     *
      * Ends a drawing operation started with gdk_draw_context_begin_frame().
      *
      * This makes the drawing available on screen.
@@ -112,6 +128,14 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
     public open fun endFrame(): Unit = gdk_draw_context_end_frame(gdkDrawContextPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * Drawing directly to the surface is no longer recommended.
+     *   Use `GskRenderNode` and `GskRenderer`.
+     * ---
+     *
      * Retrieves the region that is currently being repainted.
      *
      * After a call to [method@Gdk.DrawContext.begin_frame] this function will
@@ -128,6 +152,14 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * Drawing directly to the surface is no longer recommended.
+     *   Use `GskRenderNode` and `GskRenderer`.
+     * ---
+     *
      * Returns true if @context is in the process of drawing to its surface.
      *
      * This is the case between calls to [method@Gdk.DrawContext.begin_frame]

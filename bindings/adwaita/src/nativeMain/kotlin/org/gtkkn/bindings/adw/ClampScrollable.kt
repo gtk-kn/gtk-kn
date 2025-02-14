@@ -40,6 +40,8 @@ import org.gtkkn.native.gtk.GtkScrollable
  *
  * The primary use case for `AdwClampScrollable` is clamping
  * [class@Gtk.ListView].
+ *
+ * See also: [class@ClampLayout].
  */
 public class ClampScrollable(public val adwClampScrollablePointer: CPointer<AdwClampScrollable>) :
     Widget(adwClampScrollablePointer.reinterpret()),

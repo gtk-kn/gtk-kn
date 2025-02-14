@@ -7,16 +7,20 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.File
+import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_16
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCssSection
+import org.gtkkn.native.gtk.gtk_css_section_get_bytes
 import org.gtkkn.native.gtk.gtk_css_section_get_end_location
 import org.gtkkn.native.gtk.gtk_css_section_get_file
 import org.gtkkn.native.gtk.gtk_css_section_get_parent
 import org.gtkkn.native.gtk.gtk_css_section_get_start_location
 import org.gtkkn.native.gtk.gtk_css_section_get_type
 import org.gtkkn.native.gtk.gtk_css_section_new
+import org.gtkkn.native.gtk.gtk_css_section_new_with_bytes
 import org.gtkkn.native.gtk.gtk_css_section_print
 import org.gtkkn.native.gtk.gtk_css_section_ref
 import org.gtkkn.native.gtk.gtk_css_section_to_string
@@ -49,6 +53,46 @@ public class CssSection(public val gtkCssSectionPointer: CPointer<GtkCssSection>
         end: CssLocation,
     ) : this(gtk_css_section_new(`file`?.gioFilePointer, start.gtkCssLocationPointer, end.gtkCssLocationPointer)!!) {
         MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new `GtkCssSection` referring to the section
+     * in the given `file` or the given `bytes` from the `start` location to the
+     * `end` location.
+     *
+     * @param file The file this section refers to
+     * @param bytes The bytes this sections refers to
+     * @param start The start location
+     * @param end The end location
+     * @return a new `GtkCssSection`
+     * @since 4.16
+     */
+    public constructor(
+        `file`: File? = null,
+        bytes: Bytes? = null,
+        start: CssLocation,
+        end: CssLocation,
+    ) : this(
+        gtk_css_section_new_with_bytes(
+            `file`?.gioFilePointer,
+            bytes?.glibBytesPointer,
+            start.gtkCssLocationPointer,
+            end.gtkCssLocationPointer
+        )!!
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Gets the bytes that @section was parsed from.
+     *
+     * @return the `GBytes` from which the `section`
+     *   was parsed
+     * @since 4.16
+     */
+    @GtkVersion4_16
+    public fun getBytes(): Bytes? = gtk_css_section_get_bytes(gtkCssSectionPointer)?.run {
+        Bytes(this)
     }
 
     /**

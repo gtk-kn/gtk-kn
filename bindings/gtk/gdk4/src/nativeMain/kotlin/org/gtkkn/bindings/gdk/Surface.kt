@@ -479,6 +479,14 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
         gdk_surface_set_input_region(gdkSurfacePointer, region.cairoRegionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GDK can figure out the opaque parts of a window itself
+     *   by inspecting the contents that are drawn.
+     * ---
+     *
      * Marks a region of the `GdkSurface` as opaque.
      *
      * For optimisation purposes, compositing window managers may

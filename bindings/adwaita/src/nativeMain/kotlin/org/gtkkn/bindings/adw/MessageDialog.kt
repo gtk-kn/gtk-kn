@@ -74,6 +74,13 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.6.
+ *
+ * Use [class@AlertDialog].
+ * ---
+ *
  * A dialog presenting a message or a question.
  *
  * <picture>
@@ -129,8 +136,7 @@ import kotlin.Unit
  * ## Async API
  *
  * `AdwMessageDialog` can also be used via the [method@MessageDialog.choose]
- * method. This API follows the GIO async pattern, and the result can be
- * obtained by calling [method@MessageDialog.choose_finish], for example:
+ * method. This API follows the GIO async pattern, for example:
  *
  * ```c
  * static void
@@ -172,7 +178,7 @@ import kotlin.Unit
  *
  * `AdwMessageDialog` supports adding responses in UI definitions by via the
  * `<responses>` element that may contain multiple `<response>` elements, each
- * respresenting a response.
+ * representing a response.
  *
  * Each of the `<response>` elements must have the `id` attribute specifying the
  * response ID. The contents of the element are used as the response label.
@@ -242,6 +248,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * The body text of the dialog.
      *
      * @since 1.2
@@ -249,6 +262,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     @AdwVersion1_2
     public open var body: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Gets the body text of @self.
          *
          * @return the body of @self.
@@ -257,6 +277,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         get() = adw_message_dialog_get_body(adwMessageDialogPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Sets the body text of @self.
          *
          * @param body the body of @self
@@ -266,6 +293,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         set(body) = adw_message_dialog_set_body(adwMessageDialogPointer, body)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Whether the body text includes Pango markup.
      *
      * See [func@Pango.parse_markup].
@@ -275,6 +309,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     @AdwVersion1_2
     public open var bodyUseMarkup: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Gets whether the body text of @self includes Pango markup.
          *
          * @return whether @self uses markup for body text
@@ -283,6 +324,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         get() = adw_message_dialog_get_body_use_markup(adwMessageDialogPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Sets whether the body text of @self includes Pango markup.
          *
          * See [func@Pango.parse_markup].
@@ -294,6 +342,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         set(useMarkup) = adw_message_dialog_set_body_use_markup(adwMessageDialogPointer, useMarkup.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * The ID of the close response.
      *
      * It will be passed to [signal@MessageDialog::response] if the window is
@@ -308,6 +363,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     @AdwVersion1_2
     public open var closeResponse: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Gets the ID of the close response of @self.
          *
          * @return the close response ID
@@ -317,6 +379,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Sets the ID of the close response of @self.
          *
          * It will be passed to [signal@MessageDialog::response] if the window is
@@ -333,6 +402,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         set(response) = adw_message_dialog_set_close_response(adwMessageDialogPointer, response)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * The response ID of the default response.
      *
      * If set, pressing <kbd>Enter</kbd> will activate the corresponding button.
@@ -345,6 +421,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     @AdwVersion1_2
     public open var defaultResponse: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Gets the ID of the default response of @self.
          *
          * @return the default response ID
@@ -353,6 +436,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         get() = adw_message_dialog_get_default_response(adwMessageDialogPointer)?.toKString()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Sets the ID of the default response of @self.
          *
          * If set, pressing <kbd>Enter</kbd> will activate the corresponding button.
@@ -367,6 +457,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         set(response) = adw_message_dialog_set_default_response(adwMessageDialogPointer, response)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * The child widget.
      *
      * Displayed below the heading and body.
@@ -376,6 +473,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     @AdwVersion1_2
     public open var extraChild: Widget?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Gets the child widget of @self.
          *
          * @return the child widget of @self.
@@ -386,6 +490,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Sets the child widget of @self.
          *
          * The child widget is displayed below the heading and body.
@@ -397,6 +508,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         set(child) = adw_message_dialog_set_extra_child(adwMessageDialogPointer, child?.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * The heading of the dialog.
      *
      * @since 1.2
@@ -404,6 +522,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     @AdwVersion1_2
     public open var heading: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Gets the heading of @self.
          *
          * @return the heading of @self.
@@ -412,6 +537,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         get() = adw_message_dialog_get_heading(adwMessageDialogPointer)?.toKString()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Sets the heading of @self.
          *
          * @param heading the heading of @self
@@ -421,6 +553,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         set(heading) = adw_message_dialog_set_heading(adwMessageDialogPointer, heading)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Whether the heading includes Pango markup.
      *
      * See [func@Pango.parse_markup].
@@ -430,6 +569,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     @AdwVersion1_2
     public open var headingUseMarkup: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Gets whether the heading of @self includes Pango markup.
          *
          * @return whether @self uses markup for heading
@@ -438,6 +584,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         get() = adw_message_dialog_get_heading_use_markup(adwMessageDialogPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AlertDialog].
+         * ---
+         *
          * Sets whether the heading of @self includes Pango markup.
          *
          * See [func@Pango.parse_markup].
@@ -449,6 +602,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         set(useMarkup) = adw_message_dialog_set_heading_use_markup(adwMessageDialogPointer, useMarkup.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Creates a new `AdwMessageDialog`.
      *
      * @heading and @body can be set to `NULL`. This can be useful if they need to
@@ -479,6 +639,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Adds a response with @id and @label to @self.
      *
      * Responses are represented as buttons in the dialog.
@@ -505,10 +672,14 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         adw_message_dialog_add_response(adwMessageDialogPointer, id, label)
 
     /**
-     * This function shows @self to the user.
+     * # ⚠️ Deprecated ⚠️
      *
-     * The @callback will be called when the alert is dismissed. It should call
-     * [method@MessageDialog.choose_finish] to obtain the result.
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
+     * This function shows @self to the user.
      *
      * @param cancellable a `GCancellable` to cancel the operation
      * @param callback a callback to call when the operation is complete
@@ -526,6 +697,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Finishes the [method@MessageDialog.choose] call and returns the response ID.
      *
      * @param result a `GAsyncResult`
@@ -539,6 +717,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
             ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Gets the appearance of @response.
      *
      * See [method@MessageDialog.set_response_appearance].
@@ -554,6 +739,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Gets whether @response is enabled.
      *
      * See [method@MessageDialog.set_response_enabled].
@@ -567,6 +759,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         adw_message_dialog_get_response_enabled(adwMessageDialogPointer, response).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Gets the label of @response.
      *
      * See [method@MessageDialog.set_response_label].
@@ -581,6 +780,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
             ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Gets whether @self has a response with the ID @response.
      *
      * @param response response ID
@@ -592,6 +798,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         adw_message_dialog_has_response(adwMessageDialogPointer, response).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Removes a response from @self.
      *
      * @param id the response ID
@@ -601,6 +814,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     public open fun removeResponse(id: String): Unit = adw_message_dialog_remove_response(adwMessageDialogPointer, id)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Emits the [signal@MessageDialog::response] signal with the given response ID.
      *
      * Used to indicate that the user has responded to the dialog in some way.
@@ -612,6 +832,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     public open fun response(response: String): Unit = adw_message_dialog_response(adwMessageDialogPointer, response)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Sets the appearance for @response.
      *
      * <picture>
@@ -639,6 +866,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         adw_message_dialog_set_response_appearance(adwMessageDialogPointer, response, appearance.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Sets whether @response is enabled.
      *
      * If @response is not enabled, the corresponding button will have
@@ -659,6 +893,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         adw_message_dialog_set_response_enabled(adwMessageDialogPointer, response, enabled.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Sets the label of @response to @label.
      *
      * Labels are displayed on the dialog buttons. An embedded underline in @label
@@ -673,6 +914,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
         adw_message_dialog_set_response_label(adwMessageDialogPointer, response, label)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * This signal is emitted when the dialog is closed.
      *
      * @response will be set to the response ID of the button that had been
@@ -706,6 +954,13 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
     )
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AlertDialog].
+     * ---
+     *
      * Emits the "response" signal. See [onResponse].
      *
      * @param detail the signal detail

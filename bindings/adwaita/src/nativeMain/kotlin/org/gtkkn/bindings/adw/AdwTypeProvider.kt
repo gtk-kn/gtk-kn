@@ -21,9 +21,11 @@ public object AdwTypeProvider : TypeProvider {
         if (Avatar.getTypeOrNull() != null) put(Avatar::class, Avatar.type)
         if (Banner.getTypeOrNull() != null) put(Banner::class, Banner.type)
         if (Bin.getTypeOrNull() != null) put(Bin::class, Bin.type)
+        if (BottomSheet.getTypeOrNull() != null) put(BottomSheet::class, BottomSheet.type)
         if (Breakpoint.getTypeOrNull() != null) put(Breakpoint::class, Breakpoint.type)
         if (BreakpointBin.getTypeOrNull() != null) put(BreakpointBin::class, BreakpointBin.type)
         if (ButtonContent.getTypeOrNull() != null) put(ButtonContent::class, ButtonContent.type)
+        if (ButtonRow.getTypeOrNull() != null) put(ButtonRow::class, ButtonRow.type)
         if (CallbackAnimationTarget.getTypeOrNull() !=
             null
         ) {
@@ -47,9 +49,12 @@ public object AdwTypeProvider : TypeProvider {
         if (ExpanderRow.getTypeOrNull() != null) put(ExpanderRow::class, ExpanderRow.type)
         if (Flap.getTypeOrNull() != null) put(Flap::class, Flap.type)
         if (HeaderBar.getTypeOrNull() != null) put(HeaderBar::class, HeaderBar.type)
+        if (Layout.getTypeOrNull() != null) put(Layout::class, Layout.type)
+        if (LayoutSlot.getTypeOrNull() != null) put(LayoutSlot::class, LayoutSlot.type)
         if (Leaflet.getTypeOrNull() != null) put(Leaflet::class, Leaflet.type)
         if (LeafletPage.getTypeOrNull() != null) put(LeafletPage::class, LeafletPage.type)
         if (MessageDialog.getTypeOrNull() != null) put(MessageDialog::class, MessageDialog.type)
+        if (MultiLayoutView.getTypeOrNull() != null) put(MultiLayoutView::class, MultiLayoutView.type)
         if (NavigationPage.getTypeOrNull() != null) put(NavigationPage::class, NavigationPage.type)
         if (NavigationSplitView.getTypeOrNull() != null) put(NavigationSplitView::class, NavigationSplitView.type)
         if (NavigationView.getTypeOrNull() != null) put(NavigationView::class, NavigationView.type)
@@ -66,6 +71,8 @@ public object AdwTypeProvider : TypeProvider {
             put(PropertyAnimationTarget::class, PropertyAnimationTarget.type)
         }
         if (SpinRow.getTypeOrNull() != null) put(SpinRow::class, SpinRow.type)
+        if (Spinner.getTypeOrNull() != null) put(Spinner::class, Spinner.type)
+        if (SpinnerPaintable.getTypeOrNull() != null) put(SpinnerPaintable::class, SpinnerPaintable.type)
         if (SplitButton.getTypeOrNull() != null) put(SplitButton::class, SplitButton.type)
         if (SpringAnimation.getTypeOrNull() != null) put(SpringAnimation::class, SpringAnimation.type)
         if (Squeezer.getTypeOrNull() != null) put(Squeezer::class, Squeezer.type)

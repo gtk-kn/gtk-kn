@@ -169,6 +169,15 @@ import kotlin.Unit
  * }
  * ```
  *
+ * # Deprecation
+ *
+ * This feature was deprecated in GTK 4.16 after the new rendering infrastructure
+ * introduced in 4.14 did not support it.
+ * The lack of Vulkan integration would have made it a very hard feature to support.
+ *
+ * If you want to use OpenGL directly, you should look at [GtkGLArea](../gtk4/class.GLArea.html)
+ * which uses a different approach and is still well supported.
+ *
  * ## Skipped during bindings generation
  *
  * - method `format_args`: Varargs parameter is not supported
@@ -189,6 +198,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
      */
     public open val resource: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.16.
+         *
+         * GTK's new Vulkan-focused rendering
+         *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+         *   for OpenGL rendering.
+         * ---
+         *
          * Gets the resource path for the GLSL sourcecode being used
          * to render this shader.
          *
@@ -196,8 +214,20 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
          */
         get() = gsk_gl_shader_get_resource(gskGlShaderPointer)?.toKString()
 
+    /**
+     * The source code for the shader, as a `GBytes`.
+     */
     public open val source: Bytes
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.16.
+         *
+         * GTK's new Vulkan-focused rendering
+         *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+         *   for OpenGL rendering.
+         * ---
+         *
          * Gets the GLSL sourcecode being used to render this shader.
          *
          * @return The source code for the shader
@@ -207,6 +237,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Creates a `GskGLShader` that will render pixels using the specified code.
      *
      * @param sourcecode GLSL sourcecode for the shader, as a `GBytes`
@@ -217,6 +256,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Creates a `GskGLShader` that will render pixels using the specified code.
      *
      * @param resourcePath path to a resource that contains the GLSL sourcecode for
@@ -228,6 +276,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Tries to compile the @shader for the given @renderer.
      *
      * If there is a problem, this function returns false and reports
@@ -255,6 +312,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Looks for a uniform by the name @name, and returns the index
      * of the uniform, or -1 if it was not found.
      *
@@ -264,6 +330,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
     public open fun findUniformByName(name: String): gint = gsk_gl_shader_find_uniform_by_name(gskGlShaderPointer, name)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Gets the value of the uniform @idx in the @args block.
      *
      * The uniform must be of bool type.
@@ -276,6 +351,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
         gsk_gl_shader_get_arg_bool(gskGlShaderPointer, args.glibBytesPointer, idx).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Gets the value of the uniform @idx in the @args block.
      *
      * The uniform must be of float type.
@@ -288,6 +372,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
         gsk_gl_shader_get_arg_float(gskGlShaderPointer, args.glibBytesPointer, idx)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Gets the value of the uniform @idx in the @args block.
      *
      * The uniform must be of int type.
@@ -300,6 +393,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
         gsk_gl_shader_get_arg_int(gskGlShaderPointer, args.glibBytesPointer, idx)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Gets the value of the uniform @idx in the @args block.
      *
      * The uniform must be of uint type.
@@ -312,6 +414,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
         gsk_gl_shader_get_arg_uint(gskGlShaderPointer, args.glibBytesPointer, idx)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Gets the value of the uniform @idx in the @args block.
      *
      * The uniform must be of vec2 type.
@@ -324,6 +435,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
         gsk_gl_shader_get_arg_vec2(gskGlShaderPointer, args.glibBytesPointer, idx, outValue.grapheneVec2Pointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Gets the value of the uniform @idx in the @args block.
      *
      * The uniform must be of vec3 type.
@@ -336,6 +456,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
         gsk_gl_shader_get_arg_vec3(gskGlShaderPointer, args.glibBytesPointer, idx, outValue.grapheneVec3Pointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Gets the value of the uniform @idx in the @args block.
      *
      * The uniform must be of vec4 type.
@@ -348,6 +477,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
         gsk_gl_shader_get_arg_vec4(gskGlShaderPointer, args.glibBytesPointer, idx, outValue.grapheneVec4Pointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Get the size of the data block used to specify arguments for this shader.
      *
      * @return The size of the data block
@@ -355,6 +493,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
     public open fun getArgsSize(): gsize = gsk_gl_shader_get_args_size(gskGlShaderPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Returns the number of textures that the shader requires.
      *
      * This can be used to check that the a passed shader works
@@ -366,6 +513,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
     public open fun getNTextures(): gint = gsk_gl_shader_get_n_textures(gskGlShaderPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Get the number of declared uniforms for this shader.
      *
      * @return The number of declared uniforms
@@ -373,6 +529,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
     public open fun getNUniforms(): gint = gsk_gl_shader_get_n_uniforms(gskGlShaderPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Get the name of the declared uniform for this shader at index @idx.
      *
      * @param idx index of the uniform
@@ -382,6 +547,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
         gsk_gl_shader_get_uniform_name(gskGlShaderPointer, idx)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Get the offset into the data block where data for this uniforms is stored.
      *
      * @param idx index of the uniform
@@ -390,6 +564,15 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
     public open fun getUniformOffset(idx: gint): gint = gsk_gl_shader_get_uniform_offset(gskGlShaderPointer, idx)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Get the type of the declared uniform for this shader at index @idx.
      *
      * @param idx index of the uniform

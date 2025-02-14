@@ -230,7 +230,7 @@ public open class DataInputStream(public val gioDataInputStreamPointer: CPointer
      * can then call g_data_input_stream_read_line_finish() to get
      * the result of the operation.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback callback to call when the request is satisfied.
      * @since 2.20
@@ -347,7 +347,7 @@ public open class DataInputStream(public val gioDataInputStreamPointer: CPointer
      * g_data_input_stream_read_upto_async() instead.
      *
      * @param stopChars characters to terminate the read.
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback callback to call when the request is satisfied.
      * @since 2.20
@@ -388,7 +388,7 @@ public open class DataInputStream(public val gioDataInputStreamPointer: CPointer
      * @param stopChars characters to terminate the read
      * @param stopCharsLen length of @stop_chars. May be -1 if @stop_chars is
      *     nul-terminated
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object, null to ignore
      * @param callback callback to call when the request is satisfied
      * @since 2.26

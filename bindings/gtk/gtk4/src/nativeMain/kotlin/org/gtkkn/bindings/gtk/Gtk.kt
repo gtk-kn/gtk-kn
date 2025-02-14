@@ -75,6 +75,8 @@ import org.gtkkn.native.gtk.GtkPageSetup
 import org.gtkkn.native.gtk.GtkPrintJob
 import org.gtkkn.native.gtk.GtkPrinter
 import org.gtkkn.native.gtk.GtkScale
+import org.gtkkn.native.gtk.GtkTextBuffer
+import org.gtkkn.native.gtk.GtkTextBufferNotifyFlags
 import org.gtkkn.native.gtk.GtkTextTag
 import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.GtkTreeModel
@@ -659,8 +661,11 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val BINARY_AGE: gint = 1402
+    public const val BINARY_AGE: gint = 1612
 
+    /**
+     * The default name of the extension point.
+     */
     public const val IM_MODULE_EXTENSION_POINT_NAME: String = "gtk-im-module"
 
     /**
@@ -676,7 +681,7 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val INTERFACE_AGE: gint = 2
+    public const val INTERFACE_AGE: gint = 12
 
     /**
      * The value used to refer to a guaranteed invalid position
@@ -713,8 +718,16 @@ public object Gtk {
      */
     public const val MAJOR_VERSION: gint = 4
 
+    /**
+     * Evaluates to the maximum length of a compose sequence.
+     *
+     * This macro is longer used by GTK.
+     */
     public const val MAX_COMPOSE_LEN: gint = 7
 
+    /**
+     * The default extension point name for media file.
+     */
     public const val MEDIA_FILE_EXTENSION_POINT_NAME: String = "gtk-media-file"
 
     /**
@@ -722,14 +735,14 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: gint = 2
+    public const val MICRO_VERSION: gint = 12
 
     /**
      * Like [func@get_minor_version], but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MINOR_VERSION: gint = 14
+    public const val MINOR_VERSION: gint = 16
 
     /**
      * Name for the A3 paper size.
@@ -766,24 +779,60 @@ public object Gtk {
      */
     public const val PAPER_NAME_LETTER: String = "na_letter"
 
+    /**
+     * The key used by the “Print to file” printer to store whether to collate the
+     * printed pages.
+     */
     public const val PRINT_SETTINGS_COLLATE: String = "collate"
 
+    /**
+     * The key used by the “Print to file” printer to store the default source.
+     */
     public const val PRINT_SETTINGS_DEFAULT_SOURCE: String = "default-source"
 
+    /**
+     * The key used by the “Print to file” printer to store the dither used.
+     */
     public const val PRINT_SETTINGS_DITHER: String = "dither"
 
+    /**
+     * The key used by the “Print to file” printer to store whether to print the
+     * output in duplex.
+     */
     public const val PRINT_SETTINGS_DUPLEX: String = "duplex"
 
+    /**
+     * The key used by the “Print to file” printer to store the finishings.
+     */
     public const val PRINT_SETTINGS_FINISHINGS: String = "finishings"
 
+    /**
+     * The key used by the “Print to file” printer to store the media type.
+     *
+     * The set of media types is defined in PWG 5101.1-2002 PWG.
+     */
     public const val PRINT_SETTINGS_MEDIA_TYPE: String = "media-type"
 
+    /**
+     * The key used by the “Print to file” printer to store the number of pages per
+     * sheet.
+     */
     public const val PRINT_SETTINGS_NUMBER_UP: String = "number-up"
 
+    /**
+     * The key used by the “Print to file” printer to store the number of pages per
+     * sheet in number-up mode.
+     */
     public const val PRINT_SETTINGS_NUMBER_UP_LAYOUT: String = "number-up-layout"
 
+    /**
+     * The key used by the “Print to file” printer to store the number of copies.
+     */
     public const val PRINT_SETTINGS_N_COPIES: String = "n-copies"
 
+    /**
+     * The key used by the “Print to file” printer to store the orientation.
+     */
     public const val PRINT_SETTINGS_ORIENTATION: String = "orientation"
 
     /**
@@ -793,6 +842,9 @@ public object Gtk {
      */
     public const val PRINT_SETTINGS_OUTPUT_BASENAME: String = "output-basename"
 
+    /**
+     * The key used by the “Print to file” printer to store the output bin.
+     */
     public const val PRINT_SETTINGS_OUTPUT_BIN: String = "output-bin"
 
     /**
@@ -814,38 +866,97 @@ public object Gtk {
      */
     public const val PRINT_SETTINGS_OUTPUT_URI: String = "output-uri"
 
+    /**
+     * The key used by the “Print to file” printer to store the array of page ranges
+     * to print.
+     */
     public const val PRINT_SETTINGS_PAGE_RANGES: String = "page-ranges"
 
+    /**
+     * The key used by the “Print to file” printer to store the set of pages to print.
+     */
     public const val PRINT_SETTINGS_PAGE_SET: String = "page-set"
 
+    /**
+     * The key used by the “Print to file” printer to store the page format.
+     */
     public const val PRINT_SETTINGS_PAPER_FORMAT: String = "paper-format"
 
+    /**
+     * The key used by the “Print to file” printer to store the page height.
+     */
     public const val PRINT_SETTINGS_PAPER_HEIGHT: String = "paper-height"
 
+    /**
+     * The key used by the “Print to file” printer to store the paper width.
+     */
     public const val PRINT_SETTINGS_PAPER_WIDTH: String = "paper-width"
 
+    /**
+     * The key used by the “Print to file” printer to store the printer name.
+     */
     public const val PRINT_SETTINGS_PRINTER: String = "printer"
 
+    /**
+     * The key used by the “Print to file” printer to store the resolution in lines
+     * per inch.
+     */
     public const val PRINT_SETTINGS_PRINTER_LPI: String = "printer-lpi"
 
+    /**
+     * The key used by the “Print to file” printer to store which pages to print.
+     */
     public const val PRINT_SETTINGS_PRINT_PAGES: String = "print-pages"
 
+    /**
+     * The key used by the “Print to file” printer to store the printing quality.
+     */
     public const val PRINT_SETTINGS_QUALITY: String = "quality"
 
+    /**
+     * The key used by the “Print to file” printer to store the resolution in DPI.
+     */
     public const val PRINT_SETTINGS_RESOLUTION: String = "resolution"
 
+    /**
+     * The key used by the “Print to file” printer to store the horizontal
+     * resolution in DPI.
+     */
     public const val PRINT_SETTINGS_RESOLUTION_X: String = "resolution-x"
 
+    /**
+     * The key used by the “Print to file” printer to store the vertical resolution
+     * in DPI.
+     */
     public const val PRINT_SETTINGS_RESOLUTION_Y: String = "resolution-y"
 
+    /**
+     * The key used by the “Print to file” printer to store whether to reverse the
+     * order of the printed pages.
+     */
     public const val PRINT_SETTINGS_REVERSE: String = "reverse"
 
+    /**
+     * The key used by the “Print to file” printer to store the scale.
+     */
     public const val PRINT_SETTINGS_SCALE: String = "scale"
 
+    /**
+     * The key used by the “Print to file” printer to store whether to print with
+     * colors.
+     */
     public const val PRINT_SETTINGS_USE_COLOR: String = "use-color"
 
+    /**
+     * The key used by the “Print to file” printer to store 32-bit Windows extra
+     * driver.
+     */
     public const val PRINT_SETTINGS_WIN32_DRIVER_EXTRA: String = "win32-driver-extra"
 
+    /**
+     * The key used by the “Print to file” printer to store the 32-bit Windows
+     * driver version.
+     */
     public const val PRINT_SETTINGS_WIN32_DRIVER_VERSION: String = "win32-driver-version"
 
     /**
@@ -1068,8 +1179,18 @@ public object Gtk {
     public fun checkVersion(requiredMajor: guint, requiredMinor: guint, requiredMicro: guint): String? =
         gtk_check_version(requiredMajor, requiredMinor, requiredMicro)?.toKString()
 
+    /**
+     * Registers an error quark for CSS parsing errors.
+     *
+     * @return the error quark
+     */
     public fun cssParserErrorQuark(): Quark = gtk_css_parser_error_quark()
 
+    /**
+     * Registers an error quark for CSS parsing warnings.
+     *
+     * @return the warning quark
+     */
     public fun cssParserWarningQuark(): Quark = gtk_css_parser_warning_quark()
 
     /**
@@ -1703,7 +1824,6 @@ public object Gtk {
      * a given uri.
      *
      * The @callback will be called when the launch is completed.
-     * It should call gtk_show_uri_full_finish() to obtain the result.
      *
      * This is the recommended call to be used as it passes information
      * necessary for sandbox helpers to parent their dialogs properly.
@@ -1736,8 +1856,8 @@ public object Gtk {
      *
      * This is deprecated since version 4.10.
      *
-     * Use [method@Gtk.FileLauncher.launch_finish] or
-     *   [method@Gtk.UriLauncher.launch_finish] instead
+     * Use [method@Gtk.FileLauncher.launch] or
+     *   [method@Gtk.UriLauncher.launch] instead
      * ---
      *
      * Finishes the gtk_show_uri() call and returns the result
@@ -1762,6 +1882,18 @@ public object Gtk {
         }
     }
 
+    /**
+     * Prints an assertion message for gtk_test_accessible_assert_role().
+     *
+     * @param domain a domain
+     * @param file a file name
+     * @param line the line in @file
+     * @param func a function name in @file
+     * @param expr the expression being tested
+     * @param accessible a `GtkAccessible`
+     * @param expectedRole the expected `GtkAccessibleRole`
+     * @param actualRole the actual `GtkAccessibleRole`
+     */
     public fun testAccessibleAssertionMessageRole(
         domain: String,
         `file`: String,
@@ -3269,6 +3401,42 @@ public val ShortcutFuncFunc:
     }
         .reinterpret()
 
+public val TextBufferCommitNotifyFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GtkTextBuffer>,
+            GtkTextBufferNotifyFlags,
+            guint,
+            guint,
+        ) -> Unit
+        >
+    > = staticCFunction {
+        buffer: CPointer<GtkTextBuffer>?,
+        flags: GtkTextBufferNotifyFlags,
+        position: guint,
+        length: guint,
+        userData: gpointer?,
+    ->
+    userData!!.asStableRef<
+        (
+            buffer: TextBuffer,
+            flags: TextBufferNotifyFlags,
+            position: guint,
+            length: guint,
+        ) -> Unit
+        >().get().invoke(
+        buffer!!.run {
+            InstanceCache.get(this, false) { TextBuffer(reinterpret()) }!!
+        },
+        flags.run {
+            TextBufferNotifyFlags(this)
+        },
+        position,
+        length
+    )
+}
+    .reinterpret()
+
 public val TextCharPredicateFunc: CPointer<CFunction<(gunichar) -> gboolean>> = staticCFunction {
         ch: gunichar,
         userData: gpointer?,
@@ -3981,10 +4149,11 @@ public typealias PageSetupDoneFunc = (pageSetup: PageSetup) -> Unit
 public typealias PrintJobCompleteFunc = (printJob: PrintJob, error: Error) -> Unit
 
 /**
+ * Function called by [method@Gtk.PrintSettings.foreach] on every key/value pair
+ * inside a [class@Gtk.PrintSettings].
  *
- *
- * - param `key`
- * - param `value`
+ * - param `key` the setting key
+ * - param `value` the setting value
  */
 public typealias PrintSettingsFunc = (key: String, `value`: String) -> Unit
 
@@ -4000,7 +4169,9 @@ public typealias PrintSettingsFunc = (key: String, `value`: String) -> Unit
 public typealias PrinterFunc = (printer: Printer) -> Boolean
 
 /**
+ * Function that formats the value of a scale.
  *
+ * See [method@Gtk.Scale.set_format_value_func].
  *
  * - param `scale` The `GtkScale`
  * - param `value` The numeric value to format
@@ -4017,6 +4188,52 @@ public typealias ScaleFormatValueFunc = (scale: Scale, `value`: gdouble) -> Stri
  * - return true if the action was successful.
  */
 public typealias ShortcutFunc = (widget: Widget, args: Variant?) -> Boolean
+
+/**
+ * A notification callback used by [method@Gtk.TextBuffer.add_commit_notify].
+ *
+ * You may not modify the [class@Gtk.TextBuffer] from a
+ * [callback@Gtk.TextBufferCommitNotify] callback and that is enforced
+ * by the [class@Gtk.TextBuffer] API.
+ *
+ * [callback@Gtk.TextBufferCommitNotify] may be used to be notified about
+ * changes to the underlying buffer right before-or-after the changes are
+ * committed to the underlying B-Tree. This is useful if you want to observe
+ * changes to the buffer without other signal handlers potentially modifying
+ * state on the way to the default signal handler.
+ *
+ * When @flags is `GTK_TEXT_BUFFER_NOTIFY_BEFORE_INSERT`, `position` is set to
+ * the offset in characters from the start of the buffer where the insertion
+ * will occur. `length` is set to the number of characters to be inserted.  You
+ * may not yet retrieve the text until it has been inserted. You may access the
+ * text from `GTK_TEXT_BUFFER_NOTIFY_AFTER_INSERT` using
+ * [method@Gtk.TextBuffer.get_slice].
+ *
+ * When @flags is `GTK_TEXT_BUFFER_NOTIFY_AFTER_INSERT`, `position` is set to
+ * offset in characters where the insertion occurred and `length` is set
+ * to the number of characters inserted.
+ *
+ * When @flags is `GTK_TEXT_BUFFER_NOTIFY_BEFORE_DELETE`, `position` is set to
+ * offset in characters where the deletion will occur and `length` is set
+ * to the number of characters that will be removed. You may still retrieve
+ * the text from this handler using `position` and `length`.
+ *
+ * When @flags is `GTK_TEXT_BUFFER_NOTIFY_AFTER_DELETE`, `length` is set to
+ * zero to denote that the delete-range has already been committed to the
+ * underlying B-Tree. You may no longer retrieve the text that has been
+ * deleted from the [class@Gtk.TextBuffer].
+ *
+ * - param `buffer` the text buffer being notified
+ * - param `flags` the type of commit notification
+ * - param `position` the position of the text operation
+ * - param `length` the length of the text operation in characters
+ */
+public typealias TextBufferCommitNotify = (
+    buffer: TextBuffer,
+    flags: TextBufferNotifyFlags,
+    position: guint,
+    length: guint,
+) -> Unit
 
 /**
  * The predicate function used by gtk_text_iter_forward_find_char() and

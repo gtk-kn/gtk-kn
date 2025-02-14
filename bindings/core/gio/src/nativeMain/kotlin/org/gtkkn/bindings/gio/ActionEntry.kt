@@ -20,15 +20,15 @@ import kotlin.String
 
 /**
  * This struct defines a single action.  It is for use with
- * g_action_map_add_action_entries().
+ * [method@Gio.ActionMap.add_action_entries].
  *
  * The order of the items in the structure are intended to reflect
  * frequency of use.  It is permissible to use an incomplete initialiser
- * in order to leave some of the later values as null.  All values
+ * in order to leave some of the later values as `NULL`.  All values
  * after @name are optional.  Additional optional fields may be added in
  * the future.
  *
- * See g_action_map_add_action_entries() for an example.
+ * See [method@Gio.ActionMap.add_action_entries] for an example.
  *
  * ## Skipped during bindings generation
  *
@@ -51,8 +51,8 @@ public class ActionEntry(public val gioActionEntryPointer: CPointer<GActionEntry
 
     /**
      * the type of the parameter that must be passed to the
-     *                  activate function for this action, given as a single
-     *                  GVariant type string (or null for no parameter)
+     *   activate function for this action, given as a single GVariant type string
+     *   (or `NULL` for no parameter)
      */
     public var parameterType: String?
         get() = gioActionEntryPointer.pointed.parameter_type?.toKString()
@@ -65,10 +65,9 @@ public class ActionEntry(public val gioActionEntryPointer: CPointer<GActionEntry
 
     /**
      * the initial state for this action, given in
-     *         [GVariant text format][gvariant-text].  The state is parsed
-     *         with no extra type information, so type tags must be added to
-     *         the string if they are necessary.  Stateless actions should
-     *         give null here.
+     *   [GVariant text format](gvariant-text-format.html).  The state is parsed
+     *   with no extra type information, so type tags must be added to the string
+     *   if they are necessary.  Stateless actions should give `NULL` here.
      */
     public var state: String?
         get() = gioActionEntryPointer.pointed.state?.toKString()
@@ -106,13 +105,12 @@ public class ActionEntry(public val gioActionEntryPointer: CPointer<GActionEntry
      *
      * @param name the name of the action
      * @param parameterType the type of the parameter that must be passed to the
-     *                  activate function for this action, given as a single
-     *                  GVariant type string (or null for no parameter)
+     *   activate function for this action, given as a single GVariant type string
+     *   (or `NULL` for no parameter)
      * @param state the initial state for this action, given in
-     *         [GVariant text format][gvariant-text].  The state is parsed
-     *         with no extra type information, so type tags must be added to
-     *         the string if they are necessary.  Stateless actions should
-     *         give null here.
+     *   [GVariant text format](gvariant-text-format.html).  The state is parsed
+     *   with no extra type information, so type tags must be added to the string
+     *   if they are necessary.  Stateless actions should give `NULL` here.
      */
     public constructor(
         name: String?,
@@ -131,13 +129,12 @@ public class ActionEntry(public val gioActionEntryPointer: CPointer<GActionEntry
      *
      * @param name the name of the action
      * @param parameterType the type of the parameter that must be passed to the
-     *                  activate function for this action, given as a single
-     *                  GVariant type string (or null for no parameter)
+     *   activate function for this action, given as a single GVariant type string
+     *   (or `NULL` for no parameter)
      * @param state the initial state for this action, given in
-     *         [GVariant text format][gvariant-text].  The state is parsed
-     *         with no extra type information, so type tags must be added to
-     *         the string if they are necessary.  Stateless actions should
-     *         give null here.
+     *   [GVariant text format](gvariant-text-format.html).  The state is parsed
+     *   with no extra type information, so type tags must be added to the string
+     *   if they are necessary.  Stateless actions should give `NULL` here.
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(

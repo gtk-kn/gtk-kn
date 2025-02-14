@@ -26,6 +26,17 @@ public open class VulkanRenderer(public val gskVulkanRendererPointer: CPointer<G
         Gsk
     }
 
+    /**
+     * Creates a new Vulkan renderer.
+     *
+     * The Vulkan renderer is a renderer that uses the Vulkan library for
+     * rendering.
+     *
+     * This renderer will fail to realize when GTK was not compiled with
+     * Vulkan support.
+     *
+     * @return a new Vulkan renderer
+     */
     public constructor() : this(gsk_vulkan_renderer_new()!!.reinterpret()) {
         InstanceCache.put(this)
     }

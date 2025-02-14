@@ -90,8 +90,6 @@ import kotlin.Boolean
  *
  * ```xml
  * <object class="AdwWindow">
- *   <property name="width-request">360</property>
- *   <property name="height-request">200</property>
  *   <property name="default-width">800</property>
  *   <property name="default-height">800</property>
  *   <child>

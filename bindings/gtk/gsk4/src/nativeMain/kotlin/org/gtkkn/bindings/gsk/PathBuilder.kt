@@ -113,7 +113,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * You can use cairo_copy_path() to access the path
      * from a Cairo context.
      *
-     * @param path
+     * @param path a path
      * @since 4.14
      */
     @GskVersion4_14
@@ -215,10 +215,10 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
     )
 
     /**
-     * Adds an elliptical arc from the current point to @x3, @y3
+     * Adds an elliptical arc from the current point to @x2, @y2
      * with @x1, @y1 determining the tangent directions.
      *
-     * After this, @x3, @y3 will be the new current point.
+     * After this, @x2, @y2 will be the new current point.
      *
      * Note: Two points and their tangents do not determine
      * a unique ellipse, so GSK just picks one. If you need more
@@ -427,7 +427,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
     }
 
     /**
-     * Adds an elliptical arc from the current point to @x3, @y3
+     * Adds an elliptical arc from the current point to @x2, @y2
      * with @x1, @y1 determining the tangent directions.
      *
      * All coordinates are given relative to the current point.

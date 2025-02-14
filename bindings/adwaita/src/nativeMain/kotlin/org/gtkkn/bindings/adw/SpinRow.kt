@@ -92,6 +92,11 @@ import kotlin.Unit
  * `AdwSpinRow` has the same structure as [class@ActionRow], as well as the
  * `.spin` style class on the main node.
  *
+ * ## Accessibility
+ *
+ * `AdwSpinRow` uses an internal `GtkSpinButton` with the
+ * `GTK_ACCESSIBLE_ROLE_SPIN_BUTTON` role.
+ *
  * ## Skipped during bindings generation
  *
  * - method `adjustment`: Property TypeInfo of getter and setter do not match

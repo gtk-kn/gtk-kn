@@ -6,6 +6,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
@@ -388,7 +389,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: Boolean) : this(g_variant_new_boolean(`value`.asGBoolean())!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -399,7 +400,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: guint8) : this(g_variant_new_byte(`value`)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -421,7 +422,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
             g_variant_new_objv(strv.toCStringList(this), length)!!
         }
     ) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -440,7 +441,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
         key: Variant,
         `value`: Variant,
     ) : this(g_variant_new_dict_entry(key.glibVariantPointer, `value`.glibVariantPointer)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -451,7 +452,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: gdouble) : this(g_variant_new_double(`value`)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -482,7 +483,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
         nElements: gsize,
         elementSize: gsize,
     ) : this(g_variant_new_fixed_array(elementType.glibVariantTypePointer, elements, nElements, elementSize)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -507,7 +508,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
         bytes: Bytes,
         trusted: Boolean,
     ) : this(g_variant_new_from_bytes(type.glibVariantTypePointer, bytes.glibBytesPointer, trusted.asGBoolean())!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -518,7 +519,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: gint) : this(g_variant_new_int32(`value`)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -529,7 +530,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: Short) : this(g_variant_new_int16(`value`)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -540,7 +541,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: gint64) : this(g_variant_new_int64(`value`)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -564,7 +565,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
         childType: VariantType? = null,
         child: Variant? = null,
     ) : this(g_variant_new_maybe(childType?.glibVariantTypePointer, child?.glibVariantPointer)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -572,14 +573,14 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      *
      * @string must be valid UTF-8, and must not be null. To encode
      * potentially-null strings, use g_variant_new() with `ms` as the
-     * [format string][gvariant-format-strings-maybe-types].
+     * [format string](gvariant-format-strings.html#maybe-types).
      *
      * @param string a normal UTF-8 nul-terminated string
      * @return a floating reference to a new string #GVariant instance
      * @since 2.24
      */
     public constructor(string: kotlin.String) : this(g_variant_new_string(string)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -590,7 +591,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: guint16) : this(g_variant_new_uint16(`value`)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -601,7 +602,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: guint) : this(g_variant_new_uint32(`value`)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -612,7 +613,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: guint64) : this(g_variant_new_uint64(`value`)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -627,7 +628,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     public constructor(`value`: Variant) : this(g_variant_new_variant(`value`.glibVariantPointer)!!) {
-        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
     }
 
     /**
@@ -1194,7 +1195,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
     /**
      * Pretty-prints @value in the format understood by g_variant_parse().
      *
-     * The format is described [here][gvariant-text].
+     * The format is described [here](gvariant-text-format.html).
      *
      * If @type_annotate is true, then type information is included in
      * the output.
@@ -1353,7 +1354,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
         public fun strv(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_strv(strv.toCStringList(this), length)!!).apply {
-                    MemoryCleaner.setBoxedType(this, getType(), owned = true)
+                    MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
                 }
             }
         }
@@ -1372,7 +1373,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
         public fun bytestringArray(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
                 return Variant(g_variant_new_bytestring_array(strv.toCStringList(this), length)!!).apply {
-                    MemoryCleaner.setBoxedType(this, getType(), owned = true)
+                    MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
                 }
             }
         }
@@ -1389,7 +1390,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          * @since 2.24
          */
         public fun handle(`value`: gint): Variant = Variant(g_variant_new_handle(`value`)!!).apply {
-            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+            MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
         }
 
         /**
@@ -1402,7 +1403,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          * @since 2.24
          */
         public fun signature(signature: kotlin.String): Variant = Variant(g_variant_new_signature(signature)!!).apply {
-            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+            MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
         }
 
         /**
@@ -1416,7 +1417,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          */
         public fun objectPath(objectPath: kotlin.String): Variant =
             Variant(g_variant_new_object_path(objectPath)!!).apply {
-                MemoryCleaner.setBoxedType(this, getType(), owned = true)
+                MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
             }
 
         /**
@@ -1440,7 +1441,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          */
         public fun takeString(string: kotlin.String): Variant =
             Variant(g_variant_new_take_string(string.cstr)!!).apply {
-                MemoryCleaner.setBoxedType(this, getType(), owned = true)
+                MemoryCleaner.setFreeFunc(this, owned = true) { g_variant_unref(it.reinterpret()) }
             }
 
         /**

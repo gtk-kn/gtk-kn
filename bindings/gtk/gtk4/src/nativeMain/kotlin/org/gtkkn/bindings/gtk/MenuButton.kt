@@ -459,9 +459,9 @@ public open class MenuButton(public val gtkMenuButtonPointer: CPointer<GtkMenuBu
      * Using this function will not reset the menu widget attached to
      * @menu_button. Instead, this can be done manually in @func.
      *
-     * @param func function to call when a popup is about to
-     *   be shown, but none has been provided via other means, or null
-     *   to reset to default behavior.
+     * @param func function
+     *   to call when a popup is about to be shown, but none has been provided via other means,
+     *   or null to reset to default behavior
      */
     public open fun setCreatePopupFunc(func: MenuButtonCreatePopupFunc?): Unit = gtk_menu_button_set_create_popup_func(
         gtkMenuButtonPointer,

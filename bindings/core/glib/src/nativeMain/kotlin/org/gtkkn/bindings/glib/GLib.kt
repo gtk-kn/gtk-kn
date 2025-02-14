@@ -585,6 +585,7 @@ import kotlin.collections.List
  * - parameter `argcp`: argcp: Out parameter is not supported
  * - parameter `n_values`: Unsupported pointer to primitive type
  * - function `snprintf`: Varargs parameter is not supported
+ * - parameter `array`: Array parameter of type gpointer is not supported
  * - parameter `child_pid`: child_pid: Out parameter is not supported
  * - parameter `child_pid`: child_pid: Out parameter is not supported
  * - parameter `child_pid`: child_pid: Out parameter is not supported
@@ -692,6 +693,10 @@ public object GLib {
      */
     public const val ATOMIC_REF_COUNT_INIT: gint = 1
 
+    /**
+     * Specifies one of the possible types of byte order.
+     * See %G_BYTE_ORDER.
+     */
     public const val BIG_ENDIAN: gint = 4321
 
     /**
@@ -715,6 +720,19 @@ public object GLib {
      */
     public const val CSET_a_2_z: kotlin.String = "abcdefghijklmnopqrstuvwxyz"
 
+    /**
+     * The C standard version the code is compiling against, it's normally
+     * defined with the same value of `__STDC_VERSION__` for C standard
+     * compatible compilers, while it uses the lowest standard version
+     * in pure MSVC, given that in such compiler the definition depends on
+     * a compilation flag.
+     *
+     * This is granted to be undefined when compiling with a C++ compiler.
+     *
+     * See also: %G_C_STD_CHECK_VERSION and %G_CXX_STD_VERSION
+     *
+     * @since 2.76
+     */
     public const val C_STD_VERSION: gint = 199000
 
     /**
@@ -739,10 +757,21 @@ public object GLib {
      */
     public const val DATE_BAD_YEAR: gint = 0
 
+    /**
+     * The directory separator character.
+     * This is '/' on UNIX machines and '\' under Windows.
+     */
     public const val DIR_SEPARATOR: gint = 47
 
+    /**
+     * The directory separator as a string.
+     * This is "/" on UNIX machines and "\" under Windows.
+     */
     public const val DIR_SEPARATOR_S: kotlin.String = "/"
 
+    /**
+     * The base of natural logarithms.
+     */
     public const val E: gdouble = 2.718282
 
     public const val GINT16_FORMAT: kotlin.String = "hi"
@@ -753,9 +782,9 @@ public object GLib {
 
     public const val GINT32_MODIFIER: kotlin.String = ""
 
-    public const val GINT64_FORMAT: kotlin.String = "li"
+    public const val GINT64_FORMAT: kotlin.String = "lli"
 
-    public const val GINT64_MODIFIER: kotlin.String = "l"
+    public const val GINT64_MODIFIER: kotlin.String = "ll"
 
     public const val GINTPTR_FORMAT: kotlin.String = "li"
 
@@ -799,7 +828,7 @@ public object GLib {
 
     public const val GUINT32_FORMAT: kotlin.String = "u"
 
-    public const val GUINT64_FORMAT: kotlin.String = "lu"
+    public const val GUINT64_FORMAT: kotlin.String = "llu"
 
     public const val GUINTPTR_FORMAT: kotlin.String = "lu"
 
@@ -807,6 +836,9 @@ public object GLib {
 
     public const val HAVE_GNUC_VARARGS: gint = 1
 
+    /**
+     * Defined to 1 if gcc-style visibility handling is supported.
+     */
     public const val HAVE_GNUC_VISIBILITY: gint = 1
 
     public const val HAVE_GROWING_STACK: gint = 0
@@ -821,8 +853,14 @@ public object GLib {
      */
     public const val HOOK_FLAG_USER_SHIFT: gint = 4
 
+    /**
+     * The bias by which exponents in double-precision floats are offset.
+     */
     public const val IEEE754_DOUBLE_BIAS: gint = 1023
 
+    /**
+     * The bias by which exponents in single-precision floats are offset.
+     */
     public const val IEEE754_FLOAT_BIAS: gint8 = Byte.MAX_VALUE
 
     /**
@@ -1046,12 +1084,25 @@ public object GLib {
      */
     public const val KEY_FILE_DESKTOP_TYPE_LINK: kotlin.String = "Link"
 
+    /**
+     * Specifies one of the possible types of byte order.
+     * See %G_BYTE_ORDER.
+     */
     public const val LITTLE_ENDIAN: gint = 1234
 
+    /**
+     * The natural logarithm of 10.
+     */
     public const val LN10: gdouble = 2.302585
 
+    /**
+     * The natural logarithm of 2.
+     */
     public const val LN2: gdouble = 0.693147
 
+    /**
+     * Multiplying the base 2 exponent by this number yields the base 10 exponent.
+     */
     public const val LOG_2_BASE_10: gdouble = 0.301030
 
     /**
@@ -1127,7 +1178,7 @@ public object GLib {
      * application compile time, rather than from the library
      * linked against at application run time.
      */
-    public const val MICRO_VERSION: gint = 0
+    public const val MICRO_VERSION: gint = 4
 
     /**
      * The minimum value which can be held in a #gint16.
@@ -1162,7 +1213,7 @@ public object GLib {
      * application compile time, rather than from the library
      * linked against at application run time.
      */
-    public const val MINOR_VERSION: gint = 80
+    public const val MINOR_VERSION: gint = 82
 
     public const val MODULE_SUFFIX: kotlin.String = "so"
 
@@ -1182,8 +1233,15 @@ public object GLib {
      */
     public const val OPTION_REMAINING: kotlin.String = ""
 
+    /**
+     * Specifies one of the possible types of byte order
+     * (currently unused). See %G_BYTE_ORDER.
+     */
     public const val PDP_ENDIAN: gint = 3412
 
+    /**
+     * The value of pi (ratio of circle's circumference to its diameter).
+     */
     public const val PI: gdouble = 3.141593
 
     /**
@@ -1194,8 +1252,14 @@ public object GLib {
      */
     public const val PID_FORMAT: kotlin.String = "i"
 
+    /**
+     * Pi divided by 2.
+     */
     public const val PI_2: gdouble = 1.570796
 
+    /**
+     * Pi divided by 4.
+     */
     public const val PI_4: gdouble = 0.785398
 
     /**
@@ -1208,7 +1272,7 @@ public object GLib {
      * Use this for default priority event sources.
      *
      * In GLib this priority is used when adding timeout functions
-     * with g_timeout_add(). In GDK this priority is used for events
+     * with [func@GLib.timeout_add]. In GDK this priority is used for events
      * from the X server.
      */
     public const val PRIORITY_DEFAULT: gint = 0
@@ -1217,7 +1281,7 @@ public object GLib {
      * Use this for default priority idle functions.
      *
      * In GLib this priority is used when adding idle functions with
-     * g_idle_add().
+     * [func@GLib.idle_add].
      */
     public const val PRIORITY_DEFAULT_IDLE: gint = 200
 
@@ -1269,8 +1333,16 @@ public object GLib {
      */
     public const val REF_COUNT_INIT: gint = -1
 
+    /**
+     * The search path separator character.
+     * This is ':' on UNIX machines and ';' under Windows.
+     */
     public const val SEARCHPATH_SEPARATOR: gint = 58
 
+    /**
+     * The search path separator as a string.
+     * This is ":" on UNIX machines and ";" under Windows.
+     */
     public const val SEARCHPATH_SEPARATOR_S: kotlin.String = ":"
 
     public const val SIZEOF_LONG: gint = 8
@@ -1282,21 +1354,24 @@ public object GLib {
     public const val SIZEOF_VOID_P: gint = 8
 
     /**
-     * Use this macro as the return value of a #GSourceFunc to leave
-     * the #GSource in the main loop.
+     * Use this macro as the return value of a [callback@GLib.SourceFunc] to leave
+     * the [struct@GLib.Source] in the main loop.
      *
      * @since 2.32
      */
     public const val SOURCE_CONTINUE: Boolean = true
 
     /**
-     * Use this macro as the return value of a #GSourceFunc to remove
-     * the #GSource from the main loop.
+     * Use this macro as the return value of a [callback@GLib.SourceFunc] to remove
+     * the [struct@GLib.Source] from the main loop.
      *
      * @since 2.32
      */
     public const val SOURCE_REMOVE: Boolean = false
 
+    /**
+     * The square root of two.
+     */
     public const val SQRT2: gdouble = 1.414214
 
     /**
@@ -1306,7 +1381,7 @@ public object GLib {
 
     public const val SYSDEF_AF_INET: gint = 2
 
-    public const val SYSDEF_AF_INET6: gint = 10
+    public const val SYSDEF_AF_INET6: gint = 30
 
     public const val SYSDEF_AF_UNIX: gint = 1
 
@@ -1411,8 +1486,6 @@ public object GLib {
      * This macro is provided for code readability.
      */
     public const val USEC_PER_SEC: gint = 1000000
-
-    public const val VA_COPY_AS_ARRAY: gint = 1
 
     /**
      * A macro that should be defined by the user prior to including
@@ -1990,30 +2063,32 @@ public object GLib {
      * Sets a function to be called when the child indicated by @pid
      * exits, at the priority @priority.
      *
-     * If you obtain @pid from g_spawn_async() or g_spawn_async_with_pipes()
-     * you will need to pass %G_SPAWN_DO_NOT_REAP_CHILD as flag to
-     * the spawn function for the child watching to work.
+     * If you obtain @pid from [func@GLib.spawn_async] or
+     * [func@GLib.spawn_async_with_pipes] you will need to pass
+     * %G_SPAWN_DO_NOT_REAP_CHILD as flag to the spawn function for the child
+     * watching to work.
      *
-     * In many programs, you will want to call g_spawn_check_wait_status()
+     * In many programs, you will want to call [func@GLib.spawn_check_wait_status]
      * in the callback to determine whether or not the child exited
      * successfully.
      *
      * Also, note that on platforms where #GPid must be explicitly closed
-     * (see g_spawn_close_pid()) @pid must not be closed while the source
-     * is still active.  Typically, you should invoke g_spawn_close_pid()
+     * (see [func@GLib.spawn_close_pid]) @pid must not be closed while the source
+     * is still active.  Typically, you should invoke [func@GLib.spawn_close_pid]
      * in the callback function for the source.
      *
      * GLib supports only a single callback per process id.
      * On POSIX platforms, the same restrictions mentioned for
-     * g_child_watch_source_new() apply to this function.
+     * [func@GLib.child_watch_source_new] apply to this function.
      *
      * This internally creates a main loop source using
-     * g_child_watch_source_new() and attaches it to the main loop context
-     * using g_source_attach(). You can do these steps manually if you
+     * [func@GLib.child_watch_source_new] and attaches it to the main loop context
+     * using [method@GLib.Source.attach]. You can do these steps manually if you
      * need greater control.
      *
      * @param priority the priority of the idle source. Typically this will be in the
-     *   range between %G_PRIORITY_DEFAULT_IDLE and %G_PRIORITY_HIGH_IDLE.
+     *   range between [const@GLib.PRIORITY_DEFAULT_IDLE] and
+     *   [const@GLib.PRIORITY_HIGH_IDLE].
      * @param pid process to watch. On POSIX the positive pid of a child process. On
      * Windows a handle for a process (which doesn't have to be a child).
      * @param function function to call
@@ -2032,17 +2107,17 @@ public object GLib {
     /**
      * Creates a new child_watch source.
      *
-     * The source will not initially be associated with any #GMainContext
-     * and must be added to one with g_source_attach() before it will be
-     * executed.
+     * The source will not initially be associated with any
+     * [struct@GLib.MainContext] and must be added to one with
+     * [method@GLib.Source.attach] before it will be executed.
      *
      * Note that child watch sources can only be used in conjunction with
      * `g_spawn...` when the %G_SPAWN_DO_NOT_REAP_CHILD flag is used.
      *
      * Note that on platforms where #GPid must be explicitly closed
-     * (see g_spawn_close_pid()) @pid must not be closed while the
+     * (see [func@GLib.spawn_close_pid]) @pid must not be closed while the
      * source is still active. Typically, you will want to call
-     * g_spawn_close_pid() in the callback function for the source.
+     * [func@GLib.spawn_close_pid] in the callback function for the source.
      *
      * On POSIX platforms, the following restrictions apply to this API
      * due to limitations in POSIX process interfaces:
@@ -2057,8 +2132,8 @@ public object GLib {
      * * the application must not ignore `SIGCHLD`
      * * Before 2.78, the application could not send a signal (`kill()`) to the
      *   watched @pid in a race free manner. Since 2.78, you can do that while the
-     *   associated #GMainContext is acquired.
-     * * Before 2.78, even after destroying the #GSource, you could not
+     *   associated [struct@GLib.MainContext] is acquired.
+     * * Before 2.78, even after destroying the [struct@GLib.Source], you could not
      *   be sure that @pid wasn't already reaped. Hence, it was also not
      *   safe to `kill()` or `waitpid()` on the process ID after the child watch
      *   source was gone. Destroying the source before it fired made it
@@ -2926,13 +3001,13 @@ public object GLib {
      *
      * This is deprecated since version 2.62.
      *
-     * #GTimeVal is not year-2038-safe. Use g_get_real_time()
-     *    instead.
+     * #GTimeVal is not year-2038-safe. Use
+     *    [func@GLib.get_real_time] instead.
      * ---
      *
      * Equivalent to the UNIX gettimeofday() function, but portable.
      *
-     * You may find g_get_real_time() to be more convenient.
+     * You may find [func@GLib.get_real_time] to be more convenient.
      *
      * @param result #GTimeVal structure in which to store current time.
      */
@@ -3153,12 +3228,12 @@ public object GLib {
     /**
      * Queries the system wall-clock time.
      *
-     * This call is functionally equivalent to g_get_current_time() except
+     * This call is functionally equivalent to [func@GLib.get_current_time] except
      * that the return value is often more convenient than dealing with a
      * #GTimeVal.
      *
      * You should only use this call if you are actually interested in the real
-     * wall-clock time.  g_get_monotonic_time() is probably more useful for
+     * wall-clock time. [func@GLib.get_monotonic_time] is probably more useful for
      * measuring intervals.
      *
      * @return the number of microseconds since January 1, 1970 UTC.
@@ -3521,20 +3596,21 @@ public object GLib {
      * Adds a function to be called whenever there are no higher priority
      * events pending.
      *
-     * If the function returns %G_SOURCE_REMOVE or false it is automatically
+     * If the function returns [const@GLib.SOURCE_REMOVE] or false it is automatically
      * removed from the list of event sources and will not be called again.
      *
-     * See [memory management of sources][mainloop-memory-management] for details
+     * See [mainloop memory management](main-loop.html#memory-management-of-sources) for details
      * on how to handle the return value and memory management of @data.
      *
-     * This internally creates a main loop source using g_idle_source_new()
-     * and attaches it to the global #GMainContext using g_source_attach(), so
-     * the callback will be invoked in whichever thread is running that main
-     * context. You can do these steps manually if you need greater control or to
-     * use a custom main context.
+     * This internally creates a main loop source using [func@GLib.idle_source_new]
+     * and attaches it to the global [struct@GLib.MainContext] using
+     * [method@GLib.Source.attach], so the callback will be invoked in whichever
+     * thread is running that main context. You can do these steps manually if you
+     * need greater control or to use a custom main context.
      *
      * @param priority the priority of the idle source. Typically this will be in the
-     *   range between %G_PRIORITY_DEFAULT_IDLE and %G_PRIORITY_HIGH_IDLE.
+     *   range between [const@GLib.PRIORITY_DEFAULT_IDLE] and
+     *   [const@GLib.PRIORITY_HIGH_IDLE].
      * @param function function to call
      * @return the ID (greater than 0) of the event source.
      */
@@ -3548,12 +3624,12 @@ public object GLib {
     /**
      * Adds a function to be called whenever there are no higher priority
      * events pending to the default main loop. The function is given the
-     * default idle priority, %G_PRIORITY_DEFAULT_IDLE.
+     * default idle priority, [const@GLib.PRIORITY_DEFAULT_IDLE].
      *
      * The function will only be called once and then the source will be
      * automatically removed from the main context.
      *
-     * This function otherwise behaves like g_idle_add().
+     * This function otherwise behaves like [func@GLib.idle_add].
      *
      * @param function function to call
      * @return the ID (greater than 0) of the event source
@@ -3574,11 +3650,12 @@ public object GLib {
     /**
      * Creates a new idle source.
      *
-     * The source will not initially be associated with any #GMainContext
-     * and must be added to one with g_source_attach() before it will be
-     * executed. Note that the default priority for idle sources is
-     * %G_PRIORITY_DEFAULT_IDLE, as compared to other sources which
-     * have a default priority of %G_PRIORITY_DEFAULT.
+     * The source will not initially be associated with any
+     * [struct@GLib.MainContext] and must be added to one with
+     * [method@GLib.Source.attach] before it will be executed. Note that the
+     * default priority for idle sources is [const@GLib.PRIORITY_DEFAULT_IDLE], as
+     * compared to other sources which have a default priority of
+     * [const@GLib.PRIORITY_DEFAULT].
      *
      * @return the newly-created idle source
      */
@@ -3930,12 +4007,10 @@ public object GLib {
      * @since 2.50
      */
     @GLibVersion2_50
-    public fun logSetWriterFunc(func: LogWriterFunc?): Unit = g_log_set_writer_func(
-        func?.let {
-            LogWriterFuncFunc.reinterpret()
-        },
-        func?.let { StableRef.create(func).asCPointer() },
-        func?.let { staticStableRefDestroy.reinterpret() }
+    public fun logSetWriterFunc(func: LogWriterFunc): Unit = g_log_set_writer_func(
+        LogWriterFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer(),
+        staticStableRefDestroy.reinterpret()
     )
 
     /**
@@ -4074,11 +4149,11 @@ public object GLib {
 
     /**
      * Returns the depth of the stack of calls to
-     * g_main_context_dispatch() on any #GMainContext in the current thread.
+     * [method@GLib.MainContext.dispatch] on any #GMainContext in the current thread.
      * That is, when called from the toplevel, it gives 0. When
-     * called from within a callback from g_main_context_iteration()
-     * (or g_main_loop_run(), etc.) it returns 1. When called from within
-     * a callback to a recursive call to g_main_context_iteration(),
+     * called from within a callback from [method@GLib.MainContext.iteration]
+     * (or [method@GLib.MainLoop.run], etc.) it returns 1. When called from within
+     * a callback to a recursive call to [method@GLib.MainContext.iteration],
      * it returns 2. And so forth.
      *
      * This function is useful in a situation like the following:
@@ -4119,7 +4194,7 @@ public object GLib {
      * control the main loop. You might think you can simply use an idle
      * function to make the call to free_allocated_memory(), but that
      * doesn't work, since the idle function could be called from a
-     * recursive callback. This can be fixed by using g_main_depth()
+     * recursive callback. This can be fixed by using [func@GLib.main_depth]
      *
      * |[<!-- language="C" -->
      * gpointer
@@ -4154,12 +4229,12 @@ public object GLib {
      *   }
      * ]|
      *
-     * There is a temptation to use g_main_depth() to solve
+     * There is a temptation to use [func@GLib.main_depth] to solve
      * problems with reentrancy. For instance, while waiting for data
      * to be received from the network in response to a menu item,
      * the menu item might be selected again. It might seem that
      * one could make the menu item's callback return immediately
-     * and do nothing if g_main_depth() returns a value greater than 1.
+     * and do nothing if [func@GLib.main_depth] returns a value greater than 1.
      * However, this should be avoided since the user then sees selecting
      * the menu item do nothing. Furthermore, you'll find yourself adding
      * these checks all over your code, since there are doubtless many,
@@ -4612,32 +4687,34 @@ public object GLib {
      *
      * This is deprecated since version 2.70.
      *
-     * Use g_pattern_spec_match() instead
+     * Use [method@GLib.PatternSpec.match] instead
      * ---
      *
-     * Matches a string against a compiled pattern. Passing the correct
+     * Matches a string against a compiled pattern.
+     *
+     * Passing the correct
      * length of the string given is mandatory. The reversed string can be
-     * omitted by passing null, this is more efficient if the reversed
+     * omitted by passing `NULL`, this is more efficient if the reversed
      * version of the string to be matched is not at hand, as
-     * g_pattern_match() will only construct it if the compiled pattern
+     * `g_pattern_match()` will only construct it if the compiled pattern
      * requires reverse matches.
      *
      * Note that, if the user code will (possibly) match a string against a
      * multitude of patterns containing wildcards, chances are high that
-     * some patterns will require a reversed string. In this case, it's
+     * some patterns will require a reversed string. In this case, it’s
      * more efficient to provide the reversed string to avoid multiple
-     * constructions thereof in the various calls to g_pattern_match().
+     * constructions thereof in the various calls to `g_pattern_match()`.
      *
      * Note also that the reverse of a UTF-8 encoded string can in general
-     * not be obtained by g_strreverse(). This works only if the string
+     * not be obtained by [func@GLib.strreverse]. This works only if the string
      * does not contain any multibyte characters. GLib offers the
-     * g_utf8_strreverse() function to reverse UTF-8 encoded strings.
+     * [func@GLib.utf8_strreverse] function to reverse UTF-8 encoded strings.
      *
      * @param pspec a #GPatternSpec
-     * @param stringLength the length of @string (in bytes, i.e. strlen(),
-     *     not g_utf8_strlen())
+     * @param stringLength the length of @string (in bytes, i.e. `strlen()`,
+     *    not [func@GLib.utf8_strlen])
      * @param string the UTF-8 encoded string to match
-     * @param stringReversed the reverse of @string or null
+     * @param stringReversed the reverse of @string
      * @return true if @string matches @pspec
      */
     public fun patternMatch(
@@ -4648,10 +4725,12 @@ public object GLib {
     ): Boolean = g_pattern_match(pspec.glibPatternSpecPointer, stringLength, string, stringReversed).asBoolean()
 
     /**
-     * Matches a string against a pattern given as a string. If this
-     * function is to be called in a loop, it's more efficient to compile
-     * the pattern once with g_pattern_spec_new() and call
-     * g_pattern_match_string() repeatedly.
+     * Matches a string against a pattern given as a string.
+     *
+     * If this
+     * function is to be called in a loop, it’s more efficient to compile
+     * the pattern once with [ctor@GLib.PatternSpec.new] and call
+     * [method@GLib.PatternSpec.match_string] repeatedly.
      *
      * @param pattern the UTF-8 encoded pattern
      * @param string the UTF-8 encoded string to match
@@ -4665,12 +4744,14 @@ public object GLib {
      *
      * This is deprecated since version 2.70.
      *
-     * Use g_pattern_spec_match_string() instead
+     * Use [method@GLib.PatternSpec.match_string] instead
      * ---
      *
-     * Matches a string against a compiled pattern. If the string is to be
+     * Matches a string against a compiled pattern.
+     *
+     * If the string is to be
      * matched against more than one pattern, consider using
-     * g_pattern_match() instead while supplying the reversed string.
+     * [method@GLib.PatternSpec.match] instead while supplying the reversed string.
      *
      * @param pspec a #GPatternSpec
      * @param string the UTF-8 encoded string to match
@@ -4738,10 +4819,19 @@ public object GLib {
     public fun poll(fds: PollFd, nfds: guint, timeout: gint): gint = g_poll(fds.glibPollFdPointer, nfds, timeout)
 
     /**
-     * This is just like the standard C qsort() function, but
-     * the comparison routine accepts a user data argument.
+     * # ⚠️ Deprecated ⚠️
      *
-     * This is guaranteed to be a stable sort since version 2.32.
+     * This is deprecated since version 2.82.
+     *
+     * `total_elems` is too small to represent larger arrays; use
+     *   [func@GLib.sort_array] instead
+     * ---
+     *
+     * This is just like the standard C [`qsort()`](man:qsort(3)) function, but
+     * the comparison routine accepts a user data argument
+     * (like [`qsort_r()`](man:qsort_r(3))).
+     *
+     * Unlike `qsort()`, this is guaranteed to be a stable sort (since GLib 2.32).
      *
      * @param pbase start of array to sort
      * @param totalElems elements in the array
@@ -5703,9 +5793,20 @@ public object GLib {
     public fun strcmp0(str1: kotlin.String? = null, str2: kotlin.String? = null): gint = g_strcmp0(str1, str2)
 
     /**
-     * Replaces all escaped characters with their one byte equivalent.
+     * Makes a copy of a string replacing C string-style escape
+     * sequences with their one byte equivalent:
      *
-     * This function does the reverse conversion of [func@GLib.strescape].
+     * - `\b` → [U+0008 Backspace](https://en.wikipedia.org/wiki/Backspace)
+     * - `\f` → [U+000C Form Feed](https://en.wikipedia.org/wiki/Form_feed)
+     * - `\n` → [U+000A Line Feed](https://en.wikipedia.org/wiki/Newline)
+     * - `\r` → [U+000D Carriage Return](https://en.wikipedia.org/wiki/Carriage_return)
+     * - `\t` → [U+0009 Horizontal Tabulation](https://en.wikipedia.org/wiki/Tab_character)
+     * - `\v` → [U+000B Vertical Tabulation](https://en.wikipedia.org/wiki/Vertical_Tab)
+     * - `\` followed by one to three octal digits → the numeric value (mod 255)
+     * - `\` followed by any other character → the character as is.
+     *   For example, `\\` will turn into a backslash (`\`) and `\"` into a double quote (`"`).
+     *
+     * [func@GLib.strescape] does the reverse conversion.
      *
      * @param source a string to compress
      * @return a newly-allocated copy of @source with all escaped
@@ -5817,11 +5918,22 @@ public object GLib {
         g_strerror(errnum)?.toKString() ?: error("Expected not null string")
 
     /**
-     * Escapes the special characters '\b', '\f', '\n', '\r', '\t', '\v', '\'
-     * and '"' in the string @source by inserting a '\' before
-     * them. Additionally all characters in the range 0x01-0x1F (everything
+     * It replaces the following special characters in the string @source
+     * with their corresponding C escape sequence:
+     *
+     *  Symbol | Escape
+     * ---|---
+     *  [U+0008 Backspace](https://en.wikipedia.org/wiki/Backspace) | `\b`
+     *  [U+000C Form Feed](https://en.wikipedia.org/wiki/Form_feed) | `\f`
+     *  [U+000A Line Feed](https://en.wikipedia.org/wiki/Newline) | `\n`
+     *  [U+000D Carriage Return](https://en.wikipedia.org/wiki/Carriage_return) | `\r`
+     *  [U+0009 Horizontal Tabulation](https://en.wikipedia.org/wiki/Tab_character) | `\t`
+     *  [U+000B Vertical Tabulation](https://en.wikipedia.org/wiki/Vertical_Tab) | `\v`
+     *
+     * It also inserts a backslash (`\`) before any backslash or a double quote (`"`).
+     * Additionally all characters in the range 0x01-0x1F (everything
      * below SPACE) and in the range 0x7F-0xFF (all non-ASCII chars) are
-     * replaced with a '\' followed by their octal representation.
+     * replaced with a backslash followed by their octal representation.
      * Characters supplied in @exceptions are not escaped.
      *
      * [func@GLib.strcompress] does the reverse conversion.
@@ -6004,26 +6116,34 @@ public object GLib {
      * Searches the string @haystack for the last occurrence
      * of the string @needle.
      *
+     * The fact that this function returns `gchar *` rather than `const gchar *` is
+     * a historical artifact.
+     *
      * @param haystack a string to search in
      * @param needle the string to search for
-     * @return a pointer to the found occurrence, or `NULL` if not found
+     * @return a pointer to the found occurrence, or
+     *    `NULL` if not found
      */
-    public fun strrstr(haystack: kotlin.String, needle: kotlin.String): kotlin.String =
-        g_strrstr(haystack, needle)?.toKString() ?: error("Expected not null string")
+    public fun strrstr(haystack: kotlin.String, needle: kotlin.String): kotlin.String? =
+        g_strrstr(haystack, needle)?.toKString()
 
     /**
      * Searches the string @haystack for the last occurrence
      * of the string @needle, limiting the length of the search
      * to @haystack_len.
      *
+     * The fact that this function returns `gchar *` rather than `const gchar *` is
+     * a historical artifact.
+     *
      * @param haystack a string to search in
      * @param haystackLen the maximum length of @haystack in bytes. A length of `-1`
      *   can be used to mean "search the entire string", like [func@GLib.strrstr]
      * @param needle the string to search for
-     * @return a pointer to the found occurrence, or `NULL` if not found
+     * @return a pointer to the found occurrence, or
+     *    `NULL` if not found
      */
-    public fun strrstrLen(haystack: kotlin.String, haystackLen: Long, needle: kotlin.String): kotlin.String =
-        g_strrstr_len(haystack, haystackLen, needle)?.toKString() ?: error("Expected not null string")
+    public fun strrstrLen(haystack: kotlin.String, haystackLen: Long, needle: kotlin.String): kotlin.String? =
+        g_strrstr_len(haystack, haystackLen, needle)?.toKString()
 
     /**
      * Returns a string describing the given signal, e.g. "Segmentation fault".
@@ -6109,14 +6229,18 @@ public object GLib {
      * A length of `-1` can be used to mean “search the entire string”, like
      * `strstr()`.
      *
+     * The fact that this function returns `gchar *` rather than `const gchar *` is
+     * a historical artifact.
+     *
      * @param haystack a string to search in
      * @param haystackLen the maximum length of @haystack in bytes, or `-1` to
      *   search it entirely
      * @param needle the string to search for
-     * @return a pointer to the found occurrence, or `NULL` if not found
+     * @return a pointer to the found occurrence, or
+     *    `NULL` if not found
      */
-    public fun strstrLen(haystack: kotlin.String, haystackLen: Long, needle: kotlin.String): kotlin.String =
-        g_strstr_len(haystack, haystackLen, needle)?.toKString() ?: error("Expected not null string")
+    public fun strstrLen(haystack: kotlin.String, haystackLen: Long, needle: kotlin.String): kotlin.String? =
+        g_strstr_len(haystack, haystackLen, needle)?.toKString()
 
     /**
      * # ⚠️ Deprecated ⚠️
@@ -6846,20 +6970,22 @@ public object GLib {
      * timeout is recalculated based on the current time and the given interval
      * (it does not try to 'catch up' time lost in delays).
      *
-     * See [memory management of sources][mainloop-memory-management] for details
+     * See [mainloop memory management](main-loop.html#memory-management-of-sources) for details
      * on how to handle the return value and memory management of @data.
      *
-     * This internally creates a main loop source using g_timeout_source_new()
-     * and attaches it to the global #GMainContext using g_source_attach(), so
-     * the callback will be invoked in whichever thread is running that main
-     * context. You can do these steps manually if you need greater control or to
-     * use a custom main context.
+     * This internally creates a main loop source using
+     * [func@GLib.timeout_source_new] and attaches it to the global
+     * [struct@GLib.MainContext] using [method@GLib.Source.attach], so the callback
+     * will be invoked in whichever thread is running that main context. You can do
+     * these steps manually if you need greater control or to use a custom main
+     * context.
      *
      * The interval given is in terms of monotonic time, not wall clock time.
-     * See g_get_monotonic_time().
+     * See [func@GLib.get_monotonic_time].
      *
      * @param priority the priority of the timeout source. Typically this will be in
-     *   the range between %G_PRIORITY_DEFAULT and %G_PRIORITY_HIGH.
+     *   the range between [const@GLib.PRIORITY_DEFAULT] and
+     *   [const@GLib.PRIORITY_HIGH].
      * @param interval the time between calls to the function, in milliseconds
      *   (1/1000ths of a second)
      * @param function function to call
@@ -6875,12 +7001,12 @@ public object GLib {
 
     /**
      * Sets a function to be called after @interval milliseconds have elapsed,
-     * with the default priority, %G_PRIORITY_DEFAULT.
+     * with the default priority, [const@GLib.PRIORITY_DEFAULT].
      *
      * The given @function is called once and then the source will be automatically
      * removed from the main context.
      *
-     * This function otherwise behaves like g_timeout_add().
+     * This function otherwise behaves like [func@GLib.timeout_add].
      *
      * @param interval the time after which the function will be called, in
      *   milliseconds (1/1000ths of a second)
@@ -6895,46 +7021,48 @@ public object GLib {
     /**
      * Sets a function to be called at regular intervals, with @priority.
      *
-     * The function is called repeatedly until it returns %G_SOURCE_REMOVE
+     * The function is called repeatedly until it returns [const@GLib.SOURCE_REMOVE]
      * or false, at which point the timeout is automatically destroyed and
      * the function will not be called again.
      *
-     * Unlike g_timeout_add(), this function operates at whole second granularity.
-     * The initial starting point of the timer is determined by the implementation
-     * and the implementation is expected to group multiple timers together so that
-     * they fire all at the same time. To allow this grouping, the @interval to the
-     * first timer is rounded and can deviate up to one second from the specified
-     * interval. Subsequent timer iterations will generally run at the specified
-     * interval.
+     * Unlike [func@GLib.timeout_add], this function operates at whole second
+     * granularity. The initial starting point of the timer is determined by the
+     * implementation and the implementation is expected to group multiple timers
+     * together so that they fire all at the same time. To allow this grouping, the
+     * @interval to the first timer is rounded and can deviate up to one second
+     * from the specified interval. Subsequent timer iterations will generally run
+     * at the specified interval.
      *
      * Note that timeout functions may be delayed, due to the processing of other
      * event sources. Thus they should not be relied on for precise timing.
      * After each call to the timeout function, the time of the next
      * timeout is recalculated based on the current time and the given @interval
      *
-     * See [memory management of sources][mainloop-memory-management] for details
+     * See [mainloop memory management](main-loop.html#memory-management-of-sources) for details
      * on how to handle the return value and memory management of @data.
      *
-     * If you want timing more precise than whole seconds, use g_timeout_add()
-     * instead.
+     * If you want timing more precise than whole seconds, use
+     * [func@GLib.timeout_add] instead.
      *
      * The grouping of timers to fire at the same time results in a more power
      * and CPU efficient behavior so if your timer is in multiples of seconds
      * and you don't require the first timer exactly one second from now, the
-     * use of g_timeout_add_seconds() is preferred over g_timeout_add().
+     * use of [func@GLib.timeout_add_seconds] is preferred over
+     * [func@GLib.timeout_add].
      *
      * This internally creates a main loop source using
-     * g_timeout_source_new_seconds() and attaches it to the main loop context
-     * using g_source_attach(). You can do these steps manually if you need
-     * greater control.
+     * [func@GLib.timeout_source_new_seconds] and attaches it to the main loop
+     * context using [method@GLib.Source.attach]. You can do these steps manually
+     * if you need greater control.
      *
      * It is safe to call this function from any thread.
      *
      * The interval given is in terms of monotonic time, not wall clock
-     * time.  See g_get_monotonic_time().
+     * time. See [func@GLib.get_monotonic_time].
      *
      * @param priority the priority of the timeout source. Typically this will be in
-     *   the range between %G_PRIORITY_DEFAULT and %G_PRIORITY_HIGH.
+     *   the range between [const@GLib.PRIORITY_DEFAULT] and
+     *   [const@GLib.PRIORITY_HIGH].
      * @param interval the time between calls to the function, in seconds
      * @param function function to call
      * @return the ID (greater than 0) of the event source.
@@ -6951,7 +7079,8 @@ public object GLib {
         )
 
     /**
-     * This function behaves like g_timeout_add_once() but with a range in seconds.
+     * This function behaves like [func@GLib.timeout_add_once] but with a range in
+     * seconds.
      *
      * @param interval the time after which the function will be called, in seconds
      * @param function function to call
@@ -6965,12 +7094,12 @@ public object GLib {
     /**
      * Creates a new timeout source.
      *
-     * The source will not initially be associated with any #GMainContext
-     * and must be added to one with g_source_attach() before it will be
+     * The source will not initially be associated with any [struct@GLib.MainContext]
+     * and must be added to one with [method@GLib.Source.attach] before it will be
      * executed.
      *
      * The interval given is in terms of monotonic time, not wall clock
-     * time.  See g_get_monotonic_time().
+     * time.  See [func@GLib.get_monotonic_time].
      *
      * @param interval the timeout interval in milliseconds.
      * @return the newly-created timeout source
@@ -6982,15 +7111,15 @@ public object GLib {
     /**
      * Creates a new timeout source.
      *
-     * The source will not initially be associated with any #GMainContext
-     * and must be added to one with g_source_attach() before it will be
-     * executed.
+     * The source will not initially be associated with any
+     * [struct@GLib.MainContext] and must be added to one with
+     * [method@GLib.Source.attach] before it will be executed.
      *
      * The scheduling granularity/accuracy of this timeout source will be
      * in seconds.
      *
      * The interval given is in terms of monotonic time, not wall clock time.
-     * See g_get_monotonic_time().
+     * See [func@GLib.get_monotonic_time].
      *
      * @param interval the timeout interval in seconds
      * @return the newly-created timeout source
@@ -8695,6 +8824,58 @@ public val SourceFuncFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction
 }
     .reinterpret()
 
+public val SourceFuncsCheckFuncFunc: CPointer<CFunction<(CPointer<GSource>) -> gboolean>> =
+    staticCFunction {
+            source: CPointer<GSource>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(source: Source) -> Boolean>().get().invoke(
+            source!!.run {
+                Source(this)
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
+
+public val SourceFuncsDispatchFuncFunc: CPointer<CFunction<(CPointer<GSource>) -> gboolean>> =
+    staticCFunction {
+            source: CPointer<GSource>?,
+            userData: gpointer?,
+        ->
+        userData!!.asStableRef<(source: Source) -> Boolean>().get().invoke(
+            source!!.run {
+                Source(this)
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
+
+public val SourceFuncsFinalizeFuncFunc: CPointer<CFunction<(CPointer<GSource>) -> Unit>> =
+    staticCFunction {
+            source: CPointer<GSource>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(source: Source) -> Unit>().get().invoke(
+            source!!.run {
+                Source(this)
+            }
+        )
+    }
+        .reinterpret()
+
+public val SourceFuncsPrepareFuncFunc: CPointer<CFunction<(CPointer<GSource>) -> gboolean>> =
+    staticCFunction {
+            source: CPointer<GSource>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(source: Source) -> Boolean>().get().invoke(
+            source!!.run {
+                Source(this)
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
+
 public val SourceOnceFuncFunc: CPointer<CFunction<() -> Unit>> = staticCFunction { userData: gpointer? ->
     userData!!.asStableRef<() -> Unit>().get().invoke()
 }
@@ -8872,8 +9053,8 @@ public typealias CacheNewFunc = (key: gpointer?) -> gpointer?
  * Prototype of a #GChildWatchSource callback, called when a child
  * process has exited.
  *
- * To interpret @wait_status, see the documentation
- * for g_spawn_check_wait_status(). In particular,
+ * To interpret @wait_status, see the documentation for
+ * [func@GLib.spawn_check_wait_status]. In particular,
  * on Unix platforms, note that it is usually not equal
  * to the integer passed to `exit()` or returned from `main()`.
  *
@@ -8884,10 +9065,10 @@ public typealias CacheNewFunc = (key: gpointer?) -> gpointer?
 public typealias ChildWatchFunc = (pid: Pid, waitStatus: gint) -> Unit
 
 /**
- * Specifies the type of function passed to g_clear_handle_id().
- * The implementation is expected to free the resource identified
- * by @handle_id; for instance, if @handle_id is a #GSource ID,
- * g_source_remove() can be used.
+ * Specifies the type of function passed to [func@GLib.clear_handle_id] The
+ * implementation is expected to free the resource identified by @handle_id;
+ * for instance, if @handle_id is a [struct@GLib.Source] ID,
+ * [func@GLib.Source.remove] can be used.
  *
  * - param `handleId` the handle ID to clear
  */
@@ -9082,15 +9263,20 @@ public typealias HFunc = (key: gpointer?, `value`: gpointer?) -> Unit
 
 /**
  * Specifies the type of the function passed to
- * g_hash_table_foreach_remove(). It is called with each key/value
- * pair, together with the @user_data parameter passed to
- * g_hash_table_foreach_remove(). It should return true if the
- * key/value pair should be removed from the #GHashTable.
+ * [func@GLib.HashTable.find], [func@GLib.HashTable.foreach_remove], and
+ * [func@GLib.HashTable.foreach_steal].
+ *
+ * The function is called with each key/value pair, together with
+ * the @user_data parameter passed to the calling function.
+ *
+ * The function should return true if the key/value pair should be
+ * selected, meaning it has been found or it should be removed from the
+ * [struct@GLib.HashTable], depending on the calling function.
  *
  * - param `key` a key
  * - param `value` the value associated with the key
- * - return true if the key/value pair should be removed from the
- *     #GHashTable
+ * - return true if the key/value pair should be selected, and
+ *   false otherwise
  */
 public typealias HrFunc = (key: gpointer?, `value`: gpointer?) -> Boolean
 
@@ -9353,8 +9539,8 @@ public typealias SequenceIterCompareFunc = (
 ) -> gint
 
 /**
- * Dispose function for @source. See g_source_set_dispose_function() for
- * details.
+ * Dispose function for @source. See [method@GLib.Source.set_dispose_function]
+ * for details.
  *
  * - param `source` #GSource that is currently being disposed
  */
@@ -9367,23 +9553,93 @@ public typealias SourceDisposeFunc = (source: Source) -> Unit
 public typealias SourceDummyMarshal = () -> Unit
 
 /**
- * Specifies the type of function passed to g_timeout_add(),
- * g_timeout_add_full(), g_idle_add(), and g_idle_add_full().
+ * Specifies the type of function passed to [func@GLib.timeout_add],
+ * [func@GLib.timeout_add_full], [func@GLib.idle_add], and
+ * [func@GLib.idle_add_full].
  *
- * When calling g_source_set_callback(), you may need to cast a function of a
- * different type to this type. Use G_SOURCE_FUNC() to avoid warnings about
- * incompatible function types.
+ * When calling [method@GLib.Source.set_callback], you may need to cast a
+ * function of a different type to this type. Use [func@GLib.SOURCE_FUNC] to
+ * avoid warnings about incompatible function types.
  *
- * - return false if the source should be removed. %G_SOURCE_CONTINUE and
- * %G_SOURCE_REMOVE are more memorable names for the return value.
+ * - return false if the source should be removed.
+ * [const@GLib.SOURCE_CONTINUE] and [const@GLib.SOURCE_REMOVE] are more
+ * memorable names for the return value.
  */
 public typealias SourceFunc = () -> Boolean
+
+/**
+ * Checks if the source is ready to be dispatched.
+ *
+ * Called after all the file descriptors are polled. The source
+ * should return true if it is ready to be dispatched. Note that some
+ * time may have passed since the previous prepare function was called,
+ * so the source should be checked again here.
+ *
+ * Since 2.36 this may be `NULL`, in which case the effect is
+ * as if the function always returns `FALSE`.
+ *
+ * - param `source` The #GSource
+ * - return true if ready to be dispatched, false otherwise
+ */
+public typealias SourceFuncsCheckFunc = (source: Source) -> Boolean
+
+/**
+ * Dispatches the source callback.
+ *
+ * Called to dispatch the event source, after it has returned
+ * `TRUE` in either its prepare or its check function, or if a ready time
+ * has been reached. The dispatch function receives a callback function and
+ * user data. The callback function may be `NULL` if the source was never
+ * connected to a callback using [method@GLib.Source.set_callback]. The dispatch
+ * function should call the callback function with @user_data and whatever
+ * additional parameters are needed for this type of event source. The
+ * return value of the dispatch function should be [const@GLib.SOURCE_REMOVE]
+ * if the source should be removed or [const@GLib.SOURCE_CONTINUE] to keep it.
+ *
+ * - param `source` The #GSource
+ * - return [const@GLib.SOURCE_REMOVE] if the source should be removed,
+ *   [const@GLib.SOURCE_CONTINUE] otherwise.
+ */
+public typealias SourceFuncsDispatchFunc = (source: Source) -> Boolean
+
+/**
+ * Finalizes the source.
+ *
+ * Called when the source is finalized. At this point, the source
+ * will have been destroyed, had its callback cleared, and have been removed
+ * from its [type@GLib.MainContext], but it will still have its final reference
+ * count, so methods can be called on it from within this function.
+ *
+ * - param `source` The #GSource
+ */
+public typealias SourceFuncsFinalizeFunc = (source: Source) -> Unit
+
+/**
+ * Checks the source for readiness.
+ *
+ * Called before all the file descriptors are polled. If the
+ * source can determine that it is ready here (without waiting for the
+ * results of the poll call) it should return true. It can also return
+ * a @timeout_ value which should be the maximum timeout (in milliseconds)
+ * which should be passed to the poll call. The actual timeout used will
+ * be `-1` if all sources returned `-1`, or it will be the minimum of all
+ * the @timeout_ values returned which were greater than or equal to `0`.
+ * If the prepare function returns a timeout and the source also has a
+ * ready time set, then the lower of the two will be used.
+ *
+ * Since 2.36 this may be `NULL`, in which case the effect is as if the
+ * function always returns `FALSE` with a timeout of `-1`.
+ *
+ * - param `source` The #GSource
+ * - return true if the source is ready, false otherwise
+ */
+public typealias SourceFuncsPrepareFunc = (source: Source) -> Boolean
 
 /**
  * A source function that is only called once before being removed from the main
  * context automatically.
  *
- * See: g_idle_add_once(), g_timeout_add_once()
+ * See: [func@GLib.idle_add_once], [func@GLib.timeout_add_once]
  */
 public typealias SourceOnceFunc = () -> Unit
 

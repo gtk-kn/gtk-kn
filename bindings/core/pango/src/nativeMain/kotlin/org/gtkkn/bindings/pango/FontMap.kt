@@ -4,23 +4,33 @@
 package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.allocPointerTo
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
+import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.pango.Pango.resolveException
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_32_4
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_34
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_52
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_56
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontMap
+import org.gtkkn.native.pango.pango_font_map_add_font_file
 import org.gtkkn.native.pango.pango_font_map_changed
 import org.gtkkn.native.pango.pango_font_map_create_context
 import org.gtkkn.native.pango.pango_font_map_get_family
@@ -29,6 +39,8 @@ import org.gtkkn.native.pango.pango_font_map_get_type
 import org.gtkkn.native.pango.pango_font_map_load_font
 import org.gtkkn.native.pango.pango_font_map_load_fontset
 import org.gtkkn.native.pango.pango_font_map_reload_font
+import kotlin.Boolean
+import kotlin.Result
 import kotlin.String
 import kotlin.Unit
 
@@ -55,6 +67,28 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
 
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
+
+    /**
+     * Loads a font file with one or more fonts into the `PangoFontMap`.
+     *
+     * The added fonts will take precedence over preexisting
+     * fonts with the same name.
+     *
+     * @param filename Path to the font file
+     * @return True if the font file is successfully loaded
+     *     into the fontmap, false if an error occurred.
+     * @since 1.56
+     */
+    @PangoVersion1_56
+    public open fun addFontFile(filename: String): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = pango_font_map_add_font_file(pangoFontMapPointer, filename, gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
 
     /**
      * Forces a change in the context, which will cause any `PangoContext`

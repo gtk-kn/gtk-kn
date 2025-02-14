@@ -662,7 +662,7 @@ public open class Object(public val gobjectObjectPointer: CPointer<org.gtkkn.nat
      *
      * Using this function on the return value of the user's callback allows
      * the user to do whichever is more convenient for them. The caller will
-     * alway receives exactly one full reference to the value: either the
+     * always receives exactly one full reference to the value: either the
      * one that was returned in the first place, or a floating reference
      * that has been converted to a full reference.
      *
@@ -772,7 +772,7 @@ public open class Object(public val gobjectObjectPointer: CPointer<org.gtkkn.nat
      * ]|
      *
      * It is important to note that you must use
-     * [canonical parameter names][canonical-parameter-names] as
+     * [canonical parameter names][class@GObject.ParamSpec#parameter-names] as
      * detail strings for the notify signal.
      *
      * @param connectFlags a combination of [ConnectFlags]

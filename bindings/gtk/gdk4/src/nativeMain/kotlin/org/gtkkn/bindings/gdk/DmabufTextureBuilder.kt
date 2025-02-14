@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_16
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -15,6 +16,7 @@ import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDmabufTextureBuilder
+import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_color_state
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_display
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_fd
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_fourcc
@@ -29,6 +31,7 @@ import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_update_region
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_update_texture
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_width
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_new
+import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_color_state
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_display
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_fd
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_fourcc
@@ -122,6 +125,38 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
     }
 
     /**
+     * The color state of the texture.
+     *
+     * @since 4.16
+     */
+    @GdkVersion4_16
+    public open var colorState: ColorState?
+        /**
+         * Gets the color state previously set via gdk_dmabuf_texture_builder_set_color_state().
+         *
+         * @return the color state
+         * @since 4.16
+         */
+        get() = gdk_dmabuf_texture_builder_get_color_state(gdkDmabufTextureBuilderPointer)?.run {
+            ColorState(this)
+        }
+
+        /**
+         * Sets the color state for the texture.
+         *
+         * By default, the colorstate is `NULL`. In that case, GTK will choose the
+         * correct colorstate based on the format.
+         * If you don't know what colorstates are, this is probably the right thing.
+         *
+         * @param colorState a `GdkColorState` or `NULL` to unset the colorstate.
+         * @since 4.16
+         */
+        @GdkVersion4_16
+        set(
+            colorState
+        ) = gdk_dmabuf_texture_builder_set_color_state(gdkDmabufTextureBuilderPointer, colorState?.gdkColorStatePointer)
+
+    /**
      * The display that this texture will be used on.
      *
      * @since 4.14
@@ -175,7 +210,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          *
          * The format is specified as a fourcc code.
          *
-         * The format must be set before calling [method@Gdk.GLTextureBuilder.build].
+         * The format must be set before calling [method@Gdk.DmabufTextureBuilder.build].
          *
          * @param fourcc the texture's format or 0 to unset
          * @since 4.14
@@ -202,7 +237,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
         /**
          * Sets the height of the texture.
          *
-         * The height must be set before calling [method@Gdk.GLTextureBuilder.build].
+         * The height must be set before calling [method@Gdk.DmabufTextureBuilder.build].
          *
          * @param height the texture's height or 0 to unset
          * @since 4.14
@@ -293,7 +328,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
         ) = gdk_dmabuf_texture_builder_set_premultiplied(gdkDmabufTextureBuilderPointer, premultiplied.asGBoolean())
 
     /**
-     * The update region for [property@Gdk.GLTextureBuilder:update-texture].
+     * The update region for [property@Gdk.DmabufTextureBuilder:update-texture].
      *
      * @since 4.14
      */
@@ -379,7 +414,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
         /**
          * Sets the width of the texture.
          *
-         * The width must be set before calling [method@Gdk.GLTextureBuilder.build].
+         * The width must be set before calling [method@Gdk.DmabufTextureBuilder.build].
          *
          * @param width The texture's width or 0 to unset
          * @since 4.14
@@ -454,7 +489,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
     /**
      * Sets the stride for a plane.
      *
-     * The stride must be set for all planes before calling [method@Gdk.GLTextureBuilder.build].
+     * The stride must be set for all planes before calling [method@Gdk.DmabufTextureBuilder.build].
      *
      * @param plane the plane to set the stride for
      * @param stride the stride value

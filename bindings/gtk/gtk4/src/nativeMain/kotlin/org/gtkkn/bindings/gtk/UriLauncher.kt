@@ -47,8 +47,6 @@ import kotlin.Unit
  * right away.
  *
  * The operation is started with the [method@Gtk.UriLauncher.launch] function.
- * This API follows the GIO async pattern, and the result can be obtained by
- * calling [method@Gtk.UriLauncher.launch_finish].
  *
  * To launch a file, use [class@Gtk.FileLauncher].
  * @since 4.10
@@ -101,13 +99,10 @@ public open class UriLauncher(public val gtkUriLauncherPointer: CPointer<GtkUriL
      *
      * This may present an app chooser dialog to the user.
      *
-     * The @callback will be called when the operation is completed.
-     * It should call [method@Gtk.UriLauncher.launch_finish] to obtain
-     * the result.
-     *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10

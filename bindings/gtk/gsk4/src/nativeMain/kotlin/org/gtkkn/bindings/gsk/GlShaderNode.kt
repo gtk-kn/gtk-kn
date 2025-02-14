@@ -34,6 +34,15 @@ public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGL
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Gets args for the node.
      *
      * @return A `GBytes` with the uniform arguments
@@ -43,6 +52,15 @@ public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGL
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Gets one of the children.
      *
      * @param idx the position of the child to get
@@ -54,6 +72,15 @@ public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGL
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Returns the number of children
      *
      * @return The number of children

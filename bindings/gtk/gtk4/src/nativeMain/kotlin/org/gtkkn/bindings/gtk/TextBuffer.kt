@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gdk.ContentProvider
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_16
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -37,6 +38,7 @@ import org.gtkkn.native.gtk.GtkTextChildAnchor
 import org.gtkkn.native.gtk.GtkTextIter
 import org.gtkkn.native.gtk.GtkTextMark
 import org.gtkkn.native.gtk.GtkTextTag
+import org.gtkkn.native.gtk.gtk_text_buffer_add_commit_notify
 import org.gtkkn.native.gtk.gtk_text_buffer_add_mark
 import org.gtkkn.native.gtk.gtk_text_buffer_add_selection_clipboard
 import org.gtkkn.native.gtk.gtk_text_buffer_apply_tag
@@ -97,6 +99,7 @@ import org.gtkkn.native.gtk.gtk_text_buffer_paste_clipboard
 import org.gtkkn.native.gtk.gtk_text_buffer_place_cursor
 import org.gtkkn.native.gtk.gtk_text_buffer_redo
 import org.gtkkn.native.gtk.gtk_text_buffer_remove_all_tags
+import org.gtkkn.native.gtk.gtk_text_buffer_remove_commit_notify
 import org.gtkkn.native.gtk.gtk_text_buffer_remove_selection_clipboard
 import org.gtkkn.native.gtk.gtk_text_buffer_remove_tag
 import org.gtkkn.native.gtk.gtk_text_buffer_remove_tag_by_name
@@ -225,6 +228,36 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
     public constructor(table: TextTagTable? = null) : this(gtk_text_buffer_new(table?.gtkTextTagTablePointer)!!) {
         InstanceCache.put(this)
     }
+
+    /**
+     * Adds a [callback@Gtk.TextBufferCommitNotify] to be called when a change
+     * is to be made to the [type@Gtk.TextBuffer].
+     *
+     * Functions are explicitly forbidden from making changes to the
+     * [type@Gtk.TextBuffer] from this callback. It is intended for tracking
+     * changes to the buffer only.
+     *
+     * It may be advantageous to use [callback@Gtk.TextBufferCommitNotify] over
+     * connecting to the [signal@Gtk.TextBuffer::insert-text] or
+     * [signal@Gtk.TextBuffer::delete-range] signals to avoid ordering issues with
+     * other signal handlers which may further modify the [type@Gtk.TextBuffer].
+     *
+     * @param flags which notifications should be dispatched to @callback
+     * @param commitNotify a
+     *   [callback@Gtk.TextBufferCommitNotify] to call for commit notifications
+     * @return a handler id which may be used to remove the commit notify
+     *   callback using [method@Gtk.TextBuffer.remove_commit_notify].
+     * @since 4.16
+     */
+    @GtkVersion4_16
+    public open fun addCommitNotify(flags: TextBufferNotifyFlags, commitNotify: TextBufferCommitNotify): guint =
+        gtk_text_buffer_add_commit_notify(
+            gtkTextBufferPointer,
+            flags.mask,
+            TextBufferCommitNotifyFunc.reinterpret(),
+            StableRef.create(commitNotify).asCPointer(),
+            staticStableRefDestroy.reinterpret()
+        )
 
     /**
      * Adds the mark at position @where.
@@ -1104,6 +1137,21 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
      */
     public open fun removeAllTags(start: TextIter, end: TextIter): Unit =
         gtk_text_buffer_remove_all_tags(gtkTextBufferPointer, start.gtkTextIterPointer, end.gtkTextIterPointer)
+
+    /**
+     * Removes the `GtkTextBufferCommitNotify` handler previously registered
+     * with [method@Gtk.TextBuffer.add_commit_notify].
+     *
+     * This may result in the `user_data_destroy` being called that was passed when registering
+     * the commit notify functions.
+     *
+     * @param commitNotifyHandler the notify handler identifier returned from
+     *   [method@Gtk.TextBuffer.add_commit_notify].
+     * @since 4.16
+     */
+    @GtkVersion4_16
+    public open fun removeCommitNotify(commitNotifyHandler: guint): Unit =
+        gtk_text_buffer_remove_commit_notify(gtkTextBufferPointer, commitNotifyHandler)
 
     /**
      * Removes a `GdkClipboard` added with

@@ -27,13 +27,13 @@ import kotlin.Unit
  */
 public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : ProxyInstance(glibMainLoopPointer) {
     /**
-     * Creates a new #GMainLoop structure.
+     * Creates a new [struct@GLib.MainLoop] structure.
      *
      * @param context a #GMainContext  (if null, the global-default
      *   main context will be used).
      * @param isRunning set to true to indicate that the loop is running. This
-     * is not very important since calling g_main_loop_run() will set this to
-     * true anyway.
+     * is not very important since calling [method@GLib.MainLoop.run] will set this
+     * to true anyway.
      * @return a new #GMainLoop.
      */
     public constructor(
@@ -44,32 +44,33 @@ public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : Pro
     }
 
     /**
-     * Returns the #GMainContext of @loop.
+     * Returns the [struct@GLib.MainContext] of @loop.
      *
-     * @return the #GMainContext of @loop
+     * @return the [struct@GLib.MainContext] of @loop
      */
     public fun getContext(): MainContext = g_main_loop_get_context(glibMainLoopPointer)!!.run {
         MainContext(this)
     }
 
     /**
-     * Checks to see if the main loop is currently being run via g_main_loop_run().
+     * Checks to see if the main loop is currently being run via
+     * [method@GLib.MainLoop.run].
      *
      * @return true if the mainloop is currently being run.
      */
     public fun isRunning(): Boolean = g_main_loop_is_running(glibMainLoopPointer).asBoolean()
 
     /**
-     * Stops a #GMainLoop from running. Any calls to g_main_loop_run()
-     * for the loop will return.
+     * Stops a [struct@GLib.MainLoop] from running. Any calls to
+     * [method@GLib.MainLoop.run] for the loop will return.
      *
      * Note that sources that have already been dispatched when
-     * g_main_loop_quit() is called will still be executed.
+     * [method@GLib.MainLoop.quit] is called will still be executed.
      */
     public fun quit(): Unit = g_main_loop_quit(glibMainLoopPointer)
 
     /**
-     * Increases the reference count on a #GMainLoop object by one.
+     * Increases the reference count on a [struct@GLib.MainLoop] object by one.
      *
      * @return @loop
      */
@@ -78,7 +79,7 @@ public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : Pro
     }
 
     /**
-     * Runs a main loop until g_main_loop_quit() is called on the loop.
+     * Runs a main loop until [method@GLib.MainLoop.quit] is called on the loop.
      * If this is called for the thread of the loop's #GMainContext,
      * it will process events from the loop, otherwise it will
      * simply wait.
@@ -86,7 +87,7 @@ public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : Pro
     public fun run(): Unit = g_main_loop_run(glibMainLoopPointer)
 
     /**
-     * Decreases the reference count on a #GMainLoop object by one. If
+     * Decreases the reference count on a [struct@GLib.MainLoop] object by one. If
      * the result is zero, free the loop and free all associated memory.
      */
     public fun unref(): Unit = g_main_loop_unref(glibMainLoopPointer)

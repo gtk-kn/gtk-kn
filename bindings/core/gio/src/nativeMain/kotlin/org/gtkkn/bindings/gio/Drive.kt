@@ -74,7 +74,7 @@ import org.gtkkn.bindings.glib.List as GlibList
 /**
  * `GDrive` represents a piece of hardware connected to the machine.
  * It’s generally only created for removable hardware or hardware with
- * removable media.
+ * removable media. For example, an optical disc drive, or a USB flash drive.
  *
  * `GDrive` is a container class for [iface@Gio.Volume] objects that stem from
  * the same piece of media. As such, `GDrive` abstracts a drive with

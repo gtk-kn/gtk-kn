@@ -44,6 +44,13 @@ import kotlin.String
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.6.
+ *
+ * Use [class@PreferencesDialog].
+ * ---
+ *
  * A window to present an application's preferences.
  *
  * <picture>
@@ -95,9 +102,6 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
      * This is deprecated since version 1.4.
      *
      * Use [property@NavigationPage:can-pop] instead.
-     *
-     * Has no effect for subpages added with
-     * [method@PreferencesWindow.push_subpage].
      * ---
      *
      * Whether gestures and shortcuts for closing subpages are enabled.
@@ -112,6 +116,9 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
      * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
      *
      * For right-to-left locales, gestures and shortcuts are reversed.
+     *
+     * Has no effect for subpages added with
+     * [method@PreferencesWindow.push_subpage].
      */
     public open var canNavigateBack: Boolean
         /**
@@ -134,8 +141,6 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
          * This is deprecated since version 1.4.
          *
          * Use [method@NavigationPage.set_can_pop] instead.
-         *
-         * Has no effect for subpages added with [method@PreferencesWindow.push_subpage].
          * ---
          *
          * Sets whether gestures and shortcuts for closing subpages are enabled.
@@ -151,6 +156,8 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
          *
          * For right-to-left locales, gestures and shortcuts are reversed.
          *
+         * Has no effect for subpages added with [method@PreferencesWindow.push_subpage].
+         *
          * @param canNavigateBack the new value
          */
         set(
@@ -158,10 +165,24 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         ) = adw_preferences_window_set_can_navigate_back(adwPreferencesWindowPointer, canNavigateBack.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Whether search is enabled.
      */
     public open var searchEnabled: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@PreferencesDialog].
+         * ---
+         *
          * Gets whether search is enabled for @self.
          *
          * @return whether search is enabled for @self.
@@ -169,6 +190,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         get() = adw_preferences_window_get_search_enabled(adwPreferencesWindowPointer).asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@PreferencesDialog].
+         * ---
+         *
          * Sets whether search is enabled for @self.
          *
          * @param searchEnabled whether search is enabled
@@ -178,6 +206,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         ) = adw_preferences_window_set_search_enabled(adwPreferencesWindowPointer, searchEnabled.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Creates a new `AdwPreferencesWindow`.
      *
      * @return the newly created `AdwPreferencesWindow`
@@ -187,6 +222,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Adds a preferences page to @self.
      *
      * @param page the page to add
@@ -195,6 +237,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         adw_preferences_window_add(adwPreferencesWindowPointer, page.adwPreferencesPagePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Displays @toast.
      *
      * See [method@ToastOverlay.add_toast].
@@ -219,6 +268,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
     public open fun closeSubpage(): Unit = adw_preferences_window_close_subpage(adwPreferencesWindowPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Gets the currently visible page of @self.
      *
      * @return the visible page
@@ -229,6 +285,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Gets the name of currently visible page of @self.
      *
      * @return the name of the visible page
@@ -237,6 +300,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         adw_preferences_window_get_visible_page_name(adwPreferencesWindowPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Pop the visible page from the subpage stack of @self.
      *
      * @return `TRUE` if a page has been popped
@@ -264,6 +334,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         adw_preferences_window_present_subpage(adwPreferencesWindowPointer, subpage.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Pushes @page onto the subpage stack of @self.
      *
      * The page will be automatically removed when popped.
@@ -276,6 +353,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         adw_preferences_window_push_subpage(adwPreferencesWindowPointer, page.adwNavigationPagePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Removes a page from @self.
      *
      * @param page the page to remove
@@ -284,6 +368,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         adw_preferences_window_remove(adwPreferencesWindowPointer, page.adwPreferencesPagePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Makes @page the visible page of @self.
      *
      * @param page a page of @self
@@ -292,6 +383,13 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
         adw_preferences_window_set_visible_page(adwPreferencesWindowPointer, page.adwPreferencesPagePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@PreferencesDialog].
+     * ---
+     *
      * Makes the page with the given name visible.
      *
      * See [property@PreferencesWindow:visible-page].

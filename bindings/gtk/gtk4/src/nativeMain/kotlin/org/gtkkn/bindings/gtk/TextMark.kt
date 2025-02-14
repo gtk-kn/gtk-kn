@@ -151,6 +151,18 @@ public open class TextMark(public val gtkTextMarkPointer: CPointer<GtkTextMark>)
      */
     public open fun getVisible(): Boolean = gtk_text_mark_get_visible(gtkTextMarkPointer).asBoolean()
 
+    /**
+     * Sets the visibility of @mark.
+     *
+     * The insertion point is normally visible, i.e. you can see it as
+     * a vertical bar. Also, the text widget uses a visible mark to
+     * indicate where a drop will occur when dragging-and-dropping text.
+     * Most other marks are not visible.
+     *
+     * Marks are not visible by default.
+     *
+     * @param setting visibility of mark
+     */
     public open fun setVisible(setting: Boolean): Unit =
         gtk_text_mark_set_visible(gtkTextMarkPointer, setting.asGBoolean())
 

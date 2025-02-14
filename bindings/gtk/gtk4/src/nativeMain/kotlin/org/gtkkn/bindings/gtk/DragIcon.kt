@@ -35,7 +35,7 @@ import kotlin.Unit
  * and is destroyed when the drag ends.
  *
  * To set up a drag icon and associate it with an ongoing drag operation,
- * use [func@Gtk.DragIcon.get_for_drag] to get the icon for a drag. You can
+ * use [ctor@Gtk.DragIcon.get_for_drag] to get the icon for a drag. You can
  * then use it like any other widget and use [method@Gtk.DragIcon.set_child]
  * to set whatever widget should be used for the drag icon.
  *
@@ -85,6 +85,19 @@ public open class DragIcon(public val gtkDragIconPointer: CPointer<GtkDragIcon>)
          */
         set(child) = gtk_drag_icon_set_child(gtkDragIconPointer, child?.gtkWidgetPointer)
 
+    /**
+     * Gets the `GtkDragIcon` in use with @drag.
+     *
+     * If no drag icon exists yet, a new one will be created
+     * and shown.
+     *
+     * @param drag a `GdkDrag`
+     * @return the `GtkDragIcon`
+     */
+    public constructor(drag: Drag) : this(gtk_drag_icon_get_for_drag(drag.gdkDragPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
+
     public companion object : TypeCompanion<DragIcon> {
         override val type: GeneratedClassKGType<DragIcon> =
             GeneratedClassKGType(getTypeOrNull()!!) { DragIcon(it.reinterpret()) }
@@ -113,19 +126,6 @@ public open class DragIcon(public val gtkDragIconPointer: CPointer<GtkDragIcon>)
             gtk_drag_icon_create_widget_for_value(`value`.gobjectValuePointer)?.run {
                 InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
             }
-
-        /**
-         * Gets the `GtkDragIcon` in use with @drag.
-         *
-         * If no drag icon exists yet, a new one will be created
-         * and shown.
-         *
-         * @param drag a `GdkDrag`
-         * @return the `GtkDragIcon`
-         */
-        public fun getForDrag(drag: Drag): Widget = gtk_drag_icon_get_for_drag(drag.gdkDragPointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
-        }
 
         /**
          * Creates a `GtkDragIcon` that shows @paintable, and associates

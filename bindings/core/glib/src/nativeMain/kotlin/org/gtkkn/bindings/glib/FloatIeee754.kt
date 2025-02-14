@@ -17,8 +17,17 @@ import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.guint
 import kotlin.String
 
+/**
+ * The #GFloatIEEE754 and #GDoubleIEEE754 unions are used to access the sign,
+ * mantissa and exponent of IEEE floats and doubles. These unions are defined
+ * as appropriate for a given platform. IEEE floats and doubles are supported
+ * (used for storage) by at least Intel, PPC and Sparc.
+ */
 public class FloatIeee754(public val glibFloatIeee754Pointer: CPointer<GFloatIEEE754>) :
     ProxyInstance(glibFloatIeee754Pointer) {
+    /**
+     * the double value
+     */
     public var vFloat: gfloat
         get() = glibFloatIeee754Pointer.pointed.v_float
 
@@ -76,7 +85,7 @@ public class FloatIeee754(public val glibFloatIeee754Pointer: CPointer<GFloatIEE
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
-     * @param vFloat
+     * @param vFloat the double value
      * @param mantissa
      * @param biasedExponent
      * @param sign
@@ -98,7 +107,7 @@ public class FloatIeee754(public val glibFloatIeee754Pointer: CPointer<GFloatIEE
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
-     * @param vFloat
+     * @param vFloat the double value
      * @param mantissa
      * @param biasedExponent
      * @param sign

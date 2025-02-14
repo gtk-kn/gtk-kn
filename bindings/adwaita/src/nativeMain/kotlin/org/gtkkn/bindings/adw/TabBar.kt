@@ -77,6 +77,18 @@ import kotlin.ULong
  *
  * `AdwTabBar` has a single CSS node with name `tabbar`.
  *
+ * ## Style classes
+ *
+ * By default `AdwTabBar` look like a part of an `AdwHeaderBar` and is intended
+ * to be used directly attached to one or used as a [class@ToolbarView] toolbar.
+ * The [`.inline`](style-classes.html#inline) style class removes its background,
+ * so that it can be used in different contexts instead.
+ *
+ * <picture>
+ *   <source srcset="tab-bar-inline-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="tab-bar-inline.png" alt="tab-bar-inline">
+ * </picture>
+ *
  * ## Skipped during bindings generation
  *
  * - parameter `types`: Array parameter of type GType is not supported

@@ -812,7 +812,7 @@ public open class ComboBox(public val gtkComboBoxPointer: CPointer<GtkComboBox>)
      * The default bindings for this signal are Alt+Up and Escape.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect
+     * @param handler the Callback to connect. Returns whether the combo box was popped down
      */
     public fun onPopdown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(

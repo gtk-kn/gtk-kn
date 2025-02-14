@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_6
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Editable
 import org.gtkkn.bindings.gtk.InputHints
@@ -34,6 +35,7 @@ import org.gtkkn.native.adw.adw_entry_row_get_attributes
 import org.gtkkn.native.adw.adw_entry_row_get_enable_emoji_completion
 import org.gtkkn.native.adw.adw_entry_row_get_input_hints
 import org.gtkkn.native.adw.adw_entry_row_get_input_purpose
+import org.gtkkn.native.adw.adw_entry_row_get_max_length
 import org.gtkkn.native.adw.adw_entry_row_get_show_apply_button
 import org.gtkkn.native.adw.adw_entry_row_get_text_length
 import org.gtkkn.native.adw.adw_entry_row_get_type
@@ -45,7 +47,9 @@ import org.gtkkn.native.adw.adw_entry_row_set_attributes
 import org.gtkkn.native.adw.adw_entry_row_set_enable_emoji_completion
 import org.gtkkn.native.adw.adw_entry_row_set_input_hints
 import org.gtkkn.native.adw.adw_entry_row_set_input_purpose
+import org.gtkkn.native.adw.adw_entry_row_set_max_length
 import org.gtkkn.native.adw.adw_entry_row_set_show_apply_button
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -269,6 +273,30 @@ public open class EntryRow(public val adwEntryRowPointer: CPointer<AdwEntryRow>)
          */
         @AdwVersion1_2
         set(purpose) = adw_entry_row_set_input_purpose(adwEntryRowPointer, purpose.nativeValue)
+
+    /**
+     * Maximum number of characters for the entry.
+     *
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public open var maxLength: gint
+        /**
+         * Retrieves the maximum length of the entry.
+         *
+         * @return The maximum length of the entry.
+         * @since 1.6
+         */
+        get() = adw_entry_row_get_max_length(adwEntryRowPointer)
+
+        /**
+         * Sets the maximum length of the entry.
+         *
+         * @param maxLength maximum length of the entry
+         * @since 1.6
+         */
+        @AdwVersion1_6
+        set(maxLength) = adw_entry_row_set_max_length(adwEntryRowPointer, maxLength)
 
     /**
      * Whether to show the apply button.

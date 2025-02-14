@@ -38,6 +38,15 @@ import kotlin.Unit
 public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<GskShaderArgsBuilder>) :
     ProxyInstance(gskShaderArgsBuilderPointer) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Allocates a builder that can be used to construct a new uniform data
      * chunk.
      *
@@ -54,6 +63,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Creates a new `GBytes` args from the current state of the
      * given @builder, and frees the @builder instance.
      *
@@ -68,6 +86,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Increases the reference count of a `GskShaderArgsBuilder` by one.
      *
      * @return the passed in `GskShaderArgsBuilder`
@@ -77,6 +104,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Sets the value of the uniform @idx.
      *
      * The uniform must be of bool type.
@@ -99,6 +135,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
         gsk_shader_args_builder_set_float(gskShaderArgsBuilderPointer, idx, `value`)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Sets the value of the uniform @idx.
      *
      * The uniform must be of int type.
@@ -110,6 +155,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
         gsk_shader_args_builder_set_int(gskShaderArgsBuilderPointer, idx, `value`)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Sets the value of the uniform @idx.
      *
      * The uniform must be of uint type.
@@ -121,6 +175,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
         gsk_shader_args_builder_set_uint(gskShaderArgsBuilderPointer, idx, `value`)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Sets the value of the uniform @idx.
      *
      * The uniform must be of vec2 type.
@@ -132,6 +195,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
         gsk_shader_args_builder_set_vec2(gskShaderArgsBuilderPointer, idx, `value`.grapheneVec2Pointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Sets the value of the uniform @idx.
      *
      * The uniform must be of vec3 type.
@@ -143,6 +215,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
         gsk_shader_args_builder_set_vec3(gskShaderArgsBuilderPointer, idx, `value`.grapheneVec3Pointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Sets the value of the uniform @idx.
      *
      * The uniform must be of vec4 type.
@@ -154,6 +235,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
         gsk_shader_args_builder_set_vec4(gskShaderArgsBuilderPointer, idx, `value`.grapheneVec4Pointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Creates a new `GBytes` args from the current state of the
      * given @builder.
      *
@@ -174,6 +264,15 @@ public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+     *   for OpenGL rendering.
+     * ---
+     *
      * Decreases the reference count of a `GskShaderArgBuilder` by one.
      *
      * If the resulting reference count is zero, frees the builder.

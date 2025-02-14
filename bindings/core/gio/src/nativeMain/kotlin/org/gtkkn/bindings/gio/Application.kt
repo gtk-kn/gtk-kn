@@ -212,7 +212,7 @@ import kotlin.collections.List
  *
  * To parse commandline arguments you may handle the
  * [signal@Gio.Application::command-line] signal or override the
- * [vfunc@Gio.Application.local_command_line] virtual funcion, to parse them in
+ * [vfunc@Gio.Application.local_command_line] virtual function, to parse them in
  * either the primary instance or the local instance, respectively.
  *
  * For an example of opening files with a `GApplication`, see
@@ -563,7 +563,7 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
      *
      * Calling this function will cause the options in the supplied option
      * group to be parsed, but it does not cause you to be "opted in" to the
-     * new functionality whereby unrecognised options are rejected even if
+     * new functionality whereby unrecognized options are rejected even if
      * %G_APPLICATION_HANDLES_COMMAND_LINE was given.
      *
      * @param group a #GOptionGroup
@@ -865,11 +865,11 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
      * notification. This works even for notifications sent from a previous
      * execution of the application, as long as @id is the same string.
      *
-     * @id may be null, but it is impossible to replace or withdraw
+     * @id may be `NULL`, but it is impossible to replace or withdraw
      * notifications without an id.
      *
      * If @notification is no longer relevant, it can be withdrawn with
-     * g_application_withdraw_notification().
+     * [method@Gio.Application.withdraw_notification].
      *
      * It is an error to call this function if @application has no
      * application ID.

@@ -10,8 +10,8 @@ import org.gtkkn.native.glib.G_MAIN_CONTEXT_FLAGS_NONE
 import org.gtkkn.native.glib.G_MAIN_CONTEXT_FLAGS_OWNERLESS_POLLING
 
 /**
- * Flags to pass to g_main_context_new_with_flags() which affect the behaviour
- * of a #GMainContext.
+ * Flags to pass to [ctor@GLib.MainContext.new_with_flags] which affect the
+ * behaviour of a [struct@GLib.MainContext].
  * @since 2.72
  */
 public class MainContextFlags(public val mask: GMainContextFlags) : Bitfield<MainContextFlags> {

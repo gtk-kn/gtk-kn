@@ -62,6 +62,12 @@ import kotlin.Unit
  * The actual printing can be done with [method@Gtk.PrintDialog.print] or
  * [method@Gtk.PrintDialog.print_file]. These APIs follows the GIO async pattern,
  * and the results can be obtained by calling the corresponding finish methods.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `page-setup`: Property TypeInfo of getter and setter do not match
+ * - method `print-settings`: Property TypeInfo of getter and setter do not match
+ *
  * @since 4.14
  */
 @GtkVersion4_14
@@ -130,60 +136,6 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
         set(modal) = gtk_print_dialog_set_modal(gtkPrintDialogPointer, modal.asGBoolean())
 
     /**
-     * The page setup to use.
-     *
-     * @since 4.14
-     */
-    @GtkVersion4_14
-    public open var pageSetup: PageSetup
-        /**
-         * Returns the page setup.
-         *
-         * @return the page setup
-         * @since 4.14
-         */
-        get() = gtk_print_dialog_get_page_setup(gtkPrintDialogPointer)!!.run {
-            InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
-        }
-
-        /**
-         * Set the page setup for the print dialog.
-         *
-         * @param pageSetup the new page setup
-         * @since 4.14
-         */
-        @GtkVersion4_14
-        set(pageSetup) = gtk_print_dialog_set_page_setup(gtkPrintDialogPointer, pageSetup.gtkPageSetupPointer)
-
-    /**
-     * The print settings to use.
-     *
-     * @since 4.14
-     */
-    @GtkVersion4_14
-    public open var printSettings: PrintSettings
-        /**
-         * Returns the print settings for the print dialog.
-         *
-         * @return the settings
-         * @since 4.14
-         */
-        get() = gtk_print_dialog_get_print_settings(gtkPrintDialogPointer)!!.run {
-            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
-        }
-
-        /**
-         * Sets the print settings for the print dialog.
-         *
-         * @param printSettings the new print settings
-         * @since 4.14
-         */
-        @GtkVersion4_14
-        set(
-            printSettings
-        ) = gtk_print_dialog_set_print_settings(gtkPrintDialogPointer, printSettings.gtkPrintSettingsPointer)
-
-    /**
      * A title that may be shown on the print dialog that is
      * presented by [method@Gtk.PrintDialog.setup].
      *
@@ -220,18 +172,41 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
     }
 
     /**
+     * Returns the page setup.
+     *
+     * @return the page setup
+     * @since 4.14
+     */
+    @GtkVersion4_14
+    public open fun getPageSetup(): PageSetup? = gtk_print_dialog_get_page_setup(gtkPrintDialogPointer)?.run {
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
+    }
+
+    /**
+     * Returns the print settings for the print dialog.
+     *
+     * @return the settings
+     * @since 4.14
+     */
+    @GtkVersion4_14
+    public open fun getPrintSettings(): PrintSettings? =
+        gtk_print_dialog_get_print_settings(gtkPrintDialogPointer)?.run {
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
+        }
+
+    /**
      * This function prints content from a stream.
      *
      * If you pass `NULL` as @setup, then this method will present a print dialog.
      * Otherwise, it will attempt to print directly, without user interaction.
      *
-     * The @callback will be called when the printing is done. It should call
-     * [method@Gtk.PrintDialog.print_finish] to obtain the results.
+     * The @callback will be called when the printing is done.
      *
      * @param parent the parent `GtkWindow`
      * @param setup the `GtkPrintSetup` to use
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.14
      */
     @GtkVersion4_14
@@ -257,14 +232,12 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
      * If you pass `NULL` as @setup, then this method will present a print dialog.
      * Otherwise, it will attempt to print directly, without user interaction.
      *
-     * The @callback will be called when the printing is done. It should call
-     * [method@Gtk.PrintDialog.print_file_finish] to obtain the results.
-     *
      * @param parent the parent `GtkWindow`
      * @param setup the `GtkPrintSetup` to use
      * @param file the `GFile` to print
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.14
      */
     @GtkVersion4_14
@@ -328,7 +301,7 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun printFinish(result: AsyncResult): Result<OutputStream?> = memScoped {
+    public open fun printFinish(result: AsyncResult): Result<OutputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_print_dialog_print_finish(
             gtkPrintDialogPointer,
@@ -341,19 +314,37 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
-            Result.success(gResult)
+            Result.success(checkNotNull(gResult))
         }
     }
+
+    /**
+     * Set the page setup for the print dialog.
+     *
+     * @param pageSetup the new page setup
+     * @since 4.14
+     */
+    @GtkVersion4_14
+    public open fun setPageSetup(pageSetup: PageSetup): Unit =
+        gtk_print_dialog_set_page_setup(gtkPrintDialogPointer, pageSetup.gtkPageSetupPointer)
+
+    /**
+     * Sets the print settings for the print dialog.
+     *
+     * @param printSettings the new print settings
+     * @since 4.14
+     */
+    @GtkVersion4_14
+    public open fun setPrintSettings(printSettings: PrintSettings): Unit =
+        gtk_print_dialog_set_print_settings(gtkPrintDialogPointer, printSettings.gtkPrintSettingsPointer)
 
     /**
      * This function presents a print dialog to let the user select a printer,
      * and set up print settings and page setup.
      *
      * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.PrintDialog.setup_finish]
-     * to obtain the results in the form of a [struct@Gtk.PrintSetup],
-     * that can then be passed to [method@Gtk.PrintDialog.print]
-     * or [method@Gtk.PrintDialog.print_file].
+     * The obtained [struct@Gtk.PrintSetup] can then be passed
+     * to [method@Gtk.PrintDialog.print] or [method@Gtk.PrintDialog.print_file].
      *
      * One possible use for this method is to have the user select a printer,
      * then show a page setup UI in the application (e.g. to arrange images
@@ -362,7 +353,8 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
      *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.14
      */
     @GtkVersion4_14
@@ -393,7 +385,7 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun setupFinish(result: AsyncResult): Result<PrintSetup?> = memScoped {
+    public open fun setupFinish(result: AsyncResult): Result<PrintSetup> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_print_dialog_setup_finish(
             gtkPrintDialogPointer,
@@ -406,7 +398,7 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
-            Result.success(gResult)
+            Result.success(checkNotNull(gResult))
         }
     }
 

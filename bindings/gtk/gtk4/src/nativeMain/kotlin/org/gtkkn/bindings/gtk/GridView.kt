@@ -65,6 +65,13 @@ import kotlin.Unit
  * To learn more about the list widget framework, see the
  * [overview](section-list-widget.html).
  *
+ * # Actions
+ *
+ * `GtkGridView` defines a set of built-in actions:
+ *
+ * - `list.activate-item` activates the item at given position by emitting the
+ *   the [signal@Gtk.GridView::activate] signal.
+ *
  * # CSS nodes
  *
  * ```
@@ -129,6 +136,8 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
 
     /**
      * Factory for populating list items.
+     *
+     * The factory must be for configuring [class@Gtk.ListItem] objects.
      */
     public open var factory: ListItemFactory?
         /**
@@ -295,7 +304,8 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
      * This function works no matter if the gridview is shown or focused.
      * If it isn't, then the changes will take effect once that happens.
      *
-     * @param pos position of the item
+     * @param pos position of the item. Must be less than the number of
+     *   items in the view.
      * @param flags actions to perform
      * @param scroll details of how to perform
      *   the scroll operation or null to scroll into view

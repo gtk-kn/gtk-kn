@@ -89,15 +89,19 @@ import org.gtkkn.bindings.glib.List as GlibList
  * As of GLib 2.20, URIs will always be converted to POSIX paths
  * (using [method@Gio.File.get_path]) when using [method@Gio.AppInfo.launch]
  * even if the application requested an URI and not a POSIX path. For example
- * for a desktop-file based application with Exec key `totem
- * %U` and a single URI, `sftp://foo/file.avi`, then
- * `/home/user/.gvfs/sftp on foo/file.avi` will be passed. This will
- * only work if a set of suitable GIO extensions (such as GVfs 2.26
- * compiled with FUSE support), is available and operational; if this
- * is not the case, the URI will be passed unmodified to the application.
- * Some URIs, such as `mailto:`, of course cannot be mapped to a POSIX
- * path (in GVfs there's no FUSE mount for it); such URIs will be
- * passed unmodified to the application.
+ * for a desktop-file based application with the following Exec key:
+ *
+ * ```
+ * Exec=totem %U
+ * ```
+ *
+ * and a single URI, `sftp://foo/file.avi`, then
+ * `/home/user/.gvfs/sftp on foo/file.avi` will be passed. This will only work
+ * if a set of suitable GIO extensions (such as GVfs 2.26 compiled with FUSE
+ * support), is available and operational; if this is not the case, the URI
+ * will be passed unmodified to the application. Some URIs, such as `mailto:`,
+ * of course cannot be mapped to a POSIX path (in GVfs there’s no FUSE mount
+ * for it); such URIs will be passed unmodified to the application.
  *
  * Specifically for GVfs 2.26 and later, the POSIX URI will be mapped
  * back to the GIO URI in the [iface@Gio.File] constructors (since GVfs
@@ -127,7 +131,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  *
  * This code will work when both `cdda://sr0/Track 1.wav` and
  * `/home/user/.gvfs/cdda on sr0/Track 1.wav` is passed to the
- * application. It should be noted that it's generally not safe
+ * application. It should be noted that it’s generally not safe
  * for applications to rely on the format of a particular URIs.
  * Different launcher applications (e.g. file managers) may have
  * different ideas of what a given URI means.
@@ -142,7 +146,7 @@ public interface AppInfo :
      * application is capable of opening files with the given content type.
      *
      * @param contentType a string.
-     * @return true on success, false on error.
+     * @return `TRUE` on success, `FALSE` on error.
      */
     public fun addSupportsType(contentType: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -155,10 +159,10 @@ public interface AppInfo :
     }
 
     /**
-     * Obtains the information whether the #GAppInfo can be deleted.
-     * See g_app_info_delete().
+     * Obtains the information whether the [iface@Gio.AppInfo] can be deleted.
+     * See [method@Gio.AppInfo.delete].
      *
-     * @return true if @appinfo can be deleted
+     * @return `TRUE` if @appinfo can be deleted
      * @since 2.20
      */
     @GioVersion2_20
@@ -167,26 +171,26 @@ public interface AppInfo :
     /**
      * Checks if a supported content type can be removed from an application.
      *
-     * @return true if it is possible to remove supported
-     *     content types from a given @appinfo, false if not.
+     * @return `TRUE` if it is possible to remove supported content types from a
+     *   given @appinfo, `FALSE` if not.
      */
     public fun canRemoveSupportsType(): Boolean = g_app_info_can_remove_supports_type(gioAppInfoPointer).asBoolean()
 
     /**
-     * Tries to delete a #GAppInfo.
+     * Tries to delete a [iface@Gio.AppInfo].
      *
      * On some platforms, there may be a difference between user-defined
-     * #GAppInfos which can be deleted, and system-wide ones which cannot.
-     * See g_app_info_can_delete().
+     * [iface@Gio.AppInfo]s which can be deleted, and system-wide ones which cannot.
+     * See [method@Gio.AppInfo.can_delete].
      *
-     * @return true if @appinfo has been deleted
+     * @return `TRUE` if @appinfo has been deleted
      * @since 2.20
      */
     @GioVersion2_20
     public fun delete(): Boolean = g_app_info_delete(gioAppInfoPointer).asBoolean()
 
     /**
-     * Creates a duplicate of a #GAppInfo.
+     * Creates a duplicate of a [iface@Gio.AppInfo].
      *
      * @return a duplicate of @appinfo.
      */
@@ -195,14 +199,14 @@ public interface AppInfo :
     }
 
     /**
-     * Checks if two #GAppInfos are equal.
+     * Checks if two [iface@Gio.AppInfo]s are equal.
      *
-     * Note that the check *may not* compare each individual
-     * field, and only does an identity check. In case detecting changes in the
-     * contents is needed, program code must additionally compare relevant fields.
+     * Note that the check *may not* compare each individual field, and only does
+     * an identity check. In case detecting changes in the contents is needed,
+     * program code must additionally compare relevant fields.
      *
-     * @param appinfo2 the second #GAppInfo.
-     * @return true if @appinfo1 is equal to @appinfo2. false otherwise.
+     * @param appinfo2 the second [iface@Gio.AppInfo].
+     * @return `TRUE` if @appinfo1 is equal to @appinfo2. `FALSE` otherwise.
      */
     public fun equal(appinfo2: AppInfo): Boolean =
         g_app_info_equal(gioAppInfoPointer, appinfo2.gioAppInfoPointer).asBoolean()
@@ -211,8 +215,8 @@ public interface AppInfo :
      * Gets the commandline with which the application will be
      * started.
      *
-     * @return a string containing the @appinfo's commandline,
-     *     or null if this information is not available
+     * @return a string containing the @appinfo’s
+     *   commandline, or `NULL` if this information is not available
      * @since 2.20
      */
     @GioVersion2_20
@@ -222,7 +226,7 @@ public interface AppInfo :
      * Gets a human-readable description of an installed application.
      *
      * @return a string containing a description of the
-     * application @appinfo, or null if none.
+     * application @appinfo, or `NULL` if none.
      */
     public fun getDescription(): String? = g_app_info_get_description(gioAppInfoPointer)?.toKString()
 
@@ -239,13 +243,13 @@ public interface AppInfo :
         g_app_info_get_display_name(gioAppInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
-     * Gets the executable's name for the installed application.
+     * Gets the executable’s name for the installed application.
      *
      * This is intended to be used for debugging or labelling what program is going
-     * to be run. To launch the executable, use g_app_info_launch() and related
+     * to be run. To launch the executable, use [method@Gio.AppInfo.launch] and related
      * functions, rather than spawning the return value from this function.
      *
-     * @return a string containing the @appinfo's application
+     * @return a string containing the @appinfo’s application
      * binaries name
      */
     public fun getExecutable(): String =
@@ -254,23 +258,22 @@ public interface AppInfo :
     /**
      * Gets the icon for the application.
      *
-     * @return the default #GIcon for @appinfo or null
-     * if there is no default icon.
+     * @return the default [iface@Gio.Icon] for
+     *   @appinfo or `NULL` if there is no default icon.
      */
     public fun getIcon(): Icon? = g_app_info_get_icon(gioAppInfoPointer)?.run {
         Icon.IconImpl(reinterpret())
     }
 
     /**
-     * Gets the ID of an application. An id is a string that
-     * identifies the application. The exact format of the id is
-     * platform dependent. For instance, on Unix this is the
-     * desktop file id from the xdg menu specification.
+     * Gets the ID of an application. An id is a string that identifies the
+     * application. The exact format of the id is platform dependent. For instance,
+     * on Unix this is the desktop file id from the xdg menu specification.
      *
-     * Note that the returned ID may be null, depending on how
-     * the @appinfo has been constructed.
+     * Note that the returned ID may be `NULL`, depending on how the @appinfo has
+     * been constructed.
      *
-     * @return a string containing the application's ID.
+     * @return a string containing the application’s ID.
      */
     public fun getId(): String? = g_app_info_get_id(gioAppInfoPointer)?.toKString()
 
@@ -285,9 +288,10 @@ public interface AppInfo :
     /**
      * Retrieves the list of content types that @app_info claims to support.
      * If this information is not provided by the environment, this function
-     * will return null.
+     * will return `NULL`.
+     *
      * This function does not take in consideration associations added with
-     * g_app_info_add_supports_type(), but only those exported directly by
+     * [method@Gio.AppInfo.add_supports_type], but only those exported directly by
      * the application.
      *
      * @return a list of content types.
@@ -303,7 +307,7 @@ public interface AppInfo :
      * about the details of the launcher (like what screen it is on).
      * On error, @error will be set accordingly.
      *
-     * To launch the application without arguments pass a null @files list.
+     * To launch the application without arguments pass a `NULL` @files list.
      *
      * Note that even if the launch is successful the application launched
      * can fail to start if it runs into problems during startup. There is
@@ -312,11 +316,11 @@ public interface AppInfo :
      * Some URIs can be changed when passed through a GFile (for instance
      * unsupported URIs with strange formats like mailto:), so if you have
      * a textual URI you want to pass in as argument, consider using
-     * g_app_info_launch_uris() instead.
+     * [method@Gio.AppInfo.launch_uris] instead.
      *
      * The launched application inherits the environment of the launching
-     * process, but it can be modified with g_app_launch_context_setenv()
-     * and g_app_launch_context_unsetenv().
+     * process, but it can be modified with [method@Gio.AppLaunchContext.setenv]
+     * and [method@Gio.AppLaunchContext.unsetenv].
      *
      * On UNIX, this function sets the `GIO_LAUNCHED_DESKTOP_FILE`
      * environment variable with the path of the launched desktop file and
@@ -326,9 +330,9 @@ public interface AppInfo :
      * `XDG_ACTIVATION_TOKEN` and `DESKTOP_STARTUP_ID` environment
      * variables are also set, based on information provided in @context.
      *
-     * @param files a #GList of #GFile objects
-     * @param context a #GAppLaunchContext or null
-     * @return true on successful launch, false otherwise.
+     * @param files a list of [iface@Gio.File] objects
+     * @param context the launch context
+     * @return `TRUE` on successful launch, `FALSE` otherwise.
      */
     public fun launch(files: GlibList? = null, context: AppLaunchContext? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -353,15 +357,15 @@ public interface AppInfo :
      * one URI per invocation as part of their command-line, multiple instances
      * of the application will be spawned.
      *
-     * To launch the application without arguments pass a null @uris list.
+     * To launch the application without arguments pass a `NULL` @uris list.
      *
      * Note that even if the launch is successful the application launched
      * can fail to start if it runs into problems during startup. There is
      * no way to detect this.
      *
-     * @param uris a #GList containing URIs to launch.
-     * @param context a #GAppLaunchContext or null
-     * @return true on successful launch, false otherwise.
+     * @param uris a list of URIs to launch.
+     * @param context the launch context
+     * @return `TRUE` on successful launch, `FALSE` otherwise.
      */
     public fun launchUris(uris: GlibList? = null, context: AppLaunchContext? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -379,17 +383,18 @@ public interface AppInfo :
     }
 
     /**
-     * Async version of g_app_info_launch_uris().
+     * Async version of [method@Gio.AppInfo.launch_uris].
      *
      * The @callback is invoked immediately after the application launch, but it
      * waits for activation in case of D-Bus–activated applications and also provides
      * extended error information for sandboxed applications, see notes for
-     * g_app_info_launch_default_for_uri_async().
+     * [func@Gio.AppInfo.launch_default_for_uri_async].
      *
-     * @param uris a #GList containing URIs to launch.
-     * @param context a #GAppLaunchContext or null
-     * @param cancellable a #GCancellable
-     * @param callback a #GAsyncReadyCallback to call when the request is done
+     * @param uris a list of URIs to launch.
+     * @param context the launch context
+     * @param cancellable a [class@Gio.Cancellable]
+     * @param callback a [type@Gio.AsyncReadyCallback] to call
+     *   when the request is done
      * @since 2.60
      */
     @GioVersion2_60
@@ -410,10 +415,10 @@ public interface AppInfo :
     )
 
     /**
-     * Finishes a g_app_info_launch_uris_async() operation.
+     * Finishes a [method@Gio.AppInfo.launch_uris_async] operation.
      *
-     * @param result a #GAsyncResult
-     * @return true on successful launch, false otherwise.
+     * @param result the async result
+     * @return `TRUE` on successful launch, `FALSE` otherwise.
      * @since 2.60
      */
     @GioVersion2_60
@@ -435,7 +440,7 @@ public interface AppInfo :
      * Removes a supported type from an application, if possible.
      *
      * @param contentType a string.
-     * @return true on success, false on error.
+     * @return `TRUE` on success, `FALSE` on error.
      */
     public fun removeSupportsType(contentType: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -450,9 +455,9 @@ public interface AppInfo :
     /**
      * Sets the application as the default handler for the given file extension.
      *
-     * @param extension a string containing the file extension
-     *     (without the dot).
-     * @return true on success, false on error.
+     * @param extension a string containing the file extension (without
+     *   the dot).
+     * @return `TRUE` on success, `FALSE` on error.
      */
     public fun setAsDefaultForExtension(extension: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -468,7 +473,7 @@ public interface AppInfo :
      * Sets the application as the default handler for a given type.
      *
      * @param contentType the content type.
-     * @return true on success, false on error.
+     * @return `TRUE` on success, `FALSE` on error.
      */
     public fun setAsDefaultForType(contentType: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -481,13 +486,13 @@ public interface AppInfo :
     }
 
     /**
-     * Sets the application as the last used application for a given type.
-     * This will make the application appear as first in the list returned
-     * by g_app_info_get_recommended_for_type(), regardless of the default
+     * Sets the application as the last used application for a given type. This
+     * will make the application appear as first in the list returned by
+     * [func@Gio.AppInfo.get_recommended_for_type], regardless of the default
      * application for that content type.
      *
      * @param contentType the content type.
-     * @return true on success, false on error.
+     * @return `TRUE` on success, `FALSE` on error.
      */
     public fun setAsLastUsedForType(contentType: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
@@ -503,21 +508,21 @@ public interface AppInfo :
      * Checks if the application info should be shown in menus that
      * list available applications.
      *
-     * @return true if the @appinfo should be shown, false otherwise.
+     * @return `TRUE` if the @appinfo should be shown, `FALSE` otherwise.
      */
     public fun shouldShow(): Boolean = g_app_info_should_show(gioAppInfoPointer).asBoolean()
 
     /**
      * Checks if the application accepts files as arguments.
      *
-     * @return true if the @appinfo supports files.
+     * @return `TRUE` if the @appinfo supports files.
      */
     public fun supportsFiles(): Boolean = g_app_info_supports_files(gioAppInfoPointer).asBoolean()
 
     /**
      * Checks if the application supports reading files and directories from URIs.
      *
-     * @return true if the @appinfo supports URIs.
+     * @return `TRUE` if the @appinfo supports URIs.
      */
     public fun supportsUris(): Boolean = g_app_info_supports_uris(gioAppInfoPointer).asBoolean()
 
@@ -545,18 +550,20 @@ public interface AppInfo :
         }
 
         /**
-         * Creates a new #GAppInfo from the given information.
+         * Creates a new [iface@Gio.AppInfo] from the given information.
          *
-         * Note that for @commandline, the quoting rules of the Exec key of the
+         * Note that for @commandline, the quoting rules of the `Exec` key of the
          * [freedesktop.org Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec)
          * are applied. For example, if the @commandline contains
          * percent-encoded URIs, the percent-character must be doubled in order to prevent it from
-         * being swallowed by Exec key unquoting. See the specification for exact quoting rules.
+         * being swallowed by `Exec` key unquoting. See
+         * [the specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s07.html)
+         * for exact quoting rules.
          *
-         * @param commandline the commandline to use
-         * @param applicationName the application name, or null to use @commandline
-         * @param flags flags that can specify details of the created #GAppInfo
-         * @return new #GAppInfo for given command.
+         * @param commandline the command line to use
+         * @param applicationName the application name, or `NULL` to use @commandline
+         * @param flags flags that can specify details of the created [iface@Gio.AppInfo]
+         * @return new [iface@Gio.AppInfo] for given command.
          */
         public fun createFromCommandline(
             commandline: String,
@@ -585,39 +592,45 @@ public interface AppInfo :
          * on this system.
          *
          * For desktop files, this includes applications that have
-         * `NoDisplay=true` set or are excluded from display by means
-         * of `OnlyShowIn` or `NotShowIn`. See g_app_info_should_show().
-         * The returned list does not include applications which have
-         * the `Hidden` key set.
+         * [`NoDisplay=true`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-nodisplay)
+         * set or are excluded from display by means of
+         * [`OnlyShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-onlyshowin)
+         * or [`NotShowIn`](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-notshowin).
+         * See [method@Gio.AppInfo.should_show].
          *
-         * @return a newly allocated #GList of references to #GAppInfos.
+         * The returned list does not include applications which have the
+         * [`Hidden` key](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html#key-hidden)
+         * set.
+         *
+         * @return a newly allocated
+         *   list of references to [iface@Gio.AppInfo]s.
          */
         public fun getAll(): GlibList = g_app_info_get_all()!!.run {
             GlibList(this)
         }
 
         /**
-         * Gets a list of all #GAppInfos for a given content type,
-         * including the recommended and fallback #GAppInfos. See
-         * g_app_info_get_recommended_for_type() and
-         * g_app_info_get_fallback_for_type().
+         * Gets a list of all [iface@Gio.AppInfo]s for a given content type,
+         * including the recommended and fallback [iface@Gio.AppInfo]s. See
+         * [func@Gio.AppInfo.get_recommended_for_type] and
+         * [func@Gio.AppInfo.get_fallback_for_type].
          *
-         * @param contentType the content type to find a #GAppInfo for
-         * @return #GList of #GAppInfos
-         *     for given @content_type or null on error.
+         * @param contentType the content type to find a [iface@Gio.AppInfo] for
+         * @return list of
+         *   [iface@Gio.AppInfo]s for given @content_type.
          */
         public fun getAllForType(contentType: String): GlibList = g_app_info_get_all_for_type(contentType)!!.run {
             GlibList(this)
         }
 
         /**
-         * Gets the default #GAppInfo for a given content type.
+         * Gets the default [iface@Gio.AppInfo] for a given content type.
          *
-         * @param contentType the content type to find a #GAppInfo for
-         * @param mustSupportUris if true, the #GAppInfo is expected to
-         *     support URIs
-         * @return #GAppInfo for given @content_type or
-         *     null on error.
+         * @param contentType the content type to find a [iface@Gio.AppInfo] for
+         * @param mustSupportUris if `TRUE`, the [iface@Gio.AppInfo] is expected to
+         *   support URIs
+         * @return [iface@Gio.AppInfo] for given
+         *   @content_type or `NULL` on error.
          */
         public fun getDefaultForType(contentType: String, mustSupportUris: Boolean): AppInfo? =
             g_app_info_get_default_for_type(contentType, mustSupportUris.asGBoolean())?.run {
@@ -625,13 +638,15 @@ public interface AppInfo :
             }
 
         /**
-         * Asynchronously gets the default #GAppInfo for a given content type.
+         * Asynchronously gets the default [iface@Gio.AppInfo] for a given content
+         * type.
          *
-         * @param contentType the content type to find a #GAppInfo for
-         * @param mustSupportUris if true, the #GAppInfo is expected to
-         *     support URIs
-         * @param cancellable optional #GCancellable object, null to ignore
-         * @param callback a #GAsyncReadyCallback to call when the request is done
+         * @param contentType the content type to find a [iface@Gio.AppInfo] for
+         * @param mustSupportUris if `TRUE`, the [iface@Gio.AppInfo] is expected to
+         *   support URIs
+         * @param cancellable a [class@Gio.Cancellable]
+         * @param callback a [type@Gio.AsyncReadyCallback] to call
+         *   when the request is done
          * @since 2.74
          */
         @GioVersion2_74
@@ -651,14 +666,15 @@ public interface AppInfo :
         )
 
         /**
-         * Finishes a default #GAppInfo lookup started by
-         * g_app_info_get_default_for_type_async().
+         * Finishes a default [iface@Gio.AppInfo] lookup started by
+         * [func@Gio.AppInfo.get_default_for_type_async].
          *
-         * If no #GAppInfo is found, then @error will be set to %G_IO_ERROR_NOT_FOUND.
+         * If no #[iface@Gio.AppInfo] is found, then @error will be set to
+         * [error@Gio.IOErrorEnum.NOT_FOUND].
          *
-         * @param result a #GAsyncResult
-         * @return #GAppInfo for given @content_type or
-         *     null on error.
+         * @param result the async result
+         * @return [iface@Gio.AppInfo] for given @content_type or
+         *   `NULL` on error.
          * @since 2.74
          */
         @GioVersion2_74
@@ -676,14 +692,14 @@ public interface AppInfo :
         }
 
         /**
-         * Gets the default application for handling URIs with
-         * the given URI scheme. A URI scheme is the initial part
-         * of the URI, up to but not including the ':', e.g. "http",
-         * "ftp" or "sip".
+         * Gets the default application for handling URIs with the given URI scheme.
+         *
+         * A URI scheme is the initial part of the URI, up to but not including the `:`.
+         * For example, `http`, `ftp` or `sip`.
          *
          * @param uriScheme a string containing a URI scheme.
-         * @return #GAppInfo for given @uri_scheme or
-         *     null on error.
+         * @return [iface@Gio.AppInfo] for given
+         *   @uri_scheme or `NULL` on error.
          */
         public fun getDefaultForUriScheme(uriScheme: String): AppInfo? =
             g_app_info_get_default_for_uri_scheme(uriScheme)?.run {
@@ -693,12 +709,13 @@ public interface AppInfo :
         /**
          * Asynchronously gets the default application for handling URIs with
          * the given URI scheme. A URI scheme is the initial part
-         * of the URI, up to but not including the ':', e.g. "http",
-         * "ftp" or "sip".
+         * of the URI, up to but not including the `:`, e.g. `http`,
+         * `ftp` or `sip`.
          *
          * @param uriScheme a string containing a URI scheme.
-         * @param cancellable optional #GCancellable object, null to ignore
-         * @param callback a #GAsyncReadyCallback to call when the request is done
+         * @param cancellable a [class@Gio.Cancellable]
+         * @param callback a [type@Gio.AsyncReadyCallback] to call
+         *   when the request is done
          * @since 2.74
          */
         @GioVersion2_74
@@ -716,14 +733,15 @@ public interface AppInfo :
         )
 
         /**
-         * Finishes a default #GAppInfo lookup started by
-         * g_app_info_get_default_for_uri_scheme_async().
+         * Finishes a default [iface@Gio.AppInfo] lookup started by
+         * [func@Gio.AppInfo.get_default_for_uri_scheme_async].
          *
-         * If no #GAppInfo is found, then @error will be set to %G_IO_ERROR_NOT_FOUND.
+         * If no [iface@Gio.AppInfo] is found, then @error will be set to
+         * [error@Gio.IOErrorEnum.NOT_FOUND].
          *
-         * @param result a #GAsyncResult
-         * @return #GAppInfo for given @uri_scheme or
-         *     null on error.
+         * @param result the async result
+         * @return [iface@Gio.AppInfo] for given @uri_scheme or
+         *   `NULL` on error.
          * @since 2.74
          */
         @GioVersion2_74
@@ -741,13 +759,13 @@ public interface AppInfo :
         }
 
         /**
-         * Gets a list of fallback #GAppInfos for a given content type, i.e.
-         * those applications which claim to support the given content type
-         * by MIME type subclassing and not directly.
+         * Gets a list of fallback [iface@Gio.AppInfo]s for a given content type, i.e.
+         * those applications which claim to support the given content type by MIME
+         * type subclassing and not directly.
          *
-         * @param contentType the content type to find a #GAppInfo for
-         * @return #GList of #GAppInfos
-         *     for given @content_type or null on error.
+         * @param contentType the content type to find a [iface@Gio.AppInfo] for
+         * @return list of [iface@Gio.AppInfo]s
+         *     for given @content_type or `NULL` on error.
          * @since 2.28
          */
         @GioVersion2_28
@@ -757,16 +775,17 @@ public interface AppInfo :
             }
 
         /**
-         * Gets a list of recommended #GAppInfos for a given content type, i.e.
-         * those applications which claim to support the given content type exactly,
-         * and not by MIME type subclassing.
-         * Note that the first application of the list is the last used one, i.e.
-         * the last one for which g_app_info_set_as_last_used_for_type() has been
-         * called.
+         * Gets a list of recommended [iface@Gio.AppInfo]s for a given content type,
+         * i.e. those applications which claim to support the given content type
+         * exactly, and not by MIME type subclassing.
          *
-         * @param contentType the content type to find a #GAppInfo for
-         * @return #GList of #GAppInfos
-         *     for given @content_type or null on error.
+         * Note that the first application of the list is the last used one, i.e.
+         * the last one for which [method@Gio.AppInfo.set_as_last_used_for_type] has
+         * been called.
+         *
+         * @param contentType the content type to find a [iface@Gio.AppInfo] for
+         * @return list of
+         *   [iface@Gio.AppInfo]s for given @content_type or `NULL` on error.
          * @since 2.28
          */
         @GioVersion2_28
@@ -776,18 +795,17 @@ public interface AppInfo :
             }
 
         /**
-         * Utility function that launches the default application
-         * registered to handle the specified uri. Synchronous I/O
-         * is done on the uri to detect the type of the file if
-         * required.
+         * Utility function that launches the default application registered to handle
+         * the specified uri. Synchronous I/O is done on the uri to detect the type of
+         * the file if required.
          *
-         * The D-Bus–activated applications don't have to be started if your application
+         * The D-Bus–activated applications don’t have to be started if your application
          * terminates too soon after this function. To prevent this, use
-         * g_app_info_launch_default_for_uri_async() instead.
+         * [func@Gio.AppInfo.launch_default_for_uri_async] instead.
          *
          * @param uri the uri to show
-         * @param context an optional #GAppLaunchContext
-         * @return true on success, false on error.
+         * @param context optional launch context
+         * @return `TRUE` on success, `FALSE` on error.
          */
         public fun launchDefaultForUri(uri: String, context: AppLaunchContext? = null): Result<Boolean> = memScoped {
             val gError = allocPointerTo<GError>()
@@ -804,21 +822,21 @@ public interface AppInfo :
         }
 
         /**
-         * Async version of g_app_info_launch_default_for_uri().
+         * Async version of [func@Gio.AppInfo.launch_default_for_uri].
          *
-         * This version is useful if you are interested in receiving
-         * error information in the case where the application is
-         * sandboxed and the portal may present an application chooser
-         * dialog to the user.
+         * This version is useful if you are interested in receiving error information
+         * in the case where the application is sandboxed and the portal may present an
+         * application chooser dialog to the user.
          *
          * This is also useful if you want to be sure that the D-Bus–activated
          * applications are really started before termination and if you are interested
          * in receiving error information from their activation.
          *
          * @param uri the uri to show
-         * @param context an optional #GAppLaunchContext
-         * @param cancellable a #GCancellable
-         * @param callback a #GAsyncReadyCallback to call when the request is done
+         * @param context optional launch context
+         * @param cancellable a [class@Gio.Cancellable]
+         * @param callback a [type@Gio.AsyncReadyCallback] to call
+         *   when the request is done
          * @since 2.50
          */
         @GioVersion2_50
@@ -840,8 +858,8 @@ public interface AppInfo :
         /**
          * Finishes an asynchronous launch-default-for-uri operation.
          *
-         * @param result a #GAsyncResult
-         * @return true if the launch was successful, false if @error is set
+         * @param result the async result
+         * @return `TRUE` if the launch was successful, `FALSE` if @error is set
          * @since 2.50
          */
         @GioVersion2_50
@@ -857,10 +875,10 @@ public interface AppInfo :
 
         /**
          * Removes all changes to the type associations done by
-         * g_app_info_set_as_default_for_type(),
-         * g_app_info_set_as_default_for_extension(),
-         * g_app_info_add_supports_type() or
-         * g_app_info_remove_supports_type().
+         * [method@Gio.AppInfo.set_as_default_for_type],
+         * [method@Gio.AppInfo.set_as_default_for_extension],
+         * [method@Gio.AppInfo.add_supports_type] or
+         * [method@Gio.AppInfo.remove_supports_type].
          *
          * @param contentType a content type
          * @since 2.20

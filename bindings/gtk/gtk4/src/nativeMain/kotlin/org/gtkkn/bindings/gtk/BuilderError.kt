@@ -122,6 +122,11 @@ public enum class BuilderError(public val nativeValue: GtkBuilderError) {
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Registers an error quark for [class@Gtk.Builder] errors.
+         *
+         * @return the error quark
+         */
         public fun quark(): Quark = gtk_builder_error_quark()
 
         /**

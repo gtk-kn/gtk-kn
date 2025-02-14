@@ -63,7 +63,7 @@ import kotlin.Unit
 public class MainContext(public val glibMainContextPointer: CPointer<GMainContext>) :
     ProxyInstance(glibMainContextPointer) {
     /**
-     * Creates a new #GMainContext structure.
+     * Creates a new [struct@GLib.MainContext] structure.
      *
      * @return the new #GMainContext
      */
@@ -72,7 +72,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
     }
 
     /**
-     * Creates a new #GMainContext structure.
+     * Creates a new [struct@GLib.MainContext] structure.
      *
      * @param flags a bitwise-OR combination of #GMainContextFlags flags that can only be
      *         set at creation time.
@@ -88,12 +88,13 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * If some other thread is the owner of the context,
      * returns false immediately. Ownership is properly
      * recursive: the owner can require ownership again
-     * and will release ownership when g_main_context_release()
-     * is called as many times as g_main_context_acquire().
+     * and will release ownership when [method@GLib.MainContext.release]
+     * is called as many times as [method@GLib.MainContext.acquire].
      *
      * You must be the owner of a context before you
-     * can call g_main_context_prepare(), g_main_context_query(),
-     * g_main_context_check(), g_main_context_dispatch(), g_main_context_release().
+     * can call [method@GLib.MainContext.prepare], [method@GLib.MainContext.query],
+     * [method@GLib.MainContext.check], [method@GLib.MainContext.dispatch],
+     * [method@GLib.MainContext.release].
      *
      * Since 2.76 @context can be null to use the global-default
      * main context.
@@ -106,13 +107,13 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
     /**
      * Adds a file descriptor to the set of file descriptors polled for
      * this context. This will very seldom be used directly. Instead
-     * a typical event source will use g_source_add_unix_fd() instead.
+     * a typical event source will use `g_source_add_unix_fd` instead.
      *
      * @param fd a #GPollFD structure holding information about a file
      *      descriptor to watch.
      * @param priority the priority for this file descriptor which should be
-     *      the same as the priority used for g_source_attach() to ensure that the
-     *      file descriptor is polled whenever the results may be needed.
+     *      the same as the priority used for [method@GLib.Source.attach] to ensure
+     *      that the file descriptor is polled whenever the results may be needed.
      */
     public fun addPoll(fd: PollFd, priority: gint): Unit =
         g_main_context_add_poll(glibMainContextPointer, fd.glibPollFdPointer, priority)
@@ -121,7 +122,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * Dispatches all pending sources.
      *
      * You must have successfully acquired the context with
-     * g_main_context_acquire() before you may call this function.
+     * [method@GLib.MainContext.acquire] before you may call this function.
      *
      * Since 2.76 @context can be null to use the global-default
      * main context.
@@ -133,7 +134,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * multiple sources exist with the same source function and user data,
      * the first one found will be returned.
      *
-     * @param funcs the @source_funcs passed to g_source_new().
+     * @param funcs the @source_funcs passed to [ctor@GLib.Source.new].
      * @param userData the user data from the callback.
      * @return the source, if one was found, otherwise null
      */
@@ -154,13 +155,13 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * More specifically: source IDs can be reissued after a source has been
      * destroyed and therefore it is never valid to use this function with a
      * source ID which may have already been removed.  An example is when
-     * scheduling an idle to run in another thread with g_idle_add(): the
+     * scheduling an idle to run in another thread with [func@GLib.idle_add]: the
      * idle may already have run and been removed by the time this function
      * is called on its (now invalid) source ID.  This source ID may have
      * been reissued, leading to the operation being performed against the
      * wrong source.
      *
-     * @param sourceId the source ID, as returned by g_source_get_id().
+     * @param sourceId the source ID, as returned by [method@GLib.Source.get_id].
      * @return the #GSource
      */
     public fun findSourceById(sourceId: guint): Source =
@@ -186,19 +187,19 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * invocation of @function.
      *
      * If @context is null then the global-default main context — as
-     * returned by g_main_context_default() — is used.
+     * returned by [func@GLib.MainContext.default] — is used.
      *
      * If @context is owned by the current thread, @function is called
      * directly.  Otherwise, if @context is the thread-default main context
-     * of the current thread and g_main_context_acquire() succeeds, then
-     * @function is called and g_main_context_release() is called
+     * of the current thread and [method@GLib.MainContext.acquire] succeeds, then
+     * @function is called and [method@GLib.MainContext.release] is called
      * afterwards.
      *
      * In any other case, an idle source is created to call @function and
      * that source is attached to @context (presumably to be run in another
-     * thread).  The idle source is attached with %G_PRIORITY_DEFAULT
+     * thread).  The idle source is attached with [const@GLib.PRIORITY_DEFAULT]
      * priority.  If you want a different priority, use
-     * g_main_context_invoke_full().
+     * [method@GLib.MainContext.invoke_full].
      *
      * Note that, as with normal idle functions, @function should probably
      * return false.  If it returns true, it will be continuously run in a
@@ -218,7 +219,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * Invokes a function in such a way that @context is owned during the
      * invocation of @function.
      *
-     * This function is the same as g_main_context_invoke() except that it
+     * This function is the same as [method@GLib.MainContext.invoke] except that it
      * lets you specify the priority in case @function ends up being
      * scheduled as an idle and also lets you give a #GDestroyNotify for @data.
      *
@@ -240,7 +241,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
 
     /**
      * Determines whether this thread holds the (recursive)
-     * ownership of this #GMainContext. This is useful to
+     * ownership of this [struct@GLib.MainContext]. This is useful to
      * know before waiting on another thread that may be
      * blocking to get ownership of @context.
      *
@@ -261,7 +262,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * given moment without further waiting.
      *
      * Note that even when @may_block is true, it is still possible for
-     * g_main_context_iteration() to return false, since the wait may
+     * [method@GLib.MainContext.iteration] to return false, since the wait may
      * be interrupted for other reasons than an event source becoming ready.
      *
      * @param mayBlock whether the call may block.
@@ -293,32 +294,33 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * started in this thread to run under @context and deliver their
      * results to its main loop, rather than running under the global
      * default main context in the main thread. Note that calling this function
-     * changes the context returned by g_main_context_get_thread_default(),
-     * not the one returned by g_main_context_default(), so it does not affect
-     * the context used by functions like g_idle_add().
+     * changes the context returned by [func@GLib.MainContext.get_thread_default],
+     * not the one returned by [func@GLib.MainContext.default], so it does not
+     * affect the context used by functions like [func@GLib.idle_add].
      *
      * Normally you would call this function shortly after creating a new
-     * thread, passing it a #GMainContext which will be run by a
-     * #GMainLoop in that thread, to set a new default context for all
+     * thread, passing it a [struct@GLib.MainContext] which will be run by a
+     * [struct@GLib.MainLoop] in that thread, to set a new default context for all
      * async operations in that thread. In this case you may not need to
-     * ever call g_main_context_pop_thread_default(), assuming you want the
-     * new #GMainContext to be the default for the whole lifecycle of the
-     * thread.
+     * ever call [method@GLib.MainContext.pop_thread_default], assuming you want
+     * the new [struct@GLib.MainContext] to be the default for the whole lifecycle
+     * of the thread.
      *
      * If you don't have control over how the new thread was created (e.g.
      * in the new thread isn't newly created, or if the thread life
      * cycle is managed by a #GThreadPool), it is always suggested to wrap
-     * the logic that needs to use the new #GMainContext inside a
-     * g_main_context_push_thread_default() / g_main_context_pop_thread_default()
-     * pair, otherwise threads that are re-used will end up never explicitly
-     * releasing the #GMainContext reference they hold.
+     * the logic that needs to use the new [struct@GLib.MainContext] inside a
+     * [method@GLib.MainContext.push_thread_default] /
+     * [method@GLib.MainContext.pop_thread_default] pair, otherwise threads that
+     * are re-used will end up never explicitly releasing the
+     * [struct@GLib.MainContext] reference they hold.
      *
      * In some cases you may want to schedule a single operation in a
      * non-default context, or temporarily use a non-default context in
      * the main thread. In that case, you can wrap the call to the
      * asynchronous operation inside a
-     * g_main_context_push_thread_default() /
-     * g_main_context_pop_thread_default() pair, but it is up to you to
+     * [method@GLib.MainContext.push_thread_default] /
+     * [method@GLib.MainContext.pop_thread_default] pair, but it is up to you to
      * ensure that no other asynchronous operations accidentally get
      * started while the non-default context is active.
      *
@@ -332,7 +334,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
     public fun pushThreadDefault(): Unit = g_main_context_push_thread_default(glibMainContextPointer)
 
     /**
-     * Increases the reference count on a #GMainContext object by one.
+     * Increases the reference count on a [struct@GLib.MainContext] object by one.
      *
      * @return the @context that was passed in (since 2.6)
      */
@@ -342,12 +344,12 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
 
     /**
      * Releases ownership of a context previously acquired by this thread
-     * with g_main_context_acquire(). If the context was acquired multiple
-     * times, the ownership will be released only when g_main_context_release()
+     * with [method@GLib.MainContext.acquire]. If the context was acquired multiple
+     * times, the ownership will be released only when [method@GLib.MainContext.release]
      * is called as many times as it was acquired.
      *
      * You must have successfully acquired the context with
-     * g_main_context_acquire() before you may call this function.
+     * [method@GLib.MainContext.acquire] before you may call this function.
      */
     public fun release(): Unit = g_main_context_release(glibMainContextPointer)
 
@@ -355,12 +357,14 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * Removes file descriptor from the set of file descriptors to be
      * polled for a particular context.
      *
-     * @param fd a #GPollFD descriptor previously added with g_main_context_add_poll()
+     * @param fd a #GPollFD descriptor previously added with
+     *   [method@GLib.MainContext.add_poll]
      */
     public fun removePoll(fd: PollFd): Unit = g_main_context_remove_poll(glibMainContextPointer, fd.glibPollFdPointer)
 
     /**
-     * Decreases the reference count on a #GMainContext object by one. If
+     * Decreases the reference count on a [struct@GLib.MainContext] object by one.
+     * If
      * the result is zero, free the context and free all associated memory.
      */
     public fun unref(): Unit = g_main_context_unref(glibMainContextPointer)
@@ -370,11 +374,12 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      *
      * This is deprecated since version 2.58.
      *
-     * Use g_main_context_is_owner() and separate locking instead.
+     * Use [method@GLib.MainContext.is_owner] and separate
+     *    locking instead.
      * ---
      *
      * Tries to become the owner of the specified context,
-     * as with g_main_context_acquire(). But if another thread
+     * as with [method@GLib.MainContext.acquire]. But if another thread
      * is the owner, atomically drop @mutex and wait on @cond until
      * that owner releases ownership or until @cond is signaled, then
      * try again (once) to become the owner.
@@ -388,14 +393,14 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
         g_main_context_wait(glibMainContextPointer, cond.glibCondPointer, mutex.glibMutexPointer).asBoolean()
 
     /**
-     * If @context is currently blocking in g_main_context_iteration()
+     * If @context is currently blocking in [method@GLib.MainContext.iteration]
      * waiting for a source to become ready, cause it to stop blocking
      * and return.  Otherwise, cause the next invocation of
-     * g_main_context_iteration() to return without blocking.
+     * [method@GLib.MainContext.iteration] to return without blocking.
      *
-     * This API is useful for low-level control over #GMainContext; for
+     * This API is useful for low-level control over [struct@GLib.MainContext]; for
      * example, integrating it with main loop implementations such as
-     * #GMainLoop.
+     * [struct@GLib.MainLoop].
      *
      * Another related use for this function is when implementing a main
      * loop with a termination condition, computed from multiple threads:
@@ -424,7 +429,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
          * Returns the global-default main context. This is the main context
          * used for main loop functions when a main loop is not explicitly
          * specified, and corresponds to the "main" main loop. See also
-         * g_main_context_get_thread_default().
+         * [func@GLib.MainContext.get_thread_default].
          *
          * @return the global-default main context.
          */
@@ -436,14 +441,14 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
          * Gets the thread-default #GMainContext for this thread. Asynchronous
          * operations that want to be able to be run in contexts other than
          * the default one should call this method or
-         * g_main_context_ref_thread_default() to get a #GMainContext to add
-         * their #GSources to. (Note that even in single-threaded
-         * programs applications may sometimes want to temporarily push a
-         * non-default context, so it is not safe to assume that this will
-         * always return null if you are running in the default thread.)
+         * [func@GLib.MainContext.ref_thread_default] to get a
+         * [struct@GLib.MainContext] to add their [struct@GLib.Source]s to. (Note that
+         * even in single-threaded programs applications may sometimes want to
+         * temporarily push a non-default context, so it is not safe to assume that
+         * this will always return null if you are running in the default thread.)
          *
          * If you need to hold a reference on the context, use
-         * g_main_context_ref_thread_default() instead.
+         * [func@GLib.MainContext.ref_thread_default] instead.
          *
          * @return the thread-default #GMainContext, or
          * null if the thread-default context is the global-default main context.
@@ -455,15 +460,16 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
         }
 
         /**
-         * Gets the thread-default #GMainContext for this thread, as with
-         * g_main_context_get_thread_default(), but also adds a reference to
-         * it with g_main_context_ref(). In addition, unlike
-         * g_main_context_get_thread_default(), if the thread-default context
-         * is the global-default context, this will return that #GMainContext
-         * (with a ref added to it) rather than returning null.
+         * Gets the thread-default [struct@GLib.MainContext] for this thread, as with
+         * [func@GLib.MainContext.get_thread_default], but also adds a reference to
+         * it with [method@GLib.MainContext.ref]. In addition, unlike
+         * [func@GLib.MainContext.get_thread_default], if the thread-default context
+         * is the global-default context, this will return that
+         * [struct@GLib.MainContext] (with a ref added to it) rather than returning
+         * null.
          *
          * @return the thread-default #GMainContext. Unref
-         *     with g_main_context_unref() when you are done with it.
+         *     with [method@GLib.MainContext.unref] when you are done with it.
          * @since 2.32
          */
         @GLibVersion2_32

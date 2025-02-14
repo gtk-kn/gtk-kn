@@ -205,8 +205,8 @@ public open class DrawingArea(public val gtkDrawingAreaPointer: CPointer<GtkDraw
      * If what you are drawing does change, call [method@Gtk.Widget.queue_draw]
      * on the drawing area. This will cause a redraw and will call @draw_func again.
      *
-     * @param drawFunc callback that lets you draw
-     *   the drawing area's contents
+     * @param drawFunc callback
+     *   that lets you draw the drawing area's contents
      */
     public open fun setDrawFunc(drawFunc: DrawingAreaDrawFunc?): Unit = gtk_drawing_area_set_draw_func(
         gtkDrawingAreaPointer,

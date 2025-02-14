@@ -39,7 +39,7 @@ import kotlin.Boolean
  *
  * # CSS nodes
  *
- * `GtkAspectFrame` uses a CSS node with name `frame`.
+ * `GtkAspectFrame` uses a CSS node with name `aspectframe`.
  *
  * # Accessibility
  *

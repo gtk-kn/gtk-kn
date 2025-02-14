@@ -133,7 +133,7 @@ public abstract class InputStream(public val gioInputStreamPointer: CPointer<GIn
      * asynchronicity, so they are optional for inheriting classes. However, if you
      * override one you must override all.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional cancellable object
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
@@ -259,7 +259,7 @@ public abstract class InputStream(public val gioInputStreamPointer: CPointer<GIn
      * priority. Default priority is %G_PRIORITY_DEFAULT.
      *
      * @param count the number of bytes that will be read from the stream
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
@@ -396,7 +396,7 @@ public abstract class InputStream(public val gioInputStreamPointer: CPointer<GIn
      * However, if you override one, you must override all.
      *
      * @param count the number of bytes that will be skipped from the stream
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied

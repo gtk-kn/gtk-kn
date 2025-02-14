@@ -203,6 +203,18 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
         blurRadius
     )
 
+    /**
+     * Creates render nodes for rendering @layout in the given foregound @color
+     * and appends them to the current node of @snapshot without changing the
+     * current node. The current theme's foreground color for a widget can be
+     * obtained with [method@Gtk.Widget.get_color].
+     *
+     * Note that if the layout does not produce any visible output, then nodes
+     * may not be added to the @snapshot.
+     *
+     * @param layout the `PangoLayout` to render
+     * @param color the foreground color to render the layout in
+     */
     public open fun appendLayout(layout: Layout, color: Rgba): Unit =
         gtk_snapshot_append_layout(gtkSnapshotPointer.reinterpret(), layout.pangoLayoutPointer, color.gdkRgbaPointer)
 
@@ -332,6 +344,15 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [class@Gtk.GLArea] for
+     *   OpenGL rendering.
+     * ---
+     *
      * Removes the top element from the stack of render nodes and
      * adds it to the nearest [class@Gsk.GLShaderNode] below it.
      *
@@ -447,6 +468,15 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
         gtk_snapshot_push_fill(gtkSnapshotPointer.reinterpret(), path.gskPathPointer, fillRule.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     *
+     * GTK's new Vulkan-focused rendering
+     *   does not support this feature. Use [class@Gtk.GLArea] for
+     *   OpenGL rendering.
+     * ---
+     *
      * Push a [class@Gsk.GLShaderNode].
      *
      * The node uses the given [class@Gsk.GLShader] and uniform values

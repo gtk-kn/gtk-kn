@@ -135,6 +135,13 @@ public enum class AccessibleProperty(public val nativeValue: GtkAccessibleProper
      *    of aria-valuenow for a range widget. Value type: string
      */
     VALUE_TEXT(GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT),
+
+    /**
+     * Defines a string value that provides a description of non-standard keyboard
+     * interactions of the current element. Value type: string
+     * @since 4.16
+     */
+    HELP_TEXT(GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_HELP_TEXT),
     ;
 
     public companion object {
@@ -158,9 +165,19 @@ public enum class AccessibleProperty(public val nativeValue: GtkAccessibleProper
             GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_MIN -> VALUE_MIN
             GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_NOW -> VALUE_NOW
             GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT -> VALUE_TEXT
+            GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_HELP_TEXT -> HELP_TEXT
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Initializes @value with the appropriate type for the @property.
+         *
+         * This function is mostly meant for language bindings, in conjunction
+         * with gtk_accessible_update_property_value().
+         *
+         * @param property a `GtkAccessibleProperty`
+         * @param value an uninitialized `GValue`
+         */
         public fun initValue(`property`: AccessibleProperty, `value`: Value): Unit =
             gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer)
 

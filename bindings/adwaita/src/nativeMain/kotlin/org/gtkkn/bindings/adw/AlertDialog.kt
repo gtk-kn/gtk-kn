@@ -14,6 +14,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_6
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
@@ -38,6 +39,7 @@ import org.gtkkn.native.adw.adw_alert_dialog_get_default_response
 import org.gtkkn.native.adw.adw_alert_dialog_get_extra_child
 import org.gtkkn.native.adw.adw_alert_dialog_get_heading
 import org.gtkkn.native.adw.adw_alert_dialog_get_heading_use_markup
+import org.gtkkn.native.adw.adw_alert_dialog_get_prefer_wide_layout
 import org.gtkkn.native.adw.adw_alert_dialog_get_response_appearance
 import org.gtkkn.native.adw.adw_alert_dialog_get_response_enabled
 import org.gtkkn.native.adw.adw_alert_dialog_get_response_label
@@ -52,6 +54,7 @@ import org.gtkkn.native.adw.adw_alert_dialog_set_default_response
 import org.gtkkn.native.adw.adw_alert_dialog_set_extra_child
 import org.gtkkn.native.adw.adw_alert_dialog_set_heading
 import org.gtkkn.native.adw.adw_alert_dialog_set_heading_use_markup
+import org.gtkkn.native.adw.adw_alert_dialog_set_prefer_wide_layout
 import org.gtkkn.native.adw.adw_alert_dialog_set_response_appearance
 import org.gtkkn.native.adw.adw_alert_dialog_set_response_enabled
 import org.gtkkn.native.adw.adw_alert_dialog_set_response_label
@@ -124,8 +127,7 @@ import kotlin.Unit
  * ## Async API
  *
  * `AdwAlertDialog` can also be used via the [method@AlertDialog.choose] method.
- * This API follows the GIO async pattern, and the result can be obtained by
- * calling [method@AlertDialog.choose_finish], for example:
+ * This API follows the GIO async pattern, for example:
  *
  * ```c
  * static void
@@ -170,7 +172,7 @@ import kotlin.Unit
  *
  * `AdwAlertDialog` supports adding responses in UI definitions by via the
  * `<responses>` element that may contain multiple `<response>` elements, each
- * respresenting a response.
+ * representing a response.
  *
  * Each of the `<response>` elements must have the `id` attribute specifying the
  * response ID. The contents of the element are used as the response label.
@@ -434,6 +436,38 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
         set(useMarkup) = adw_alert_dialog_set_heading_use_markup(adwAlertDialogPointer, useMarkup.asGBoolean())
 
     /**
+     * Whether to prefer wide layout.
+     *
+     * Prefer horizontal button layout when possible, and wider dialog width
+     * otherwise.
+     *
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public open var preferWideLayout: Boolean
+        /**
+         * Gets whether @self prefers wide layout.
+         *
+         * @return whether to prefer wide layout
+         * @since 1.5
+         */
+        get() = adw_alert_dialog_get_prefer_wide_layout(adwAlertDialogPointer).asBoolean()
+
+        /**
+         * Sets whether @self prefers wide layout.
+         *
+         * Prefer horizontal button layout when possible, and wider dialog width
+         * otherwise.
+         *
+         * @param preferWideLayout whether to prefer wide layout
+         * @since 1.6
+         */
+        @AdwVersion1_6
+        set(
+            preferWideLayout
+        ) = adw_alert_dialog_set_prefer_wide_layout(adwAlertDialogPointer, preferWideLayout.asGBoolean())
+
+    /**
      * Creates a new `AdwAlertDialog`.
      *
      * @heading and @body can be set to `NULL`. This can be useful if they need to
@@ -489,9 +523,6 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
 
     /**
      * This function shows @self to the user.
-     *
-     * The @callback will be called when the alert is dismissed. It should call
-     * [method@AlertDialog.choose_finish] to obtain the result.
      *
      * If the window is an [class@Window] or [class@ApplicationWindow], the dialog
      * will be shown within it. Otherwise, it will be a separate window.

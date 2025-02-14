@@ -95,6 +95,17 @@ import kotlin.Unit
  * classes matching the button contents. The nested button nodes will never
  * contain them.
  *
+ * ## Style classes
+ *
+ * `AdwSplitButton` can use some of the same style classes as [class@Gtk.Button]:
+ *
+ * - [`.suggested-action`](style-classes.html#suggested-action)
+ * - [`.destructive-action`](style-classes.html#destructive-action)
+ * - [`.flat`](style-classes.html#flat)
+ * - [`.raised`](style-classes.html#raised)
+ *
+ * Other style classes, like `.pill`, cannot be used.
+ *
  * ## Accessibility
  *
  * `AdwSplitButton` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.

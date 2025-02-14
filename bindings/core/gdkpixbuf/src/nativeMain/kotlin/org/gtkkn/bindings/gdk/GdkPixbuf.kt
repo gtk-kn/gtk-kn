@@ -63,7 +63,7 @@ public object GdkPixbuf {
      * Micro version of gdk-pixbuf library, that is the "2" in
      * "0.8.2" for example.
      */
-    public const val PIXBUF_MICRO: gint = 10
+    public const val PIXBUF_MICRO: gint = 12
 
     /**
      * Minor version of gdk-pixbuf library, that is the "8" in
@@ -77,7 +77,7 @@ public object GdkPixbuf {
      * This is the version being compiled against; contrast with
      * `gdk_pixbuf_version`.
      */
-    public const val PIXBUF_VERSION: String = "2.42.10"
+    public const val PIXBUF_VERSION: String = "2.42.12"
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {

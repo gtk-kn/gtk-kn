@@ -78,6 +78,7 @@ public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyIns
     /**
      * Returns the dash_offset of a `GskStroke`.
      *
+     * @return the dash_offset
      * @since 4.14
      */
     @GskVersion4_14
@@ -121,6 +122,7 @@ public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyIns
     /**
      * Returns the miter limit of a `GskStroke`.
      *
+     * @return the miter limit
      * @since 4.14
      */
     @GskVersion4_14

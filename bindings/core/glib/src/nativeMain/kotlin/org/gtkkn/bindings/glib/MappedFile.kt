@@ -160,8 +160,7 @@ public class MappedFile(public val glibMappedFilePointer: CPointer<GMappedFile>)
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun getContents(): String =
-        g_mapped_file_get_contents(glibMappedFilePointer)?.toKString() ?: error("Expected not null string")
+    public fun getContents(): String? = g_mapped_file_get_contents(glibMappedFilePointer)?.toKString()
 
     /**
      * Returns the length of the contents of a #GMappedFile.

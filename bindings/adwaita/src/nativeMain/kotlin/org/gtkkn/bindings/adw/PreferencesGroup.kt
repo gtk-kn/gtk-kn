@@ -7,7 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_1
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_6
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
@@ -16,17 +19,20 @@ import org.gtkkn.native.adw.AdwPreferencesGroup
 import org.gtkkn.native.adw.adw_preferences_group_add
 import org.gtkkn.native.adw.adw_preferences_group_get_description
 import org.gtkkn.native.adw.adw_preferences_group_get_header_suffix
+import org.gtkkn.native.adw.adw_preferences_group_get_separate_rows
 import org.gtkkn.native.adw.adw_preferences_group_get_title
 import org.gtkkn.native.adw.adw_preferences_group_get_type
 import org.gtkkn.native.adw.adw_preferences_group_new
 import org.gtkkn.native.adw.adw_preferences_group_remove
 import org.gtkkn.native.adw.adw_preferences_group_set_description
 import org.gtkkn.native.adw.adw_preferences_group_set_header_suffix
+import org.gtkkn.native.adw.adw_preferences_group_set_separate_rows
 import org.gtkkn.native.adw.adw_preferences_group_set_title
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
+import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
 
@@ -44,6 +50,11 @@ import kotlin.Unit
  * To summarize the role of the preferences it gathers, a group can have both a
  * title and a description. The title will be used by [class@PreferencesDialog]
  * to let the user look for a preference.
+ *
+ * The [property@PreferencesGroup:separate-rows] property can be used to
+ * separate the rows within the group, same as when using the
+ * [`.boxed-list-separate`](style-classes.html#boxed-lists-cards) style class
+ * instead of `.boxed-list`.
  *
  * ## AdwPreferencesGroup as GtkBuildable
  *
@@ -131,6 +142,40 @@ public open class PreferencesGroup(public val adwPreferencesGroupPointer: CPoint
          */
         @AdwVersion1_1
         set(suffix) = adw_preferences_group_set_header_suffix(adwPreferencesGroupPointer, suffix?.gtkWidgetPointer)
+
+    /**
+     * Whether to separate rows.
+     *
+     * Equivalent to using the
+     * [`.boxed-list-separate`](style-classes.html#boxed-lists-cards) style class
+     * on a [class@Gtk.ListBox] instead of `.boxed-list`.
+     *
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public open var separateRows: Boolean
+        /**
+         * Gets whether @self's rows are separated.
+         *
+         * @return whether rows are separated
+         * @since 1.6
+         */
+        get() = adw_preferences_group_get_separate_rows(adwPreferencesGroupPointer).asBoolean()
+
+        /**
+         * Sets whether @self's rows are separated.
+         *
+         * Equivalent to using the
+         * [`.boxed-list-separate`](style-classes.html#boxed-lists-cards) style class
+         * on a [class@Gtk.ListBox] instead of `.boxed-list`.
+         *
+         * @param separateRows whether to separate rows
+         * @since 1.6
+         */
+        @AdwVersion1_6
+        set(
+            separateRows
+        ) = adw_preferences_group_set_separate_rows(adwPreferencesGroupPointer, separateRows.asGBoolean())
 
     /**
      * The title for this group of preferences.

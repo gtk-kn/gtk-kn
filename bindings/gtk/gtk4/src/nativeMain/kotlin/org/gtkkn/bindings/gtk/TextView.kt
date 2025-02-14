@@ -121,11 +121,48 @@ import kotlin.Unit
 /**
  * A widget that displays the contents of a [class@Gtk.TextBuffer].
  *
- * ![An example GtkTextview](multiline-text.png)
+ * ![An example GtkTextView](multiline-text.png)
  *
  * You may wish to begin by reading the [conceptual overview](section-text-widget.html),
  * which gives an overview of all the objects and data types related to the
  * text widget and how they work together.
+ *
+ * ## Shortcuts and Gestures
+ *
+ * `GtkTextView` supports the following keyboard shortcuts:
+ *
+ * - <kbd>Shift</kbd>+<kbd>F10</kbd> or <kbd>Menu</kbd> opens the context menu.
+ * - <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes the last modification.
+ * - <kbd>Ctrl</kbd>+<kbd>Y</kbd> or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>
+ *   redoes the last undone modification.
+ *
+ * Additionally, the following signals have default keybindings:
+ *
+ * - [signal@Gtk.TextView::backspace]
+ * - [signal@Gtk.TextView::copy-clipboard]
+ * - [signal@Gtk.TextView::cut-clipboard]
+ * - [signal@Gtk.TextView::delete-from-cursor]
+ * - [signal@Gtk.TextView::insert-emoji]
+ * - [signal@Gtk.TextView::move-cursor]
+ * - [signal@Gtk.TextView::paste-clipboard]
+ * - [signal@Gtk.TextView::select-all]
+ * - [signal@Gtk.TextView::toggle-cursor-visible]
+ * - [signal@Gtk.TextView::toggle-overwrite]
+ *
+ * ## Actions
+ *
+ * `GtkTextView` defines a set of built-in actions:
+ *
+ * - `clipboard.copy` copies the contents to the clipboard.
+ * - `clipboard.cut` copies the contents to the clipboard and deletes it from
+ *   the widget.
+ * - `clipboard.paste` inserts the contents of the clipboard into the widget.
+ * - `menu.popup` opens the context menu.
+ * - `misc.insert-emoji` opens the Emoji chooser.
+ * - `selection.delete` deletes the current selection.
+ * - `selection.select-all` selects all of the widgets content.
+ * - `text.redo` redoes the last change to the contents.
+ * - `text.undo` undoes the last change to the contents.
  *
  * ## CSS nodes
  *
@@ -270,6 +307,9 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
          */
         set(setting) = gtk_text_view_set_cursor_visible(gtkTextViewPointer, setting.asGBoolean())
 
+    /**
+     * Whether the text can be modified by the user.
+     */
     public open var editable: Boolean
         /**
          * Returns the default editability of the `GtkTextView`.
@@ -324,6 +364,8 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
     public open var inputHints: InputHints
         /**
          * Gets the `input-hints` of the `GtkTextView`.
+         *
+         * @return the input hints
          */
         get() = gtk_text_view_get_input_hints(gtkTextViewPointer).run {
             InputHints(this)
@@ -348,6 +390,8 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
     public open var inputPurpose: InputPurpose
         /**
          * Gets the `input-purpose` of the `GtkTextView`.
+         *
+         * @return the input purpose
          */
         get() = gtk_text_view_get_input_purpose(gtkTextViewPointer).run {
             InputPurpose.fromNativeValue(this)
@@ -363,6 +407,9 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
          */
         set(purpose) = gtk_text_view_set_input_purpose(gtkTextViewPointer, purpose.nativeValue)
 
+    /**
+     * Left, right, or center justification.
+     */
     public open var justification: Justification
         /**
          * Gets the default justification of paragraphs in @text_view.
@@ -455,6 +502,9 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
          */
         set(overwrite) = gtk_text_view_set_overwrite(gtkTextViewPointer, overwrite.asGBoolean())
 
+    /**
+     * Pixels of blank space above paragraphs.
+     */
     public open var pixelsAboveLines: gint
         /**
          * Gets the default number of pixels to put above paragraphs.
@@ -475,6 +525,9 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
          */
         set(pixelsAboveLines) = gtk_text_view_set_pixels_above_lines(gtkTextViewPointer, pixelsAboveLines)
 
+    /**
+     * Pixels of blank space below paragraphs.
+     */
     public open var pixelsBelowLines: gint
         /**
          * Gets the default number of pixels to put below paragraphs.
@@ -496,6 +549,9 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
          */
         set(pixelsBelowLines) = gtk_text_view_set_pixels_below_lines(gtkTextViewPointer, pixelsBelowLines)
 
+    /**
+     * Pixels of blank space between wrapped lines in a paragraph.
+     */
     public open var pixelsInsideWrap: gint
         /**
          * Gets the default number of pixels to put between wrapped lines
@@ -573,6 +629,9 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
          */
         set(topMargin) = gtk_text_view_set_top_margin(gtkTextViewPointer, topMargin)
 
+    /**
+     * Whether to wrap lines never, at word boundaries, or at character boundaries.
+     */
     public open var wrapMode: WrapMode
         /**
          * Gets the line wrapping for the view.

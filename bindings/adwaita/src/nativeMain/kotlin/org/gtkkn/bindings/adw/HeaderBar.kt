@@ -57,7 +57,7 @@ import kotlin.Unit
  * ## Dialog Integration
  *
  * When placed inside an [class@Dialog], `AdwHeaderBar` will display the dialog
- * title intead of window title. It will also adjust the decoration layout to
+ * title instead of window title. It will also adjust the decoration layout to
  * ensure it always has a close button and nothing else. Set
  * [property@HeaderBar:show-start-title-buttons] and
  * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
@@ -78,9 +78,16 @@ import kotlin.Unit
  *
  * ## Split View Integration
  *
- * When placed inside `AdwNavigationSplitView` or `AdwOverlaySplitView`,
+ * When placed inside [class@NavigationSplitView] or [class@OverlaySplitView],
  * `AdwHeaderBar` will automatically hide the title buttons other than at the
  * edges of the window.
+ *
+ * ## Bottom Sheet Integration
+ *
+ * When played inside [class@BottomSheet], `AdwHeaderBar` will not show the title
+ * unless [property@BottomSheet:show-drag-handle] is set to `FALSE`, regardless
+ * of [property@HeaderBar:show-title]. This only applies to the default title,
+ * titles set with [property@HeaderBar:title-widget] will still be shown.
  *
  * ## Centering Policy
  *
@@ -117,7 +124,7 @@ import kotlin.Unit
  * `AdwHeaderBar`'s CSS node is called `headerbar`. It contains a `windowhandle`
  * subnode, which contains a `box` subnode, which contains three `widget`
  * subnodes at the start, center and end of the header bar. The start and end
- * subnotes contain a `box` subnode with the `.start` and `.end` style classes
+ * subnodes contain a `box` subnode with the `.start` and `.end` style classes
  * respectively, and the center node contains a node that represents the title.
  *
  * Each of the boxes contains a `windowcontrols` subnode, see

@@ -16,6 +16,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.Gsk.resolveException
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_16
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
@@ -27,6 +28,7 @@ import org.gtkkn.native.gsk.gsk_render_node_deserialize
 import org.gtkkn.native.gsk.gsk_render_node_draw
 import org.gtkkn.native.gsk.gsk_render_node_get_bounds
 import org.gtkkn.native.gsk.gsk_render_node_get_node_type
+import org.gtkkn.native.gsk.gsk_render_node_get_opaque_rect
 import org.gtkkn.native.gsk.gsk_render_node_get_type
 import org.gtkkn.native.gsk.gsk_render_node_ref
 import org.gtkkn.native.gsk.gsk_render_node_serialize
@@ -91,6 +93,25 @@ public abstract class RenderNode(public val gskRenderNodePointer: CPointer<GskRe
     public open fun getNodeType(): RenderNodeType = gsk_render_node_get_node_type(gskRenderNodePointer).run {
         RenderNodeType.fromNativeValue(this)
     }
+
+    /**
+     * Gets an opaque rectangle inside the node that GTK can determine to
+     * be fully opaque.
+     *
+     * There is no guarantee that this is indeed the largest opaque rectangle or
+     * that regions outside the rectangle are not opaque. This function is a best
+     * effort with that goal.
+     *
+     * The rectangle will be fully contained in the bounds of the node.
+     *
+     * @param outOpaque return location for the opaque rect
+     * @return true if part or all of the rendernode is opaque, false if no
+     *   opaque region could be found.
+     * @since 4.16
+     */
+    @GskVersion4_16
+    public open fun getOpaqueRect(outOpaque: Rect): Boolean =
+        gsk_render_node_get_opaque_rect(gskRenderNodePointer, outOpaque.grapheneRectPointer).asBoolean()
 
     /**
      * Acquires a reference on the given `GskRenderNode`.

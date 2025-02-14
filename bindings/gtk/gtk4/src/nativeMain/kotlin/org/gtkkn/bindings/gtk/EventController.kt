@@ -124,13 +124,13 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
     /**
      * The widget receiving the `GdkEvents` that the controller will handle.
      */
-    public open val widget: Widget
+    public open val widget: Widget?
         /**
          * Returns the `GtkWidget` this controller relates to.
          *
          * @return a `GtkWidget`
          */
-        get() = gtk_event_controller_get_widget(gtkEventControllerPointer)!!.run {
+        get() = gtk_event_controller_get_widget(gtkEventControllerPointer)?.run {
             InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 

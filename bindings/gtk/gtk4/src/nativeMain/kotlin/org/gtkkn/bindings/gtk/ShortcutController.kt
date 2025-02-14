@@ -71,7 +71,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `item-type`: Property has no getter nor setter
- * - method `mnemonic-modifiers`: Property has no getter nor setter
  * - method `model`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
@@ -89,6 +88,38 @@ public open class ShortcutController(public val gtkShortcutControllerPointer: CP
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
+
+    /**
+     * The modifiers that need to be pressed to allow mnemonics activation.
+     */
+    public open var mnemonicModifiers: ModifierType
+        /**
+         * Gets the mnemonics modifiers for when this controller activates its shortcuts.
+         *
+         * @return the controller's mnemonics modifiers
+         */
+        get() = gtk_shortcut_controller_get_mnemonics_modifiers(gtkShortcutControllerPointer).run {
+            ModifierType(this)
+        }
+
+        /**
+         * Sets the controller to use the given modifier for mnemonics.
+         *
+         * The mnemonics modifiers determines which modifiers need to be pressed to allow
+         * activation of shortcuts with mnemonics triggers.
+         *
+         * GTK normally uses the Alt modifier for mnemonics, except in `GtkPopoverMenu`s,
+         * where mnemonics can be triggered without any modifiers. It should be very
+         * rarely necessary to change this, and doing so is likely to interfere with
+         * other shortcuts.
+         *
+         * This value is only relevant for local shortcut controllers. Global and managed
+         * shortcut controllers will have their shortcuts activated from other places which
+         * have their own modifiers for activating mnemonics.
+         *
+         * @param modifiers the new mnemonics_modifiers to use
+         */
+        set(modifiers) = gtk_shortcut_controller_set_mnemonics_modifiers(gtkShortcutControllerPointer, modifiers.mask)
 
     /**
      * What scope the shortcuts will be handled in.
@@ -158,16 +189,6 @@ public open class ShortcutController(public val gtkShortcutControllerPointer: CP
         gtk_shortcut_controller_add_shortcut(gtkShortcutControllerPointer, shortcut.gtkShortcutPointer)
 
     /**
-     * Gets the mnemonics modifiers for when this controller activates its shortcuts.
-     *
-     * @return the controller's mnemonics modifiers
-     */
-    public open fun getMnemonicsModifiers(): ModifierType =
-        gtk_shortcut_controller_get_mnemonics_modifiers(gtkShortcutControllerPointer).run {
-            ModifierType(this)
-        }
-
-    /**
      * Removes @shortcut from the list of shortcuts handled by @self.
      *
      * If @shortcut had not been added to @controller or this controller
@@ -177,26 +198,6 @@ public open class ShortcutController(public val gtkShortcutControllerPointer: CP
      */
     public open fun removeShortcut(shortcut: Shortcut): Unit =
         gtk_shortcut_controller_remove_shortcut(gtkShortcutControllerPointer, shortcut.gtkShortcutPointer)
-
-    /**
-     * Sets the controller to use the given modifier for mnemonics.
-     *
-     * The mnemonics modifiers determines which modifiers need to be pressed to allow
-     * activation of shortcuts with mnemonics triggers.
-     *
-     * GTK normally uses the Alt modifier for mnemonics, except in `GtkPopoverMenu`s,
-     * where mnemonics can be triggered without any modifiers. It should be very
-     * rarely necessary to change this, and doing so is likely to interfere with
-     * other shortcuts.
-     *
-     * This value is only relevant for local shortcut controllers. Global and managed
-     * shortcut controllers will have their shortcuts activated from other places which
-     * have their own modifiers for activating mnemonics.
-     *
-     * @param modifiers the new mnemonics_modifiers to use
-     */
-    public open fun setMnemonicsModifiers(modifiers: ModifierType): Unit =
-        gtk_shortcut_controller_set_mnemonics_modifiers(gtkShortcutControllerPointer, modifiers.mask)
 
     public companion object : TypeCompanion<ShortcutController> {
         override val type: GeneratedClassKGType<ShortcutController> =

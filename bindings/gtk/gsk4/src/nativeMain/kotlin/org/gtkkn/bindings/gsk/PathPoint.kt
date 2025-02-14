@@ -156,6 +156,13 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>) :
     public fun compare(point2: PathPoint): gint =
         gsk_path_point_compare(gskPathPointPointer, point2.gskPathPointPointer)
 
+    /**
+     * Copies a path point.
+     *
+     * @return the copied point
+     * @since 4.14
+     */
+    @GskVersion4_14
     public fun copy(): PathPoint = gsk_path_point_copy(gskPathPointPointer)!!.run {
         PathPoint(this)
     }
@@ -178,6 +185,12 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>) :
     public fun equal(point2: PathPoint): Boolean =
         gsk_path_point_equal(gskPathPointPointer, point2.gskPathPointPointer).asBoolean()
 
+    /**
+     * Frees a path point copied by [method@Gsk.PathPoint.copy].
+     *
+     * @since 4.14
+     */
+    @GskVersion4_14
     public fun free(): Unit = gsk_path_point_free(gskPathPointPointer)
 
     /**

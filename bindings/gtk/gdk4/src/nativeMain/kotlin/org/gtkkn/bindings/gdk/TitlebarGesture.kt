@@ -9,13 +9,25 @@ import org.gtkkn.native.gdk.gdk_titlebar_gesture_get_type
 import org.gtkkn.native.gobject.GType
 
 /**
- *
+ * The kind of title bar gesture to emit with
+ * [method@Gdk.Toplevel.titlebar_gesture].
  * @since 4.4
  */
 @GdkVersion4_4
 public enum class TitlebarGesture(public val nativeValue: GdkTitlebarGesture) {
+    /**
+     * double click gesture
+     */
     DOUBLE_CLICK(GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_DOUBLE_CLICK),
+
+    /**
+     * right click gesture
+     */
     RIGHT_CLICK(GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_RIGHT_CLICK),
+
+    /**
+     * middle click gesture
+     */
     MIDDLE_CLICK(GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_MIDDLE_CLICK),
     ;
 

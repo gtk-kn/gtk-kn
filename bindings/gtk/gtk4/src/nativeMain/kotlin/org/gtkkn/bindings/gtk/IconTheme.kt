@@ -249,7 +249,7 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
     /**
      * Gets the current icon theme name.
      *
-     * Returns (transfer full): the current icon theme name,
+     * @return the current icon theme name,
      */
     public open fun getThemeName(): String =
         gtk_icon_theme_get_theme_name(gtkIconThemePointer)?.toKString() ?: error("Expected not null string")
@@ -284,7 +284,7 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
      * or you can get information such as the filename and size.
      *
      * @param icon the `GIcon` to look up
-     * @param size desired icon size
+     * @param size desired icon size, in application pixels
      * @param scale the desired scale
      * @param direction text direction the icon will be displayed in
      * @param flags flags modifying the behavior of the icon lookup
@@ -327,8 +327,8 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
      * GtkWidgetClass.css-changed() function.
      *
      * @param iconName the name of the icon to lookup
-     * @param fallbacks
-     * @param size desired icon size.
+     * @param fallbacks fallback names
+     * @param size desired icon size, in application pixels
      * @param scale the window scale this will be displayed on
      * @param direction text direction the icon will be displayed in
      * @param flags flags modifying the behavior of the icon lookup

@@ -57,7 +57,7 @@ public open class TextChildAnchor(public val gtkTextChildAnchorPointer: CPointer
      * Usually you would then insert it into a `GtkTextBuffer` with
      * [method@Gtk.TextBuffer.insert_child_anchor].
      *
-     * @param character
+     * @param character a replacement character
      * @return a new `GtkTextChildAnchor`
      * @since 4.6
      */

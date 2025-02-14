@@ -344,9 +344,10 @@ public interface Toplevel :
         gdk_toplevel_supports_edge_constraints(gdkToplevelPointer).asBoolean()
 
     /**
-     *
+     * Performs a title bar gesture.
      *
      * @param gesture a `GdkTitlebarGesture`
+     * @return whether the gesture was performed
      * @since 4.4
      */
     @GdkVersion4_4

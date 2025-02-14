@@ -629,6 +629,8 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - method `has-default`: Property has no getter nor setter
  * - method `has-focus`: Property has no getter nor setter
  * - method `height-request`: Property has no getter nor setter
+ * - method `sensitive`: Property has no getter
+ * - method `visible`: Property has no getter
  * - method `width-request`: Property has no getter nor setter
  */
 public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
@@ -1281,36 +1283,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
         get() = gtk_widget_get_scale_factor(gtkWidgetPointer)
 
     /**
-     * Whether the widget responds to input.
-     */
-    public open var sensitive: Boolean
-        /**
-         * Returns the widget’s sensitivity.
-         *
-         * This function returns the value that has been set using
-         * [method@Gtk.Widget.set_sensitive]).
-         *
-         * The effective sensitivity of a widget is however determined
-         * by both its own and its parent widget’s sensitivity.
-         * See [method@Gtk.Widget.is_sensitive].
-         *
-         * @return true if the widget is sensitive
-         */
-        get() = gtk_widget_get_sensitive(gtkWidgetPointer).asBoolean()
-
-        /**
-         * Sets the sensitivity of a widget.
-         *
-         * A widget is sensitive if the user can interact with it.
-         * Insensitive widgets are “grayed out” and the user can’t
-         * interact with them. Insensitive widgets are known as
-         * “inactive”, “disabled”, or “ghosted” in some other toolkits.
-         *
-         * @param sensitive true to make the widget sensitive
-         */
-        set(sensitive) = gtk_widget_set_sensitive(gtkWidgetPointer, sensitive.asGBoolean())
-
-    /**
      * Sets the text of tooltip to be the given string, which is marked up
      * with Pango markup.
      *
@@ -1461,36 +1433,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
         set(`set`) = gtk_widget_set_vexpand_set(gtkWidgetPointer, `set`.asGBoolean())
 
     /**
-     * Whether the widget is visible.
-     */
-    public open var visible: Boolean
-        /**
-         * Determines whether the widget is visible.
-         *
-         * If you want to take into account whether the widget’s
-         * parent is also marked as visible, use
-         * [method@Gtk.Widget.is_visible] instead.
-         *
-         * This function does not check if the widget is
-         * obscured in any way.
-         *
-         * See [method@Gtk.Widget.set_visible].
-         *
-         * @return true if the widget is visible
-         */
-        get() = gtk_widget_get_visible(gtkWidgetPointer).asBoolean()
-
-        /**
-         * Sets the visibility state of @widget.
-         *
-         * Note that setting this to true doesn’t mean the widget is
-         * actually viewable, see [method@Gtk.Widget.get_visible].
-         *
-         * @param visible whether the widget should be shown or not
-         */
-        set(visible) = gtk_widget_set_visible(gtkWidgetPointer, visible.asGBoolean())
-
-    /**
      * Enable or disable an action installed with
      * gtk_widget_class_install_action().
      *
@@ -1608,7 +1550,8 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * [signal@Gdk.FrameClock::update] signal of `GdkFrameClock`, since you
      * don't have to worry about when a `GdkFrameClock` is assigned to a widget.
      *
-     * @param callback function to call for updating animations
+     * @param callback function
+     *   to call for updating animations
      * @return an id for the connection of this callback. Remove the callback
      *   by passing the id returned from this function to
      *   [method@Gtk.Widget.remove_tick_callback]
@@ -2071,12 +2014,16 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     * ---
+     *
      * Returns the `cairo_font_options_t` of widget.
      *
      * Seee [method@Gtk.Widget.set_font_options].
      *
-     * @return the `cairo_font_options_t`
-     *   of widget
+     * @return the `cairo_font_options_t` of widget
      */
     public open fun getFontOptions(): FontOptions? = gtk_widget_get_font_options(gtkWidgetPointer)?.run {
         FontOptions(this)
@@ -2263,6 +2210,20 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
     }
 
     /**
+     * Returns the widget’s sensitivity.
+     *
+     * This function returns the value that has been set using
+     * [method@Gtk.Widget.set_sensitive]).
+     *
+     * The effective sensitivity of a widget is however determined
+     * by both its own and its parent widget’s sensitivity.
+     * See [method@Gtk.Widget.is_sensitive].
+     *
+     * @return true if the widget is sensitive
+     */
+    public open fun getSensitive(): Boolean = gtk_widget_get_sensitive(gtkWidgetPointer).asBoolean()
+
+    /**
      * Gets the settings object holding the settings used for this widget.
      *
      * Note that this function can only be called when the `GtkWidget`
@@ -2353,6 +2314,22 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
         gtk_widget_get_template_child(gtkWidgetPointer, widgetType, name)!!.run {
             InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
+
+    /**
+     * Determines whether the widget is visible.
+     *
+     * If you want to take into account whether the widget’s
+     * parent is also marked as visible, use
+     * [method@Gtk.Widget.is_visible] instead.
+     *
+     * This function does not check if the widget is
+     * obscured in any way.
+     *
+     * See [method@Gtk.Widget.set_visible].
+     *
+     * @return true if the widget is visible
+     */
+    public open fun getVisible(): Boolean = gtk_widget_get_visible(gtkWidgetPointer).asBoolean()
 
     /**
      * Returns the content width of the widget.
@@ -2932,6 +2909,11 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
         gtk_widget_set_font_map(gtkWidgetPointer, fontMap?.pangoFontMapPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.16.
+     * ---
+     *
      * Sets the `cairo_font_options_t` used for Pango rendering
      * in this widget.
      *
@@ -2957,6 +2939,19 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param parent parent widget
      */
     public open fun setParent(parent: Widget): Unit = gtk_widget_set_parent(gtkWidgetPointer, parent.gtkWidgetPointer)
+
+    /**
+     * Sets the sensitivity of a widget.
+     *
+     * A widget is sensitive if the user can interact with it.
+     * Insensitive widgets are “grayed out” and the user can’t
+     * interact with them. Insensitive widgets are known as
+     * “inactive”, “disabled”, or “ghosted” in some other toolkits.
+     *
+     * @param sensitive true to make the widget sensitive
+     */
+    public open fun setSensitive(sensitive: Boolean): Unit =
+        gtk_widget_set_sensitive(gtkWidgetPointer, sensitive.asGBoolean())
 
     /**
      * Sets the minimum size of a widget.
@@ -3017,6 +3012,16 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      */
     public open fun setStateFlags(flags: StateFlags, clear: Boolean): Unit =
         gtk_widget_set_state_flags(gtkWidgetPointer, flags.mask, clear.asGBoolean())
+
+    /**
+     * Sets the visibility state of @widget.
+     *
+     * Note that setting this to true doesn’t mean the widget is
+     * actually viewable, see [method@Gtk.Widget.get_visible].
+     *
+     * @param visible whether the widget should be shown or not
+     */
+    public open fun setVisible(visible: Boolean): Unit = gtk_widget_set_visible(gtkWidgetPointer, visible.asGBoolean())
 
     /**
      * Returns whether @widget should contribute to

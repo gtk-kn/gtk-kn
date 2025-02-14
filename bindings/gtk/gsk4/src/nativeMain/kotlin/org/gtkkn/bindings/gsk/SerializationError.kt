@@ -40,6 +40,11 @@ public enum class SerializationError(public val nativeValue: GskSerializationErr
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Registers an error quark for [class@Gsk.RenderNode] errors.
+         *
+         * @return the error quark
+         */
         public fun quark(): Quark = gsk_serialization_error_quark()
 
         /**

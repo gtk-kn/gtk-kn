@@ -101,6 +101,8 @@ public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPoint
 
     /**
      * Factory for populating list items.
+     *
+     * The factory must be for configuring [class@Gtk.ColumnViewCell] objects.
      */
     public open var factory: ListItemFactory?
         /**

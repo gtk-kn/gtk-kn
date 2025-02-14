@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_6
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -18,6 +19,7 @@ import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwPreferencesPage
 import org.gtkkn.native.adw.adw_preferences_page_add
 import org.gtkkn.native.adw.adw_preferences_page_get_description
+import org.gtkkn.native.adw.adw_preferences_page_get_description_centered
 import org.gtkkn.native.adw.adw_preferences_page_get_icon_name
 import org.gtkkn.native.adw.adw_preferences_page_get_name
 import org.gtkkn.native.adw.adw_preferences_page_get_title
@@ -27,6 +29,7 @@ import org.gtkkn.native.adw.adw_preferences_page_new
 import org.gtkkn.native.adw.adw_preferences_page_remove
 import org.gtkkn.native.adw.adw_preferences_page_scroll_to_top
 import org.gtkkn.native.adw.adw_preferences_page_set_description
+import org.gtkkn.native.adw.adw_preferences_page_set_description_centered
 import org.gtkkn.native.adw.adw_preferences_page_set_icon_name
 import org.gtkkn.native.adw.adw_preferences_page_set_name
 import org.gtkkn.native.adw.adw_preferences_page_set_title
@@ -100,6 +103,30 @@ public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer
          */
         @AdwVersion1_4
         set(description) = adw_preferences_page_set_description(adwPreferencesPagePointer, description)
+
+    /**
+     * Whether the description should be centered.
+     *
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public open var descriptionCentered: Boolean
+        /**
+         * Gets whether the description is centered.
+         *
+         * @return whether the description is centered.
+         * @since 1.6
+         */
+        get() = adw_preferences_page_get_description_centered(adwPreferencesPagePointer).asBoolean()
+
+        /**
+         * Sets whether the description should be centered.
+         *
+         * @param centered If the description should be centered
+         * @since 1.6
+         */
+        @AdwVersion1_6
+        set(centered) = adw_preferences_page_set_description_centered(adwPreferencesPagePointer, centered.asGBoolean())
 
     /**
      * The icon name for this page.

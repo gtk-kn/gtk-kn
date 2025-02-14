@@ -121,7 +121,8 @@ public class ToplevelState(public val mask: GdkToplevelState) : Bitfield<Topleve
         public val LEFT_RESIZABLE: ToplevelState = ToplevelState(GDK_TOPLEVEL_STATE_LEFT_RESIZABLE)
 
         /**
-         * the surface is not visible to the user
+         * The surface is not visible to the user.
+         * @since 4.12
          */
         public val SUSPENDED: ToplevelState = ToplevelState(GDK_TOPLEVEL_STATE_SUSPENDED)
 

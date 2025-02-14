@@ -6,10 +6,12 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkToplevelSize
+import org.gtkkn.native.gdk.gdk_toplevel_size_get_type
 import org.gtkkn.native.gdk.gdk_toplevel_size_set_min_size
 import org.gtkkn.native.gdk.gdk_toplevel_size_set_shadow_width
 import org.gtkkn.native.gdk.gdk_toplevel_size_set_size
 import org.gtkkn.native.glib.gint
+import org.gtkkn.native.gobject.GType
 import kotlin.Unit
 
 /**
@@ -70,4 +72,13 @@ public class ToplevelSize(public val gdkToplevelSizePointer: CPointer<GdkTopleve
      */
     public fun setSize(width: gint, height: gint): Unit =
         gdk_toplevel_size_set_size(gdkToplevelSizePointer, width, height)
+
+    public companion object {
+        /**
+         * Get the GType of ToplevelSize
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_toplevel_size_get_type()
+    }
 }

@@ -46,6 +46,9 @@ public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNod
     /**
      * Retrieves the color of the given @node.
      *
+     * The value returned by this function will not be correct
+     * if the render node was created for a non-sRGB color.
+     *
      * @return the color of the node
      */
     public open fun getColor(): Rgba = gsk_color_node_get_color(gskColorNodePointer.reinterpret())!!.run {

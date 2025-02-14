@@ -44,7 +44,7 @@ import kotlin.Unit
  * parameter type (which is given at construction time).
  *
  * An action may optionally have a state, in which case the state may be
- * set with [method@Gio.Action.change_state]. This call takes a #GVariant. The
+ * set with [method@Gio.Action.change_state]. This call takes a [type@GLib.Variant]. The
  * correct type for the state is determined by a static state type
  * (which is given at construction time).
  *
@@ -77,8 +77,8 @@ public interface Action :
     /**
      * If @action is currently enabled.
      *
-     * If the action is disabled then calls to g_action_activate() and
-     * g_action_change_state() have no effect.
+     * If the action is disabled then calls to [method@Gio.Action.activate] and
+     * [method@Gio.Action.change_state] have no effect.
      *
      * @since 2.28
      */
@@ -97,7 +97,7 @@ public interface Action :
 
     /**
      * The name of the action.  This is mostly meaningful for identifying
-     * the action once it has been added to a #GActionGroup. It is immutable.
+     * the action once it has been added to a [type@Gio.ActionGroup]. It is immutable.
      *
      * @since 2.28
      */
@@ -113,7 +113,7 @@ public interface Action :
 
     /**
      * The type of the parameter that must be given when activating the
-     * action. This is immutable, and may be null if no parameter is needed when
+     * action. This is immutable, and may be `NULL` if no parameter is needed when
      * activating the action.
      *
      * @since 2.28
@@ -124,11 +124,12 @@ public interface Action :
          * Queries the type of the parameter that must be given when activating
          * @action.
          *
-         * When activating the action using g_action_activate(), the #GVariant
-         * given to that function must be of the type returned by this function.
+         * When activating the action using [method@Gio.Action.activate], the
+         * [type@GLib.Variant] given to that function must be of the type returned by
+         * this function.
          *
-         * In the case that this function returns null, you must not give any
-         * #GVariant, but null instead.
+         * In the case that this function returns `NULL`, you must not give any
+         * [type@GLib.Variant], but `NULL` instead.
          *
          * @return the parameter type
          * @since 2.28
@@ -138,7 +139,7 @@ public interface Action :
         }
 
     /**
-     * The state of the action, or null if the action is stateless.
+     * The state of the action, or `NULL` if the action is stateless.
      *
      * @since 2.28
      */
@@ -147,12 +148,12 @@ public interface Action :
         /**
          * Queries the current state of @action.
          *
-         * If the action is not stateful then null will be returned.  If the
+         * If the action is not stateful then `NULL` will be returned.  If the
          * action is stateful then the type of the return value is the type
-         * given by g_action_get_state_type().
+         * given by [method@Gio.Action.get_state_type].
          *
-         * The return value (if non-null) should be freed with
-         * g_variant_unref() when it is no longer required.
+         * The return value (if non-`NULL`) should be freed with
+         * [method@GLib.Variant.unref] when it is no longer required.
          *
          * @return the current state of the action
          * @since 2.28
@@ -162,7 +163,7 @@ public interface Action :
         }
 
     /**
-     * The #GVariantType of the state that the action has, or null if the
+     * The [type@GLib.VariantType] of the state that the action has, or `NULL` if the
      * action is stateless. This is immutable.
      *
      * @since 2.28
@@ -173,15 +174,15 @@ public interface Action :
          * Queries the type of the state of @action.
          *
          * If the action is stateful (e.g. created with
-         * g_simple_action_new_stateful()) then this function returns the
-         * #GVariantType of the state.  This is the type of the initial value
-         * given as the state. All calls to g_action_change_state() must give a
-         * #GVariant of this type and g_action_get_state() will return a
-         * #GVariant of the same type.
+         * [ctor@Gio.SimpleAction.new_stateful]) then this function returns the
+         * [type@GLib.VariantType] of the state.  This is the type of the initial value
+         * given as the state. All calls to [method@Gio.Action.change_state] must give a
+         * [type@GLib.Variant] of this type and [method@Gio.Action.get_state] will return a
+         * [type@GLib.Variant] of the same type.
          *
-         * If the action is not stateful (e.g. created with g_simple_action_new())
-         * then this function will return null. In that case, g_action_get_state()
-         * will return null and you must not call g_action_change_state().
+         * If the action is not stateful (e.g. created with [ctor@Gio.SimpleAction.new])
+         * then this function will return `NULL`. In that case, [method@Gio.Action.get_state]
+         * will return `NULL` and you must not call [method@Gio.Action.change_state].
          *
          * @return the state type, if the action is stateful
          * @since 2.28
@@ -195,9 +196,9 @@ public interface Action :
      *
      * @parameter must be the correct type of parameter for the action (ie:
      * the parameter type given at construction time).  If the parameter
-     * type was null then @parameter must also be null.
+     * type was `NULL` then @parameter must also be `NULL`.
      *
-     * If the @parameter GVariant is floating, it is consumed.
+     * If the @parameter [type@GLib.Variant] is floating, it is consumed.
      *
      * @param parameter the parameter to the activation
      * @since 2.28
@@ -210,13 +211,13 @@ public interface Action :
      * Request for the state of @action to be changed to @value.
      *
      * The action must be stateful and @value must be of the correct type.
-     * See g_action_get_state_type().
+     * See [method@Gio.Action.get_state_type].
      *
      * This call merely requests a change.  The action may refuse to change
      * its state or may change its state to something other than @value.
-     * See g_action_get_state_hint().
+     * See [method@Gio.Action.get_state_hint].
      *
-     * If the @value GVariant is floating, it is consumed.
+     * If the @value [type@GLib.Variant] is floating, it is consumed.
      *
      * @param value the new state
      * @since 2.30
@@ -249,11 +250,12 @@ public interface Action :
      * Queries the type of the parameter that must be given when activating
      * @action.
      *
-     * When activating the action using g_action_activate(), the #GVariant
-     * given to that function must be of the type returned by this function.
+     * When activating the action using [method@Gio.Action.activate], the
+     * [type@GLib.Variant] given to that function must be of the type returned by
+     * this function.
      *
-     * In the case that this function returns null, you must not give any
-     * #GVariant, but null instead.
+     * In the case that this function returns `NULL`, you must not give any
+     * [type@GLib.Variant], but `NULL` instead.
      *
      * @return the parameter type
      * @since 2.28
@@ -266,12 +268,12 @@ public interface Action :
     /**
      * Queries the current state of @action.
      *
-     * If the action is not stateful then null will be returned.  If the
+     * If the action is not stateful then `NULL` will be returned.  If the
      * action is stateful then the type of the return value is the type
-     * given by g_action_get_state_type().
+     * given by [method@Gio.Action.get_state_type].
      *
-     * The return value (if non-null) should be freed with
-     * g_variant_unref() when it is no longer required.
+     * The return value (if non-`NULL`) should be freed with
+     * [method@GLib.Variant.unref] when it is no longer required.
      *
      * @return the current state of the action
      * @since 2.28
@@ -285,12 +287,12 @@ public interface Action :
      * Requests a hint about the valid range of values for the state of
      * @action.
      *
-     * If null is returned it either means that the action is not stateful
+     * If `NULL` is returned it either means that the action is not stateful
      * or that there is no hint about the valid range of values for the
      * state of the action.
      *
-     * If a #GVariant array is returned then each item in the array is a
-     * possible value for the state.  If a #GVariant pair (ie: two-tuple) is
+     * If a [type@GLib.Variant] array is returned then each item in the array is a
+     * possible value for the state.  If a [type@GLib.Variant] pair (ie: two-tuple) is
      * returned then the tuple specifies the inclusive lower and upper bound
      * of valid values for the state.
      *
@@ -298,8 +300,8 @@ public interface Action :
      * have a state value outside of the hinted range and setting a value
      * within the range may fail.
      *
-     * The return value (if non-null) should be freed with
-     * g_variant_unref() when it is no longer required.
+     * The return value (if non-`NULL`) should be freed with
+     * [method@GLib.Variant.unref] when it is no longer required.
      *
      * @return the state range hint
      * @since 2.28
@@ -313,15 +315,15 @@ public interface Action :
      * Queries the type of the state of @action.
      *
      * If the action is stateful (e.g. created with
-     * g_simple_action_new_stateful()) then this function returns the
-     * #GVariantType of the state.  This is the type of the initial value
-     * given as the state. All calls to g_action_change_state() must give a
-     * #GVariant of this type and g_action_get_state() will return a
-     * #GVariant of the same type.
+     * [ctor@Gio.SimpleAction.new_stateful]) then this function returns the
+     * [type@GLib.VariantType] of the state.  This is the type of the initial value
+     * given as the state. All calls to [method@Gio.Action.change_state] must give a
+     * [type@GLib.Variant] of this type and [method@Gio.Action.get_state] will return a
+     * [type@GLib.Variant] of the same type.
      *
-     * If the action is not stateful (e.g. created with g_simple_action_new())
-     * then this function will return null. In that case, g_action_get_state()
-     * will return null and you must not call g_action_change_state().
+     * If the action is not stateful (e.g. created with [ctor@Gio.SimpleAction.new])
+     * then this function will return `NULL`. In that case, [method@Gio.Action.get_state]
+     * will return `NULL` and you must not call [method@Gio.Action.change_state].
      *
      * @return the state type, if the action is stateful
      * @since 2.28
@@ -358,13 +360,13 @@ public interface Action :
          * Checks if @action_name is valid.
          *
          * @action_name is valid if it consists only of alphanumeric characters,
-         * plus '-' and '.'.  The empty string is not a valid action name.
+         * plus `-` and `.`.  The empty string is not a valid action name.
          *
-         * It is an error to call this function with a non-utf8 @action_name.
-         * @action_name must not be null.
+         * It is an error to call this function with a non-UTF-8 @action_name.
+         * @action_name must not be `NULL`.
          *
          * @param actionName a potential action name
-         * @return true if @action_name is valid
+         * @return `TRUE` if @action_name is valid
          * @since 2.38
          */
         @GioVersion2_38
@@ -375,7 +377,7 @@ public interface Action :
          *
          * It is an error to call this function with an invalid action name.
          *
-         * This function is the opposite of g_action_parse_detailed_name().
+         * This function is the opposite of [func@Gio.Action.parse_detailed_name].
          * It will produce a string that can be parsed back to the @action_name
          * and @target_value by that function.
          *
@@ -383,7 +385,7 @@ public interface Action :
          * this function.
          *
          * @param actionName a valid action name
-         * @param targetValue a #GVariant target value, or null
+         * @param targetValue a [type@GLib.Variant] target value, or `NULL`
          * @return a detailed format string
          * @since 2.38
          */

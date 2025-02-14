@@ -99,6 +99,9 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
         Gtk
     }
 
+    /**
+     * The display of the style context.
+     */
     public open var display: Display
         /**
          * # ⚠️ Deprecated ⚠️

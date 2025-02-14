@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
 import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
@@ -14,6 +15,13 @@ import org.gtkkn.native.gsk.GskGLRenderer
 import org.gtkkn.native.gsk.gsk_gl_renderer_get_type
 import org.gtkkn.native.gsk.gsk_gl_renderer_new
 
+/**
+ * A GL based renderer.
+ *
+ * See [class@Gsk.Renderer].
+ * @since 4.2
+ */
+@GskVersion4_2
 public open class GlRenderer(public val gskGlRendererPointer: CPointer<GskGLRenderer>) :
     Renderer(gskGlRendererPointer.reinterpret()),
     KGTyped {

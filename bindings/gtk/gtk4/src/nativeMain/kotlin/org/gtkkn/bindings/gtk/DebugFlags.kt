@@ -10,6 +10,7 @@ import org.gtkkn.native.gtk.GTK_DEBUG_ACTIONS
 import org.gtkkn.native.gtk.GTK_DEBUG_BUILDER
 import org.gtkkn.native.gtk.GTK_DEBUG_BUILDER_OBJECTS
 import org.gtkkn.native.gtk.GTK_DEBUG_CONSTRAINTS
+import org.gtkkn.native.gtk.GTK_DEBUG_CSS
 import org.gtkkn.native.gtk.GTK_DEBUG_GEOMETRY
 import org.gtkkn.native.gtk.GTK_DEBUG_ICONFALLBACK
 import org.gtkkn.native.gtk.GTK_DEBUG_ICONTHEME
@@ -134,6 +135,12 @@ public class DebugFlags(public val mask: GtkDebugFlags) : Bitfield<DebugFlags> {
          * @since 4.8
          */
         public val INVERT_TEXT_DIR: DebugFlags = DebugFlags(GTK_DEBUG_INVERT_TEXT_DIR)
+
+        /**
+         * Information about deprecated CSS features.
+         * @since 4.16
+         */
+        public val CSS: DebugFlags = DebugFlags(GTK_DEBUG_CSS)
 
         /**
          * Get the GType of DebugFlags

@@ -88,6 +88,13 @@ import kotlin.Unit
 import kotlin.collections.List
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.6.
+ *
+ * Use [class@AboutDialog].
+ * ---
+ *
  * A window showing information about the application.
  *
  * <picture>
@@ -240,7 +247,7 @@ import kotlin.collections.List
  *                          "application-icon", "org.example.App",
  *                          "version", "1.2.3",
  *                          "copyright", "© 2022 Angela Avery",
- *                          "issue-url", "https://gitlab.gnome.org/example/example/-/issues/new",
+ *                          "issue-url", "https://gitlab.gnome.org/example/example/-/issues/",
  *                          "license-type", GTK_LICENSE_GPL_3_0,
  *                          "developers", developers,
  *                          "designers", designers,
@@ -282,6 +289,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The name of the application icon.
      *
      * The icon is displayed at the top of the main page.
@@ -291,6 +305,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var applicationIcon: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the name of the application icon for @self.
          *
          * @return the application icon name
@@ -300,6 +321,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the name of the application icon for @self.
          *
          * The icon is displayed at the top of the main page.
@@ -311,6 +339,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(applicationIcon) = adw_about_window_set_application_icon(adwAboutWindowPointer, applicationIcon)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The name of the application.
      *
      * The name is displayed at the top of the main page.
@@ -320,6 +355,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var applicationName: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the application name for @self.
          *
          * @return the application name
@@ -329,6 +371,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the application name for @self.
          *
          * The name is displayed at the top of the main page.
@@ -340,6 +389,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(applicationName) = adw_about_window_set_application_name(adwAboutWindowPointer, applicationName)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The list of artists of the application.
      *
      * It will be displayed on the Credits page.
@@ -361,6 +417,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var artists: List<String>?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the list of artists of the application.
          *
          * @return The list of artists
@@ -369,6 +432,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_artists(adwAboutWindowPointer)?.toKStringList()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the list of artists of the application.
          *
          * It will be displayed on the Credits page.
@@ -394,6 +464,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The comments about the application.
      *
      * Comments will be shown on the Details page, above links.
@@ -406,6 +483,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var comments: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the comments about the application.
          *
          * @return the comments
@@ -414,6 +498,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_comments(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the comments about the application.
          *
          * Comments will be shown on the Details page, above links.
@@ -428,6 +519,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(comments) = adw_about_window_set_comments(adwAboutWindowPointer, comments)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The copyright information.
      *
      * This should be a short string of one or two lines, for example:
@@ -444,6 +542,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var copyright: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the copyright information for @self.
          *
          * @return the copyright information
@@ -452,6 +557,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_copyright(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the copyright information for @self.
          *
          * This should be a short string of one or two lines, for example:
@@ -470,6 +582,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(copyright) = adw_about_window_set_copyright(adwAboutWindowPointer, copyright)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The debug information.
      *
      * Debug information will be shown on the Troubleshooting page. It's intended
@@ -487,6 +606,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var debugInfo: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the debug information for @self.
          *
          * @return the debug information
@@ -495,6 +621,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_debug_info(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the debug information for @self.
          *
          * Debug information will be shown on the Troubleshooting page. It's intended
@@ -514,6 +647,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(debugInfo) = adw_about_window_set_debug_info(adwAboutWindowPointer, debugInfo)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The debug information filename.
      *
      * It will be used as the suggested filename when saving debug information to
@@ -526,6 +666,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var debugInfoFilename: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the debug information filename for @self.
          *
          * @return the debug information filename
@@ -535,6 +682,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the debug information filename for @self.
          *
          * It will be used as the suggested filename when saving debug information to a
@@ -549,6 +703,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(filename) = adw_about_window_set_debug_info_filename(adwAboutWindowPointer, filename)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The list of designers of the application.
      *
      * It will be displayed on the Credits page.
@@ -570,6 +731,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var designers: List<String>?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the list of designers of the application.
          *
          * @return The list of designers
@@ -578,6 +746,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_designers(adwAboutWindowPointer)?.toKStringList()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the list of designers of the application.
          *
          * It will be displayed on the Credits page.
@@ -603,6 +778,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The developer name.
      *
      * The developer name is displayed on the main page, under the application
@@ -619,6 +801,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var developerName: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the developer name for @self.
          *
          * @return the developer_name
@@ -628,6 +817,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the developer name for @self.
          *
          * The developer name is displayed on the main page, under the application name.
@@ -644,6 +840,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(developerName) = adw_about_window_set_developer_name(adwAboutWindowPointer, developerName)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The list of developers of the application.
      *
      * It will be displayed on the Credits page.
@@ -665,6 +868,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var developers: List<String>?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the list of developers of the application.
          *
          * @return The list of developers
@@ -673,6 +883,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_developers(adwAboutWindowPointer)?.toKStringList()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the list of developers of the application.
          *
          * It will be displayed on the Credits page.
@@ -698,6 +915,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The list of documenters of the application.
      *
      * It will be displayed on the Credits page.
@@ -719,6 +943,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var documenters: List<String>?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the list of documenters of the application.
          *
          * @return The list of documenters
@@ -727,6 +958,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_documenters(adwAboutWindowPointer)?.toKStringList()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the list of documenters of the application.
          *
          * It will be displayed on the Credits page.
@@ -752,6 +990,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The URL for the application's issue tracker.
      *
      * The issue tracker link is displayed on the main page.
@@ -761,6 +1006,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var issueUrl: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the issue tracker URL for @self.
          *
          * @return the issue tracker URL
@@ -769,6 +1021,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_issue_url(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the issue tracker URL for @self.
          *
          * The issue tracker link is displayed on the main page.
@@ -780,6 +1039,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(issueUrl) = adw_about_window_set_issue_url(adwAboutWindowPointer, issueUrl)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The license text.
      *
      * This can be used to set a custom text for the license if it can't be set
@@ -801,6 +1067,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var license: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the license for @self.
          *
          * @return the license
@@ -809,6 +1082,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_license(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the license for @self.
          *
          * This can be used to set a custom text for the license if it can't be set via
@@ -832,6 +1112,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(license) = adw_about_window_set_license(adwAboutWindowPointer, license)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The license type.
      *
      * Allows to set the application's license froma list of known licenses.
@@ -856,6 +1143,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var licenseType: License
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the license type for @self.
          *
          * @return the license type
@@ -866,6 +1160,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the license for @self from a list of known licenses.
          *
          * If the application's license is not in the list,
@@ -890,6 +1191,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(licenseType) = adw_about_window_set_license_type(adwAboutWindowPointer, licenseType.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The release notes of the application.
      *
      * Release notes are displayed on the the What's New page.
@@ -920,6 +1228,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var releaseNotes: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the release notes for @self.
          *
          * @return the release notes
@@ -929,6 +1244,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the release notes for @self.
          *
          * Release notes are displayed on the the What's New page.
@@ -961,6 +1283,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(releaseNotes) = adw_about_window_set_release_notes(adwAboutWindowPointer, releaseNotes)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The version described by the application's release notes.
      *
      * The release notes version is displayed on the What's New page, above the
@@ -979,6 +1308,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var releaseNotesVersion: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the version described by the application's release notes.
          *
          * @return the release notes version
@@ -988,6 +1324,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the version described by the application's release notes.
          *
          * The release notes version is displayed on the What's New page, above the
@@ -1008,6 +1351,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(version) = adw_about_window_set_release_notes_version(adwAboutWindowPointer, version)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The URL of the application's support page.
      *
      * The support page link is displayed on the main page.
@@ -1017,6 +1367,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var supportUrl: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the URL of the support page for @self.
          *
          * @return the support page URL
@@ -1026,6 +1383,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the URL of the support page for @self.
          *
          * The support page link is displayed on the main page.
@@ -1037,6 +1401,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(supportUrl) = adw_about_window_set_support_url(adwAboutWindowPointer, supportUrl)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The translator credits string.
      *
      * It will be displayed on the Credits page.
@@ -1061,6 +1432,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var translatorCredits: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the translator credits string.
          *
          * @return The translator credits string
@@ -1070,6 +1448,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
             ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the translator credits string.
          *
          * It will be displayed on the Credits page.
@@ -1096,6 +1481,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(translatorCredits) = adw_about_window_set_translator_credits(adwAboutWindowPointer, translatorCredits)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The version of the application.
      *
      * The version is displayed on the main page.
@@ -1108,6 +1500,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var version: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the version for @self.
          *
          * @return the version
@@ -1116,6 +1515,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_version(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the version for @self.
          *
          * The version is displayed on the main page.
@@ -1130,6 +1536,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(version) = adw_about_window_set_version(adwAboutWindowPointer, version)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * The URL of the application's website.
      *
      * Website is displayed on the Details page, below comments, or on the main
@@ -1142,6 +1555,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     @AdwVersion1_2
     public var website: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Gets the application website URL for @self.
          *
          * @return the website URL
@@ -1150,6 +1570,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         get() = adw_about_window_get_website(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.6.
+         *
+         * Use [class@AboutDialog].
+         * ---
+         *
          * Sets the application website URL for @self.
          *
          * Website is displayed on the Details page, below comments, or on the main page
@@ -1164,6 +1591,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         set(website) = adw_about_window_set_website(adwAboutWindowPointer, website)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * Creates a new `AdwAboutWindow`.
      *
      * @return the newly created `AdwAboutWindow`
@@ -1174,6 +1608,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * Creates a new `AdwAboutWindow` using AppStream metadata.
      *
      * This automatically sets the following properties with the following AppStream
@@ -1181,14 +1622,15 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
      *
      * * [property@AboutWindow:application-icon] is set from the `<id>`
      * * [property@AboutWindow:application-name] is set from the `<name>`
-     * * [property@AboutWindow:developer-name] is set from the `<developer_name>`
+     * * [property@AboutWindow:developer-name] is set from the `<name>` within
+     *      `<developer>`
      * * [property@AboutWindow:version] is set from the version of the latest release
      * * [property@AboutWindow:website] is set from the `<url type="homepage">`
      * * [property@AboutWindow:support-url] is set from the `<url type="help">`
      * * [property@AboutWindow:issue-url] is set from the `<url type="bugtracker">`
-     * * [property@AboutWindow:license-type] is set from the `<project_license>`
-     *   If the license type retrieved from AppStream is not listed in
-     *   [enum@Gtk.License], it will be set to `GTK_LICENCE_CUSTOM`.
+     * * [property@AboutWindow:license-type] is set from the `<project_license>`.
+     *     If the license type retrieved from AppStream is not listed in
+     *     [enum@Gtk.License], it will be set to `GTK_LICENCE_CUSTOM`.
      *
      * If @release_notes_version is not `NULL`,
      * [property@AboutWindow:release-notes-version] is set to match it, while
@@ -1208,6 +1650,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * Adds a section to the Acknowledgements page.
      *
      * This can be used to acknowledge additional people and organizations for their
@@ -1236,6 +1685,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * Adds an extra section to the Credits page.
      *
      * Extra sections are displayed below the standard categories.
@@ -1262,6 +1718,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * Adds an extra section to the Legal page.
      *
      * Extra sections will be displayed below the application's own information.
@@ -1319,6 +1782,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
         adw_about_window_add_legal_section(adwAboutWindowPointer, title, copyright, licenseType.nativeValue, license)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * Adds an extra link to the Details page.
      *
      * Extra links are displayed under the comment and website.
@@ -1335,6 +1805,13 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
     public fun addLink(title: String, url: String): Unit = adw_about_window_add_link(adwAboutWindowPointer, title, url)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.6.
+     *
+     * Use [class@AboutDialog].
+     * ---
+     *
      * Emitted when a URL is activated.
      *
      * Applications may connect to it to override the default behavior, which is

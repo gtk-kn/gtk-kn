@@ -40,6 +40,20 @@ import kotlin.Unit
  * for leaving the edit mode are the Enter key (to save
  * the results) or the Escape key (to cancel the editing).
  *
+ * # Shortcuts and Gestures
+ *
+ * `GtkEditableLabel` supports the following keyboard shortcuts:
+ *
+ * - <kbd>Enter</kbd> starts editing.
+ * - <kbd>Escape</kbd> stops editing.
+ *
+ * # Actions
+ *
+ * `GtkEditableLabel` defines a set of built-in actions:
+ *
+ * - `editing.starts` switches the widget into editing mode.
+ * - `editing.stop` switches the widget out of editing mode.
+ *
  * # CSS nodes
  *
  * ```

@@ -16,6 +16,9 @@ import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gtk.GtkCssLocation
 import kotlin.String
 
+/**
+ * A description of a location inside a CSS stream.
+ */
 public class CssLocation(public val gtkCssLocationPointer: CPointer<GtkCssLocation>) :
     ProxyInstance(gtkCssLocationPointer) {
     public var bytes: gsize

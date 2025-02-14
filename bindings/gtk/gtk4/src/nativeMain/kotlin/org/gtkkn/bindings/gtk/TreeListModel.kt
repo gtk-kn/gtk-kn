@@ -118,8 +118,8 @@ public open class TreeListModel(public val gtkTreeListModelPointer: CPointer<Gtk
      * @param root The `GListModel` to use as root
      * @param passthrough true to pass through items from the models
      * @param autoexpand true to set the autoexpand property and expand the @root model
-     * @param createFunc Function to call to create the `GListModel` for the children
-     *   of an item
+     * @param createFunc function to
+     *   call to create the `GListModel` for the children of an item
      * @return a newly created `GtkTreeListModel`.
      */
     public constructor(

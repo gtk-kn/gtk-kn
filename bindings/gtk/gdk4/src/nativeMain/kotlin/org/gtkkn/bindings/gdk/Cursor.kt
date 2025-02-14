@@ -4,9 +4,11 @@
 package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
@@ -18,6 +20,7 @@ import org.gtkkn.native.gdk.gdk_cursor_get_hotspot_y
 import org.gtkkn.native.gdk.gdk_cursor_get_name
 import org.gtkkn.native.gdk.gdk_cursor_get_texture
 import org.gtkkn.native.gdk.gdk_cursor_get_type
+import org.gtkkn.native.gdk.gdk_cursor_new_from_callback
 import org.gtkkn.native.gdk.gdk_cursor_new_from_name
 import org.gtkkn.native.gdk.gdk_cursor_new_from_texture
 import org.gtkkn.native.glib.gint
@@ -154,6 +157,32 @@ public open class Cursor(public val gdkCursorPointer: CPointer<GdkCursor>) :
         get() = gdk_cursor_get_texture(gdkCursorPointer)?.run {
             InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
         }
+
+    /**
+     * Creates a new callback-based cursor object.
+     *
+     * Cursors of this kind produce textures for the cursor
+     * image on demand, when the @callback is called.
+     *
+     * @param callback the `GdkCursorGetTextureCallback`
+     * @param fallback the `GdkCursor` to fall back to when
+     *   this one cannot be supported
+     * @return a new `GdkCursor`
+     * @since 4.16
+     */
+    public constructor(
+        callback: CursorGetTextureCallback,
+        fallback: Cursor? = null,
+    ) : this(
+        gdk_cursor_new_from_callback(
+            CursorGetTextureCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            fallback?.gdkCursorPointer
+        )!!.reinterpret()
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new cursor by looking up @name in the current cursor

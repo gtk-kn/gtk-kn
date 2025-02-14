@@ -701,7 +701,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<org.gtkkn.native.
      */
     public constructor(`data`: List<String>) : this(
         memScoped {
-            gdk_pixbuf_new_from_xpm_data(`data`.toCStringList(this))!!
+            gdk_pixbuf_new_from_xpm_data(`data`.toCStringList(this))!!.reinterpret()
         }
     ) {
         InstanceCache.put(this)
@@ -728,8 +728,8 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<org.gtkkn.native.
      * @param b Blue value to substitute.
      * @return A newly-created pixbuf
      */
-    public open fun addAlpha(substituteColor: Boolean, r: guint8, g: guint8, b: guint8): Pixbuf =
-        gdk_pixbuf_add_alpha(gdkPixbufPointer, substituteColor.asGBoolean(), r, g, b)!!.run {
+    public open fun addAlpha(substituteColor: Boolean, r: guint8, g: guint8, b: guint8): Pixbuf? =
+        gdk_pixbuf_add_alpha(gdkPixbufPointer, substituteColor.asGBoolean(), r, g, b)?.run {
             InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
         }
 

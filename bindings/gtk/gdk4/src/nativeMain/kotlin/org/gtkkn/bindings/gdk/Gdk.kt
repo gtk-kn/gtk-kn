@@ -32,6 +32,8 @@ import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gdk.GdkContentDeserializer
 import org.gtkkn.native.gdk.GdkContentSerializer
+import org.gtkkn.native.gdk.GdkCursor
+import org.gtkkn.native.gdk.GdkTexture
 import org.gtkkn.native.gdk.gdk_cairo_draw_from_gl
 import org.gtkkn.native.gdk.gdk_cairo_rectangle
 import org.gtkkn.native.gdk.gdk_cairo_region
@@ -44,7 +46,6 @@ import org.gtkkn.native.gdk.gdk_content_register_deserializer
 import org.gtkkn.native.gdk.gdk_content_register_serializer
 import org.gtkkn.native.gdk.gdk_content_serialize_async
 import org.gtkkn.native.gdk.gdk_content_serialize_finish
-import org.gtkkn.native.gdk.gdk_drag_surface_size_get_type
 import org.gtkkn.native.gdk.gdk_intern_mime_type
 import org.gtkkn.native.gdk.gdk_keyval_from_name
 import org.gtkkn.native.gdk.gdk_keyval_is_lower
@@ -56,11 +57,11 @@ import org.gtkkn.native.gdk.gdk_keyval_to_upper
 import org.gtkkn.native.gdk.gdk_pixbuf_get_from_surface
 import org.gtkkn.native.gdk.gdk_pixbuf_get_from_texture
 import org.gtkkn.native.gdk.gdk_set_allowed_backends
-import org.gtkkn.native.gdk.gdk_toplevel_size_get_type
 import org.gtkkn.native.gdk.gdk_unicode_to_keyval
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.guint8
 import org.gtkkn.native.gobject.GType
@@ -78,6 +79,7 @@ import kotlin.Unit
  * - parameter `lower`: lower: Out parameter is not supported
  * - parameter `index_ranges`: Unsupported pointer to primitive type
  * - parameter `index_ranges`: Array parameter of type gint is not supported
+ * - record `CicpParamsClass`: glib type struct are ignored
  * - record `ContentProviderClass`: glib type struct are ignored
  * - record `DevicePadInterface`: glib type struct are ignored
  * - record `DmabufTextureBuilderClass`: glib type struct are ignored
@@ -86,6 +88,7 @@ import kotlin.Unit
  * - record `FrameClockClass`: glib type struct are ignored
  * - record `GLTextureBuilderClass`: glib type struct are ignored
  * - record `GLTextureClass`: glib type struct are ignored
+ * - record `MemoryTextureBuilderClass`: glib type struct are ignored
  * - record `MemoryTextureClass`: glib type struct are ignored
  * - record `MonitorClass`: glib type struct are ignored
  * - record `PaintableInterface`: glib type struct are ignored
@@ -3580,6 +3583,16 @@ public object Gdk {
 
     public const val KEY_colon: gint = 58
 
+    public const val KEY_combining_acute: gint = 16777985
+
+    public const val KEY_combining_belowdot: gint = 16778019
+
+    public const val KEY_combining_grave: gint = 16777984
+
+    public const val KEY_combining_hook: gint = 16777993
+
+    public const val KEY_combining_tilde: gint = 16777987
+
     public const val KEY_comma: gint = 44
 
     public const val KEY_containsas: gint = 16785931
@@ -3611,6 +3624,8 @@ public object Gdk {
     public const val KEY_dead_I: gint = 65157
 
     public const val KEY_dead_O: gint = 65159
+
+    public const val KEY_dead_SCHWA: gint = 65163
 
     public const val KEY_dead_U: gint = 65161
 
@@ -3672,6 +3687,8 @@ public object Gdk {
 
     public const val KEY_dead_greek: gint = 65164
 
+    public const val KEY_dead_hamza: gint = 65165
+
     public const val KEY_dead_hook: gint = 65121
 
     public const val KEY_dead_horn: gint = 65122
@@ -3695,6 +3712,8 @@ public object Gdk {
     public const val KEY_dead_perispomeni: gint = 65107
 
     public const val KEY_dead_psili: gint = 65124
+
+    public const val KEY_dead_schwa: gint = 65162
 
     public const val KEY_dead_semivoiced_sound: gint = 65119
 
@@ -3883,6 +3902,10 @@ public object Gdk {
     public const val KEY_greater: gint = 62
 
     public const val KEY_greaterthanequal: gint = 2238
+
+    public const val KEY_guillemetleft: gint = 171
+
+    public const val KEY_guillemetright: gint = 187
 
     public const val KEY_guillemotleft: gint = 171
 
@@ -4370,6 +4393,8 @@ public object Gdk {
 
     public const val KEY_ordfeminine: gint = 170
 
+    public const val KEY_ordmasculine: gint = 186
+
     public const val KEY_oslash: gint = 248
 
     public const val KEY_otilde: gint = 245
@@ -4825,9 +4850,6 @@ public object Gdk {
      * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
      * indicate a higher priority.
      *
-     * When the operation is finished, @callback will be called. You must then
-     * call [func@Gdk.content_deserialize_finish] to get the result of the operation.
-     *
      * @param stream a `GInputStream` to read the serialized content from
      * @param mimeType the mime type to deserialize from
      * @param type the GType to deserialize from
@@ -4915,9 +4937,6 @@ public object Gdk {
      * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
      * indicate a higher priority.
      *
-     * When the operation is finished, @callback will be called. You must then
-     * call [func@Gdk.content_serialize_finish] to get the result of the operation.
-     *
      * @param stream a `GOutputStream` to write the serialized content to
      * @param mimeType the mime type to serialize to
      * @param value the content to serialize
@@ -4960,8 +4979,6 @@ public object Gdk {
             Result.success(gResult)
         }
     }
-
-    public fun dragSurfaceSizeGetType(): GType = gdk_drag_surface_size_get_type()
 
     /**
      * Canonicalizes the given mime type and interns the result.
@@ -5148,8 +5165,6 @@ public object Gdk {
      */
     public fun setAllowedBackends(backends: String): Unit = gdk_set_allowed_backends(backends)
 
-    public fun toplevelSizeGetType(): GType = gdk_toplevel_size_get_type()
-
     /**
      * Convert from a Unicode character to a key symbol.
      *
@@ -5191,6 +5206,9 @@ public object Gdk {
         }
         CairoContext.getTypeOrNull()?.let { gtype ->
             TypeCache.register(CairoContext::class, gtype) { CairoContext.CairoContextImpl(it.reinterpret()) }
+        }
+        CicpParams.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(CicpParams::class, gtype) { CicpParams(it.reinterpret()) }
         }
         Clipboard.getTypeOrNull()?.let { gtype ->
             TypeCache.register(Clipboard::class, gtype) { Clipboard(it.reinterpret()) }
@@ -5267,6 +5285,9 @@ public object Gdk {
         }
         MemoryTexture.getTypeOrNull()?.let { gtype ->
             TypeCache.register(MemoryTexture::class, gtype) { MemoryTexture(it.reinterpret()) }
+        }
+        MemoryTextureBuilder.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MemoryTextureBuilder::class, gtype) { MemoryTextureBuilder(it.reinterpret()) }
         }
         Monitor.getTypeOrNull()?.let { gtype ->
             TypeCache.register(Monitor::class, gtype) { Monitor(it.reinterpret()) }
@@ -5348,6 +5369,40 @@ public val ContentSerializeFuncFunc: CPointer<CFunction<(CPointer<GdkContentSeri
     }
         .reinterpret()
 
+public val CursorGetTextureCallbackFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GdkCursor>,
+            gint,
+            gdouble,
+            gpointer?,
+        ) -> CPointer<GdkTexture>?
+        >
+    > = staticCFunction {
+        cursor: CPointer<GdkCursor>?,
+        cursorSize: gint,
+        scale: gdouble,
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            cursor: Cursor,
+            cursorSize: gint,
+            scale: gdouble,
+            `data`: gpointer?,
+        ) -> Texture?
+        >().get().invoke(
+        cursor!!.run {
+            InstanceCache.get(this, false) { Cursor(reinterpret()) }!!
+        },
+        cursorSize,
+        scale,
+        `data`
+    )?.gdkTexturePointer
+}
+    .reinterpret()
+
 /**
  * The type of a function that can be registered with gdk_content_register_deserializer().
  *
@@ -5369,3 +5424,31 @@ public typealias ContentDeserializeFunc = (deserializer: ContentDeserializer) ->
  * - param `serializer` a `GdkContentSerializer`
  */
 public typealias ContentSerializeFunc = (serializer: ContentSerializer) -> Unit
+
+/**
+ * The type of callback used by a dynamic `GdkCursor` to generate
+ * a texture for the cursor image at the given @cursor_size
+ * and @scale.
+ *
+ * The actual cursor size in application pixels may be different
+ * from @cursor_size x @cursor_size, and will be returned in
+ * @width, @height. The returned texture should have a size that
+ * corresponds to the actual cursor size, in device pixels (i.e.
+ * application pixels, multiplied by @scale).
+ *
+ * This function may fail and return `NULL`, in which case
+ * the fallback cursor will be used.
+ *
+ * - param `cursor` the `GdkCursor`
+ * - param `cursorSize` the nominal cursor size, in application pixels
+ * - param `scale` the device scale
+ * - param `data` User data for the callback
+ * - return the cursor image, or
+ *   `NULL` if none could be produced.
+ */
+public typealias CursorGetTextureCallback = (
+    cursor: Cursor,
+    cursorSize: gint,
+    scale: gdouble,
+    `data`: gpointer?,
+) -> Texture?

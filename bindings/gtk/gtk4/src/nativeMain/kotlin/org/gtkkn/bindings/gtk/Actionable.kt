@@ -47,6 +47,9 @@ public interface Actionable :
     KGTyped {
     public val gtkActionablePointer: CPointer<GtkActionable>
 
+    /**
+     * The name of the action with which this widget should be associated.
+     */
     public var actionName: String?
         /**
          * Gets the action name for @actionable.

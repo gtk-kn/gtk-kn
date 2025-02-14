@@ -47,6 +47,8 @@ import org.gtkkn.native.gtk.GtkOrientable
  *
  * `AdwClampLayout` can scale with the text scale factor, use the
  * [property@ClampLayout:unit] property to enable that behavior.
+ *
+ * See also: [class@Clamp], [class@ClampScrollable].
  */
 public class ClampLayout(public val adwClampLayoutPointer: CPointer<AdwClampLayout>) :
     LayoutManager(adwClampLayoutPointer.reinterpret()),

@@ -62,6 +62,28 @@ public interface SectionModel :
     override val gioListModelPointer: CPointer<GListModel>
         get() = gtkSectionModelPointer.reinterpret()
 
+    /**
+     * This function emits the [signal@Gtk.SectionModel::sections-changed]
+     * signal to notify about changes to sections.
+     *
+     * It must cover all positions that used to be a section start or that
+     * are now a section start. It does not have to cover all positions for
+     * which the section has changed.
+     *
+     * The [signal@Gio.ListModel::items-changed] implies the effect of the
+     * [signal@Gtk.SectionModel::sections-changed] signal for all the items
+     * it covers.
+     *
+     * It is recommended that when changes to the items cause section changes
+     * in a larger range, that the larger range is included in the emission
+     * of the [signal@Gio.ListModel::items-changed] instead of emitting
+     * two signals.
+     *
+     * @param position the first changed item
+     * @param nItems the number of changed items
+     * @since 4.12
+     */
+    @GtkVersion4_12
     public fun sectionsChanged(position: guint, nItems: guint): Unit =
         gtk_section_model_sections_changed(gtkSectionModelPointer, position, nItems)
 

@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gdk.Gdk.resolveException
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_16
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gio.Icon
@@ -27,6 +28,7 @@ import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.gdk.GdkTexture
+import org.gtkkn.native.gdk.gdk_texture_get_color_state
 import org.gtkkn.native.gdk.gdk_texture_get_format
 import org.gtkkn.native.gdk.gdk_texture_get_height
 import org.gtkkn.native.gdk.gdk_texture_get_type
@@ -64,7 +66,18 @@ import kotlin.Throws
  *
  * `GdkTexture` is an immutable object: That means you cannot change
  * anything about it other than increasing the reference count via
- * [method@GObject.Object.ref], and consequently, it is a thread-safe object.
+ * [method@GObject.Object.ref], and consequently, it is a threadsafe object.
+ *
+ * GDK provides a number of threadsafe texture loading functions:
+ * [ctor@Gdk.Texture.new_from_resource],
+ * [ctor@Gdk.Texture.new_from_bytes],
+ * [ctor@Gdk.Texture.new_from_file],
+ * [ctor@Gdk.Texture.new_from_filename],
+ * [ctor@Gdk.Texture.new_for_pixbuf]. Note that these are meant for loading
+ * icons and resources that are shipped with the toolkit or application. It
+ * is recommended that you use a dedicated image loading framework such as
+ * [glycin](https://lib.rs/crates/glycin), if you need to load untrusted image
+ * data.
  *
  * ## Skipped during bindings generation
  *
@@ -88,6 +101,23 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
 
     override val gioLoadableIconPointer: CPointer<GLoadableIcon>
         get() = handle.reinterpret()
+
+    /**
+     * The color state of the texture.
+     *
+     * @since 4.16
+     */
+    @GdkVersion4_16
+    public open val colorState: ColorState
+        /**
+         * Returns the color state associated with the texture.
+         *
+         * @return the color state of the `GdkTexture`
+         * @since 4.16
+         */
+        get() = gdk_texture_get_color_state(gdkTexturePointer)!!.run {
+            ColorState(this)
+        }
 
     /**
      * The height of the texture, in pixels.

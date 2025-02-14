@@ -51,9 +51,7 @@ import kotlin.Unit
  * should be modal.
  *
  * The dialog is shown with the [method@Gtk.ColorDialog.choose_rgba]
- * function. This API follows the GIO async pattern, and the
- * result can be obtained by calling
- * [method@Gtk.ColorDialog.choose_rgba_finish].
+ * function.
  *
  * See [class@Gtk.ColorDialogButton] for a convenient control
  * that uses `GtkColorDialog` and presents the results.
@@ -163,14 +161,11 @@ public open class ColorDialog(public val gtkColorDialogPointer: CPointer<GtkColo
      * This function initiates a color choice operation by
      * presenting a color chooser dialog to the user.
      *
-     * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.ColorDialog.choose_rgba_finish]
-     * to obtain the result.
-     *
      * @param parent the parent `GtkWindow`
      * @param initialColor the color to select initially
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10

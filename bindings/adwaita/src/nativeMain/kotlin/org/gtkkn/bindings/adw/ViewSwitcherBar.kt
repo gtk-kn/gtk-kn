@@ -45,8 +45,6 @@ import kotlin.Boolean
  *
  * ```xml
  * <object class="AdwWindow">
- *   <property name="width-request">360</property>
- *   <property name="height-request">200</property>
  *   <child>
  *     <object class="AdwBreakpoint">
  *       <condition>max-width: 550sp</condition>

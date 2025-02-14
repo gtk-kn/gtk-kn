@@ -16,7 +16,8 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "1.2" to "org.gtkkn.bindings.adw.annotations.AdwVersion1_2",
         "1.3" to "org.gtkkn.bindings.adw.annotations.AdwVersion1_3",
         "1.4" to "org.gtkkn.bindings.adw.annotations.AdwVersion1_4",
-        "1.5" to "org.gtkkn.bindings.adw.annotations.AdwVersion1_5"
+        "1.5" to "org.gtkkn.bindings.adw.annotations.AdwVersion1_5",
+        "1.6" to "org.gtkkn.bindings.adw.annotations.AdwVersion1_6"
     ),
     "cairo" to listOf(
         "1.10" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_10",
@@ -51,6 +52,7 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "4.10" to "org.gtkkn.bindings.gdk.annotations.GdkVersion4_10",
         "4.12" to "org.gtkkn.bindings.gdk.annotations.GdkVersion4_12",
         "4.14" to "org.gtkkn.bindings.gdk.annotations.GdkVersion4_14",
+        "4.16" to "org.gtkkn.bindings.gdk.annotations.GdkVersion4_16",
         "4.2" to "org.gtkkn.bindings.gdk.annotations.GdkVersion4_2",
         "4.4" to "org.gtkkn.bindings.gdk.annotations.GdkVersion4_4",
         "4.6" to "org.gtkkn.bindings.gdk.annotations.GdkVersion4_6",
@@ -88,7 +90,8 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "2.74" to "org.gtkkn.bindings.gio.annotations.GioVersion2_74",
         "2.76" to "org.gtkkn.bindings.gio.annotations.GioVersion2_76",
         "2.78" to "org.gtkkn.bindings.gio.annotations.GioVersion2_78",
-        "2.80" to "org.gtkkn.bindings.gio.annotations.GioVersion2_80"
+        "2.80" to "org.gtkkn.bindings.gio.annotations.GioVersion2_80",
+        "2.82" to "org.gtkkn.bindings.gio.annotations.GioVersion2_82"
     ),
     "glib" to listOf(
         "2.10" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_10",
@@ -129,7 +132,8 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "2.76" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_76",
         "2.78" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_78",
         "2.8" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_8",
-        "2.80" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_80"
+        "2.80" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_80",
+        "2.82" to "org.gtkkn.bindings.glib.annotations.GLibVersion2_82"
     ),
     "gmodule" to listOf(
         "2.70" to "org.gtkkn.bindings.gmodule.annotations.GModuleVersion2_70"
@@ -169,6 +173,7 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
     "gsk" to listOf(
         "4.10" to "org.gtkkn.bindings.gsk.annotations.GskVersion4_10",
         "4.14" to "org.gtkkn.bindings.gsk.annotations.GskVersion4_14",
+        "4.16" to "org.gtkkn.bindings.gsk.annotations.GskVersion4_16",
         "4.2" to "org.gtkkn.bindings.gsk.annotations.GskVersion4_2",
         "4.6" to "org.gtkkn.bindings.gsk.annotations.GskVersion4_6"
     ),
@@ -176,6 +181,7 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "4.10" to "org.gtkkn.bindings.gtk.annotations.GtkVersion4_10",
         "4.12" to "org.gtkkn.bindings.gtk.annotations.GtkVersion4_12",
         "4.14" to "org.gtkkn.bindings.gtk.annotations.GtkVersion4_14",
+        "4.16" to "org.gtkkn.bindings.gtk.annotations.GtkVersion4_16",
         "4.2" to "org.gtkkn.bindings.gtk.annotations.GtkVersion4_2",
         "4.4" to "org.gtkkn.bindings.gtk.annotations.GtkVersion4_4",
         "4.6" to "org.gtkkn.bindings.gtk.annotations.GtkVersion4_6",
@@ -187,11 +193,6 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "5.2" to "org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2",
         "5.4" to "org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4",
         "5.6" to "org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6"
-    ),
-    "javascriptcore" to listOf(
-        "2.24" to "org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_24",
-        "2.28" to "org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_28",
-        "2.38" to "org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_38"
     ),
     "pango" to listOf(
         "1.10" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_10",
@@ -217,6 +218,8 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "1.46" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_46",
         "1.50" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_50",
         "1.52" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_52",
+        "1.54" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_54",
+        "1.56" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_56",
         "1.6" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_6",
         "1.8" to "org.gtkkn.bindings.pango.annotations.PangoVersion1_8"
     ),
@@ -225,34 +228,5 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "1.14" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_14",
         "1.18" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18",
         "1.22" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22"
-    ),
-    "soup" to listOf(
-        "3.2" to "org.gtkkn.bindings.soup.annotations.SoupVersion3_2",
-        "3.4" to "org.gtkkn.bindings.soup.annotations.SoupVersion3_4"
-    ),
-    "webkit" to listOf(
-        "2.10" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_10",
-        "2.12" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_12",
-        "2.14" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_14",
-        "2.16" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16",
-        "2.18" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18",
-        "2.2" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2",
-        "2.20" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20",
-        "2.22" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_22",
-        "2.24" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24",
-        "2.26" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_26",
-        "2.28" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28",
-        "2.30" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30",
-        "2.32" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_32",
-        "2.34" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34",
-        "2.36" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_36",
-        "2.38" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38",
-        "2.4" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4",
-        "2.40" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40",
-        "2.42" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42",
-        "2.44" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_44",
-        "2.46" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_46",
-        "2.6" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6",
-        "2.8" to "org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8"
     )
 )

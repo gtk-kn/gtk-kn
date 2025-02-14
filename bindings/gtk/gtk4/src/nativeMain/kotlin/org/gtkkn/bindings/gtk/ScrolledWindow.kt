@@ -113,6 +113,12 @@ import kotlin.Unit
  * can be turned off with the [property@Gtk.ScrolledWindow:overlay-scrolling]
  * property.
  *
+ * # Shortcuts and Gestures
+ *
+ * The following signals have default keybindings:
+ *
+ * - [signal@Gtk.ScrolledWindow::scroll-child]
+ *
  * # CSS nodes
  *
  * `GtkScrolledWindow` has a main CSS node with name scrolledwindow.
@@ -143,7 +149,6 @@ import kotlin.Unit
  * - method `hscrollbar-policy`: Property has no getter nor setter
  * - method `vadjustment`: Property TypeInfo of getter and setter do not match
  * - method `vscrollbar-policy`: Property has no getter nor setter
- * - method `window-placement`: Property has no getter nor setter
  */
 public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<GtkScrolledWindow>) :
     Widget(gtkScrolledWindowPointer.reinterpret()),
@@ -412,6 +417,35 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
         ) = gtk_scrolled_window_set_propagate_natural_width(gtkScrolledWindowPointer, propagate.asGBoolean())
 
     /**
+     * Where the contents are located with respect to the scrollbars.
+     */
+    public open var windowPlacement: CornerType
+        /**
+         * Gets the placement of the contents with respect to the scrollbars.
+         *
+         * @return the current placement value.
+         */
+        get() = gtk_scrolled_window_get_placement(gtkScrolledWindowPointer).run {
+            CornerType.fromNativeValue(this)
+        }
+
+        /**
+         * Sets the placement of the contents with respect to the scrollbars
+         * for the scrolled window.
+         *
+         * The default is %GTK_CORNER_TOP_LEFT, meaning the child is
+         * in the top left, with the scrollbars underneath and to the right.
+         * Other values in [enum@Gtk.CornerType] are %GTK_CORNER_TOP_RIGHT,
+         * %GTK_CORNER_BOTTOM_LEFT, and %GTK_CORNER_BOTTOM_RIGHT.
+         *
+         * See also [method@Gtk.ScrolledWindow.get_placement] and
+         * [method@Gtk.ScrolledWindow.unset_placement].
+         *
+         * @param windowPlacement position of the child window
+         */
+        set(windowPlacement) = gtk_scrolled_window_set_placement(gtkScrolledWindowPointer, windowPlacement.nativeValue)
+
+    /**
      * Creates a new scrolled window.
      *
      * @return a new scrolled window
@@ -442,15 +476,6 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
     }
 
     /**
-     * Gets the placement of the contents with respect to the scrollbars.
-     *
-     * @return the current placement value.
-     */
-    public open fun getPlacement(): CornerType = gtk_scrolled_window_get_placement(gtkScrolledWindowPointer).run {
-        CornerType.fromNativeValue(this)
-    }
-
-    /**
      * Returns the vertical scrollbar’s adjustment.
      *
      * This is the adjustment used to connect the vertical
@@ -478,23 +503,6 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
      */
     public open fun setHadjustment(hadjustment: Adjustment? = null): Unit =
         gtk_scrolled_window_set_hadjustment(gtkScrolledWindowPointer, hadjustment?.gtkAdjustmentPointer)
-
-    /**
-     * Sets the placement of the contents with respect to the scrollbars
-     * for the scrolled window.
-     *
-     * The default is %GTK_CORNER_TOP_LEFT, meaning the child is
-     * in the top left, with the scrollbars underneath and to the right.
-     * Other values in [enum@Gtk.CornerType] are %GTK_CORNER_TOP_RIGHT,
-     * %GTK_CORNER_BOTTOM_LEFT, and %GTK_CORNER_BOTTOM_RIGHT.
-     *
-     * See also [method@Gtk.ScrolledWindow.get_placement] and
-     * [method@Gtk.ScrolledWindow.unset_placement].
-     *
-     * @param windowPlacement position of the child window
-     */
-    public open fun setPlacement(windowPlacement: CornerType): Unit =
-        gtk_scrolled_window_set_placement(gtkScrolledWindowPointer, windowPlacement.nativeValue)
 
     /**
      * Sets the scrollbar policy for the horizontal and vertical scrollbars.
@@ -609,8 +617,8 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
      * This is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * `Ctrl + Tab` to move forward and `Ctrl + Shift + Tab` to
-     * move backward.
+     * <kbd>Ctrl</kbd>+<kbd>Tab</kbd> to move forward and
+     * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Tab</kbd>` to move backward.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `directionType` either %GTK_DIR_TAB_FORWARD or
@@ -648,7 +656,7 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `scroll` a `GtkScrollType` describing how much to scroll; `horizontal` whether the keybinding scrolls the child
-     *   horizontally or not
+     *   horizontally or not. Returns whether the scroll happened
      */
     public fun onScrollChild(
         connectFlags: ConnectFlags = ConnectFlags(0u),

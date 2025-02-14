@@ -26,6 +26,14 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.14.
+ *
+ * GTK does not expose any Vulkan internals. This
+ *   struct is a leftover that was accidentally exposed.
+ * ---
+ *
  * `GdkVulkanContext` is an object representing the platform-specific
  * Vulkan draw context.
  *

@@ -94,7 +94,7 @@ public open class FileInputStream(public val gioFileInputStreamPointer: CPointer
      * was cancelled, the error %G_IO_ERROR_CANCELLED will be set
      *
      * @param attributes a file attribute query string.
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied

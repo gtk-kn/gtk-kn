@@ -199,7 +199,8 @@ import kotlin.collections.List
  * - colors (in a format understood by [method@Gdk.RGBA.parse])
  * - `GVariant` (can be specified in the format understood by
  *    [func@GLib.Variant.parse])
- * - pixbufs (can be specified as a filename of an image file to load)
+ * - pixbufs (can be specified as an object id, a resource path or a filename of an image file to load relative to the Builder file or the CWD if [method@Gtk.Builder.add_from_string] was used)
+ * - GFile (like pixbufs, can be specified as an object id, a URI or a filename of a file to load relative to the Builder file or the CWD if [method@Gtk.Builder.add_from_string] was used)
  *
  * Objects can be referred to by their name and by default refer to
  * objects declared in the local XML fragment and objects exposed via

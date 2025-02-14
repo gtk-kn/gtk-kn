@@ -906,7 +906,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * returned (with @error set accordingly).
      *
      * You can unexport the action group using
-     * g_dbus_connection_unexport_action_group() with the return value of
+     * [method@Gio.DBusConnection.unexport_action_group] with the return value of
      * this function.
      *
      * The thread default main context is taken at the time of this call.
@@ -919,7 +919,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * context.
      *
      * @param objectPath a D-Bus object path
-     * @param actionGroup a #GActionGroup
+     * @param actionGroup an action group
      * @return the ID of the export (never zero), or 0 in case of failure
      * @since 2.32
      */
@@ -1107,6 +1107,11 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     /**
      * Version of g_dbus_connection_register_object() using closures instead of a
      * #GDBusInterfaceVTable for easier binding in other languages.
+     *
+     * Note that the reference counting semantics of the function wrapped by
+     * @method_call_closure are the same as those of
+     * [callback@Gio.DBusInterfaceMethodCallFunc]: ownership of a reference to the
+     * [class@Gio.DBusMethodInvocation] is transferred to the function.
      *
      * @param objectPath The object path to register at.
      * @param interfaceInfo Introspection data for the interface.
@@ -1315,13 +1320,13 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
 
     /**
      * Reverses the effect of a previous call to
-     * g_dbus_connection_export_action_group().
+     * [method@Gio.DBusConnection.export_action_group].
      *
-     * It is an error to call this function with an ID that wasn't returned
-     * from g_dbus_connection_export_action_group() or to call it with the
-     * same ID more than once.
+     * It is an error to call this function with an ID that wasn’t returned from
+     * [method@Gio.DBusConnection.export_action_group] or to call it with the same
+     * ID more than once.
      *
-     * @param exportId the ID from g_dbus_connection_export_action_group()
+     * @param exportId the ID from [method@Gio.DBusConnection.export_action_group]
      * @since 2.32
      */
     @GioVersion2_32

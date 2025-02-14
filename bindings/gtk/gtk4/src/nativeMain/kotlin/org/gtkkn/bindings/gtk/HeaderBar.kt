@@ -183,6 +183,9 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
          */
         set(setting) = gtk_header_bar_set_show_title_buttons(gtkHeaderBarPointer, setting.asGBoolean())
 
+    /**
+     * The title widget to display.
+     */
     public open var titleWidget: Widget?
         /**
          * Retrieves the title widget of the header.

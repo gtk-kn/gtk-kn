@@ -452,6 +452,9 @@ public open class IconView(public val gtkIconViewPointer: CPointer<GtkIconView>)
          */
         set(column) = gtk_icon_view_set_markup_column(gtkIconViewPointer, column)
 
+    /**
+     * The model of the icon view.
+     */
     public open var model: TreeModel?
         /**
          * # ⚠️ Deprecated ⚠️
@@ -709,6 +712,10 @@ public open class IconView(public val gtkIconViewPointer: CPointer<GtkIconView>)
          */
         set(column) = gtk_icon_view_set_text_column(gtkIconViewPointer, column)
 
+    /**
+     * The column of the icon view model which is being used for displaying
+     * tooltips on it's rows.
+     */
     public open var tooltipColumn: gint
         /**
          * # ⚠️ Deprecated ⚠️
@@ -1247,7 +1254,7 @@ public open class IconView(public val gtkIconViewPointer: CPointer<GtkIconView>)
      * The default bindings for this signal are Space, Return and Enter.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect
+     * @param handler the Callback to connect. Returns whether the item was activated
      */
     public fun onActivateCursorItem(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
@@ -1309,7 +1316,7 @@ public open class IconView(public val gtkIconViewPointer: CPointer<GtkIconView>)
      * the Shift modifier.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extend` whether to extend the selection; `modify` whether to modify the selection
+     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extend` whether to extend the selection; `modify` whether to modify the selection. Returns whether the cursor was moved
      */
     public fun onMoveCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),

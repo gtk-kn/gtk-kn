@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
@@ -71,11 +72,15 @@ import kotlin.Unit
  */
 public open class Scrollbar(public val gtkScrollbarPointer: CPointer<GtkScrollbar>) :
     Widget(gtkScrollbarPointer.reinterpret()),
+    AccessibleRange,
     Orientable,
     KGTyped {
     init {
         Gtk
     }
+
+    override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()

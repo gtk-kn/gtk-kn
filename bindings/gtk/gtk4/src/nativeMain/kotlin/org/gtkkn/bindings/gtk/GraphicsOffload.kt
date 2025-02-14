@@ -6,6 +6,9 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_16
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
@@ -15,12 +18,15 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkGraphicsOffload
+import org.gtkkn.native.gtk.gtk_graphics_offload_get_black_background
 import org.gtkkn.native.gtk.gtk_graphics_offload_get_child
 import org.gtkkn.native.gtk.gtk_graphics_offload_get_enabled
 import org.gtkkn.native.gtk.gtk_graphics_offload_get_type
 import org.gtkkn.native.gtk.gtk_graphics_offload_new
+import org.gtkkn.native.gtk.gtk_graphics_offload_set_black_background
 import org.gtkkn.native.gtk.gtk_graphics_offload_set_child
 import org.gtkkn.native.gtk.gtk_graphics_offload_set_enabled
+import kotlin.Boolean
 
 /**
  * A widget that allows to bypass gsk rendering for its child by passing the content
@@ -77,6 +83,45 @@ public open class GraphicsOffload(public val gtkGraphicsOffloadPointer: CPointer
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = handle.reinterpret()
+
+    /**
+     * Whether to draw a black background.
+     *
+     * @since 4.16
+     */
+    @GtkVersion4_16
+    public open var blackBackground: Boolean
+        /**
+         * Returns whether the widget draws a black background.
+         *
+         * See [method@Gtk.GraphicsOffload.set_black_background].
+         *
+         * @return `TRUE` if black background is drawn
+         * @since 4.16
+         */
+        get() = gtk_graphics_offload_get_black_background(gtkGraphicsOffloadPointer).asBoolean()
+
+        /**
+         * Sets whether this GtkGraphicsOffload widget will draw a black
+         * background.
+         *
+         * A main use case for this is **_letterboxing_** where black bars are
+         * visible next to the content if the aspect ratio of the content does
+         * not match the dimensions of the monitor.
+         *
+         * Using this property for letterboxing instead of CSS allows compositors
+         * to show content with maximum efficiency, using direct scanout to avoid
+         * extra copies in the compositor.
+         *
+         * On Wayland, this is implemented using the
+         * [single-pixel buffer](https://wayland.app/protocols/single-pixel-buffer-v1)
+         * protocol.
+         *
+         * @param value whether to draw a black background behind the content
+         * @since 4.16
+         */
+        @GtkVersion4_16
+        set(`value`) = gtk_graphics_offload_set_black_background(gtkGraphicsOffloadPointer, `value`.asGBoolean())
 
     /**
      * The child widget.

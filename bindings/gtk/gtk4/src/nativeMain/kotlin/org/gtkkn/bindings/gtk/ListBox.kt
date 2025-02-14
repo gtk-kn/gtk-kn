@@ -101,6 +101,15 @@ import kotlin.Unit
  * attribute of a `<child>` element. See [method@Gtk.ListBox.set_placeholder]
  * for info.
  *
+ * # Shortcuts and Gestures
+ *
+ * The following signals have default keybindings:
+ *
+ * - [signal@Gtk.ListBox::move-cursor]
+ * - [signal@Gtk.ListBox::select-all]
+ * - [signal@Gtk.ListBox::toggle-cursor-row]
+ * - [signal@Gtk.ListBox::unselect-all]
+ *
  * # CSS nodes
  *
  * |[<!-- language="plain" -->
@@ -242,8 +251,8 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
      * should be implemented by the model.
      *
      * @param model the `GListModel` to be bound to @box
-     * @param createWidgetFunc a function that creates widgets for items
-     *   or null in case you also passed null as @model
+     * @param createWidgetFunc a function
+     *   that creates widgets for items or null in case you also passed null as @model
      */
     public open fun bindModel(model: ListModel? = null, createWidgetFunc: ListBoxCreateWidgetFunc?): Unit =
         gtk_list_box_bind_model(
@@ -466,7 +475,8 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
      * Note that using a filter function is incompatible with using a model
      * (see [method@Gtk.ListBox.bind_model]).
      *
-     * @param filterFunc callback that lets you filter which rows to show
+     * @param filterFunc callback
+     *   that lets you filter which rows to show
      */
     public open fun setFilterFunc(filterFunc: ListBoxFilterFunc?): Unit = gtk_list_box_set_filter_func(
         gtkListBoxPointer,
@@ -506,7 +516,8 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
      * row becomes a different row). It is also called for all rows when
      * [method@Gtk.ListBox.invalidate_headers] is called.
      *
-     * @param updateHeader callback that lets you add row headers
+     * @param updateHeader callback
+     *   that lets you add row headers
      */
     public open fun setHeaderFunc(updateHeader: ListBoxUpdateHeaderFunc?): Unit = gtk_list_box_set_header_func(
         gtkListBoxPointer,
@@ -569,7 +580,7 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
         gtk_list_box_unselect_row(gtkListBoxPointer, row.gtkListBoxRowPointer)
 
     /**
-     *
+     * Emitted when the cursor row is activated.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -592,18 +603,28 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
     }
 
     /**
+     * Emitted when the user initiates a cursor movement.
      *
+     * The default bindings for this signal come in two variants, the variant with
+     * the Shift modifier extends the selection, the variant without the Shift
+     * modifier does not. There are too many key combinations to list them all
+     * here.
+     *
+     * - <kbd>←</kbd>, <kbd>→</kbd>, <kbd>↑</kbd>, <kbd>↓</kbd>
+     *   move by individual children
+     * - <kbd>Home</kbd>, <kbd>End</kbd> move to the ends of the box
+     * - <kbd>PgUp</kbd>, <kbd>PgDn</kbd> move vertically by pages
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `object` ; `p0` ; `p1` ; `p2`
+     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extend` whether to extend the selection; `modify` whether to modify the selection
      */
     public fun onMoveCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
-            `object`: MovementStep,
-            p0: gint,
-            p1: Boolean,
-            p2: Boolean,
+            step: MovementStep,
+            count: gint,
+            extend: Boolean,
+            modify: Boolean,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
         gtkListBoxPointer,
@@ -617,19 +638,19 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
     /**
      * Emits the "move-cursor" signal. See [onMoveCursor].
      *
-     * @param object
-     * @param p0
-     * @param p1
-     * @param p2
+     * @param step the granularity of the move, as a `GtkMovementStep`
+     * @param count the number of @step units to move
+     * @param extend whether to extend the selection
+     * @param modify whether to modify the selection
      */
-    public fun emitMoveCursor(`object`: MovementStep, p0: gint, p1: Boolean, p2: Boolean) {
+    public fun emitMoveCursor(step: MovementStep, count: gint, extend: Boolean, modify: Boolean) {
         g_signal_emit_by_name(
             gtkListBoxPointer.reinterpret(),
             "move-cursor",
-            `object`.nativeValue,
-            p0,
-            p1.asGBoolean(),
-            p2.asGBoolean()
+            step.nativeValue,
+            count,
+            extend.asGBoolean(),
+            modify.asGBoolean()
         )
     }
 
@@ -744,7 +765,9 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
     }
 
     /**
+     * Emitted when the cursor row is toggled.
      *
+     * The default bindings for this signal is <kbd>Ctrl</kbd>+<kbd>␣</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -841,26 +864,26 @@ private val onMoveCursorFunc: CPointer<
         >
     > = staticCFunction {
         _: COpaquePointer,
-        `object`: GtkMovementStep,
-        p0: gint,
-        p1: gboolean,
-        p2: gboolean,
+        step: GtkMovementStep,
+        count: gint,
+        extend: gboolean,
+        modify: gboolean,
         userData: COpaquePointer,
     ->
     userData.asStableRef<
         (
-            `object`: MovementStep,
-            p0: gint,
-            p1: Boolean,
-            p2: Boolean,
+            step: MovementStep,
+            count: gint,
+            extend: Boolean,
+            modify: Boolean,
         ) -> Unit
         >().get().invoke(
-        `object`.run {
+        step.run {
             MovementStep.fromNativeValue(this)
         },
-        p0,
-        p1.asBoolean(),
-        p2.asBoolean()
+        count,
+        extend.asBoolean(),
+        modify.asBoolean()
     )
 }
     .reinterpret()

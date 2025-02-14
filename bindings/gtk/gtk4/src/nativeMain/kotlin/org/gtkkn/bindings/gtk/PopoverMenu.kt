@@ -122,6 +122,12 @@ import kotlin.String
  * [method@WidgetClass.add_binding_action] or
  * [method@Gtk.ShortcutController.add_shortcut].
  *
+ * # Shortcuts and Gestures
+ *
+ * `GtkPopoverMenu` supports the following keyboard shortcuts:
+ *
+ * - <kbd>Space</kbd> activates the default widget.
+ *
  * # CSS Nodes
  *
  * `GtkPopoverMenu` is just a subclass of `GtkPopover` that adds custom content

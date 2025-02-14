@@ -45,6 +45,12 @@ public enum class DialogError(public val nativeValue: GtkDialogError) {
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Registers an error quark for an operation that requires a dialog if
+         * necessary.
+         *
+         * @return the error quark
+         */
         public fun quark(): Quark = gtk_dialog_error_quark()
 
         /**

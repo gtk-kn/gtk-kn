@@ -217,7 +217,7 @@ public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArra
      * Use g_array_index() instead.
      * ---
      *
-     * Return a pointer to the value at @index_ containd in @value_array.
+     * Return a pointer to the value at @index_ contained in @value_array.
      *
      * @param index index of the value of interest
      * @return pointer to a value at @index_ in @value_array

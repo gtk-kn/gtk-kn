@@ -67,6 +67,15 @@ import kotlin.Unit
  * the mark. It can be translated with the usual ”translatable” and
  * “context” attributes.
  *
+ * # Shortcuts and Gestures
+ *
+ * `GtkPopoverMenu` supports the following keyboard shortcuts:
+ *
+ * - Arrow keys, <kbd>+</kbd> and <kbd>-</kbd> will increment or decrement
+ *   by step, or by page when combined with <kbd>Ctrl</kbd>.
+ * - <kbd>PgUp</kbd> and <kbd>PgDn</kbd> will increment or decrement by page.
+ * - <kbd>Home</kbd> and <kbd>End</kbd> will set the minimum or maximum value.
+ *
  * # CSS nodes
  *
  * ```
@@ -336,7 +345,8 @@ public open class Scale(public val gtkScalePointer: CPointer<GtkScale>) :
      * its own, rounded according to the value of the
      * [property@Gtk.Scale:digits] property.
      *
-     * @param func function that formats the value
+     * @param func function
+     *   that formats the value
      */
     public open fun setFormatValueFunc(func: ScaleFormatValueFunc?): Unit = gtk_scale_set_format_value_func(
         gtkScalePointer,

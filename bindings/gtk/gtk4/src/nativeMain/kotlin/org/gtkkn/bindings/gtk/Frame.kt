@@ -27,7 +27,6 @@ import org.gtkkn.native.gtk.gtk_frame_set_label
 import org.gtkkn.native.gtk.gtk_frame_set_label_align
 import org.gtkkn.native.gtk.gtk_frame_set_label_widget
 import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkFrame` is a widget that surrounds its child with a decorative
@@ -76,10 +75,6 @@ import kotlin.Unit
  * # Accessibility
  *
  * `GtkFrame` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
- *
- * ## Skipped during bindings generation
- *
- * - method `label-xalign`: Property has no getter nor setter
  */
 public open class Frame(public val gtkFramePointer: CPointer<GtkFrame>) :
     Widget(gtkFramePointer.reinterpret()),
@@ -165,6 +160,28 @@ public open class Frame(public val gtkFramePointer: CPointer<GtkFrame>) :
         set(labelWidget) = gtk_frame_set_label_widget(gtkFramePointer, labelWidget?.gtkWidgetPointer)
 
     /**
+     * The horizontal alignment of the label.
+     */
+    public open var labelXalign: gfloat
+        /**
+         * Retrieves the X alignment of the frame’s label.
+         *
+         * @return the frames X alignment
+         */
+        get() = gtk_frame_get_label_align(gtkFramePointer)
+
+        /**
+         * Sets the X alignment of the frame widget’s label.
+         *
+         * The default value for a newly created frame is 0.0.
+         *
+         * @param xalign The position of the label along the top edge
+         *   of the widget. A value of 0.0 represents left alignment;
+         *   1.0 represents right alignment.
+         */
+        set(xalign) = gtk_frame_set_label_align(gtkFramePointer, xalign)
+
+    /**
      * Creates a new `GtkFrame`, with optional label @label.
      *
      * If @label is null, the label is omitted.
@@ -175,24 +192,6 @@ public open class Frame(public val gtkFramePointer: CPointer<GtkFrame>) :
     public constructor(label: String? = null) : this(gtk_frame_new(label)!!.reinterpret()) {
         InstanceCache.put(this)
     }
-
-    /**
-     * Retrieves the X alignment of the frame’s label.
-     *
-     * @return the frames X alignment
-     */
-    public open fun getLabelAlign(): gfloat = gtk_frame_get_label_align(gtkFramePointer)
-
-    /**
-     * Sets the X alignment of the frame widget’s label.
-     *
-     * The default value for a newly created frame is 0.0.
-     *
-     * @param xalign The position of the label along the top edge
-     *   of the widget. A value of 0.0 represents left alignment;
-     *   1.0 represents right alignment.
-     */
-    public open fun setLabelAlign(xalign: gfloat): Unit = gtk_frame_set_label_align(gtkFramePointer, xalign)
 
     public companion object : TypeCompanion<Frame> {
         override val type: GeneratedClassKGType<Frame> =

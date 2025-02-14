@@ -74,14 +74,14 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `add_finalize_notifier`: Callback gpointer not found
- * - method `add_invalidate_notifier`: Callback gpointer not found
- * - method `add_marshal_guards`: Invalid closure relationship between 'pre_marshal_data' and 'pre_marshal_notify'
+ * - parameter `notify_func`: ClosureNotify
+ * - parameter `notify_func`: ClosureNotify
+ * - parameter `post_marshal_notify`: ClosureNotify
  * - parameter `param_values`: Array parameter of type Value is not supported
  * - parameter `notify_func`: ClosureNotify
  * - parameter `notify_func`: ClosureNotify
  * - parameter `marshal`: ClosureMarshal
- * - method `set_meta_marshal`: Callback gpointer not found
+ * - parameter `meta_marshal`: ClosureMarshal
  * - field `marshal`: Fields with callbacks are not supported
  */
 public class Closure(public val gobjectClosurePointer: CPointer<GClosure>) : ProxyInstance(gobjectClosurePointer) {

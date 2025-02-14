@@ -57,8 +57,7 @@ import kotlin.collections.List
  * are needed to present a message to the user.
  *
  * The message is shown with the [method@Gtk.AlertDialog.choose]
- * function. This API follows the GIO async pattern, and the result can
- * be obtained by calling [method@Gtk.AlertDialog.choose_finish].
+ * function.
  *
  * If you don't need to wait for a button to be clicked, you can use
  * [method@Gtk.AlertDialog.show].
@@ -225,17 +224,14 @@ public open class AlertDialog(public val gtkAlertDialogPointer: CPointer<GtkAler
     /**
      * This function shows the alert to the user.
      *
-     * The @callback will be called when the alert is dismissed.
-     * It should call [method@Gtk.AlertDialog.choose_finish]
-     * to obtain the result.
-     *
      * It is ok to pass `NULL` for the callback if the alert
      * does not have more than one button. A simpler API for
      * this case is [method@Gtk.AlertDialog.show].
      *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call
+     *   when the operation is complete
      * @since 4.10
      */
     @GtkVersion4_10

@@ -96,10 +96,14 @@ import kotlin.Unit
  * Use [method@Dialog.force_close] to close the dialog even when `can-close` is set to
  * `FALSE`.
  *
+ * `AdwDialog` is transient and doesn't integrate with the window below it, for
+ * example it's not possible to collapse it into a bottom bar. See
+ * [class@BottomSheet] for persistent and more tightly integrated bottom sheets.
+ *
  * ## Header Bar Integration
  *
  * When placed inside an `AdwDialog`, [class@HeaderBar] will display the dialog
- * title intead of window title. It will also adjust the decoration layout to
+ * title instead of window title. It will also adjust the decoration layout to
  * ensure it always has a close button and nothing else. Set
  * [property@HeaderBar:show-start-title-buttons] and
  * [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
@@ -113,11 +117,6 @@ import kotlin.Unit
  * Like `AdwBreakpointBin`, if breakpoints are used, `AdwDialog` doesn't have a
  * minimum size, and [property@Gtk.Widget:width-request] and
  * [property@Gtk.Widget:height-request] properties must be set manually.
- *
- * ## Skipped during bindings generation
- *
- * - method `focus-widget`: Property has no getter nor setter
- *
  * @since 1.5
  */
 @AdwVersion1_5
@@ -309,6 +308,39 @@ public open class Dialog(public val adwDialogPointer: CPointer<AdwDialog>) :
         set(defaultWidget) = adw_dialog_set_default_widget(adwDialogPointer, defaultWidget?.gtkWidgetPointer)
 
     /**
+     * The focus widget.
+     *
+     * @since 1.5
+     */
+    @AdwVersion1_5
+    public open var focusWidget: Widget?
+        /**
+         * Gets the focus widget for @self.
+         *
+         * @return the focus widget
+         * @since 1.5
+         */
+        get() = adw_dialog_get_focus(adwDialogPointer)?.run {
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        }
+
+        /**
+         * Sets the focus widget for @self.
+         *
+         * If @focus is not the current focus widget, and is focusable, sets it as the
+         * focus widget for the dialog.
+         *
+         * If focus is `NULL`, unsets the focus widget for this dialog. To set the focus
+         * to a particular widget in the dialog, it is usually more convenient to use
+         * [method@Gtk.Widget.grab_focus] instead of this function.
+         *
+         * @param focus the focus widget
+         * @since 1.5
+         */
+        @AdwVersion1_5
+        set(focus) = adw_dialog_set_focus(adwDialogPointer, focus?.gtkWidgetPointer)
+
+    /**
      * Whether to size content automatically.
      *
      * If set to `TRUE`, always use the content's natural size instead of
@@ -460,17 +492,6 @@ public open class Dialog(public val adwDialogPointer: CPointer<AdwDialog>) :
     public open fun forceClose(): Unit = adw_dialog_force_close(adwDialogPointer)
 
     /**
-     * Gets the focus widget for @self.
-     *
-     * @return the focus widget
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun getFocus(): Widget? = adw_dialog_get_focus(adwDialogPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
-    }
-
-    /**
      * Presents @self within @parent's window.
      *
      * If @self is already shown, raises it to the top instead.
@@ -484,23 +505,6 @@ public open class Dialog(public val adwDialogPointer: CPointer<AdwDialog>) :
     @AdwVersion1_5
     public open fun present(parent: Widget? = null): Unit =
         adw_dialog_present(adwDialogPointer, parent?.gtkWidgetPointer)
-
-    /**
-     * Sets the focus widget for @self.
-     *
-     * If @focus is not the current focus widget, and is focusable, sets it as the
-     * focus widget for the dialog.
-     *
-     * If focus is `NULL`, unsets the focus widget for this dialog. To set the focus
-     * to a particular widget in the dialog, it is usually more convenient to use
-     * [method@Gtk.Widget.grab_focus] instead of this function.
-     *
-     * @param focus the focus widget
-     * @since 1.5
-     */
-    @AdwVersion1_5
-    public open fun setFocus(focus: Widget? = null): Unit =
-        adw_dialog_set_focus(adwDialogPointer, focus?.gtkWidgetPointer)
 
     /**
      * Emitted when the close button or shortcut is used, or

@@ -89,6 +89,15 @@ public enum class AccessibleState(public val nativeValue: GtkAccessibleState) {
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Initializes @value with the appropriate type for the @state.
+         *
+         * This function is mostly meant for language bindings, in conjunction
+         * with gtk_accessible_update_relation_state().
+         *
+         * @param state a `GtkAccessibleState`
+         * @param value an uninitialized `GValue`
+         */
         public fun initValue(state: AccessibleState, `value`: Value): Unit =
             gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer)
 

@@ -61,6 +61,10 @@ import kotlin.Unit
  * Users of this widget should take care to plan behaviour for the common case
  * where the text doesn't fit exactly in the allocated space.
  *
+ * ## CSS nodes
+ *
+ * `GtkInscription` has a single CSS node with the name label.
+ *
  * ## Skipped during bindings generation
  *
  * - method `markup`: Property has no getter

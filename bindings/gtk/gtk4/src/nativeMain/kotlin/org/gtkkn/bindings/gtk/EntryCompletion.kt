@@ -201,6 +201,9 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
             inlineSelection
         ) = gtk_entry_completion_set_inline_selection(gtkEntryCompletionPointer, inlineSelection.asGBoolean())
 
+    /**
+     * The minimum key length as set for completion.
+     */
     public open var minimumKeyLength: gint
         /**
          * # ⚠️ Deprecated ⚠️
@@ -235,6 +238,9 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
          */
         set(length) = gtk_entry_completion_set_minimum_key_length(gtkEntryCompletionPointer, length)
 
+    /**
+     * The model used as data source.
+     */
     public open var model: TreeModel?
         /**
          * # ⚠️ Deprecated ⚠️

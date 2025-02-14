@@ -77,6 +77,15 @@ import kotlin.Unit
  * `GtkSearchEntry` provides only minimal API and should be used with
  * the [iface@Gtk.Editable] API.
  *
+ * ## Shortcuts and Gestures
+ *
+ * The following signals have default keybindings:
+ *
+ * - [signal@Gtk.SearchEntry::activate]
+ * - [signal@Gtk.SearchEntry::next-match]
+ * - [signal@Gtk.SearchEntry::previous-match]
+ * - [signal@Gtk.SearchEntry::stop-search]
+ *
  * ## CSS Nodes
  *
  * ```
@@ -264,7 +273,7 @@ public open class SearchEntry(public val gtkSearchEntryPointer: CPointer<GtkSear
     /**
      * Emitted when the entry is activated.
      *
-     * The keybindings for this signal are all forms of the Enter key.
+     * The keybindings for this signal are all forms of the <kbd>Enter</kbd> key.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -295,7 +304,7 @@ public open class SearchEntry(public val gtkSearchEntryPointer: CPointer<GtkSear
      * Applications should connect to it, to implement moving
      * between matches.
      *
-     * The default bindings for this signal is Ctrl-g.
+     * The default bindings for this signal is <kbd>Ctrl</kbd>+<kbd>g</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -326,7 +335,8 @@ public open class SearchEntry(public val gtkSearchEntryPointer: CPointer<GtkSear
      * Applications should connect to it, to implement moving
      * between matches.
      *
-     * The default bindings for this signal is Ctrl-Shift-g.
+     * The default bindings for this signal is
+     * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>g</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -404,7 +414,7 @@ public open class SearchEntry(public val gtkSearchEntryPointer: CPointer<GtkSear
      * Applications should connect to it, to implement hiding
      * the search entry in this case.
      *
-     * The default bindings for this signal is Escape.
+     * The default bindings for this signal is <kbd>Escape</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect

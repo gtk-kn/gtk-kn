@@ -117,6 +117,12 @@ import kotlin.collections.List
  * checked using functions such as [method@Gio.Subprocess.get_if_exited] (which
  * are similar to the familiar `WIFEXITED`-style POSIX macros).
  *
+ * Note that as of GLib 2.82, creating a `GSubprocess` causes the signal
+ * `SIGPIPE` to be ignored for the remainder of the program. If you are writing
+ * a command-line utility that uses `GSubprocess`, you may need to take into
+ * account the fact that your program will not automatically be killed
+ * if it tries to write to `stdout` after it has been closed.
+ *
  * ## Skipped during bindings generation
  *
  * - parameter `stdout_buf`: stdout_buf: Out parameter is not supported

@@ -38,7 +38,6 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.FileError
 import org.gtkkn.bindings.glib.IoCondition
-import org.gtkkn.bindings.glib.Pid
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.glib.Variant
@@ -62,7 +61,6 @@ import org.gtkkn.native.gio.GDBusMessage
 import org.gtkkn.native.gio.GDBusMethodInvocation
 import org.gtkkn.native.gio.GDBusObjectManagerClient
 import org.gtkkn.native.gio.GDatagramBased
-import org.gtkkn.native.gio.GDesktopAppInfo
 import org.gtkkn.native.gio.GFile
 import org.gtkkn.native.gio.GIOSchedulerJob
 import org.gtkkn.native.gio.GSimpleAsyncResult
@@ -187,7 +185,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `time_read`: time_read: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
+ * - parameter `time_read_out`: time_read_out: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
+ * - parameter `time_read_out`: time_read_out: Out parameter is not supported
  * - callback `DBusSubtreeIntrospectFunc`: Array parameter of type DBusInterfaceInfo is not supported
  * - record `ActionGroupInterface`: glib type struct are ignored
  * - record `ActionInterface`: glib type struct are ignored
@@ -220,8 +220,6 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - record `DatagramBasedInterface`: glib type struct are ignored
  * - record `DebugControllerDBusClass`: glib type struct are ignored
  * - record `DebugControllerInterface`: glib type struct are ignored
- * - record `DesktopAppInfoClass`: glib type struct are ignored
- * - record `DesktopAppInfoLookupIface`: glib type struct are ignored
  * - record `DriveIface`: glib type struct are ignored
  * - record `DtlsClientConnectionInterface`: glib type struct are ignored
  * - record `DtlsConnectionInterface`: glib type struct are ignored
@@ -264,6 +262,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - record `NetworkAddressClass`: glib type struct are ignored
  * - record `NetworkMonitorInterface`: glib type struct are ignored
  * - record `NetworkServiceClass`: glib type struct are ignored
+ * - record `OsxAppInfoClass`: glib type struct are ignored
  * - record `OutputStreamClass`: glib type struct are ignored
  * - record `PermissionClass`: glib type struct are ignored
  * - record `PollableInputStreamInterface`: glib type struct are ignored
@@ -362,21 +361,6 @@ public object Gio {
      * @since 2.72
      */
     public const val DEBUG_CONTROLLER_EXTENSION_POINT_NAME: String = "gio-debug-controller"
-
-    /**
-     * # ⚠️ Deprecated ⚠️
-     *
-     * This is deprecated since version 2.28.
-     *
-     * The #GDesktopAppInfoLookup interface is deprecated and
-     *    unused by GIO.
-     * ---
-     *
-     * Extension point for default handler to URI association. See
-     * [Extending GIO][extending-gio].
-     */
-    public const val DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME: String =
-        "gio-desktop-app-info-lookup"
 
     /**
      * The string used to obtain a Unix device path with g_drive_get_identifier().
@@ -2537,7 +2521,7 @@ public object Gio {
      * g_io_scheduler_cancel_all_jobs().
      *
      * @param jobFunc a #GIOSchedulerJobFunc.
-     * @param ioPriority the [I/O priority][io-priority]
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority)
      * of the request.
      * @param cancellable optional #GCancellable object, null to ignore.
      */
@@ -3220,9 +3204,6 @@ public object Gio {
         DebugControllerDBus.getTypeOrNull()?.let { gtype ->
             TypeCache.register(DebugControllerDBus::class, gtype) { DebugControllerDBus(it.reinterpret()) }
         }
-        DesktopAppInfo.getTypeOrNull()?.let { gtype ->
-            TypeCache.register(DesktopAppInfo::class, gtype) { DesktopAppInfo(it.reinterpret()) }
-        }
         Emblem.getTypeOrNull()?.let { gtype -> TypeCache.register(Emblem::class, gtype) { Emblem(it.reinterpret()) } }
         EmblemedIcon.getTypeOrNull()?.let { gtype ->
             TypeCache.register(EmblemedIcon::class, gtype) { EmblemedIcon(it.reinterpret()) }
@@ -3322,6 +3303,9 @@ public object Gio {
         }
         Notification.getTypeOrNull()?.let { gtype ->
             TypeCache.register(Notification::class, gtype) { Notification(it.reinterpret()) }
+        }
+        OsxAppInfo.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(OsxAppInfo::class, gtype) { OsxAppInfo(it.reinterpret()) }
         }
         OutputStream.getTypeOrNull()?.let { gtype ->
             TypeCache.register(OutputStream::class, gtype) { OutputStream.OutputStreamImpl(it.reinterpret()) }
@@ -3499,11 +3483,6 @@ public object Gio {
         }
         DebugController.getTypeOrNull()?.let { gtype ->
             TypeCache.register(DebugController::class, gtype) { DebugController.DebugControllerImpl(it.reinterpret()) }
-        }
-        DesktopAppInfoLookup.getTypeOrNull()?.let { gtype ->
-            TypeCache.register(DesktopAppInfoLookup::class, gtype) {
-                DesktopAppInfoLookup.DesktopAppInfoLookupImpl(it.reinterpret())
-            }
         }
         Drive.getTypeOrNull()?.let { gtype ->
             TypeCache.register(Drive::class, gtype) { Drive.DriveImpl(it.reinterpret()) }
@@ -4090,21 +4069,6 @@ public val DatagramBasedSourceFuncFunc: CPointer<
     ).asGBoolean()
 }
     .reinterpret()
-
-public val DesktopAppLaunchCallbackFunc:
-    CPointer<CFunction<(CPointer<GDesktopAppInfo>, Pid) -> Unit>> = staticCFunction {
-            appinfo: CPointer<GDesktopAppInfo>?,
-            pid: Pid,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(appinfo: DesktopAppInfo, pid: Pid) -> Unit>().get().invoke(
-            appinfo!!.run {
-                InstanceCache.get(this, false) { DesktopAppInfo(reinterpret()) }!!
-            },
-            pid
-        )
-    }
-        .reinterpret()
 
 public val FileMeasureProgressCallbackFunc: CPointer<
     CFunction<
@@ -4739,16 +4703,6 @@ public typealias DatagramBasedSourceFunc = (
 ) -> Boolean
 
 /**
- * During invocation, g_desktop_app_info_launch_uris_as_manager() may
- * create one or more child processes.  This callback is invoked once
- * for each, providing the process ID.
- *
- * - param `appinfo` a #GDesktopAppInfo
- * - param `pid` Process identifier
- */
-public typealias DesktopAppLaunchCallback = (appinfo: DesktopAppInfo, pid: Pid) -> Unit
-
-/**
  * This callback type is used by g_file_measure_disk_usage() to make
  * periodic progress reports when measuring the amount of disk spaced
  * used by a directory.
@@ -4963,7 +4917,7 @@ public typealias TaskThreadFunc = (
 
 /**
  * This function type is used by g_vfs_register_uri_scheme() to make it
- * possible for a client to associate an URI scheme to a different #GFile
+ * possible for a client to associate a URI scheme to a different #GFile
  * implementation.
  *
  * The client should return a reference to the new file that has been
@@ -4971,7 +4925,7 @@ public typealias TaskThreadFunc = (
  *
  * - param `vfs` a #GVfs
  * - param `identifier` the identifier to look up a #GFile for. This can either
- *     be an URI or a parse name as returned by g_file_get_parse_name()
+ *     be a URI or a parse name as returned by g_file_get_parse_name()
  * - return a #GFile for @identifier.
  */
 public typealias VfsFileLookupFunc = (vfs: Vfs, identifier: String) -> File

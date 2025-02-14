@@ -6,16 +6,19 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_16
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gdk.GdkTextureDownloader
 import org.gtkkn.native.gdk.gdk_texture_downloader_copy
 import org.gtkkn.native.gdk.gdk_texture_downloader_free
+import org.gtkkn.native.gdk.gdk_texture_downloader_get_color_state
 import org.gtkkn.native.gdk.gdk_texture_downloader_get_format
 import org.gtkkn.native.gdk.gdk_texture_downloader_get_texture
 import org.gtkkn.native.gdk.gdk_texture_downloader_get_type
 import org.gtkkn.native.gdk.gdk_texture_downloader_new
+import org.gtkkn.native.gdk.gdk_texture_downloader_set_color_state
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_format
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_texture
 import org.gtkkn.native.gobject.GType
@@ -45,6 +48,9 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
     ProxyInstance(gdkTextureDownloaderPointer) {
     /**
      * Creates a new texture downloader for @texture.
+     *
+     * By default, the downloader will convert the data to
+     * the default memory format, and to the sRGB color state.
      *
      * @param texture texture to download
      * @return A new texture downloader
@@ -76,6 +82,17 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
     public fun free(): Unit = gdk_texture_downloader_free(gdkTextureDownloaderPointer)
 
     /**
+     * Gets the color state that the data will be downloaded in.
+     *
+     * @return The color state of the download
+     * @since 4.16
+     */
+    @GdkVersion4_16
+    public fun getColorState(): ColorState = gdk_texture_downloader_get_color_state(gdkTextureDownloaderPointer)!!.run {
+        ColorState(this)
+    }
+
+    /**
      * Gets the format that the data will be downloaded in.
      *
      * @return The format of the download
@@ -96,6 +113,19 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
     public fun getTexture(): Texture = gdk_texture_downloader_get_texture(gdkTextureDownloaderPointer)!!.run {
         InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
     }
+
+    /**
+     * Sets the color state the downloader will convert the data to.
+     *
+     * By default, the sRGB colorstate returned by [func@ColorState.get_srgb]
+     * is used.
+     *
+     * @param colorState the color state to use
+     * @since 4.16
+     */
+    @GdkVersion4_16
+    public fun setColorState(colorState: ColorState): Unit =
+        gdk_texture_downloader_set_color_state(gdkTextureDownloaderPointer, colorState.gdkColorStatePointer)
 
     /**
      * Sets the format the downloader will download.

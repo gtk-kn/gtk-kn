@@ -305,6 +305,8 @@ public class Squeezer(public val adwSqueezerPointer: CPointer<AdwSqueezer>) :
          * ---
          *
          * Gets the switch threshold policy for @self.
+         *
+         * @return the fold threshold policy
          */
         get() = adw_squeezer_get_switch_threshold_policy(adwSqueezerPointer).run {
             FoldThresholdPolicy.fromNativeValue(this)

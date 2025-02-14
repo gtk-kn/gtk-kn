@@ -195,15 +195,40 @@ import kotlin.Unit
  *
  * - parameter `start_pos`: start_pos: Out parameter is not supported
  * - method `insert_text`: In/Out parameter is not supported
- * - method `cursor-position`: Property has no getter nor setter
  * - method `selection-bound`: Property has no getter nor setter
- * - method `xalign`: Property has no getter nor setter
  * - signal `insert-text`: Unsupported parameter `position` : position: In/Out parameter is not supported
  */
 public interface Editable :
     Proxy,
     KGTyped {
     public val gtkEditablePointer: CPointer<GtkEditable>
+
+    /**
+     * The current position of the insertion cursor in chars.
+     */
+    public var cursorPosition: gint
+        /**
+         * Retrieves the current position of the cursor relative
+         * to the start of the content of the editable.
+         *
+         * Note that this position is in characters, not in bytes.
+         *
+         * @return the cursor position
+         */
+        get() = gtk_editable_get_position(gtkEditablePointer)
+
+        /**
+         * Sets the cursor position in the editable to the given value.
+         *
+         * The cursor is displayed before the character with the given (base 0)
+         * index in the contents of the editable. The value must be less than
+         * or equal to the number of characters in the editable. A value of -1
+         * indicates that the position should be set after the last character
+         * of the editable. Note that @position is in characters, not in bytes.
+         *
+         * @param position the position of the cursor
+         */
+        set(position) = gtk_editable_set_position(gtkEditablePointer, position)
 
     /**
      * Whether the entry contents can be edited.
@@ -312,6 +337,30 @@ public interface Editable :
         set(nChars) = gtk_editable_set_width_chars(gtkEditablePointer, nChars)
 
     /**
+     * The horizontal alignment, from 0 (left) to 1 (right).
+     *
+     * Reversed for RTL layouts.
+     */
+    public var xalign: gfloat
+        /**
+         * Gets the alignment of the editable.
+         *
+         * @return the alignment
+         */
+        get() = gtk_editable_get_alignment(gtkEditablePointer)
+
+        /**
+         * Sets the alignment for the contents of the editable.
+         *
+         * This controls the horizontal positioning of the contents when
+         * the displayed text is shorter than the width of the editable.
+         *
+         * @param xalign The horizontal alignment, from 0 (left) to 1 (right).
+         *   Reversed for RTL layouts
+         */
+        set(xalign) = gtk_editable_set_alignment(gtkEditablePointer, xalign)
+
+    /**
      * Retrieves the accessible platform state from the editable delegate.
      *
      * This is an helper function to retrieve the accessible state for
@@ -336,7 +385,17 @@ public interface Editable :
      * }
      * ```
      *
+     * Note that the widget which is the delegate *must* be a direct child of
+     * this widget, otherwise your implementation of [vfunc@Gtk.Accessible.get_platform_state]
+     * might not even be called, as the platform change will originate from
+     * the parent of the delegate, and, as a result, will not work properly.
+     *
+     * So, if you can't ensure the direct child condition, you should give the
+     * delegate the %GTK_ACCESSIBLE_ROLE_TEXT_BOX role, or you can
+     * change your tree to allow this function to work.
+     *
      * @param state what kind of accessible state to retrieve
+     * @return the accessible platform state of the delegate
      * @since 4.10
      */
     @GtkVersion4_10

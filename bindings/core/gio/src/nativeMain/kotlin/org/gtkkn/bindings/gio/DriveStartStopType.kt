@@ -42,8 +42,8 @@ public enum class DriveStartStopType(public val nativeValue: GDriveStartStopType
 
     /**
      * The start/stop methods will
-     *    unlock/lock the disk (for example using the ATA <quote>SECURITY
-     *    UNLOCK DEVICE</quote> command)
+     *    unlock/lock the disk (for example using the ATA `SECURITY UNLOCK
+     *    DEVICE` command)
      */
     PASSWORD(GDriveStartStopType.G_DRIVE_START_STOP_TYPE_PASSWORD),
     ;

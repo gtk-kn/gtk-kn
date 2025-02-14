@@ -57,6 +57,12 @@ import kotlin.Unit
  *
  * [A simple example](https://gitlab.gnome.org/GNOME/gtk/tree/main/examples/search-bar.c)
  *
+ * # Shortcuts and Gestures
+ *
+ * `GtkSearchBar` supports the following keyboard shortcuts:
+ *
+ * - <kbd>Escape</kbd> hides the search bar.
+ *
  * # CSS nodes
  *
  * ```
@@ -75,10 +81,6 @@ import kotlin.Unit
  * # Accessibility
  *
  * `GtkSearchBar` uses the %GTK_ACCESSIBLE_ROLE_SEARCH role.
- *
- * ## Skipped during bindings generation
- *
- * - method `search-mode-enabled`: Property has no getter nor setter
  */
 public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBar>) :
     Widget(gtkSearchBarPointer.reinterpret()),
@@ -148,6 +150,24 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
         set(widget) = gtk_search_bar_set_key_capture_widget(gtkSearchBarPointer, widget?.gtkWidgetPointer)
 
     /**
+     * Whether the search mode is on and the search bar shown.
+     */
+    public open var searchModeEnabled: Boolean
+        /**
+         * Returns whether the search mode is on or off.
+         *
+         * @return whether search mode is toggled on
+         */
+        get() = gtk_search_bar_get_search_mode(gtkSearchBarPointer).asBoolean()
+
+        /**
+         * Switches the search mode on or off.
+         *
+         * @param searchMode the new state of the search mode
+         */
+        set(searchMode) = gtk_search_bar_set_search_mode(gtkSearchBarPointer, searchMode.asGBoolean())
+
+    /**
      * Whether to show the close button in the search bar.
      */
     public open var showCloseButton: Boolean
@@ -193,21 +213,6 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
      */
     public open fun connectEntry(entry: Editable): Unit =
         gtk_search_bar_connect_entry(gtkSearchBarPointer, entry.gtkEditablePointer)
-
-    /**
-     * Returns whether the search mode is on or off.
-     *
-     * @return whether search mode is toggled on
-     */
-    public open fun getSearchMode(): Boolean = gtk_search_bar_get_search_mode(gtkSearchBarPointer).asBoolean()
-
-    /**
-     * Switches the search mode on or off.
-     *
-     * @param searchMode the new state of the search mode
-     */
-    public open fun setSearchMode(searchMode: Boolean): Unit =
-        gtk_search_bar_set_search_mode(gtkSearchBarPointer, searchMode.asGBoolean())
 
     public companion object : TypeCompanion<SearchBar> {
         override val type: GeneratedClassKGType<SearchBar> =

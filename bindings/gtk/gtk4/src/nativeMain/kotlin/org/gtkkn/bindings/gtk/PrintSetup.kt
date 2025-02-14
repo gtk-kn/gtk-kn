@@ -43,7 +43,7 @@ public class PrintSetup(public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gtkPrintSetupPointer)?.run {
+    public fun getPageSetup(): PageSetup = gtk_print_setup_get_page_setup(gtkPrintSetupPointer)!!.run {
         InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
     }
 
@@ -57,7 +57,7 @@ public class PrintSetup(public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gtkPrintSetupPointer)?.run {
+    public fun getPrintSettings(): PrintSettings = gtk_print_setup_get_print_settings(gtkPrintSetupPointer)!!.run {
         InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
     }
 

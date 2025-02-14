@@ -64,9 +64,7 @@ import kotlin.Unit
  * should be modal.
  *
  * The dialog is shown with the [method@Gtk.FontDialog.choose_font]
- * function or its variants. This API follows the GIO async pattern,
- * and the result can be obtained by calling the corresponding
- * finish function, such as [method@Gtk.FontDialog.choose_font_finish].
+ * function or its variants.
  *
  * See [class@Gtk.FontDialogButton] for a convenient control
  * that uses `GtkFontDialog` and presents the results.
@@ -220,14 +218,11 @@ public open class FontDialog(public val gtkFontDialogPointer: CPointer<GtkFontDi
      * presenting a dialog to the user for selecting a font face
      * (i.e. a font family and style, but not a specific font size).
      *
-     * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.FontDialog.choose_face_finish]
-     * to obtain the result.
-     *
      * @param parent the parent `GtkWindow`
      * @param initialValue the initial value
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10
@@ -277,14 +272,11 @@ public open class FontDialog(public val gtkFontDialogPointer: CPointer<GtkFontDi
      * This function initiates a font selection operation by
      * presenting a dialog to the user for selecting a font family.
      *
-     * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.FontDialog.choose_family_finish]
-     * to obtain the result.
-     *
      * @param parent the parent `GtkWindow`
      * @param initialValue the initial value
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10
@@ -338,17 +330,14 @@ public open class FontDialog(public val gtkFontDialogPointer: CPointer<GtkFontDi
      * This function initiates a font selection operation by
      * presenting a dialog to the user for selecting a font.
      *
-     * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.FontDialog.choose_font_finish]
-     * to obtain the result.
-     *
      * If you want to let the user select font features as well,
      * use [method@Gtk.FontDialog.choose_font_and_features] instead.
      *
      * @param parent the parent `GtkWindow`
      * @param initialValue the font to select initially
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10
@@ -376,14 +365,11 @@ public open class FontDialog(public val gtkFontDialogPointer: CPointer<GtkFontDi
      * Font features affect how the font is rendered, for example
      * enabling glyph variants or ligatures.
      *
-     * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.FontDialog.choose_font_and_features_finish]
-     * to obtain the result.
-     *
      * @param parent the parent `GtkWindow`
      * @param initialValue the font to select initially
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10

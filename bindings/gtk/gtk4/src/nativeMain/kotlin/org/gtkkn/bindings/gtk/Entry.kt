@@ -581,6 +581,9 @@ public open class Entry(public val gtkEntryPointer: CPointer<GtkEntry>) :
          */
         set(fraction) = gtk_entry_set_progress_pulse_step(gtkEntryPointer, fraction)
 
+    /**
+     * A list of tabstops to apply to the text of the entry.
+     */
     public open var tabs: TabArray?
         /**
          * Gets the tabstops of the `GtkEntry`.
@@ -652,6 +655,34 @@ public open class Entry(public val gtkEntryPointer: CPointer<GtkEntry>) :
         set(visible) = gtk_entry_set_visibility(gtkEntryPointer, visible.asGBoolean())
 
     /**
+     * The horizontal alignment, from 0 (left) to 1 (right).
+     *
+     * Reversed for RTL layouts.
+     */
+    public override var xalign: gfloat
+        /**
+         * Gets the value set by gtk_entry_set_alignment().
+         *
+         * See also: [property@Gtk.Editable:xalign]
+         *
+         * @return the alignment
+         */
+        get() = gtk_entry_get_alignment(gtkEntryPointer)
+
+        /**
+         * Sets the alignment for the contents of the entry.
+         *
+         * This controls the horizontal positioning of the contents when
+         * the displayed text is shorter than the width of the entry.
+         *
+         * See also: [property@Gtk.Editable:xalign]
+         *
+         * @param xalign The horizontal alignment, from 0 (left) to 1 (right).
+         *   Reversed for RTL layouts
+         */
+        set(xalign) = gtk_entry_set_alignment(gtkEntryPointer, xalign)
+
+    /**
      * Creates a new entry.
      *
      * @return a new `GtkEntry`.
@@ -671,15 +702,6 @@ public open class Entry(public val gtkEntryPointer: CPointer<GtkEntry>) :
     ) : this(gtk_entry_new_with_buffer(buffer.gtkEntryBufferPointer)!!.reinterpret()) {
         InstanceCache.put(this)
     }
-
-    /**
-     * Gets the value set by gtk_entry_set_alignment().
-     *
-     * See also: [property@Gtk.Editable:xalign]
-     *
-     * @return the alignment
-     */
-    override fun getAlignment(): gfloat = gtk_entry_get_alignment(gtkEntryPointer)
 
     /**
      * Gets the attribute list of the `GtkEntry`.
@@ -858,19 +880,6 @@ public open class Entry(public val gtkEntryPointer: CPointer<GtkEntry>) :
      * would confuse on-going input method behavior.
      */
     public open fun resetImContext(): Unit = gtk_entry_reset_im_context(gtkEntryPointer)
-
-    /**
-     * Sets the alignment for the contents of the entry.
-     *
-     * This controls the horizontal positioning of the contents when
-     * the displayed text is shorter than the width of the entry.
-     *
-     * See also: [property@Gtk.Editable:xalign]
-     *
-     * @param xalign The horizontal alignment, from 0 (left) to 1 (right).
-     *   Reversed for RTL layouts
-     */
-    override fun setAlignment(xalign: gfloat): Unit = gtk_entry_set_alignment(gtkEntryPointer, xalign)
 
     /**
      * Sets a `PangoAttrList`.

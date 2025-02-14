@@ -1,18 +1,18 @@
 // This is a generated file. Do not modify.
 // Copyright (c) 2025 gtk-kn
 // SPDX-License-Identifier: LGPL-2.1-or-later
-package org.gtkkn.bindings.jsc.annotations
+package org.gtkkn.bindings.adw.annotations
 
 import kotlin.RequiresOptIn
 import kotlin.`annotation`.AnnotationRetention
 import kotlin.`annotation`.Retention
 
 /**
- * Indicates that the API is available since version 2.24.
+ * Indicates that the API is available since version 1.6.
  */
 @Retention(AnnotationRetention.BINARY)
 @RequiresOptIn(
     level = RequiresOptIn.Level.WARNING,
-    message = "This API requires JavaScriptCore version 2.24 or higher.",
+    message = "This API requires Adw version 1.6 or higher.",
 )
-public annotation class JavaScriptCoreVersion2_24
+public annotation class AdwVersion1_6

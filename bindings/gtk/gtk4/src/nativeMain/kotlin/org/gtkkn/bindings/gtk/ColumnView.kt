@@ -187,6 +187,8 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
     /**
      * Factory for creating header widgets.
      *
+     * The factory must be for configuring [class@Gtk.ListHeader] objects.
+     *
      * @since 4.12
      */
     @GtkVersion4_12
@@ -256,6 +258,8 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
 
     /**
      * The factory used for configuring rows.
+     *
+     * The factory must be for configuring [class@Gtk.ColumnViewRow] objects.
      *
      * @since 4.12
      */
@@ -459,7 +463,8 @@ public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumn
      * This function works no matter if the listview is shown or focused.
      * If it isn't, then the changes will take effect once that happens.
      *
-     * @param pos position of the item
+     * @param pos position of the item. Must be less than the number of
+     *   items in the view.
      * @param column The column to scroll to
      *   or null to not scroll columns.
      * @param flags actions to perform

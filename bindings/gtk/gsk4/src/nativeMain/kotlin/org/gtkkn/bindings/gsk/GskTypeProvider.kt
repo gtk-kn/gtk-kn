@@ -13,7 +13,6 @@ public object GskTypeProvider : TypeProvider {
         if (BlendNode.getTypeOrNull() != null) put(BlendNode::class, BlendNode.type)
         if (BlurNode.getTypeOrNull() != null) put(BlurNode::class, BlurNode.type)
         if (BorderNode.getTypeOrNull() != null) put(BorderNode::class, BorderNode.type)
-        if (BroadwayRenderer.getTypeOrNull() != null) put(BroadwayRenderer::class, BroadwayRenderer.type)
         if (CairoNode.getTypeOrNull() != null) put(CairoNode::class, CairoNode.type)
         if (CairoRenderer.getTypeOrNull() != null) put(CairoRenderer::class, CairoRenderer.type)
         if (ClipNode.getTypeOrNull() != null) put(ClipNode::class, ClipNode.type)

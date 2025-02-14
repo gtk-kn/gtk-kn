@@ -56,6 +56,14 @@ import kotlin.Unit
  * If you need to add a group programmatically, use
  * [method@Gtk.ShortcutsSection.add_group].
  *
+ * # Shortcuts and Gestures
+ *
+ * Pan gestures allow to navigate between sections.
+ *
+ * The following signals have default keybindings:
+ *
+ * - [signal@Gtk.ShortcutsSection::change-current-page]
+ *
  * ## Skipped during bindings generation
  *
  * - method `max-height`: Property has no getter nor setter
@@ -99,14 +107,18 @@ public open class ShortcutsSection(public val gtkShortcutsSectionPointer: CPoint
         gtk_shortcuts_section_add_group(gtkShortcutsSectionPointer, group.gtkShortcutsGroupPointer)
 
     /**
+     * Emitted when we change the current page.
      *
+     * The default bindings for this signal are
+     * <kbd>Ctrl</kbd>+<kbd>PgUp</kbd>, <kbd>PgUp</kbd>,
+     * <kbd>Ctrl</kbd>+<kbd>PgDn</kbd>, <kbd>PgDn</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `object`
+     * @param handler the Callback to connect. Params: `offset` the offset. Returns whether the page was changed
      */
     public fun onChangeCurrentPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: gint) -> Boolean,
+        handler: (offset: gint) -> Boolean,
     ): ULong = g_signal_connect_data(
         gtkShortcutsSectionPointer,
         "change-current-page",
@@ -146,9 +158,9 @@ public open class ShortcutsSection(public val gtkShortcutsSectionPointer: CPoint
 
 private val onChangeCurrentPageFunc: CPointer<CFunction<(gint) -> gboolean>> = staticCFunction {
         _: COpaquePointer,
-        `object`: gint,
+        offset: gint,
         userData: COpaquePointer,
     ->
-    userData.asStableRef<(`object`: gint) -> Boolean>().get().invoke(`object`).asGBoolean()
+    userData.asStableRef<(offset: gint) -> Boolean>().get().invoke(offset).asGBoolean()
 }
     .reinterpret()

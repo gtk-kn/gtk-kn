@@ -55,8 +55,6 @@ import kotlin.Unit
  * right away.
  *
  * The operation is started with the [method@Gtk.FileLauncher.launch] function.
- * This API follows the GIO async pattern, and the result can be obtained by
- * calling [method@Gtk.FileLauncher.launch_finish].
  *
  * To launch uris that don't represent files, use [class@Gtk.UriLauncher].
  * @since 4.10
@@ -161,13 +159,10 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
      *
      * This may present an app chooser dialog to the user.
      *
-     * The @callback will be called when the operation is completed.
-     * It should call [method@Gtk.FileLauncher.launch_finish] to obtain
-     * the result.
-     *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10
@@ -215,13 +210,10 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
      * This is only supported native files. It will fail if @file
      * is e.g. a http:// uri.
      *
-     * The @callback will be called when the operation is completed.
-     * It should call [method@Gtk.FileLauncher.open_containing_folder_finish]
-     * to obtain the result.
-     *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10

@@ -74,6 +74,9 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
     /**
      * Retrieves the color used by the text @node.
      *
+     * The value returned by this function will not be correct
+     * if the render node was created for a non-sRGB color.
+     *
      * @return the text color
      */
     public open fun getColor(): Rgba = gsk_text_node_get_color(gskTextNodePointer.reinterpret())!!.run {

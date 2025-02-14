@@ -128,6 +128,31 @@ import kotlin.Unit
  * </object>
  * ```
  *
+ * # Shortcuts and Gestures
+ *
+ * `GtkNotebook` supports the following keyboard shortcuts:
+ *
+ * - <kbd>Shift</kbd>+<kbd>F10</kbd> or <kbd>Menu</kbd> opens the context menu.
+ * - <kbd>Home</kbd> moves the focus to the first tab.
+ * - <kbd>End</kbd> moves the focus to the last tab.
+ *
+ * Additionally, the following signals have default keybindings:
+ *
+ * - [signal@Gtk.Notebook::change-current-page]
+ * - [signal@Gtk.Notebook::focus-tab]
+ * - [signal@Gtk.Notebook::move-focus-out]
+ * - [signal@Gtk.Notebook::reorder-tab]
+ * - [signal@Gtk.Notebook::select-page]
+ *
+ * Tabs support drag-and-drop between notebooks sharing the same `group-name`,
+ * or to new windows by handling the `::create-window` signal.
+ *
+ * # Actions
+ *
+ * `GtkNotebook` defines a set of built-in actions:
+ *
+ * - `menu.popup` opens the tabs context menu.
+ *
  * # CSS nodes
  *
  * ```
@@ -181,7 +206,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `enable-popup`: Property has no getter nor setter
- * - method `page`: Property has no getter nor setter
  */
 public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>) :
     Widget(gtkNotebookPointer.reinterpret()),
@@ -222,6 +246,34 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
          *   or null to unset it
          */
         set(groupName) = gtk_notebook_set_group_name(gtkNotebookPointer, groupName)
+
+    /**
+     * The index of the current page.
+     */
+    public open var page: gint
+        /**
+         * Returns the page number of the current page.
+         *
+         * @return the index (starting from 0) of the current
+         *   page in the notebook. If the notebook has no pages,
+         *   then -1 will be returned.
+         */
+        get() = gtk_notebook_get_current_page(gtkNotebookPointer)
+
+        /**
+         * Switches to the page number @page_num.
+         *
+         * Note that due to historical reasons, GtkNotebook refuses
+         * to switch to a page unless the child widget is visible.
+         * Therefore, it is recommended to show child widgets before
+         * adding them to a notebook.
+         *
+         * @param pageNum index of the page to switch to, starting from 0.
+         *   If negative, the last page will be used. If greater
+         *   than the number of pages in the notebook, nothing
+         *   will be done.
+         */
+        set(pageNum) = gtk_notebook_set_current_page(gtkNotebookPointer, pageNum)
 
     /**
      * A selection model with the pages.
@@ -389,15 +441,6 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
         gtk_notebook_get_action_widget(gtkNotebookPointer, packType.nativeValue)?.run {
             InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
-
-    /**
-     * Returns the page number of the current page.
-     *
-     * @return the index (starting from 0) of the current
-     *   page in the notebook. If the notebook has no pages,
-     *   then -1 will be returned.
-     */
-    public open fun getCurrentPage(): gint = gtk_notebook_get_current_page(gtkNotebookPointer)
 
     /**
      * Retrieves the menu label widget of the page containing @child.
@@ -653,21 +696,6 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
         gtk_notebook_set_action_widget(gtkNotebookPointer, widget.gtkWidgetPointer, packType.nativeValue)
 
     /**
-     * Switches to the page number @page_num.
-     *
-     * Note that due to historical reasons, GtkNotebook refuses
-     * to switch to a page unless the child widget is visible.
-     * Therefore, it is recommended to show child widgets before
-     * adding them to a notebook.
-     *
-     * @param pageNum index of the page to switch to, starting from 0.
-     *   If negative, the last page will be used. If greater
-     *   than the number of pages in the notebook, nothing
-     *   will be done.
-     */
-    public open fun setCurrentPage(pageNum: gint): Unit = gtk_notebook_set_current_page(gtkNotebookPointer, pageNum)
-
-    /**
      * Changes the menu label for the page containing @child.
      *
      * @param child the child widget
@@ -772,14 +800,19 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
         gtk_notebook_set_tab_reorderable(gtkNotebookPointer, child.gtkWidgetPointer, reorderable.asGBoolean())
 
     /**
+     * Emitted when the current page should be changed.
      *
+     * The default bindings for this signal are
+     * <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>PgUp</kbd>,
+     * <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>PgDn</kbd>,
+     * <kbd>Ctrl</kbd>+<kbd>PgUp</kbd> and <kbd>Ctrl</kbd>+<kbd>PgDn</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `object`
+     * @param handler the Callback to connect. Params: `page` the page index. Returns whether the page was changed
      */
     public fun onChangeCurrentPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: gint) -> Boolean,
+        handler: (page: gint) -> Boolean,
     ): ULong = g_signal_connect_data(
         gtkNotebookPointer,
         "change-current-page",
@@ -816,14 +849,14 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
     )
 
     /**
-     *
+     * Emitted when a tab should be focused.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `object`
+     * @param handler the Callback to connect. Params: `tab` the notebook tab. Returns whether the tab has been focused
      */
     public fun onFocusTab(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: NotebookTab) -> Boolean,
+        handler: (tab: NotebookTab) -> Boolean,
     ): ULong = g_signal_connect_data(
         gtkNotebookPointer,
         "focus-tab",
@@ -834,14 +867,20 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
     )
 
     /**
+     * Emitted when focus was moved out.
      *
+     * The default bindings for this signal are
+     * <kbd>Ctrl</kbd>+<kbd>Tab</kbd>,
+     * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Tab</kbd>,
+     * <kbd>Ctrl</kbd>+<kbd>←</kbd>, <kbd>Ctrl</kbd>+<kbd>→</kbd>,
+     * <kbd>Ctrl</kbd>+<kbd>↑</kbd> and <kbd>Ctrl</kbd>+<kbd>↓</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `object`
+     * @param handler the Callback to connect. Params: `direction` the direction to move the focus
      */
     public fun onMoveFocusOut(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: DirectionType) -> Unit,
+        handler: (direction: DirectionType) -> Unit,
     ): ULong = g_signal_connect_data(
         gtkNotebookPointer,
         "move-focus-out",
@@ -854,10 +893,10 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
     /**
      * Emits the "move-focus-out" signal. See [onMoveFocusOut].
      *
-     * @param object
+     * @param direction the direction to move the focus
      */
-    public fun emitMoveFocusOut(`object`: DirectionType) {
-        g_signal_emit_by_name(gtkNotebookPointer.reinterpret(), "move-focus-out", `object`.nativeValue)
+    public fun emitMoveFocusOut(direction: DirectionType) {
+        g_signal_emit_by_name(gtkNotebookPointer.reinterpret(), "move-focus-out", direction.nativeValue)
     }
 
     /**
@@ -948,14 +987,20 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
     }
 
     /**
+     * Emitted when the tab should be reordered.
      *
+     * The default bindings for this signal are
+     * <kbd>Alt</kbd>+<kbd>Home</kbd>, <kbd>Alt</kbd>+<kbd>End</kbd>,
+     * <kbd>Alt</kbd>+<kbd>PgUp</kbd>, <kbd>Alt</kbd>+<kbd>PgDn</kbd>,
+     * <kbd>Alt</kbd>+<kbd>←</kbd>, <kbd>Alt</kbd>+<kbd>→</kbd>,
+     * <kbd>Alt</kbd>+<kbd>↑</kbd> and <kbd>Alt</kbd>+<kbd>↓</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `object` ; `p0`
+     * @param handler the Callback to connect. Params: `direction` the direction to move the tab; `moveToLast` whether to move to the last position. Returns whether the tab was moved.
      */
     public fun onReorderTab(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: DirectionType, p0: Boolean) -> Boolean,
+        handler: (direction: DirectionType, moveToLast: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
         gtkNotebookPointer,
         "reorder-tab",
@@ -966,14 +1011,16 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
     )
 
     /**
+     * Emitted when a page should be selected.
      *
+     * The default binding for this signal is <kbd>␣</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `object`
+     * @param handler the Callback to connect. Params: `moveFocus` whether to move focus. Returns whether the page was selected
      */
     public fun onSelectPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: Boolean) -> Boolean,
+        handler: (moveFocus: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
         gtkNotebookPointer,
         "select-page",
@@ -1040,10 +1087,10 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
 
 private val onChangeCurrentPageFunc: CPointer<CFunction<(gint) -> gboolean>> = staticCFunction {
         _: COpaquePointer,
-        `object`: gint,
+        page: gint,
         userData: COpaquePointer,
     ->
-    userData.asStableRef<(`object`: gint) -> Boolean>().get().invoke(`object`).asGBoolean()
+    userData.asStableRef<(page: gint) -> Boolean>().get().invoke(page).asGBoolean()
 }
     .reinterpret()
 
@@ -1063,11 +1110,11 @@ private val onCreateWindowFunc: CPointer<CFunction<(CPointer<GtkWidget>) -> CPoi
 
 private val onFocusTabFunc: CPointer<CFunction<(GtkNotebookTab) -> gboolean>> = staticCFunction {
         _: COpaquePointer,
-        `object`: GtkNotebookTab,
+        tab: GtkNotebookTab,
         userData: COpaquePointer,
     ->
-    userData.asStableRef<(`object`: NotebookTab) -> Boolean>().get().invoke(
-        `object`.run {
+    userData.asStableRef<(tab: NotebookTab) -> Boolean>().get().invoke(
+        tab.run {
             NotebookTab.fromNativeValue(this)
         }
     ).asGBoolean()
@@ -1076,11 +1123,11 @@ private val onFocusTabFunc: CPointer<CFunction<(GtkNotebookTab) -> gboolean>> = 
 
 private val onMoveFocusOutFunc: CPointer<CFunction<(GtkDirectionType) -> Unit>> = staticCFunction {
         _: COpaquePointer,
-        `object`: GtkDirectionType,
+        direction: GtkDirectionType,
         userData: COpaquePointer,
     ->
-    userData.asStableRef<(`object`: DirectionType) -> Unit>().get().invoke(
-        `object`.run {
+    userData.asStableRef<(direction: DirectionType) -> Unit>().get().invoke(
+        direction.run {
             DirectionType.fromNativeValue(this)
         }
     )
@@ -1138,25 +1185,25 @@ private val onPageReorderedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint)
 private val onReorderTabFunc: CPointer<CFunction<(GtkDirectionType, gboolean) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
-            `object`: GtkDirectionType,
-            p0: gboolean,
+            direction: GtkDirectionType,
+            moveToLast: gboolean,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(`object`: DirectionType, p0: Boolean) -> Boolean>().get().invoke(
-            `object`.run {
+        userData.asStableRef<(direction: DirectionType, moveToLast: Boolean) -> Boolean>().get().invoke(
+            direction.run {
                 DirectionType.fromNativeValue(this)
             },
-            p0.asBoolean()
+            moveToLast.asBoolean()
         ).asGBoolean()
     }
         .reinterpret()
 
 private val onSelectPageFunc: CPointer<CFunction<(gboolean) -> gboolean>> = staticCFunction {
         _: COpaquePointer,
-        `object`: gboolean,
+        moveFocus: gboolean,
         userData: COpaquePointer,
     ->
-    userData.asStableRef<(`object`: Boolean) -> Boolean>().get().invoke(`object`.asBoolean()).asGBoolean()
+    userData.asStableRef<(moveFocus: Boolean) -> Boolean>().get().invoke(moveFocus.asBoolean()).asGBoolean()
 }
     .reinterpret()
 

@@ -189,7 +189,7 @@ public interface AsyncInitable :
      * threads, just implement the #GAsyncInitable interface without overriding
      * any interface methods.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the operation
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      * @since 2.22
@@ -295,7 +295,7 @@ public interface AsyncInitable :
          * @param objectType a #GType supporting #GAsyncInitable.
          * @param nParameters the number of parameters in @parameters
          * @param parameters the parameters to use to construct the object
-         * @param ioPriority the [I/O priority][io-priority] of the operation
+         * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
          * @param cancellable optional #GCancellable object, null to ignore.
          * @param callback a #GAsyncReadyCallback to call when the initialization is
          *     finished

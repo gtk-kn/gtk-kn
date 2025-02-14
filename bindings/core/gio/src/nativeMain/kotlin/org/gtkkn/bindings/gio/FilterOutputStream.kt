@@ -37,7 +37,7 @@ public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer
         /**
          * Gets the base stream for the filter stream.
          *
-         * @return a #GOutputStream.
+         * @return a [class@Gio.OutputStream].
          */
         get() = g_filter_output_stream_get_base_stream(gioFilterOutputStreamPointer)!!.run {
             InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!
@@ -51,14 +51,14 @@ public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer
          * Returns whether the base stream will be closed when @stream is
          * closed.
          *
-         * @return true if the base stream will be closed.
+         * @return `TRUE` if the base stream will be closed.
          */
         get() = g_filter_output_stream_get_close_base_stream(gioFilterOutputStreamPointer).asBoolean()
 
     /**
      * Sets whether the base stream will be closed when @stream is closed.
      *
-     * @param closeBase true to close the base stream.
+     * @param closeBase `TRUE` to close the base stream.
      */
     public open fun setCloseBaseStream(closeBase: Boolean): Unit =
         g_filter_output_stream_set_close_base_stream(gioFilterOutputStreamPointer, closeBase.asGBoolean())

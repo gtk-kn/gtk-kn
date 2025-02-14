@@ -33,6 +33,11 @@ public enum class VulkanError(public val nativeValue: GdkVulkanError) {
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Registers an error quark for [class@Gdk.VulkanContext] errors.
+         *
+         * @return the error quark
+         */
         public fun quark(): Quark = gdk_vulkan_error_quark()
 
         /**

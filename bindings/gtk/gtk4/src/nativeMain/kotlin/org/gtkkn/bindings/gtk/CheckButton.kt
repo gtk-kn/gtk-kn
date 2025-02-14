@@ -90,10 +90,16 @@ import kotlin.Unit
  * `GAction` with a target for each button. Using the `toggled` signals to keep
  * track of the group changes and state is discouraged.
  *
+ * # Shortcuts and Gestures
+ *
+ * `GtkCheckButton` supports the following keyboard shortcuts:
+ *
+ * - <kbd>␣</kbd> or <kbd>Enter</kbd> activates the button.
+ *
  * # CSS nodes
  *
  * ```
- * checkbutton[.text-button]
+ * checkbutton[.text-button][.grouped]
  * ├── check
  * ╰── [label]
  * ```

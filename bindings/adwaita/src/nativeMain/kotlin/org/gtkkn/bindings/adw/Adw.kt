@@ -8,8 +8,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_6
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.adw.adw_get_enable_animations
 import org.gtkkn.native.adw.adw_get_major_version
@@ -18,6 +21,7 @@ import org.gtkkn.native.adw.adw_get_minor_version
 import org.gtkkn.native.adw.adw_init
 import org.gtkkn.native.adw.adw_is_initialized
 import org.gtkkn.native.adw.adw_lerp
+import org.gtkkn.native.adw.adw_rgba_to_standalone
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
@@ -45,9 +49,11 @@ import kotlin.Unit
  * - record `AvatarClass`: glib type struct are ignored
  * - record `BannerClass`: glib type struct are ignored
  * - record `BinClass`: glib type struct are ignored
+ * - record `BottomSheetClass`: glib type struct are ignored
  * - record `BreakpointBinClass`: glib type struct are ignored
  * - record `BreakpointClass`: glib type struct are ignored
  * - record `ButtonContentClass`: glib type struct are ignored
+ * - record `ButtonRowClass`: glib type struct are ignored
  * - record `CallbackAnimationTargetClass`: glib type struct are ignored
  * - record `CarouselClass`: glib type struct are ignored
  * - record `CarouselIndicatorDotsClass`: glib type struct are ignored
@@ -63,9 +69,12 @@ import kotlin.Unit
  * - record `ExpanderRowClass`: glib type struct are ignored
  * - record `FlapClass`: glib type struct are ignored
  * - record `HeaderBarClass`: glib type struct are ignored
+ * - record `LayoutClass`: glib type struct are ignored
+ * - record `LayoutSlotClass`: glib type struct are ignored
  * - record `LeafletClass`: glib type struct are ignored
  * - record `LeafletPageClass`: glib type struct are ignored
  * - record `MessageDialogClass`: glib type struct are ignored
+ * - record `MultiLayoutViewClass`: glib type struct are ignored
  * - record `NavigationPageClass`: glib type struct are ignored
  * - record `NavigationSplitViewClass`: glib type struct are ignored
  * - record `NavigationViewClass`: glib type struct are ignored
@@ -78,6 +87,8 @@ import kotlin.Unit
  * - record `PreferencesWindowClass`: glib type struct are ignored
  * - record `PropertyAnimationTargetClass`: glib type struct are ignored
  * - record `SpinRowClass`: glib type struct are ignored
+ * - record `SpinnerClass`: glib type struct are ignored
+ * - record `SpinnerPaintableClass`: glib type struct are ignored
  * - record `SplitButtonClass`: glib type struct are ignored
  * - record `SpringAnimationClass`: glib type struct are ignored
  * - record `SqueezerClass`: glib type struct are ignored
@@ -125,18 +136,18 @@ public object Adw {
     /**
      * Adwaita micro version component (e.g. 3 if the version is 1.2.3).
      */
-    public const val MICRO_VERSION: gint = 0
+    public const val MICRO_VERSION: gint = 4
 
     /**
      * Adwaita minor version component (e.g. 2 if the version is 1.2.3).
      */
-    public const val MINOR_VERSION: gint = 5
+    public const val MINOR_VERSION: gint = 6
 
     /**
      * Adwaita version, encoded as a string, useful for printing and
      * concatenation.
      */
-    public const val VERSION_S: String = "1.5.0"
+    public const val VERSION_S: String = "1.6.4"
 
     /**
      * Checks whether animations are enabled for @widget.
@@ -225,6 +236,21 @@ public object Adw {
      */
     public fun lerp(a: gdouble, b: gdouble, t: gdouble): gdouble = adw_lerp(a, b, t)
 
+    /**
+     * Adjusts @rgba to be suitable as a standalone color.
+     *
+     * It will typically be darker for light background, and lighter for dark
+     * background, ensuring contrast.
+     *
+     * @param rgba a background color
+     * @param dark Whether to calculate standalone color for light or dark background
+     * @param standaloneRgba return location for the standalone color
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public fun rgbaToStandalone(rgba: Rgba, dark: Boolean, standaloneRgba: Rgba): Unit =
+        adw_rgba_to_standalone(rgba.gdkRgbaPointer, dark.asGBoolean(), standaloneRgba.gdkRgbaPointer)
+
     private fun registerTypes() {
         AboutDialog.getTypeOrNull()?.let { gtype ->
             TypeCache.register(AboutDialog::class, gtype) { AboutDialog(it.reinterpret()) }
@@ -253,6 +279,9 @@ public object Adw {
         Avatar.getTypeOrNull()?.let { gtype -> TypeCache.register(Avatar::class, gtype) { Avatar(it.reinterpret()) } }
         Banner.getTypeOrNull()?.let { gtype -> TypeCache.register(Banner::class, gtype) { Banner(it.reinterpret()) } }
         Bin.getTypeOrNull()?.let { gtype -> TypeCache.register(Bin::class, gtype) { Bin(it.reinterpret()) } }
+        BottomSheet.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(BottomSheet::class, gtype) { BottomSheet(it.reinterpret()) }
+        }
         Breakpoint.getTypeOrNull()?.let { gtype ->
             TypeCache.register(Breakpoint::class, gtype) { Breakpoint(it.reinterpret()) }
         }
@@ -261,6 +290,9 @@ public object Adw {
         }
         ButtonContent.getTypeOrNull()?.let { gtype ->
             TypeCache.register(ButtonContent::class, gtype) { ButtonContent(it.reinterpret()) }
+        }
+        ButtonRow.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(ButtonRow::class, gtype) { ButtonRow(it.reinterpret()) }
         }
         CallbackAnimationTarget.getTypeOrNull()?.let { gtype ->
             TypeCache.register(CallbackAnimationTarget::class, gtype) { CallbackAnimationTarget(it.reinterpret()) }
@@ -301,6 +333,10 @@ public object Adw {
         HeaderBar.getTypeOrNull()?.let { gtype ->
             TypeCache.register(HeaderBar::class, gtype) { HeaderBar(it.reinterpret()) }
         }
+        Layout.getTypeOrNull()?.let { gtype -> TypeCache.register(Layout::class, gtype) { Layout(it.reinterpret()) } }
+        LayoutSlot.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(LayoutSlot::class, gtype) { LayoutSlot(it.reinterpret()) }
+        }
         Leaflet.getTypeOrNull()?.let { gtype ->
             TypeCache.register(Leaflet::class, gtype) { Leaflet(it.reinterpret()) }
         }
@@ -309,6 +345,9 @@ public object Adw {
         }
         MessageDialog.getTypeOrNull()?.let { gtype ->
             TypeCache.register(MessageDialog::class, gtype) { MessageDialog(it.reinterpret()) }
+        }
+        MultiLayoutView.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(MultiLayoutView::class, gtype) { MultiLayoutView(it.reinterpret()) }
         }
         NavigationPage.getTypeOrNull()?.let { gtype ->
             TypeCache.register(NavigationPage::class, gtype) { NavigationPage(it.reinterpret()) }
@@ -345,6 +384,12 @@ public object Adw {
         }
         SpinRow.getTypeOrNull()?.let { gtype ->
             TypeCache.register(SpinRow::class, gtype) { SpinRow(it.reinterpret()) }
+        }
+        Spinner.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(Spinner::class, gtype) { Spinner(it.reinterpret()) }
+        }
+        SpinnerPaintable.getTypeOrNull()?.let { gtype ->
+            TypeCache.register(SpinnerPaintable::class, gtype) { SpinnerPaintable(it.reinterpret()) }
         }
         SplitButton.getTypeOrNull()?.let { gtype ->
             TypeCache.register(SplitButton::class, gtype) { SplitButton(it.reinterpret()) }

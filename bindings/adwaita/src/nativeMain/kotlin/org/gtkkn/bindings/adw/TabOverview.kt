@@ -494,7 +494,7 @@ public class TabOverview(public val adwTabOverviewPointer: CPointer<AdwTabOvervi
     }
 
     /**
-     * Emitted when a tab needs to be created;
+     * Emitted when a tab needs to be created.
      *
      * This can happen after the new tab button has been pressed, see
      * [property@TabOverview:enable-new-tab].

@@ -112,9 +112,13 @@ import org.gtkkn.native.gobject.g_signal_connect_closure_by_id
 import org.gtkkn.native.gobject.g_signal_get_invocation_hint
 import org.gtkkn.native.gobject.g_signal_handler_block
 import org.gtkkn.native.gobject.g_signal_handler_disconnect
+import org.gtkkn.native.gobject.g_signal_handler_find
 import org.gtkkn.native.gobject.g_signal_handler_is_connected
 import org.gtkkn.native.gobject.g_signal_handler_unblock
+import org.gtkkn.native.gobject.g_signal_handlers_block_matched
 import org.gtkkn.native.gobject.g_signal_handlers_destroy
+import org.gtkkn.native.gobject.g_signal_handlers_disconnect_matched
+import org.gtkkn.native.gobject.g_signal_handlers_unblock_matched
 import org.gtkkn.native.gobject.g_signal_has_handler_pending
 import org.gtkkn.native.gobject.g_signal_is_valid_name
 import org.gtkkn.native.gobject.g_signal_lookup
@@ -190,10 +194,6 @@ import kotlin.Unit
  * - function `signal_emit_by_name`: Varargs parameter is not supported
  * - parameter `var_args`: va_list type is not supported
  * - function `signal_emitv`: In/Out parameter is not supported
- * - function `signal_handler_find`: Callback gpointer not found
- * - function `signal_handlers_block_matched`: Callback gpointer not found
- * - function `signal_handlers_disconnect_matched`: Callback gpointer not found
- * - function `signal_handlers_unblock_matched`: Callback gpointer not found
  * - parameter `n_ids`: n_ids: Out parameter is not supported
  * - function `signal_new`: Varargs parameter is not supported
  * - function `signal_new_class_handler`: Varargs parameter is not supported
@@ -1356,6 +1356,41 @@ public object GObject {
         g_signal_handler_disconnect(instance.gobjectObjectPointer.reinterpret(), handlerId)
 
     /**
+     * Finds the first signal handler that matches certain selection criteria.
+     * The criteria mask is passed as an OR-ed combination of #GSignalMatchType
+     * flags, and the criteria values are passed as arguments.
+     * The match @mask has to be non-0 for successful matches.
+     * If no handler was found, 0 is returned.
+     *
+     * @param instance The instance owning the signal handler to be found.
+     * @param mask Mask indicating which of @signal_id, @detail, @closure, @func
+     *  and/or @data the handler has to match.
+     * @param signalId Signal the handler has to be connected to.
+     * @param detail Signal detail the handler has to be connected to.
+     * @param closure The closure the handler will invoke.
+     * @param func The C closure callback of the handler (useless for non-C closures).
+     * @param data The closure data of the handler's closure.
+     * @return A valid non-0 signal handler id for a successful match.
+     */
+    public fun signalHandlerFind(
+        instance: Object,
+        mask: SignalMatchType,
+        signalId: guint,
+        detail: Quark,
+        closure: Closure? = null,
+        func: gpointer? = null,
+        `data`: gpointer? = null,
+    ): gulong = g_signal_handler_find(
+        instance.gobjectObjectPointer.reinterpret(),
+        mask.mask,
+        signalId,
+        detail,
+        closure?.gobjectClosurePointer,
+        func,
+        `data`
+    )
+
+    /**
      * Returns whether @handler_id is the ID of a handler connected to @instance.
      *
      * @param instance The instance where a signal handler is sought.
@@ -1387,6 +1422,49 @@ public object GObject {
         g_signal_handler_unblock(instance.gobjectObjectPointer.reinterpret(), handlerId)
 
     /**
+     * Blocks all handlers on an instance that match a certain selection criteria.
+     *
+     * The criteria mask is passed as a combination of #GSignalMatchType flags, and
+     * the criteria values are passed as arguments. A handler must match on all
+     * flags set in @mask to be blocked (i.e. the match is conjunctive).
+     *
+     * Passing at least one of the %G_SIGNAL_MATCH_ID, %G_SIGNAL_MATCH_CLOSURE,
+     * %G_SIGNAL_MATCH_FUNC
+     * or %G_SIGNAL_MATCH_DATA match flags is required for successful matches.
+     * If no handlers were found, 0 is returned, the number of blocked handlers
+     * otherwise.
+     *
+     * Support for %G_SIGNAL_MATCH_ID was added in GLib 2.78.
+     *
+     * @param instance The instance to block handlers from.
+     * @param mask Mask indicating which of @signal_id, @detail, @closure, @func
+     *  and/or @data the handlers have to match.
+     * @param signalId Signal the handlers have to be connected to.
+     * @param detail Signal detail the handlers have to be connected to.
+     * @param closure The closure the handlers will invoke.
+     * @param func The C closure callback of the handlers (useless for non-C closures).
+     * @param data The closure data of the handlers' closures.
+     * @return The number of handlers that matched.
+     */
+    public fun signalHandlersBlockMatched(
+        instance: Object,
+        mask: SignalMatchType,
+        signalId: guint,
+        detail: Quark,
+        closure: Closure? = null,
+        func: gpointer? = null,
+        `data`: gpointer? = null,
+    ): guint = g_signal_handlers_block_matched(
+        instance.gobjectObjectPointer.reinterpret(),
+        mask.mask,
+        signalId,
+        detail,
+        closure?.gobjectClosurePointer,
+        func,
+        `data`
+    )
+
+    /**
      * Destroy all signal handlers of a type instance. This function is
      * an implementation detail of the #GObject dispose implementation,
      * and should not be used outside of the type system.
@@ -1395,6 +1473,95 @@ public object GObject {
      */
     public fun signalHandlersDestroy(instance: Object): Unit =
         g_signal_handlers_destroy(instance.gobjectObjectPointer.reinterpret())
+
+    /**
+     * Disconnects all handlers on an instance that match a certain
+     * selection criteria.
+     *
+     * The criteria mask is passed as a combination of #GSignalMatchType flags, and
+     * the criteria values are passed as arguments. A handler must match on all
+     * flags set in @mask to be disconnected (i.e. the match is conjunctive).
+     *
+     * Passing at least one of the %G_SIGNAL_MATCH_ID, %G_SIGNAL_MATCH_CLOSURE,
+     * %G_SIGNAL_MATCH_FUNC or
+     * %G_SIGNAL_MATCH_DATA match flags is required for successful
+     * matches.  If no handlers were found, 0 is returned, the number of
+     * disconnected handlers otherwise.
+     *
+     * Support for %G_SIGNAL_MATCH_ID was added in GLib 2.78.
+     *
+     * @param instance The instance to remove handlers from.
+     * @param mask Mask indicating which of @signal_id, @detail, @closure, @func
+     *  and/or @data the handlers have to match.
+     * @param signalId Signal the handlers have to be connected to.
+     * @param detail Signal detail the handlers have to be connected to.
+     * @param closure The closure the handlers will invoke.
+     * @param func The C closure callback of the handlers (useless for non-C closures).
+     * @param data The closure data of the handlers' closures.
+     * @return The number of handlers that matched.
+     */
+    public fun signalHandlersDisconnectMatched(
+        instance: Object,
+        mask: SignalMatchType,
+        signalId: guint,
+        detail: Quark,
+        closure: Closure? = null,
+        func: gpointer? = null,
+        `data`: gpointer? = null,
+    ): guint = g_signal_handlers_disconnect_matched(
+        instance.gobjectObjectPointer.reinterpret(),
+        mask.mask,
+        signalId,
+        detail,
+        closure?.gobjectClosurePointer,
+        func,
+        `data`
+    )
+
+    /**
+     * Unblocks all handlers on an instance that match a certain selection
+     * criteria.
+     *
+     * The criteria mask is passed as a combination of #GSignalMatchType flags, and
+     * the criteria values are passed as arguments. A handler must match on all
+     * flags set in @mask to be unblocked (i.e. the match is conjunctive).
+     *
+     * Passing at least one of the %G_SIGNAL_MATCH_ID, %G_SIGNAL_MATCH_CLOSURE,
+     * %G_SIGNAL_MATCH_FUNC
+     * or %G_SIGNAL_MATCH_DATA match flags is required for successful matches.
+     * If no handlers were found, 0 is returned, the number of unblocked handlers
+     * otherwise. The match criteria should not apply to any handlers that are
+     * not currently blocked.
+     *
+     * Support for %G_SIGNAL_MATCH_ID was added in GLib 2.78.
+     *
+     * @param instance The instance to unblock handlers from.
+     * @param mask Mask indicating which of @signal_id, @detail, @closure, @func
+     *  and/or @data the handlers have to match.
+     * @param signalId Signal the handlers have to be connected to.
+     * @param detail Signal detail the handlers have to be connected to.
+     * @param closure The closure the handlers will invoke.
+     * @param func The C closure callback of the handlers (useless for non-C closures).
+     * @param data The closure data of the handlers' closures.
+     * @return The number of handlers that matched.
+     */
+    public fun signalHandlersUnblockMatched(
+        instance: Object,
+        mask: SignalMatchType,
+        signalId: guint,
+        detail: Quark,
+        closure: Closure? = null,
+        func: gpointer? = null,
+        `data`: gpointer? = null,
+    ): guint = g_signal_handlers_unblock_matched(
+        instance.gobjectObjectPointer.reinterpret(),
+        mask.mask,
+        signalId,
+        detail,
+        closure?.gobjectClosurePointer,
+        func,
+        `data`
+    )
 
     /**
      * Returns whether there are any handlers connected to @instance for the
@@ -1437,9 +1604,8 @@ public object GObject {
      * Validate a signal name. This can be useful for dynamically-generated signals
      * which need to be validated at run-time before actually trying to create them.
      *
-     * See [canonical parameter names][canonical-parameter-names] for details of
-     * the rules for valid names. The rules for signal names are the same as those
-     * for property names.
+     * See [func@GObject.signal_new] for details of the rules for valid names.
+     * The rules for signal names are the same as those for property names.
      *
      * @param name the canonical name of the signal
      * @return true if @name is a valid signal name, false otherwise.

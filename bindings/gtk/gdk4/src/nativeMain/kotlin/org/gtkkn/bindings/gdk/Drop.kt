@@ -208,10 +208,6 @@ public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
      * Asynchronously request the drag operation's contents converted
      * to the given @type.
      *
-     * When the operation is finished @callback will be called. You must
-     * then call [method@Gdk.Drop.read_value_finish] to get the resulting
-     * `GValue`.
-     *
      * For local drag-and-drop operations that are available in the given
      * `GType`, the value will be copied directly. Otherwise, GDK will
      * try to use [func@Gdk.content_deserialize_async] to convert the data.

@@ -59,9 +59,10 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
 
     /**
      * Creates a new application launch context. This is not normally used,
-     * instead you instantiate a subclass of this, such as #GdkAppLaunchContext.
+     * instead you instantiate a subclass of this, such as
+     * [`GdkAppLaunchContext`](https://docs.gtk.org/gdk4/class.AppLaunchContext.html).
      *
-     * @return a #GAppLaunchContext.
+     * @return a launch context.
      */
     public constructor() : this(g_app_launch_context_new()!!) {
         InstanceCache.put(this)
@@ -72,8 +73,8 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
      * applications are started on the same display as the launching
      * application, by setting the `DISPLAY` environment variable.
      *
-     * @param info a #GAppInfo
-     * @param files a #GList of #GFile objects
+     * @param info the app info
+     * @param files a list of [iface@Gio.File] objects
      * @return a display string for the display.
      */
     public open fun getDisplay(info: AppInfo, files: GlibList): String? = g_app_launch_context_get_display(
@@ -85,10 +86,10 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
     /**
      * Gets the complete environment variable list to be passed to
      * the child process when @context is used to launch an application.
-     * This is a null-terminated array of strings, where each string has
+     * This is a `NULL`-terminated array of strings, where each string has
      * the form `KEY=VALUE`.
      *
-     * @return the child's environment
+     * @return the child’s environment
      * @since 2.32
      */
     @GioVersion2_32
@@ -110,31 +111,35 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
      * [freedesktop.org Startup Notification Protocol](http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt).
      *
      * Support for the XDG Activation Protocol was added in GLib 2.76.
+     * Since GLib 2.82 @info and @files can be `NULL`. If that’s not supported by the backend,
+     * the returned token will be `NULL`.
      *
-     * @param info a #GAppInfo
-     * @param files a #GList of #GFile objects
-     * @return a startup notification ID for the application, or null if
-     *     not supported.
+     * @param info the app info
+     * @param files a list of [iface@Gio.File] objects
+     * @return a startup notification ID for the application, or `NULL` if
+     *   not supported.
      */
-    public open fun getStartupNotifyId(info: AppInfo, files: GlibList): String? =
+    public open fun getStartupNotifyId(info: AppInfo? = null, files: GlibList? = null): String? =
         g_app_launch_context_get_startup_notify_id(
             gioAppLaunchContextPointer,
-            info.gioAppInfoPointer,
-            files.glibListPointer
+            info?.gioAppInfoPointer,
+            files?.glibListPointer
         )?.toKString()
 
     /**
      * Called when an application has failed to launch, so that it can cancel
-     * the application startup notification started in g_app_launch_context_get_startup_notify_id().
+     * the application startup notification started in
+     * [method@Gio.AppLaunchContext.get_startup_notify_id].
      *
-     * @param startupNotifyId the startup notification id that was returned by g_app_launch_context_get_startup_notify_id().
+     * @param startupNotifyId the startup notification id that was returned by
+     *   [method@Gio.AppLaunchContext.get_startup_notify_id].
      */
     public open fun launchFailed(startupNotifyId: String): Unit =
         g_app_launch_context_launch_failed(gioAppLaunchContextPointer, startupNotifyId)
 
     /**
-     * Arranges for @variable to be set to @value in the child's
-     * environment when @context is used to launch an application.
+     * Arranges for @variable to be set to @value in the child’s environment when
+     * @context is used to launch an application.
      *
      * @param variable the environment variable to set
      * @param value the value for to set the variable to.
@@ -145,8 +150,8 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
         g_app_launch_context_setenv(gioAppLaunchContextPointer, variable, `value`)
 
     /**
-     * Arranges for @variable to be unset in the child's environment
-     * when @context is used to launch an application.
+     * Arranges for @variable to be unset in the child’s environment when @context
+     * is used to launch an application.
      *
      * @param variable the environment variable to remove
      * @since 2.32
@@ -156,9 +161,9 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
         g_app_launch_context_unsetenv(gioAppLaunchContextPointer, variable)
 
     /**
-     * The #GAppLaunchContext::launch-failed signal is emitted when a #GAppInfo launch
-     * fails. The startup notification id is provided, so that the launcher
-     * can cancel the startup notification.
+     * The [signal@Gio.AppLaunchContext::launch-failed] signal is emitted when a
+     * [iface@Gio.AppInfo] launch fails. The startup notification id is provided,
+     * so that the launcher can cancel the startup notification.
      *
      * Because a launch operation may involve spawning multiple instances of the
      * target application, you should expect this signal to be emitted multiple
@@ -193,11 +198,11 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
     }
 
     /**
-     * The #GAppLaunchContext::launch-started signal is emitted when a #GAppInfo is
-     * about to be launched. If non-null the @platform_data is an
-     * GVariant dictionary mapping strings to variants (ie `a{sv}`), which
-     * contains additional, platform-specific data about this launch. On
-     * UNIX, at least the `startup-notification-id` keys will be
+     * The [signal@Gio.AppLaunchContext::launch-started] signal is emitted when a
+     * [iface@Gio.AppInfo] is about to be launched. If non-null the
+     * @platform_data is an GVariant dictionary mapping strings to variants
+     * (ie `a{sv}`), which contains additional, platform-specific data about this
+     * launch. On UNIX, at least the `startup-notification-id` keys will be
      * present.
      *
      * The value of the `startup-notification-id` key (type `s`) is a startup
@@ -205,15 +210,16 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
      * specification](https://specifications.freedesktop.org/startup-notification-spec/startup-notification-0.1.txt).
      * It allows tracking the progress of the launchee through startup.
      *
-     * It is guaranteed that this signal is followed by either a #GAppLaunchContext::launched or
-     * #GAppLaunchContext::launch-failed signal.
+     * It is guaranteed that this signal is followed by either a
+     * [signal@Gio.AppLaunchContext::launched] or
+     * [signal@Gio.AppLaunchContext::launch-failed] signal.
      *
      * Because a launch operation may involve spawning multiple instances of the
      * target application, you should expect this signal to be emitted multiple
      * times, one for each spawned instance.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `info` the #GAppInfo that is about to be launched; `platformData` additional platform-specific data for this launch
+     * @param handler the Callback to connect. Params: `info` the [iface@Gio.AppInfo] that is about to be launched; `platformData` additional platform-specific data for this launch
      * @since 2.72
      */
     @GioVersion2_72
@@ -232,7 +238,7 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
     /**
      * Emits the "launch-started" signal. See [onLaunchStarted].
      *
-     * @param info the #GAppInfo that is about to be launched
+     * @param info the [iface@Gio.AppInfo] that is about to be launched
      * @param platformData additional platform-specific data for this launch
      * @since 2.72
      */
@@ -247,8 +253,8 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
     }
 
     /**
-     * The #GAppLaunchContext::launched signal is emitted when a #GAppInfo is successfully
-     * launched.
+     * The [signal@Gio.AppLaunchContext::launched] signal is emitted when a
+     * [iface@Gio.AppInfo] is successfully launched.
      *
      * Because a launch operation may involve spawning multiple instances of the
      * target application, you should expect this signal to be emitted multiple
@@ -259,17 +265,18 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
      * platform-specific data about this launch. On UNIX, at least the
      * `pid` and `startup-notification-id` keys will be present.
      *
-     * Since 2.72 the `pid` may be 0 if the process id wasn't known (for
+     * Since 2.72 the `pid` may be 0 if the process id wasn’t known (for
      * example if the process was launched via D-Bus). The `pid` may not be
      * set at all in subsequent releases.
      *
      * On Windows, `pid` is guaranteed to be valid only for the duration of the
-     * #GAppLaunchContext::launched signal emission; after the signal is emitted,
-     * GLib will call g_spawn_close_pid(). If you need to keep the #GPid after the
-     * signal has been emitted, then you can duplicate `pid` using `DuplicateHandle()`.
+     * [signal@Gio.AppLaunchContext::launched] signal emission; after the signal
+     * is emitted, GLib will call [func@GLib.spawn_close_pid]. If you need to
+     * keep the [alias@GLib.Pid] after the signal has been emitted, then you can
+     * duplicate `pid` using `DuplicateHandle()`.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `info` the #GAppInfo that was just launched; `platformData` additional platform-specific data for this launch
+     * @param handler the Callback to connect. Params: `info` the [iface@Gio.AppInfo] that was just launched; `platformData` additional platform-specific data for this launch
      * @since 2.36
      */
     @GioVersion2_36
@@ -288,7 +295,7 @@ public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPoint
     /**
      * Emits the "launched" signal. See [onLaunched].
      *
-     * @param info the #GAppInfo that was just launched
+     * @param info the [iface@Gio.AppInfo] that was just launched
      * @param platformData additional platform-specific data for this launch
      * @since 2.36
      */

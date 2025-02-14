@@ -1,18 +1,18 @@
 // This is a generated file. Do not modify.
 // Copyright (c) 2025 gtk-kn
 // SPDX-License-Identifier: LGPL-2.1-or-later
-package org.gtkkn.bindings.webkit.annotations
+package org.gtkkn.bindings.pango.annotations
 
 import kotlin.RequiresOptIn
 import kotlin.`annotation`.AnnotationRetention
 import kotlin.`annotation`.Retention
 
 /**
- * Indicates that the API is available since version 2.8.
+ * Indicates that the API is available since version 1.56.
  */
 @Retention(AnnotationRetention.BINARY)
 @RequiresOptIn(
     level = RequiresOptIn.Level.WARNING,
-    message = "This API requires WebKit version 2.8 or higher.",
+    message = "This API requires Pango version 1.56 or higher.",
 )
-public annotation class WebKitVersion2_8
+public annotation class PangoVersion1_56

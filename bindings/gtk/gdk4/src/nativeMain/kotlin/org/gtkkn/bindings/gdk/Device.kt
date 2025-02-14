@@ -61,7 +61,6 @@ import kotlin.Unit
  * - parameter `win_x`: win_x: Out parameter is not supported
  * - method `has-bidi-layouts`: Property has no getter nor setter
  * - method `n-axes`: Property has no getter nor setter
- * - method `tool`: Property has no getter nor setter
  */
 public abstract class Device(public val gdkDevicePointer: CPointer<GdkDevice>) :
     Object(gdkDevicePointer.reinterpret()),
@@ -249,6 +248,19 @@ public abstract class Device(public val gdkDevicePointer: CPointer<GdkDevice>) :
         }
 
     /**
+     * The `GdkDeviceTool` that is currently used with this device.
+     */
+    public open val tool: DeviceTool?
+        /**
+         * Retrieves the current tool for @device.
+         *
+         * @return the `GdkDeviceTool`
+         */
+        get() = gdk_device_get_device_tool(gdkDevicePointer)?.run {
+            InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!
+        }
+
+    /**
      * Vendor ID of this device.
      *
      * See [method@Gdk.Device.get_vendor_id].
@@ -286,15 +298,6 @@ public abstract class Device(public val gdkDevicePointer: CPointer<GdkDevice>) :
          * @return the vendor ID
          */
         get() = gdk_device_get_vendor_id(gdkDevicePointer)?.toKString()
-
-    /**
-     * Retrieves the current tool for @device.
-     *
-     * @return the `GdkDeviceTool`
-     */
-    public open fun getDeviceTool(): DeviceTool? = gdk_device_get_device_tool(gdkDevicePointer)?.run {
-        InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!
-    }
 
     /**
      * Returns the timestamp of the last activity for this device.

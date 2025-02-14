@@ -478,7 +478,7 @@ public interface DtlsConnection :
      * Asynchronously close the DTLS connection. See g_dtls_connection_close() for
      * more information.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable a #GCancellable, or null
      * @param callback callback to call when the close operation is complete
      * @since 2.48
@@ -735,7 +735,7 @@ public interface DtlsConnection :
      * Asynchronously performs a TLS handshake on @conn. See
      * g_dtls_connection_handshake() for more information.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable a #GCancellable, or null
      * @param callback callback to call when the handshake is complete
      * @since 2.48
@@ -969,7 +969,7 @@ public interface DtlsConnection :
      *
      * @param shutdownRead true to stop reception of incoming datagrams
      * @param shutdownWrite true to stop sending outgoing datagrams
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable a #GCancellable, or null
      * @param callback callback to call when the shutdown operation is complete
      * @since 2.48

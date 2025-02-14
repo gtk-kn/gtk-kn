@@ -217,7 +217,7 @@ public class ToolbarView(public val adwToolbarViewPointer: CPointer<AdwToolbarVi
     @AdwVersion1_4
     public var bottomBarStyle: ToolbarStyle
         /**
-         * Gets appearance of the botom bars for @self.
+         * Gets appearance of the bottom bars for @self.
          *
          * @return bottom bar style
          * @since 1.4

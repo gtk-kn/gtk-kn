@@ -50,6 +50,11 @@ public enum class GlError(public val nativeValue: GdkGLError) {
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Registers an error quark for [class@Gdk.GLContext] errors.
+         *
+         * @return the error quark
+         */
         public fun quark(): Quark = gdk_gl_error_quark()
 
         /**

@@ -115,7 +115,7 @@ public open class FileEnumerator(public val gioFileEnumeratorPointer: CPointer<G
      * was cancelled, the error %G_IO_ERROR_CANCELLED will be returned in
      * g_file_enumerator_close_finish().
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
@@ -316,7 +316,7 @@ public open class FileEnumerator(public val gioFileEnumeratorPointer: CPointer<G
      * priority is %G_PRIORITY_DEFAULT.
      *
      * @param numFiles the number of file info objects to request
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied

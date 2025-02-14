@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_82
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -19,6 +20,7 @@ import org.gtkkn.native.glib.g_strv_builder_new
 import org.gtkkn.native.glib.g_strv_builder_ref
 import org.gtkkn.native.glib.g_strv_builder_take
 import org.gtkkn.native.glib.g_strv_builder_unref
+import org.gtkkn.native.glib.g_strv_builder_unref_to_strv
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_strv_builder_get_type
 import kotlin.String
@@ -34,7 +36,10 @@ import kotlin.collections.List
  *   g_autoptr(GStrvBuilder) builder = g_strv_builder_new ();
  *   g_strv_builder_add (builder, "hello");
  *   g_strv_builder_add (builder, "world");
+ *
  *   g_auto(GStrv) array = g_strv_builder_end (builder);
+ *
+ *   g_assert_true (g_strv_equal (array, (const char *[]) { "hello", "world", NULL }));
  * ```
  *
  * ## Skipped during bindings generation
@@ -122,6 +127,33 @@ public class StrvBuilder(public val glibStrvBuilderPointer: CPointer<GStrvBuilde
      */
     @GLibVersion2_68
     public fun unref(): Unit = g_strv_builder_unref(glibStrvBuilderPointer)
+
+    /**
+     * Decreases the reference count on the string vector builder, and returns
+     * its contents as a `NULL`-terminated string array.
+     *
+     * This function is especially useful for cases where it's not possible
+     * to use `g_autoptr()`.
+     *
+     * ```c
+     * GStrvBuilder *builder = g_strv_builder_new ();
+     * g_strv_builder_add (builder, "hello");
+     * g_strv_builder_add (builder, "world");
+     *
+     * GStrv array = g_strv_builder_unref_to_strv (builder);
+     *
+     * g_assert_true (g_strv_equal (array, (const char *[]) { "hello", "world", NULL }));
+     *
+     * g_strfreev (array);
+     * ```
+     *
+     * @return the constructed string
+     *   array
+     * @since 2.82
+     */
+    @GLibVersion2_82
+    public fun unrefToStrv(): List<String> =
+        g_strv_builder_unref_to_strv(glibStrvBuilderPointer)?.toKStringList() ?: error("Expected not null string array")
 
     public companion object {
         /**

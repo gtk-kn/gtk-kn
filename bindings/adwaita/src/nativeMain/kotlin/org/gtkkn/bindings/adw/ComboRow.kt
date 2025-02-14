@@ -6,10 +6,12 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_6
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Expression
 import org.gtkkn.bindings.gtk.ListItemFactory
+import org.gtkkn.bindings.gtk.StringFilterMatchMode
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.InstanceCache
@@ -20,8 +22,10 @@ import org.gtkkn.native.adw.AdwComboRow
 import org.gtkkn.native.adw.adw_combo_row_get_enable_search
 import org.gtkkn.native.adw.adw_combo_row_get_expression
 import org.gtkkn.native.adw.adw_combo_row_get_factory
+import org.gtkkn.native.adw.adw_combo_row_get_header_factory
 import org.gtkkn.native.adw.adw_combo_row_get_list_factory
 import org.gtkkn.native.adw.adw_combo_row_get_model
+import org.gtkkn.native.adw.adw_combo_row_get_search_match_mode
 import org.gtkkn.native.adw.adw_combo_row_get_selected
 import org.gtkkn.native.adw.adw_combo_row_get_selected_item
 import org.gtkkn.native.adw.adw_combo_row_get_type
@@ -30,8 +34,10 @@ import org.gtkkn.native.adw.adw_combo_row_new
 import org.gtkkn.native.adw.adw_combo_row_set_enable_search
 import org.gtkkn.native.adw.adw_combo_row_set_expression
 import org.gtkkn.native.adw.adw_combo_row_set_factory
+import org.gtkkn.native.adw.adw_combo_row_set_header_factory
 import org.gtkkn.native.adw.adw_combo_row_set_list_factory
 import org.gtkkn.native.adw.adw_combo_row_set_model
+import org.gtkkn.native.adw.adw_combo_row_set_search_match_mode
 import org.gtkkn.native.adw.adw_combo_row_set_selected
 import org.gtkkn.native.adw.adw_combo_row_set_use_subtitle
 import org.gtkkn.native.glib.guint
@@ -208,6 +214,32 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
         set(factory) = adw_combo_row_set_factory(adwComboRowPointer, factory?.gtkListItemFactoryPointer)
 
     /**
+     * The factory for creating header widgets for the popup.
+     *
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public open var headerFactory: ListItemFactory?
+        /**
+         * Gets the factory that's currently used to create header widgets for the popup.
+         *
+         * @return The factory in use
+         * @since 1.6
+         */
+        get() = adw_combo_row_get_header_factory(adwComboRowPointer)?.run {
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
+        }
+
+        /**
+         * Sets the factory to use for creating header widgets for the popup.
+         *
+         * @param factory the factory to use
+         * @since 1.6
+         */
+        @AdwVersion1_6
+        set(factory) = adw_combo_row_set_header_factory(adwComboRowPointer, factory?.gtkListItemFactoryPointer)
+
+    /**
      * The factory for populating list items in the popup.
      *
      * If this is not set, [property@ComboRow:factory] is used.
@@ -250,6 +282,32 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @param model the model to use
          */
         set(model) = adw_combo_row_set_model(adwComboRowPointer, model?.gioListModelPointer)
+
+    /**
+     * The match mode for the search filter.
+     *
+     * @since 1.6
+     */
+    @AdwVersion1_6
+    public open var searchMatchMode: StringFilterMatchMode
+        /**
+         * Returns the match mode that the search filter is using.
+         *
+         * @return the match mode of the search filter
+         * @since 1.6
+         */
+        get() = adw_combo_row_get_search_match_mode(adwComboRowPointer).run {
+            StringFilterMatchMode.fromNativeValue(this)
+        }
+
+        /**
+         * Sets the match mode for the search filter.
+         *
+         * @param searchMatchMode the new match mode
+         * @since 1.6
+         */
+        @AdwVersion1_6
+        set(searchMatchMode) = adw_combo_row_set_search_match_mode(adwComboRowPointer, searchMatchMode.nativeValue)
 
     /**
      * The position of the selected item.

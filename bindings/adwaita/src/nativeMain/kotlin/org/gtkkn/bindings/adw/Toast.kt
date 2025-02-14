@@ -180,7 +180,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `set_action_target`: Varargs parameter is not supported
- * - method `action-target`: Property has no getter nor setter
  * - method `title`: Property TypeInfo of getter and setter do not match
  * - constructor `new_format`: Varargs parameter is not supported
  */
@@ -216,6 +215,29 @@ public class Toast(public val adwToastPointer: CPointer<AdwToast>) :
          * @param actionName the action name
          */
         set(actionName) = adw_toast_set_action_name(adwToastPointer, actionName)
+
+    /**
+     * The parameter for action invocations.
+     */
+    public var actionTarget: Variant?
+        /**
+         * Gets the parameter for action invocations.
+         *
+         * @return the action target
+         */
+        get() = adw_toast_get_action_target_value(adwToastPointer)?.run {
+            Variant(this)
+        }
+
+        /**
+         * Sets the parameter for action invocations.
+         *
+         * If the @action_target variant has a floating reference this function
+         * will sink it.
+         *
+         * @param actionTarget the action target
+         */
+        set(actionTarget) = adw_toast_set_action_target_value(adwToastPointer, actionTarget?.glibVariantPointer)
 
     /**
      * The label to show on the button.
@@ -400,15 +422,6 @@ public class Toast(public val adwToastPointer: CPointer<AdwToast>) :
     public fun dismiss(): Unit = adw_toast_dismiss(adwToastPointer)
 
     /**
-     * Gets the parameter for action invocations.
-     *
-     * @return the action target
-     */
-    public fun getActionTargetValue(): Variant? = adw_toast_get_action_target_value(adwToastPointer)?.run {
-        Variant(this)
-    }
-
-    /**
      * Gets the title that will be displayed on the toast.
      *
      * If a custom title has been set with [method@Adw.Toast.set_custom_title]
@@ -417,17 +430,6 @@ public class Toast(public val adwToastPointer: CPointer<AdwToast>) :
      * @return the title
      */
     public fun getTitle(): String? = adw_toast_get_title(adwToastPointer)?.toKString()
-
-    /**
-     * Sets the parameter for action invocations.
-     *
-     * If the @action_target variant has a floating reference this function
-     * will sink it.
-     *
-     * @param actionTarget the action target
-     */
-    public fun setActionTargetValue(actionTarget: Variant? = null): Unit =
-        adw_toast_set_action_target_value(adwToastPointer, actionTarget?.glibVariantPointer)
 
     /**
      * Sets the action name and its parameter.

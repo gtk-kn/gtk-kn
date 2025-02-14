@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_16
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -15,6 +16,7 @@ import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkGLTextureBuilder
+import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_color_state
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_context
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_format
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_has_mipmap
@@ -26,6 +28,7 @@ import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_update_region
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_update_texture
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_width
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_new
+import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_color_state
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_context
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_format
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_has_mipmap
@@ -69,6 +72,37 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
     }
 
     /**
+     * The color state of the texture.
+     *
+     * @since 4.16
+     */
+    @GdkVersion4_16
+    public open var colorState: ColorState
+        /**
+         * Gets the color state previously set via gdk_gl_texture_builder_set_color_state().
+         *
+         * @return the color state
+         * @since 4.16
+         */
+        get() = gdk_gl_texture_builder_get_color_state(gdkGlTextureBuilderPointer)!!.run {
+            ColorState(this)
+        }
+
+        /**
+         * Sets the color state for the texture.
+         *
+         * By default, the sRGB colorstate is used. If you don't know what
+         * colorstates are, this is probably the right thing.
+         *
+         * @param colorState a `GdkColorState`
+         * @since 4.16
+         */
+        @GdkVersion4_16
+        set(
+            colorState
+        ) = gdk_gl_texture_builder_set_color_state(gdkGlTextureBuilderPointer, colorState.gdkColorStatePointer)
+
+    /**
      * The context owning the texture.
      *
      * @since 4.12
@@ -92,7 +126,7 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          *
          * The context must be set before calling [method@Gdk.GLTextureBuilder.build].
          *
-         * @param context The context the texture beongs to or null to unset
+         * @param context The context the texture belongs to or null to unset
          * @since 4.12
          */
         @GdkVersion4_12

@@ -106,7 +106,7 @@ public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer
          *
          * Note that setting [property@Gtk.SingleSelection:autoselect] will
          * cause unselecting to not work, so it practically makes no sense
-         * to set both at the same time the same time.
+         * to set both at the same time.
          *
          * @param canUnselect true to allow unselecting
          */
@@ -155,7 +155,8 @@ public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer
          * value of the [property@Gtk.SingleSelection:autoselect] property:
          * If it is set, no change will occur and the old item will stay
          * selected. If it is unset, the selection will be unset and no item
-         * will be selected.
+         * will be selected. This also applies if [property@Gtk.SingleSelection:can-unselect]
+         * is set to false.
          *
          * @param position the item to select or %GTK_INVALID_LIST_POSITION
          */

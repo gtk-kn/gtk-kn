@@ -77,10 +77,14 @@ import kotlin.Unit
  * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
  * its arrow.
  *
- * ## Skipped during bindings generation
+ * ## Style classes
  *
- * - method `subtitle-lines`: Property TypeInfo of getter and setter do not match
- * - method `title-lines`: Property TypeInfo of getter and setter do not match
+ * `AdwExpanderRow` can use the [`.`](style-classes.html#property-rows)
+ * style class to emphasize the row subtitle instead of the row title, which is
+ * useful for displaying read-only properties.
+ *
+ * When used together with the `.monospace` style class, only the subtitle
+ * becomes monospace, not the title or any extra widgets.
  */
 public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpanderRow>) :
     PreferencesRow(adwExpanderRowPointer.reinterpret()),
@@ -223,6 +227,69 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
         set(subtitle) = adw_expander_row_set_subtitle(adwExpanderRowPointer, subtitle)
 
     /**
+     * The number of lines at the end of which the subtitle label will be
+     * ellipsized.
+     *
+     * If the value is 0, the number of lines won't be limited.
+     *
+     * @since 1.3
+     */
+    @AdwVersion1_3
+    public open var subtitleLines: gint
+        /**
+         * Gets the number of lines at the end of which the subtitle label will be
+         * ellipsized.
+         *
+         * @return the number of lines at the end of which the subtitle label will be
+         *   ellipsized
+         * @since 1.3
+         */
+        get() = adw_expander_row_get_subtitle_lines(adwExpanderRowPointer)
+
+        /**
+         * Sets the number of lines at the end of which the subtitle label will be
+         * ellipsized.
+         *
+         * If the value is 0, the number of lines won't be limited.
+         *
+         * @param subtitleLines the number of lines at the end of which the subtitle label will be ellipsized
+         * @since 1.3
+         */
+        @AdwVersion1_3
+        set(subtitleLines) = adw_expander_row_set_subtitle_lines(adwExpanderRowPointer, subtitleLines)
+
+    /**
+     * The number of lines at the end of which the title label will be ellipsized.
+     *
+     * If the value is 0, the number of lines won't be limited.
+     *
+     * @since 1.3
+     */
+    @AdwVersion1_3
+    public open var titleLines: gint
+        /**
+         * Gets the number of lines at the end of which the title label will be
+         * ellipsized.
+         *
+         * @return the number of lines at the end of which the title label will be
+         *   ellipsized
+         * @since 1.3
+         */
+        get() = adw_expander_row_get_title_lines(adwExpanderRowPointer)
+
+        /**
+         * Sets the number of lines at the end of which the title label will be
+         * ellipsized.
+         *
+         * If the value is 0, the number of lines won't be limited.
+         *
+         * @param titleLines the number of lines at the end of which the title label will be ellipsized
+         * @since 1.3
+         */
+        @AdwVersion1_3
+        set(titleLines) = adw_expander_row_set_title_lines(adwExpanderRowPointer, titleLines)
+
+    /**
      * Creates a new `AdwExpanderRow`.
      *
      * @return the newly created `AdwExpanderRow`
@@ -275,54 +342,11 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
         adw_expander_row_add_suffix(adwExpanderRowPointer, widget.gtkWidgetPointer)
 
     /**
-     * Gets the number of lines at the end of which the subtitle label will be
-     * ellipsized.
+     * Removes a child from @self.
      *
-     * @return the number of lines at the end of which the subtitle label will be
-     *   ellipsized
-     * @since 1.3
+     * @param child the child to be removed
      */
-    @AdwVersion1_3
-    public open fun getSubtitleLines(): Boolean = adw_expander_row_get_subtitle_lines(adwExpanderRowPointer).asBoolean()
-
-    /**
-     * Gets the number of lines at the end of which the title label will be
-     * ellipsized.
-     *
-     * @return the number of lines at the end of which the title label will be
-     *   ellipsized
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public open fun getTitleLines(): Boolean = adw_expander_row_get_title_lines(adwExpanderRowPointer).asBoolean()
-
     public open fun remove(child: Widget): Unit = adw_expander_row_remove(adwExpanderRowPointer, child.gtkWidgetPointer)
-
-    /**
-     * Sets the number of lines at the end of which the subtitle label will be
-     * ellipsized.
-     *
-     * If the value is 0, the number of lines won't be limited.
-     *
-     * @param subtitleLines the number of lines at the end of which the subtitle label will be ellipsized
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public open fun setSubtitleLines(subtitleLines: gint): Unit =
-        adw_expander_row_set_subtitle_lines(adwExpanderRowPointer, subtitleLines)
-
-    /**
-     * Sets the number of lines at the end of which the title label will be
-     * ellipsized.
-     *
-     * If the value is 0, the number of lines won't be limited.
-     *
-     * @param titleLines the number of lines at the end of which the title label will be ellipsized
-     * @since 1.3
-     */
-    @AdwVersion1_3
-    public open fun setTitleLines(titleLines: gint): Unit =
-        adw_expander_row_set_title_lines(adwExpanderRowPointer, titleLines)
 
     public companion object : TypeCompanion<ExpanderRow> {
         override val type: GeneratedClassKGType<ExpanderRow> =

@@ -57,6 +57,11 @@ public enum class ConstraintVflParserError(public val nativeValue: GtkConstraint
                 else -> error("invalid nativeValue")
             }
 
+        /**
+         * Registers an error quark for VFL error parsing.
+         *
+         * @return the error quark
+         */
         public fun quark(): Quark = gtk_constraint_vfl_parser_error_quark()
 
         /**

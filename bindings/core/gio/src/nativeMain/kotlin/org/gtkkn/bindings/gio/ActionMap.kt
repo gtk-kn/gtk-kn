@@ -30,7 +30,7 @@ import kotlin.Unit
  * One useful application of this interface is to map the
  * names of actions from various action groups to unique,
  * prefixed names (e.g. by prepending "app." or "win.").
- * This is the motivation for the 'Map' part of the interface
+ * This is the motivation for the ‘Map’ part of the interface
  * name.
  *
  * ## Skipped during bindings generation
@@ -54,7 +54,7 @@ public interface ActionMap :
      *
      * The action map takes its own reference on @action.
      *
-     * @param action a #GAction
+     * @param action a [iface@Gio.Action]
      * @since 2.32
      */
     @GioVersion2_32
@@ -63,10 +63,10 @@ public interface ActionMap :
     /**
      * Looks up the action with the name @action_name in @action_map.
      *
-     * If no such action exists, returns null.
+     * If no such action exists, returns `NULL`.
      *
      * @param actionName the name of an action
-     * @return a #GAction, or null
+     * @return a [iface@Gio.Action]
      * @since 2.32
      */
     @GioVersion2_32

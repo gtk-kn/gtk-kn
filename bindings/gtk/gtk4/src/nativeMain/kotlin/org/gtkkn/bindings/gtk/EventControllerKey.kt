@@ -184,7 +184,7 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `state` the bitmask, representing the new state of modifier keys and
-     *   pointer buttons.
+     *   pointer buttons.. Returns whether to ignore modifiers
      */
     public fun onModifiers(
         connectFlags: ConnectFlags = ConnectFlags(0u),

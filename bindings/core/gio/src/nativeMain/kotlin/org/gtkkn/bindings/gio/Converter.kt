@@ -4,17 +4,28 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.allocPointerTo
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
+import org.gtkkn.bindings.gio.annotations.GioVersion2_82
+import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GConverter
+import org.gtkkn.native.gio.g_converter_convert_bytes
 import org.gtkkn.native.gio.g_converter_get_type
 import org.gtkkn.native.gio.g_converter_reset
+import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
+import kotlin.Result
 import kotlin.Unit
 
 /**
@@ -39,6 +50,29 @@ public interface Converter :
     Proxy,
     KGTyped {
     public val gioConverterPointer: CPointer<GConverter>
+
+    /**
+     * Applies @converter to the data in @bytes.
+     *
+     * @param bytes the data to convert
+     * @return A newly-allocated
+     *   `GBytes` with the converted data, or `NULL` if an error
+     *   occurred
+     * @since 2.82
+     */
+    @GioVersion2_82
+    public fun convertBytes(bytes: Bytes): Result<Bytes> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_converter_convert_bytes(gioConverterPointer, bytes.glibBytesPointer, gError.ptr)?.run {
+            Bytes(this)
+        }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Resets all internal state in the converter, making it behave

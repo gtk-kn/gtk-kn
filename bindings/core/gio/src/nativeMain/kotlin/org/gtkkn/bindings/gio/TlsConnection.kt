@@ -553,7 +553,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
      * Asynchronously performs a TLS handshake on @conn. See
      * g_tls_connection_handshake() for more information.
      *
-     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param ioPriority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
      * @param cancellable a #GCancellable, or null
      * @param callback callback to call when the handshake is complete
      * @since 2.28

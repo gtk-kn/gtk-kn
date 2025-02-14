@@ -30,6 +30,7 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkScrollable
@@ -156,6 +157,9 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
     }
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
+        get() = handle.reinterpret()
+
+    override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>

@@ -669,7 +669,6 @@ public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
      * Queries whether the layout had to wrap any paragraphs.
      *
      * This returns true if a positive width is set on @layout,
-     * ellipsization mode of @layout is set to %PANGO_ELLIPSIZE_NONE,
      * and there are paragraphs exceeding the layout width that have
      * to be wrapped.
      *
@@ -993,7 +992,7 @@ public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
 
     /**
      * Sets the width to which the lines of the `PangoLayout` should wrap or
-     * ellipsized.
+     * get ellipsized.
      *
      * The default value is -1: no width set.
      *

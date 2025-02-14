@@ -292,7 +292,7 @@ public class ViewStack(public val adwViewStackPointer: CPointer<AdwViewStack>) :
         }
 
     /**
-     * Gets the currently visible child of @self, .
+     * Gets the currently visible child of @self.
      *
      * @return the visible child
      */

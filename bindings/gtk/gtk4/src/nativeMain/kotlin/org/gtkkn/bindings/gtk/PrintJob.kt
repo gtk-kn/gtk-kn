@@ -286,7 +286,8 @@ public open class PrintJob(public val gtkPrintJobPointer: CPointer<GtkPrintJob>)
     /**
      * Sends the print job off to the printer.
      *
-     * @param callback function to call when the job completes or an error occurs
+     * @param callback function
+     *   to call when the job completes or an error occurs
      */
     public open fun send(callback: PrintJobCompleteFunc): Unit = gtk_print_job_send(
         gtkPrintJobPointer,

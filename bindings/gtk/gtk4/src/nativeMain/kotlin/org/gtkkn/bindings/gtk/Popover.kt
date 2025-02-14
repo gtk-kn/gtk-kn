@@ -76,7 +76,7 @@ import kotlin.Unit
  *
  * ## GtkPopover as menu replacement
  *
- * `GtkPopover` is often used to replace menus. The best was to do this
+ * `GtkPopover` is often used to replace menus. The best way to do this
  * is to use the [class@Gtk.PopoverMenu] subclass which supports being
  * populated from a `GMenuModel` with [ctor@Gtk.PopoverMenu.new_from_model].
  *
@@ -100,6 +100,17 @@ import kotlin.Unit
  *   </item>
  * </section>
  * ```
+ *
+ * # Shortcuts and Gestures
+ *
+ * `GtkPopover` supports the following keyboard shortcuts:
+ *
+ * - <kbd>Escape</kbd> closes the popover.
+ * - <kbd>Alt</kbd> makes the mnemonics visible.
+ *
+ * The following signals have default keybindings:
+ *
+ * - [signal@Gtk.Popover::activate-default]
  *
  * # CSS nodes
  *
@@ -388,6 +399,8 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
      * Emitted whend the user activates the default widget.
      *
      * This is a [keybinding signal](class.SignalAction.html).
+     *
+     * The default binding for this signal is <kbd>Enter</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect

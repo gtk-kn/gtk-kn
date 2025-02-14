@@ -9,7 +9,7 @@ import org.gtkkn.native.gtk.GtkGraphicsOffloadEnabled
 import org.gtkkn.native.gtk.gtk_graphics_offload_enabled_get_type
 
 /**
- * Represents the state of graphics offlodading.
+ * Represents the state of graphics offloading.
  * @since 4.14
  */
 @GtkVersion4_14

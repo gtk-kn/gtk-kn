@@ -31,16 +31,16 @@ import kotlin.Boolean
  * [property@View:indenter] property.
  *
  * Implementors of this interface should implement both
- * [vfunc@Indenter.is_trigger] and [vfunc@Indenter.indent].
+ * [vfunc@GtkSource.Indenter.is_trigger] and [vfunc@GtkSource.Indenter.indent].
  *
- * [vfunc@Indenter.is_trigger] is called upon key-press to
+ * [vfunc@GtkSource.Indenter.is_trigger] is called upon key-press to
  * determine of the key press should trigger an indentation.  The default
  * implementation of the interface checks to see if the key was
  * [const@Gdk.KEY_Return] or [const@Gdk.KEY_KP_Enter] without %GDK_SHIFT_MASK set.
  *
- * [vfunc@Indenter.indent] is called after text has been
+ * [vfunc@GtkSource.Indenter.indent] is called after text has been
  * inserted into [class@Buffer] when
- * [vfunc@Indenter.is_trigger] returned true. The [struct@Gtk.TextIter]
+ * [vfunc@GtkSource.Indenter.is_trigger] returned true. The [struct@Gtk.TextIter]
  * is placed directly after the inserted character or characters.
  *
  * It may be beneficial to move the insertion mark using

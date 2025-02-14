@@ -240,8 +240,8 @@ public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSo
      * @param ioPriority the I/O priority of the request. E.g. %G_PRIORITY_LOW,
      *   %G_PRIORITY_DEFAULT or %G_PRIORITY_HIGH.
      * @param cancellable optional #GCancellable object, null to ignore.
-     * @param progressCallback function to call back with
-     *   progress information, or null if progress information is not needed.
+     * @param progressCallback function to call back with progress information, or null if progress
+     *   information is not needed.
      * @param callback a #GAsyncReadyCallback to call when the request is
      *   satisfied.
      */

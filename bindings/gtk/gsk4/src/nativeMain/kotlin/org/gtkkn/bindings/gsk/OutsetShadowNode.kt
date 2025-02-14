@@ -76,6 +76,9 @@ public open class OutsetShadowNode(public val gskOutsetShadowNodePointer: CPoint
     /**
      * Retrieves the color of the outset shadow.
      *
+     * The value returned by this function will not be correct
+     * if the render node was created for a non-sRGB color.
+     *
      * @return a color
      */
     public open fun getColor(): Rgba =

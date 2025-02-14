@@ -31,7 +31,7 @@ import kotlin.Unit
  * utilities that let the user change these settings.
  *
  * On Wayland, the settings are obtained either via a settings portal,
- * or by reading desktop settings from DConf.
+ * or by reading desktop settings from [class@Gio.Settings].
  *
  * On macOS, the settings are obtained from `NSUserDefaults`.
  *
@@ -76,6 +76,7 @@ import kotlin.Unit
  * - method `gtk-entry-select-on-focus`: Property has no getter nor setter
  * - method `gtk-error-bell`: Property has no getter nor setter
  * - method `gtk-font-name`: Property has no getter nor setter
+ * - method `gtk-font-rendering`: Property has no getter nor setter
  * - method `gtk-fontconfig-timestamp`: Property has no getter nor setter
  * - method `gtk-hint-font-metrics`: Property has no getter nor setter
  * - method `gtk-icon-theme-name`: Property has no getter nor setter

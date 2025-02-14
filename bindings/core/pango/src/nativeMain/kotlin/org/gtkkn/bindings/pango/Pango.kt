@@ -228,12 +228,12 @@ public object Pango {
     /**
      * The minor component of the version of Pango available at compile-time.
      */
-    public const val VERSION_MINOR: gint = 52
+    public const val VERSION_MINOR: gint = 56
 
     /**
      * A string literal containing the version of Pango available at compile-time.
      */
-    public const val VERSION_STRING: String = "1.52.1"
+    public const val VERSION_STRING: String = "1.56.1"
 
     /**
      * Create a new allow-breaks attribute.

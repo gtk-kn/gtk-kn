@@ -67,6 +67,11 @@ public enum class RecentManagerError(public val nativeValue: GtkRecentManagerErr
             else -> error("invalid nativeValue")
         }
 
+        /**
+         * Registers an error quark for [class@RecentManager] errors.
+         *
+         * @return the error quark
+         */
         public fun quark(): Quark = gtk_recent_manager_error_quark()
 
         /**

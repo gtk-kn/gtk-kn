@@ -81,6 +81,17 @@ import kotlin.ULong
  * The application can set the position of the slider as if it were set
  * by the user, by calling [method@Gtk.Paned.set_position].
  *
+ * # Shortcuts and Gestures
+ *
+ * The following signals have default keybindings:
+ *
+ * - [signal@Gtk.Paned::accept-position]
+ * - [signal@Gtk.Paned::cancel-position]
+ * - [signal@Gtk.Paned::cycle-child-focus]
+ * - [signal@Gtk.Paned::cycle-handle-focus]
+ * - [signal@Gtk.Paned::move-handle]
+ * - [signal@Gtk.Paned::toggle-handle-focus]
+ *
  * # CSS nodes
  *
  * ```
@@ -329,7 +340,7 @@ public open class Paned(public val gtkPanedPointer: CPointer<GtkPaned>) :
      * <kbd>Space</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect
+     * @param handler the Callback to connect. Returns whether the position was accepted
      */
     public fun onAcceptPosition(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
@@ -353,7 +364,7 @@ public open class Paned(public val gtkPanedPointer: CPointer<GtkPaned>) :
      * The default binding for this signal is <kbd>Escape</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect
+     * @param handler the Callback to connect. Returns whether the position was canceled
      */
     public fun onCancelPosition(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
@@ -373,7 +384,7 @@ public open class Paned(public val gtkPanedPointer: CPointer<GtkPaned>) :
      * The default binding is <kbd>F6</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `reversed` whether cycling backward or forward
+     * @param handler the Callback to connect. Params: `reversed` whether cycling backward or forward. Returns whether the behavior was cycled
      */
     public fun onCycleChildFocus(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -396,7 +407,7 @@ public open class Paned(public val gtkPanedPointer: CPointer<GtkPaned>) :
      * The default binding for this signal is <kbd>F8</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `reversed` whether cycling backward or forward
+     * @param handler the Callback to connect. Params: `reversed` whether cycling backward or forward. Returns whether the behavior was cycled
      */
     public fun onCycleHandleFocus(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -415,8 +426,15 @@ public open class Paned(public val gtkPanedPointer: CPointer<GtkPaned>) :
      *
      * This is a [keybinding signal](class.SignalAction.html).
      *
+     * The default bindings for this signal are
+     * <kbd>Ctrl</kbd>+<kbd>←</kbd>, <kbd>←</kbd>,
+     * <kbd>Ctrl</kbd>+<kbd>→</kbd>, <kbd>→</kbd>,
+     * <kbd>Ctrl</kbd>+<kbd>↑</kbd>, <kbd>↑</kbd>,
+     * <kbd>Ctrl</kbd>+<kbd>↓</kbd>, <kbd>↓</kbd>,
+     * <kbd>PgUp</kbd>, <kbd>PgDn</kbd>, <kbd>Home</kbd>, <kbd>End</kbd>.
+     *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `scrollType` a `GtkScrollType`
+     * @param handler the Callback to connect. Params: `scrollType` a `GtkScrollType`. Returns whether the handle was moved
      */
     public fun onMoveHandle(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -439,7 +457,7 @@ public open class Paned(public val gtkPanedPointer: CPointer<GtkPaned>) :
      * The default binding is <kbd>Tab</kbd>.
      *
      * @param connectFlags a combination of [ConnectFlags]
-     * @param handler the Callback to connect
+     * @param handler the Callback to connect. Returns whether handle focus was toggled
      */
     public fun onToggleHandleFocus(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(

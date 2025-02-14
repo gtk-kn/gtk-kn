@@ -29,7 +29,7 @@ import org.gtkkn.native.gobject.GType
  * Apple, CapsLock or ShiftLock.
  *
  * Note that GDK may add internal values to events which include values outside
- * of this enumeration. Your code should preserve and ignore them.  You can use
+ * of this enumeration. Your code should preserve and ignore them. You can use
  * %GDK_MODIFIER_MASK to remove all private values.
  */
 public class ModifierType(public val mask: GdkModifierType) : Bitfield<ModifierType> {
@@ -48,8 +48,8 @@ public class ModifierType(public val mask: GdkModifierType) : Bitfield<ModifierT
         public val SHIFT_MASK: ModifierType = ModifierType(GDK_SHIFT_MASK)
 
         /**
-         * a Lock key (depending on the modifier mapping of the
-         *  X server this may either be CapsLock or ShiftLock).
+         * a Lock key (depending on the Windowing System configuration,
+         *    this may either be <kbd>CapsLock</kbd> or <kbd>ShiftLock</kbd>).
          */
         public val LOCK_MASK: ModifierType = ModifierType(GDK_LOCK_MASK)
 
@@ -59,9 +59,9 @@ public class ModifierType(public val mask: GdkModifierType) : Bitfield<ModifierT
         public val CONTROL_MASK: ModifierType = ModifierType(GDK_CONTROL_MASK)
 
         /**
-         * the fourth modifier key (it depends on the modifier
-         *  mapping of the X server which key is interpreted as this modifier, but
-         *  normally it is the Alt key).
+         * the fourth modifier key (it depends on the Windowing System
+         *    configuration which key is interpreted as this modifier, but normally it
+         *    is the <kbd>Alt</kbd> key).
          */
         public val ALT_MASK: ModifierType = ModifierType(GDK_ALT_MASK)
 
@@ -91,17 +91,17 @@ public class ModifierType(public val mask: GdkModifierType) : Bitfield<ModifierT
         public val BUTTON5_MASK: ModifierType = ModifierType(GDK_BUTTON5_MASK)
 
         /**
-         * the Super modifier
+         * the Super modifier.
          */
         public val SUPER_MASK: ModifierType = ModifierType(GDK_SUPER_MASK)
 
         /**
-         * the Hyper modifier
+         * the Hyper modifier.
          */
         public val HYPER_MASK: ModifierType = ModifierType(GDK_HYPER_MASK)
 
         /**
-         * the Meta modifier
+         * the Meta modifier. Maps to Command on macOS.
          */
         public val META_MASK: ModifierType = ModifierType(GDK_META_MASK)
 

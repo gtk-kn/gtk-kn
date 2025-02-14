@@ -70,10 +70,7 @@ import kotlin.Unit
  * should be modal.
  *
  * The dialog is shown with [method@Gtk.FileDialog.open],
- * [method@Gtk.FileDialog.save], etc. These APIs follow the
- * GIO async pattern, and the result can be obtained by calling
- * the corresponding finish function, for example
- * [method@Gtk.FileDialog.open_finish].
+ * [method@Gtk.FileDialog.save], etc.
  * @since 4.10
  */
 @GtkVersion4_10
@@ -92,7 +89,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
     @GtkVersion4_10
     public open var acceptLabel: String?
         /**
-         *
+         * Retrieves the text used by the dialog on its accept button.
          *
          * @return the label shown on the file chooser's accept button.
          * @since 4.10
@@ -346,12 +343,11 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
      * presenting a file chooser dialog to the user.
      *
      * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.FileDialog.open_finish]
-     * to obtain the result.
      *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10
@@ -400,12 +396,11 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
      * [property@Gtk.FileDialog:initial-folder].
      *
      * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.FileDialog.open_multiple_finish]
-     * to obtain the result.
      *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10
@@ -456,12 +451,11 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
      * presenting a file chooser dialog to the user.
      *
      * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.FileDialog.save_finish]
-     * to obtain the result.
      *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10
@@ -511,12 +505,11 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
      * will be in the directory [property@Gtk.FileDialog:initial-folder].
      *
      * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.FileDialog.select_folder_finish]
-     * to obtain the result.
      *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10
@@ -569,12 +562,11 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
      * [property@Gtk.FileDialog:initial-folder].
      *
      * The @callback will be called when the dialog is dismissed.
-     * It should call [method@Gtk.FileDialog.select_multiple_folders_finish]
-     * to obtain the result.
      *
      * @param parent the parent `GtkWindow`
      * @param cancellable a `GCancellable` to cancel the operation
-     * @param callback a callback to call when the operation is complete
+     * @param callback a callback to call when the
+     *   operation is complete
      * @since 4.10
      */
     @GtkVersion4_10

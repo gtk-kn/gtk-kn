@@ -119,7 +119,7 @@ public interface Popup :
     /**
      * Present @popup after having processed the `GdkPopupLayout` rules.
      *
-     * If the popup was previously now showing, it will be showed,
+     * If the popup was previously not showing, it will be shown,
      * otherwise it will change position according to @layout.
      *
      * After calling this function, the result should be handled in response

@@ -20,7 +20,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.gio.annotations.GioVersion2_50
+import org.gtkkn.bindings.gio.annotations.GioVersion2_82
 import org.gtkkn.bindings.glib.Variant
+import org.gtkkn.bindings.gobject.Closure
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -35,6 +37,7 @@ import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSettings
 import org.gtkkn.native.gio.g_settings_apply
 import org.gtkkn.native.gio.g_settings_bind
+import org.gtkkn.native.gio.g_settings_bind_with_mapping_closures
 import org.gtkkn.native.gio.g_settings_bind_writable
 import org.gtkkn.native.gio.g_settings_create_action
 import org.gtkkn.native.gio.g_settings_delay
@@ -391,7 +394,6 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
- * - parameter `get_mapping`: SettingsBindGetMapping
  * - method `get`: Varargs parameter is not supported
  * - method `set`: Varargs parameter is not supported
  * - method `backend`: Property has no getter nor setter
@@ -591,6 +593,38 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
     @GioVersion2_26
     public open fun bind(key: String, `object`: Object, `property`: String, flags: SettingsBindFlags): Unit =
         g_settings_bind(gioSettingsPointer, key, `object`.gobjectObjectPointer.reinterpret(), `property`, flags.mask)
+
+    /**
+     * Version of g_settings_bind_with_mapping() using closures instead of callbacks
+     * for easier binding in other languages.
+     *
+     * @param key the key to bind
+     * @param object a #GObject
+     * @param property the name of the property to bind
+     * @param flags flags for the binding
+     * @param getMapping a function that gets called to convert values
+     *     from @settings to @object, or null to use the default GIO mapping
+     * @param setMapping a function that gets called to convert values
+     *     from @object to @settings, or null to use the default GIO mapping
+     * @since 2.82
+     */
+    @GioVersion2_82
+    public open fun bindWithMapping(
+        key: String,
+        `object`: Object,
+        `property`: String,
+        flags: SettingsBindFlags,
+        getMapping: Closure? = null,
+        setMapping: Closure? = null,
+    ): Unit = g_settings_bind_with_mapping_closures(
+        gioSettingsPointer,
+        key,
+        `object`.gobjectObjectPointer,
+        `property`,
+        flags.mask,
+        getMapping?.gobjectClosurePointer,
+        setMapping?.gobjectClosurePointer
+    )
 
     /**
      * Create a binding between the writability of @key in the

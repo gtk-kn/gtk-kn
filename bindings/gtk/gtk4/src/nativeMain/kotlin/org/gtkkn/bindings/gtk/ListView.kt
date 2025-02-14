@@ -121,6 +121,13 @@ import kotlin.Unit
  *   gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), list);
  * ```
  *
+ * # Actions
+ *
+ * `GtkListView` defines a set of built-in actions:
+ *
+ * - `list.activate-item` activates the item at given position by emitting
+ *   the [signal@Gtk.ListView::activate] signal.
+ *
  * # CSS nodes
  *
  * ```
@@ -191,6 +198,8 @@ public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>)
 
     /**
      * Factory for populating list items.
+     *
+     * The factory must be for configuring [class@Gtk.ListItem] objects.
      */
     public open var factory: ListItemFactory?
         /**
@@ -211,6 +220,8 @@ public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>)
 
     /**
      * Factory for creating header widgets.
+     *
+     * The factory must be for configuring [class@Gtk.ListHeader] objects.
      *
      * @since 4.12
      */
@@ -357,7 +368,8 @@ public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>)
      * This function works no matter if the listview is shown or focused.
      * If it isn't, then the changes will take effect once that happens.
      *
-     * @param pos position of the item
+     * @param pos position of the item. Must be less than the number of
+     *   items in the view.
      * @param flags actions to perform
      * @param scroll details of how to perform
      *   the scroll operation or null to scroll into view

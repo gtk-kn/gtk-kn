@@ -34,7 +34,6 @@ import org.gtkkn.native.gtksource.gtk_source_get_major_version
 import org.gtkkn.native.gtksource.gtk_source_get_micro_version
 import org.gtkkn.native.gtksource.gtk_source_get_minor_version
 import org.gtkkn.native.gtksource.gtk_source_init
-import org.gtkkn.native.gtksource.gtk_source_scheduler_add
 import org.gtkkn.native.gtksource.gtk_source_scheduler_add_full
 import org.gtkkn.native.gtksource.gtk_source_scheduler_remove
 import org.gtkkn.native.gtksource.gtk_source_utils_escape_search_text
@@ -109,14 +108,14 @@ public object GtkSource {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: gint = 0
+    public const val MICRO_VERSION: gint = 2
 
     /**
      * Like gtk_source_get_minor_version(), but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MINOR_VERSION: gint = 12
+    public const val MINOR_VERSION: gint = 14
 
     /**
      * Like GTK_SOURCE_CHECK_VERSION, but the check for gtk_source_check_version is
@@ -191,16 +190,6 @@ public object GtkSource {
     public fun `init`(): Unit = gtk_source_init()
 
     /**
-     * Simplified version of [func@scheduler_add_full].
-     *
-     * @param callback the callback to execute
-     * @since 5.2
-     */
-    @GtkSourceVersion5_2
-    public fun schedulerAdd(callback: SchedulerCallback): gsize =
-        gtk_source_scheduler_add(SchedulerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
-
-    /**
      * Adds a new callback that will be executed as time permits on the main thread.
      *
      * This is useful when you need to do a lot of background work but want to do
@@ -215,7 +204,7 @@ public object GtkSource {
      * @since 5.2
      */
     @GtkSourceVersion5_2
-    public fun schedulerAddFull(callback: SchedulerCallback): gsize = gtk_source_scheduler_add_full(
+    public fun schedulerAdd(callback: SchedulerCallback): gsize = gtk_source_scheduler_add_full(
         SchedulerCallbackFunc.reinterpret(),
         StableRef.create(callback).asCPointer(),
         staticStableRefDestroy.reinterpret()

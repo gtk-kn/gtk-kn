@@ -140,7 +140,7 @@ public class MatchInfo(public val glibMatchInfoPointer: CPointer<GMatchInfo>) : 
      * Retrieves the text matching the capturing parentheses named @name.
      *
      * If @name is a valid sub pattern name but it didn't match anything
-     * (e.g. sub pattern "X", matching "b" against "(?P<X>a)?b")
+     * (e.g. sub pattern `"X"`, matching `"b"` against `"(?P<X>a)?b"`)
      * then an empty string is returned.
      *
      * The string is fetched from the string passed to the match function,
