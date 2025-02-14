@@ -143,24 +143,24 @@ tasks.withType<AbstractPublishToMaven> {
     mustRunAfter(tasks.withType<Sign>())
 }
 
-// https://gitlab.com/gtk-kn/gtk-kn/-/issues/115
-if (project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")) {
-    val kotlinExtension =
-        project.extensions.getByName("kotlin") as KotlinMultiplatformExtension
-
-    afterEvaluate {
-        val targetName = kotlinExtension.targets
-            .withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>()
-            .single()
-            .konanTarget
-            .name
-            .replace("_", "")
-
-        publishing {
-            publications.withType<MavenPublication>().configureEach {
-                artifactId = "${project.name}-$targetName"
-            }
-        }
-    }
-}
+//// https://gitlab.com/gtk-kn/gtk-kn/-/issues/115
+//if (project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")) {
+//    val kotlinExtension =
+//        project.extensions.getByName("kotlin") as KotlinMultiplatformExtension
+//
+//    afterEvaluate {
+//        val targetName = kotlinExtension.targets
+//            .withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>()
+//            .single()
+//            .konanTarget
+//            .name
+//            .replace("_", "")
+//
+//        publishing {
+//            publications.withType<MavenPublication>().configureEach {
+//                artifactId = "${project.name}-$targetName"
+//            }
+//        }
+//    }
+//}
 
